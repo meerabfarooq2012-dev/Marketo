@@ -1726,3 +1726,80 @@ model TrizaFeedbackWeight {
   updatedAt DateTime @updatedAt
   createdAt DateTime @default(now())
 }
+
+// ============================================================
+// TRIZA KNOWLEDGE BASKET (TOKRI) SYSTEM
+// ============================================================
+// A "basket" (tokri) is a TEMPORARY holding area where the user
+// collects raw knowledge from MULTIPLE sources all at once — like
+// a child gathering scattered toys into one basket before sorting.
+// Sources: paste raw text, bulk Q&A pairs, file upload, manual.
+// When the user clicks "Process Basket", every pending basket row
+// is parsed and turned into structured TrizaKnowledgeItem rows
+// (the permanent knowledge store). The self-made matching engine
+// then answers chats using ONLY this store — no model, no API.
+// ============================================================
+
+/// One row per raw chunk dropped into the basket (tokri).
+/// status: "pending" (in basket) → "processed" (sorted into items).
+model TrizaKnowledgeBasket {
+  id          String   @id @default(cuid())
+  /// Where this chunk came from: "paste" | "qa" | "file" | "manual"
+  source      String   @default("manual")
+  /// Optional label (e.g. uploaded file name, or user-given title)
+  sourceLabel String?
+  /// The raw text exactly as the user dropped it in the basket
+  rawContent  String
+  /// JSON metadata — e.g. { "format": "qa", "count": 12, "topic": "science" }
+  metaJson    String?
+  /// "pending" = still in basket | "processed" = sorted into items | "error"
+  status      String   @default("pending")
+  /// How many knowledge items were produced when this was processed
+  itemCount   Int      @default(0)
+  /// Error message if parsing failed (status = "error")
+  errorMsg    String?
+  createdAt   DateTime @default(now())
+  processedAt DateTime?
+
+  items       TrizaKnowledgeItem[]
+
+  @@index([status])
+  @@index([createdAt])
+}
+
+/// The PERMANENT knowledge store — each row is one teachable fact
+/// (a question/trigger + its answer). The self-made matching engine
+/// reads these rows and uses hand-written TF-IDF + cosine similarity
+/// to find the best answer for any user message. This replaces the
+/// old 1050 hardcoded regex patterns — now you add knowledge by
+/// dumping it in the basket, not by editing code.
+model TrizaKnowledgeItem {
+  id          String   @id @default(cuid())
+  /// Link back to the basket chunk that produced this item (nullable
+  /// so items can also be added directly without a basket)
+  basketId    String?
+  /// Trigger phrases / questions — pipe-separated, e.g.
+  /// "what is photosynthesis|how do plants make food|photosynthesis kya hai"
+  question    String
+  /// The answer TRIZA will speak (its own voice, learned from basket)
+  answer      String
+  /// Topic domain, e.g. "science", "history", "general"
+  topic       String   @default("general")
+  /// Intent: "factual_question" | "how_to" | "greeting" | "smalltalk" | ...
+  intent      String   @default("factual_question")
+  /// Comma-separated keywords (for keyword-overlap matching)
+  keywords    String   @default("")
+  /// How many times this item has been used to answer a chat
+  uses        Int      @default(0)
+  /// Hebbian feedback: 👍 up / 👎 down (adjusts match weight)
+  upCount     Int      @default(0)
+  downCount   Int      @default(0)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  basket      TrizaKnowledgeBasket? @relation(fields: [basketId], references: [id], onDelete: SetNull)
+
+  @@index([topic])
+  @@index([intent])
+  @@index([basketId])
+}
