@@ -53,7 +53,7 @@ export async function POST(req: NextRequest) {
     if (!rawContent || typeof rawContent !== 'string' || !rawContent.trim()) {
       return NextResponse.json({ error: 'rawContent is required' }, { status: 400 })
     }
-    const validSources = ['paste', 'qa', 'file', 'manual']
+    const validSources = ['paste', 'qa', 'file', 'manual', 'harvest']
     const src = validSources.includes(source) ? source : 'manual'
 
     // Pre-parse (dry-run) so the UI can show how many items WILL be produced

@@ -1,15 +1,16 @@
 'use client'
 
 import { useState, useEffect, useCallback } from 'react'
-import { Sparkles, ShoppingCart, BookOpen, MessageCircle, Brain, Zap } from 'lucide-react'
+import { Sparkles, ShoppingCart, BookOpen, MessageCircle, Brain, Zap, Globe } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
 import { toast } from 'sonner'
 import { BasketTab } from './basket-tab'
 import { KnowledgeTab } from './knowledge-tab'
 import { ChatTab } from './chat-tab'
+import { HarvestTab } from './harvest-tab'
 
-type TabKey = 'basket' | 'knowledge' | 'chat'
+type TabKey = 'harvest' | 'basket' | 'knowledge' | 'chat'
 
 interface Stats {
   basket: { pending: number; processed: number; error: number; total: number }
@@ -18,7 +19,7 @@ interface Stats {
 }
 
 export function BasketApp() {
-  const [tab, setTab] = useState<TabKey>('basket')
+  const [tab, setTab] = useState<TabKey>('harvest')
   const [stats, setStats] = useState<Stats | null>(null)
   const [loadingStats, setLoadingStats] = useState(true)
 
@@ -66,6 +67,13 @@ export function BasketApp() {
     icon: typeof ShoppingCart
     desc: string
   }> = [
+    {
+      key: 'harvest',
+      label: 'Harvest',
+      urdu: 'Internet se',
+      icon: Globe,
+      desc: 'Internet se kisi bhi topic par knowledge collect karo — TRIZA ka agent khud search aur read karega',
+    },
     {
       key: 'basket',
       label: 'Basket',
@@ -195,6 +203,7 @@ export function BasketApp() {
 
       {/* Main content */}
       <main className="flex-1 container mx-auto px-4 py-4 sm:py-6">
+        {tab === 'harvest' && <HarvestTab onChanged={loadStats} onGoToChat={() => setTab('chat')} />}
         {tab === 'basket' && <BasketTab onChanged={loadStats} />}
         {tab === 'knowledge' && <KnowledgeTab onChanged={loadStats} />}
         {tab === 'chat' && <ChatTab stats={stats} />}
@@ -206,9 +215,9 @@ export function BasketApp() {
           <div className="flex flex-col sm:flex-row items-center justify-between gap-2 text-xs text-muted-foreground">
             <p>
               <span className="font-semibold text-emerald-700 dark:text-emerald-400">TRIZA</span>{' '}
-              — 100% self-built. TF-IDF + cosine + Roman-Urdu normalizer, sab kuch apne haath se.
+              — 100% self-built. Internet se seekhta hai, apne dimaagh se jawab deta hai.
             </p>
-            <p>Koi model nahi · Koi API key nahi · Sirf logic</p>
+            <p>Harvest: web-search + page-reader · Chat: TF-IDF + cosine + synonyms (no model)</p>
           </div>
         </div>
       </footer>

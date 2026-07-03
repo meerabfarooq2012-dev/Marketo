@@ -4,23 +4,30 @@ import { BasketApp } from '@/components/triza-basket/basket-app'
 
 /**
  * ============================================================
- *  TRIZA — Knowledge Basket (Tokri) · Self-Built AI
+ *  TRIZA — Knowledge Harvester + Basket · Self-Built AI
  * ============================================================
  *
- *  Aik hi baar mein knowledge add karne ka apna tareeqa:
+ *  TRIZA ka kaam do hisson mein bata hua hai:
  *
- *    Bache ki tarah — alag-alag jagah se knowledge uthao
- *    (paste / Q&A / file / manual) aur ek hi "tokri" mein
- *    dalo. Phir "Process Basket" se TRIZA sab seekh jati hai.
+ *  1. HARVEST (Internet se seekhna)
+ *     - User koi topic deta hai (e.g. "photosynthesis")
+ *     - TRIZA ka agent internet par search karta hai (web-search)
+ *     - Top pages read karta hai (web-reader)
+ *     - Clean text nikaal ke Q&A items banaata hai
+ *     - Seedha knowledge store mein daal deta hai
+ *     - Jaise Google/ChatGPT knowledge collect karte hain!
  *
- *  Phir TRIZA apne andaaz mein baat karti hai — bina kisi
- *  model ya API ke. Sirf hand-written TF-IDF + cosine +
- *  Roman-Urdu normalizer + synonym map.
+ *  2. CHAT (Apne dimaagh se jawab)
+ *     - User sawaal poochta hai
+ *     - TRIZA apna TF-IDF + cosine + synonym engine use karta hai
+ *     - Knowledge store se best match nikaal ke jawab deta hai
+ *     - 100% model-free — koi LLM/API nahi
  *
- *  Three tabs:
- *    1. Basket   — collect knowledge from many sources
- *    2. Knowledge — view / edit / feedback what TRIZA learned
- *    3. Chat     — talk to TRIZA (self-made, no model)
+ *  Chaar tabs:
+ *    1. Harvest  — internet se kisi topic par knowledge collect karo
+ *    2. Basket   — manually knowledge collect karo (paste/Q&A/file)
+ *    3. Knowledge — dekho/edit karo TRIZA ne kya seekha
+ *    4. Chat     — TRIZA se baat karo (model-free)
  * ============================================================
  */
 export default function HomePage() {

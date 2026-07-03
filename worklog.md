@@ -5514,3 +5514,48 @@ Stage Summary:
 - Architecture: basket (temp) → process → knowledge store (permanent DB rows) → self-made matcher answers chats.
 - All code in src/lib/triza-basket/ + src/components/triza-basket/ + src/app/api/triza/. Prisma models TrizaKnowledgeBasket + TrizaKnowledgeItem.
 - Verified: Roman Urdu + English both work, honest "I don't know" below threshold, Hebbian 👍/👎 feedback adjusts match weight, responsive mobile + desktop, sticky footer, zero runtime errors.
+
+---
+Task ID: TRIZA-HARVEST
+Agent: Main Agent
+Task: Build Knowledge Harvester Agent — internet se kisi bhi topic par knowledge collect karke TRIZA mein implement karna
+
+Work Log:
+- Analyzed existing TRIZA system: Basket (manual collection), TF-IDF matcher (model-free), Knowledge store (Prisma/SQLite)
+- Read web-search and web-reader skill docs to understand z-ai-web-dev-sdk API
+- Created harvester library (src/lib/triza-basket/harvester.ts):
+  - Uses z-ai-web-dev-sdk web_search to find pages on a topic
+  - Uses page_reader to read each page's HTML
+  - Converts HTML to clean text (strips scripts/styles/tags)
+  - Filters useful paragraphs (removes navigation/menus/ads via regex patterns)
+  - Converts each paragraph to a knowledge item with topic-based triggers
+- Created harvest API route (src/app/api/triza/harvest/route.ts):
+  - POST endpoint accepts { topic, maxSources }
+  - Calls harvester, creates basket entry (source="harvest") for transparency
+  - Inserts all items into TrizaKnowledgeItem table
+  - Invalidates TF-IDF index so new items are immediately searchable
+- Created Harvest UI tab (src/components/triza-basket/harvest-tab.tsx):
+  - Topic input with example chips (photosynthesis, Pakistan history, etc.)
+  - Sources slider (2-10 pages)
+  - Live progress indicator (searching → reading → processing → done)
+  - Results summary (sources read, items added, total knowledge, time)
+  - Sources list showing each page read with paragraph count
+  - "Ab baat karein" button to jump to Chat after harvest
+- Updated basket-app.tsx: Added "Harvest" as the default first tab
+- Updated basket API to accept "harvest" as a valid source
+- Fixed bugs:
+  - Regex syntax error in JUNK_PATTERNS (missing closing paren) → used non-capturing groups
+  - Parser only extracting 1 item (Q:A format misdetection) → bypassed parser, created paragraphsToItems function
+  - Low chat confidence (0.143) → added topic-based triggers ("what is X | X | define X") to every harvested item
+- Installed z-ai-web-dev-sdk package
+- Restored prisma/schema.prisma from git (postinstall had removed TrizaKnowledge models)
+- Added required env vars (JWT_SECRET, CSRF_SECRET, etc.) to .env
+
+Stage Summary:
+- TRIZA now has a Knowledge Harvester Agent that collects knowledge from the internet
+- Tested with 3 topics: photosynthesis (34 items), gravity (35 items), water cycle (58 items)
+- Chat verified: "what is water cycle" → confidence 44%, correct answer
+- Chat verified: "what is photosynthesis" → confidence 55.6%, correct answer
+- Full flow works: Harvest (internet search + read) → Knowledge store → Model-free chat answer
+- Data collection uses web tools (z-ai-web-dev-sdk); conversation engine remains 100% model-free
+- 4 tabs: Harvest (default), Basket (manual), Knowledge (view/edit), Chat (model-free)
