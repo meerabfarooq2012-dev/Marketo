@@ -5559,3 +5559,53 @@ Stage Summary:
 - Full flow works: Harvest (internet search + read) → Knowledge store → Model-free chat answer
 - Data collection uses web tools (z-ai-web-dev-sdk); conversation engine remains 100% model-free
 - 4 tabs: Harvest (default), Basket (manual), Knowledge (view/edit), Chat (model-free)
+
+---
+Task ID: TRIZA-BULK-HARVEST
+Agent: Main Agent
+Task: Build Bulk Knowledge Collector — aik hi waqt mein hundreds of internet topics collect karke TRIZA mein implement karna (user: "aik agent ya koi bhi aik hi waqt mai sara internent ka data apne ander store kar de")
+
+Work Log:
+- Read existing TRIZA harvest code (harvester.ts, harvest route, harvest-tab.tsx, basket-app.tsx) to understand patterns
+- Created topic-packs.ts with 10 curated knowledge packs (230 total topics):
+  * Science (30), History (30), Geography (25), Pakistan (30), Technology (25),
+    Health (25), Islam (20), General Knowledge (30), Sports (20), Everyday Life (25)
+- Built Bulk Harvest SSE API (src/app/api/triza/harvest/bulk/route.ts):
+  * Accepts { topics: string[], maxSourcesPerTopic?: number } (capped at 150 topics)
+  * Returns Server-Sent Events stream: start → topic_start → topic_done → complete
+  * Each topic harvested via existing harvestTopic() then stored to TrizaKnowledgeItem
+  * Creates bulk-harvest basket entries for transparency
+  * Invalidates TF-IDF index every 5 topics + at end
+  * maxDuration=300s for long bulk runs
+- Built Bulk Harvest UI tab (src/components/triza-basket/bulk-harvest-tab.tsx):
+  * Pack checkboxes (10 packs with emoji + topic counts + select-all/clear)
+  * Custom topics textarea (one topic per line)
+  * Sources-per-topic slider (2-5, default 3 for speed)
+  * Live selection summary: topic count + estimated time + pages to read
+  * "Sara internet ke baare mein sach" honest note (petabytes impossible, hundreds of curated topics practical)
+  * Live progress: gradient progress bar + 4 stat tiles (items/pages/time/failed) + scrolling topic log with per-topic status
+  * Abort/Stop button during run, "Ab baat karein" + "Aur collect karein" on done
+  * Reads SSE stream via fetch + ReadableStream reader + manual event parsing
+- Wired Bulk Harvest as the new DEFAULT FIRST tab in basket-app.tsx (5 tabs now: Bulk, Single, Basket, Knowledge, Chat)
+- Updated page.tsx header comment to document the 3-mode architecture
+- Lint: clean (only pre-existing unrelated Google OAuth error remains)
+- Agent Browser verification (golden path):
+  * Page renders HTTP 200, Bulk Harvest tab is default, 10 packs visible, Science pre-selected (30 topics)
+  * Cleared packs → pasted 3 custom topics (photosynthesis, water cycle, gravity) → button shows "3 topics"
+  * Clicked Bulk Harvest → button became "Roko (Stop)" → live progress showed "Topic 3/3: gravity"
+  * POST /api/triza/harvest/bulk 200 in 27.3s — NO errors in dev.log
+  * Knowledge count went 138 → 211 (73 new items: water_cycle 77, gravity 62, photosynthesis 62 — some overlap from prior runs)
+  * Done phase: "Ab TRIZA se baat karein" + "Aur collect karein" buttons appeared
+  * Chat tab: "what is photosynthesis" → TRIZA answered from bulk-harvested knowledge (confidence 58%, source: Smithsonian Science Education Center) — proves learn-then-talk loop works with bulk-collected data
+  * Mobile (390x844): footer correctly pushed below content (top 976 vs vh 844 — no floating gap), footer text correct
+  * Footer: "TRIZA — 100% self-built. Internet se seekhta hai, apne dimaagh se jawab deta hai."
+
+Stage Summary:
+- TRIZA now has a Bulk Knowledge Collector — the realistic version of "sara internet ka data aik hi waqt mein"
+- 230 curated topics across 10 packs + unlimited custom topics, all harvestable in one batch run
+- Real-time SSE streaming shows live progress per topic (search → read → store)
+- Tested end-to-end: 3 topics → 73 items → chat answers from harvested knowledge (model-free)
+- Honest framing in UI: literally crawling all internet (petabytes) is impossible on one machine, but bulk collection of hundreds of curated topics is the practical ChatGPT-level broad knowledge approach
+- Data collection uses web-search + page-reader (real internet); conversation engine remains 100% model-free (TF-IDF + cosine + synonyms)
+- Architecture: Bulk Harvest tab → SSE API → harvestTopic() per topic → TrizaKnowledgeItem store → model-free chat retrieval
+- 5 tabs now: Bulk Harvest (default) | Single Harvest | Basket | Knowledge | Chat

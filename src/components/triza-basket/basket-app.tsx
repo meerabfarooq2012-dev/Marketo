@@ -1,7 +1,7 @@
 'use client'
 
 import { useState, useEffect, useCallback } from 'react'
-import { Sparkles, ShoppingCart, BookOpen, MessageCircle, Brain, Zap, Globe } from 'lucide-react'
+import { Sparkles, ShoppingCart, BookOpen, MessageCircle, Brain, Zap, Globe, Globe2 } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
 import { toast } from 'sonner'
@@ -9,8 +9,9 @@ import { BasketTab } from './basket-tab'
 import { KnowledgeTab } from './knowledge-tab'
 import { ChatTab } from './chat-tab'
 import { HarvestTab } from './harvest-tab'
+import { BulkHarvestTab } from './bulk-harvest-tab'
 
-type TabKey = 'harvest' | 'basket' | 'knowledge' | 'chat'
+type TabKey = 'bulk' | 'harvest' | 'basket' | 'knowledge' | 'chat'
 
 interface Stats {
   basket: { pending: number; processed: number; error: number; total: number }
@@ -19,7 +20,7 @@ interface Stats {
 }
 
 export function BasketApp() {
-  const [tab, setTab] = useState<TabKey>('harvest')
+  const [tab, setTab] = useState<TabKey>('bulk')
   const [stats, setStats] = useState<Stats | null>(null)
   const [loadingStats, setLoadingStats] = useState(true)
 
@@ -68,11 +69,18 @@ export function BasketApp() {
     desc: string
   }> = [
     {
+      key: 'bulk',
+      label: 'Bulk Harvest',
+      urdu: 'Sara internet',
+      icon: Globe2,
+      desc: 'Hundreds of topics ek hi waqt mein internet se collect karo — Science, History, Pakistan, Tech, Health aur bahut kuch',
+    },
+    {
       key: 'harvest',
-      label: 'Harvest',
-      urdu: 'Internet se',
+      label: 'Single Harvest',
+      urdu: 'Aik topic',
       icon: Globe,
-      desc: 'Internet se kisi bhi topic par knowledge collect karo — TRIZA ka agent khud search aur read karega',
+      desc: 'Kisi aik topic par internet se knowledge collect karo — TRIZA ka agent khud search aur read karega',
     },
     {
       key: 'basket',
@@ -203,6 +211,7 @@ export function BasketApp() {
 
       {/* Main content */}
       <main className="flex-1 container mx-auto px-4 py-4 sm:py-6">
+        {tab === 'bulk' && <BulkHarvestTab onChanged={loadStats} onGoToChat={() => setTab('chat')} />}
         {tab === 'harvest' && <HarvestTab onChanged={loadStats} onGoToChat={() => setTab('chat')} />}
         {tab === 'basket' && <BasketTab onChanged={loadStats} />}
         {tab === 'knowledge' && <KnowledgeTab onChanged={loadStats} />}
