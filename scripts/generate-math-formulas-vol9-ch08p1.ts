@@ -1,0 +1,478 @@
+/**
+ * ============================================================
+ *  Mathematics Formula Encyclopedia — Volume 9
+ *  Comprehensive Formula Reference
+ *  Chapter 8 — Part 1 (Probability & Statistics I: Foundations)
+ *  Combinatorics & Counting Principles,
+ *  Axioms of Probability & Sample Spaces,
+ *  Classical & Geometric Probability,
+ *  Conditional Probability & Multiplication Rule,
+ *  Bayes' Theorem & Law of Total Probability,
+ *  Independence & Borel-Cantelli Lemma,
+ *  Worked Problems
+ *  Generator for TRIZA
+ * ============================================================
+ *
+ *  Output: data/math-formulas-vol9-ch08p1.json
+ * ============================================================
+ */
+import { writeFileSync, mkdirSync } from 'fs'
+
+interface MathItem {
+  question: string
+  answer: string
+  topic: string
+  intent: 'factual_question' | 'how_to' | 'formula_recall' | 'problem_solving'
+  keywords: string[]
+}
+
+const items: MathItem[] = []
+
+function add(
+  question: string,
+  answer: string,
+  topic: string,
+  intent: MathItem['intent'] = 'formula_recall',
+  keywords: string[] = []
+) {
+  items.push({ question, answer, topic, intent, keywords })
+}
+
+// ============================================================
+// SECTION 1 — COMBINATORICS & COUNTING PRINCIPLES (8 items)
+// ============================================================
+add(
+  'What is the fundamental counting principle (multiplication rule)?',
+  'Fundamental counting principle: if a task has k stages, with stage i having n_i possible outcomes, and the choices are independent, then the total number of outcomes is the product N = n_1 * n_2 * ... * n_k. Example: a menu with 3 appetizers, 4 mains, 2 desserts gives 3*4*2 = 24 meals. With repetition allowed, the number of length-k sequences from an n-element set is n^k (e.g., 4-digit PINs: 10^4 = 10000). The rule fails when stages are dependent (then use conditional counts). Generalizes to ordered arrangements; the basis for permutations and combinations. Contrast with the addition rule (sum) for mutually exclusive alternatives.',
+  'ch08p1_fundamental_counting',
+  'formula_recall',
+  ['fundamental counting principle', 'multiplication rule', 'combinatorics', 'counting']
+)
+add(
+  'How do you count permutations of n distinct objects?',
+  'Permutations of n distinct objects: the number of ordered arrangements is n! = n*(n-1)*(n-2)*...*2*1, read "n factorial." Convention: 0! = 1. Derivation: n choices for first slot, n-1 for second, ..., 1 for last; product = n!. Example: arrangements of {a,b,c} = 3! = 6 (abc, acb, bac, bca, cab, cba). For k-permutations (ordered selection of k from n): P(n,k) = n!/(n-k)! = n*(n-1)*...*(n-k+1). Example: top 3 from 10 runners = 10*9*8 = 720. Stirling approximation: n! ~ sqrt(2*pi*n)*(n/e)^n for large n.',
+  'ch08p1_permutations',
+  'formula_recall',
+  ['permutation', 'factorial', 'arrangement', 'k-permutation']
+)
+add(
+  'How do you count combinations (unordered selection of k from n)?',
+  'Combinations: number of ways to choose k items from n without regard to order is C(n,k) = n!/(k!(n-k)!) = "n choose k" = binomial coefficient. Derivation: ordered k-permutations P(n,k) = n!/(n-k)!, but each k-element set appears in k! orders, so divide by k!. Symmetry: C(n,k) = C(n,n-k). Example: choose 2 from {a,b,c} = C(3,2) = 3 ({a,b},{a,c},{b,c}). Sum: sum_{k=0}^{n} C(n,k) = 2^n (all subsets). Recurrence (Pascal): C(n,k) = C(n-1,k-1) + C(n-1,k). Special: C(n,0)=1, C(n,1)=n, C(n,n)=1.',
+  'ch08p1_combinations',
+  'formula_recall',
+  ['combination', 'binomial coefficient', 'n choose k', 'unordered selection']
+)
+add(
+  'What is the multinomial coefficient and the multinomial theorem?',
+  'Multinomial coefficient: C(n; k_1,k_2,...,k_m) = n!/(k_1! k_2! ... k_m!) where k_1+...+k_m = n. Counts the number of ways to partition n distinct objects into m labeled groups of sizes k_1,...,k_m. Generalizes binomial coefficient (m=2 gives C(n,k)). Multinomial theorem: (x_1+x_2+...+x_m)^n = sum over (k_1+...+k_m=n) of [n!/(k_1!...k_m!)] x_1^{k_1}...x_m^{k_m}. Example: number of distinct arrangements of MISSISSIPPI = 11!/(1!4!4!2!) = 34650 (1 M, 4 I, 4 S, 2 P). Application: probability of getting counts (k_1,...,k_m) in n multinomial trials with cell probs p_i.',
+  'ch08p1_multinomial',
+  'formula_recall',
+  ['multinomial coefficient', 'multinomial theorem', 'partition', 'MISSISSIPPI']
+)
+add(
+  'How do you count permutations and combinations with repetition allowed?',
+  'Combinations with repetition (multisets): number of ways to choose k items from n types with repetition allowed (order irrelevant) = C(n+k-1, k) = (n+k-1)!/(k!(n-1)!). "Stars and bars" argument: k stars (items) and n-1 bars (dividers between types). Example: 3 scoops from 5 flavors = C(7,3) = 35. Permutations with repetition: number of distinct arrangements of n items where there are groups of identical items of sizes n_1,...,n_m (sum=n) = n!/(n_1!...n_m!). k-permutations with repetition (ordered, repeat allowed) from n types = n^k. Example: 4-letter strings from {A,B,C} = 3^4 = 81.',
+  'ch08p1_repetition_counting',
+  'formula_recall',
+  ['combinations with repetition', 'stars and bars', 'multiset', 'permutations with repetition']
+)
+add(
+  'How many circular permutations of n distinct objects are there?',
+  'Circular permutations: number of distinct arrangements of n distinct objects around a circle = (n-1)!. Reasoning: fix one object (rotation invariance removes n equivalent rotations), arrange the remaining n-1 linearly = (n-1)!. Example: 5 people around a round table = 4! = 24. If reflections (clockwise/counterclockwise) are considered the same (necklace/bracelet problem), divide by 2: (n-1)!/2 for n >= 3. For k selected from n arranged in a circle: P(n,k)/k = n!/(k(n-k)!). Key distinction: linear permutations = n!, circular = (n-1)! because rotations are identical.',
+  'ch08p1_circular_permutations',
+  'formula_recall',
+  ['circular permutation', 'round table', 'necklace', 'rotation invariance']
+)
+add(
+  'What is the inclusion-exclusion principle?',
+  'Inclusion-exclusion principle (PIE): for finite sets A_1,...,A_n, |A_1 ∪ ... ∪ A_n| = sum|A_i| - sum|A_i ∩ A_j| + sum|A_i ∩ A_j ∩ A_k| - ... + (-1)^{n+1}|A_1 ∩ ... ∩ A_n|. For two sets: |A∪B| = |A|+|B|-|A∩B|. For three: |A∪B∪C| = |A|+|B|+|C| - |A∩B|-|A∩C|-|B∩C| + |A∩B∩C|. Application — derangements (permutations with no fixed point): D_n = n! sum_{k=0}^{n} (-1)^k/k! ~ n!/e. Application — surjections from n-set to k-set: k! S(n,k) via PIE. Application — count integers <= N coprime to primes p_1,...,p_m (Euler sieve style). The alternating sum corrects overcounting of intersections.',
+  'ch08p1_inclusion_exclusion',
+  'formula_recall',
+  ['inclusion-exclusion', 'PIE', 'derangement', 'union cardinality']
+)
+add(
+  'What is the pigeonhole principle and how is it applied?',
+  'Pigeonhole principle (Dirichlet): if n items are placed into m containers (pigeonholes) and n > m, then at least one container holds at least ceil(n/m) items. Strong form: if n items in m boxes, some box has >= ceil(n/m) items. Generalized: if sum of items > k*m, then some box has >= k+1. Applications: (1) among 13 people, at least 2 share a birth month (12 holes, 13 pigeons). (2) Among any 5 points in a unit square, two are within distance sqrt(2)/2 (4 quadrants). (3) Given n+1 integers from {1,...,2n}, two are coprime (consecutive). (4) Any subset of n+1 from {1,...,2n} contains two where one divides the other. Erdos-Szekeres: any sequence of n^2+1 distinct reals has monotone subsequence of length n+1.',
+  'ch08p1_pigeonhole',
+  'formula_recall',
+  ['pigeonhole principle', 'Dirichlet', 'Erdos-Szekeres', 'combinatorics']
+)
+
+// ============================================================
+// SECTION 2 — AXIOMS OF PROBABILITY & SAMPLE SPACES (7 items)
+// ============================================================
+add(
+  'What are the Kolmogorov axioms of probability?',
+  'Kolmogorov axioms (1933): a probability space is a triple (Omega, F, P) where Omega is the sample space, F is a sigma-algebra of events (subsets of Omega), and P: F -> [0,1] satisfies: (A1) Non-negativity: P(A) >= 0 for all A in F. (A2) Normalization: P(Omega) = 1. (A3) Countable additivity: for any countable sequence {A_i} of pairwise disjoint events, P(∪ A_i) = sum P(A_i). These three axioms imply all standard probability rules: P(empty)=0, P(A^c)=1-P(A), monotonicity (A subset B => P(A)<=P(B)), P(A) <= 1, inclusion-exclusion. The axioms are the foundation of modern measure-theoretic probability.',
+  'ch08p1_kolmogorov_axioms',
+  'formula_recall',
+  ['Kolmogorov axioms', 'probability axioms', 'countable additivity', 'measure theory']
+)
+add(
+  'What is a sample space and what are events?',
+  'Sample space Omega: the set of all possible outcomes of a random experiment. Examples: coin flip Omega = {H,T}; die roll Omega = {1,2,3,4,5,6}; two dice Omega = {(i,j): i,j in 1..6}, |Omega|=36; lifetime of a bulb Omega = [0, infinity). Event: any subset A of Omega (a collection of outcomes) to which a probability can be assigned. The collection of all events forms a sigma-algebra F: closed under complement and countable unions (hence intersections). For finite/countable Omega, F is usually the power set 2^Omega. A simple/elementary event is a singleton {omega}. An impossible event is the empty set; a certain event is Omega itself. Outcomes are the finest granularity; events group outcomes we care about.',
+  'ch08p1_sample_space_events',
+  'formula_recall',
+  ['sample space', 'event', 'sigma-algebra', 'outcome']
+)
+add(
+  'What are the basic properties of probability derived from the axioms?',
+  'Properties of P derived from Kolmogorov axioms: (1) P(empty) = 0. (2) Complement: P(A^c) = 1 - P(A). (3) P(A) <= 1 for all A. (4) Monotonicity: A subset B => P(A) <= P(B). (5) Inclusion-exclusion for two: P(A∪B) = P(A) + P(B) - P(A∩B). (6) Boole inequality (union bound): P(∪ A_i) <= sum P(A_i). (7) Bonferroni: P(∩ A_i) >= 1 - sum P(A_i^c) = sum P(A_i) - (n-1). (8) Continuity from below: A_n up A => P(A_n) -> P(A). (9) Continuity from above: A_n down A, P(A_1)<inf => P(A_n) -> P(A). (10) Partition: if {B_i} partition Omega, P(A) = sum P(A ∩ B_i). (11) P(A) = P(A∩B) + P(A∩B^c).',
+  'ch08p1_probability_properties',
+  'formula_recall',
+  ['probability properties', 'complement', 'monotonicity', 'Boole inequality']
+)
+add(
+  'What is Boole\u2019s inequality (union bound)?',
+  'Boole\u2019s inequality (union bound): for any events A_1, A_2, ..., A_n (finite or countable), P(A_1 ∪ A_2 ∪ ... ∪ A_n) <= P(A_1) + P(A_2) + ... + P(A_n). Equality holds when the events are mutually exclusive (pairwise disjoint). Proof by induction using P(A∪B) <= P(A)+P(B). Application — reliability: if component failure probabilities are p_i, the system failure probability <= sum p_i (gives an upper bound without independence). Bonferroni correction in multiple testing: to keep family-wise error rate <= alpha, test each of m hypotheses at level alpha/m, since P(any false rejection) <= sum(alpha/m) = alpha. The union bound is often loose but always valid; it is the simplest tool when dependencies are unknown.',
+  'ch08p1_boole_inequality',
+  'formula_recall',
+  ['Boole inequality', 'union bound', 'Bonferroni correction', 'reliability']
+)
+add(
+  'What is the continuity of probability for monotone sequences of events?',
+  'Continuity of probability: if {A_n} is a monotone sequence of events, then lim P(A_n) = P(lim A_n). (a) From below (increasing): A_1 subset A_2 subset ... and A = ∪ A_n, then P(A_n) -> P(A). (b) From above (decreasing): A_1 superset A_2 superset ... and A = ∩ A_n, with P(A_1) finite, then P(A_n) -> P(A). Proof of (a): write A as disjoint union B_1 = A_1, B_k = A_k \ A_{k-1}; then P(A) = sum P(B_k) = lim sum_{k=1}^{n} P(B_k) = lim P(A_n). Application: for a nonnegative integer-valued RV X, P(X < inf) = lim_{n->inf} P(X <= n) = 1, and E[X] = sum P(X >= k) by tail-sum. Used to extend finite additivity to countable.',
+  'ch08p1_continuity_probability',
+  'formula_recall',
+  ['continuity of probability', 'monotone sequence', 'from below', 'tail sum']
+)
+add(
+  'What is a probability measure and what is countable additivity?',
+  'Probability measure P on a measurable space (Omega, F) is a function P: F -> [0,1] with P(Omega)=1 and countable (sigma) additivity: for any countable collection {A_i} of pairwise disjoint events in F, P(∪_{i} A_i) = sum_{i} P(A_i). Countable additivity is strictly stronger than finite additivity; it is the axiom that makes limit arguments valid (continuity of probability, Borel-Cantelli). It implies finite additivity (take A_{n+1}=A_{n+2}=...=empty). A finitely additive but not countably additive set function fails continuity from above. Example violating countable additivity: uniform "probability" on the integers assigning each integer mass 0 (sum=0 not 1) or positive mass (sum=inf). This is why a uniform distribution on all integers does not exist. Countable additivity forces countable sample spaces to have probabilities summing to 1.',
+  'ch08p1_probability_measure',
+  'formula_recall',
+  ['probability measure', 'countable additivity', 'sigma additivity', 'finite additivity']
+)
+add(
+  'What is the Bonferroni inequality for intersections?',
+  'Bonferroni inequality (lower bound on intersection): for events A_1,...,A_n, P(∩ A_i) >= 1 - sum_{i} P(A_i^c) = sum P(A_i) - (n-1). Derived from Boole: P((∩ A_i)^c) = P(∪ A_i^c) <= sum P(A_i^c), so P(∩ A_i) = 1 - P(∪ A_i^c) >= 1 - sum P(A_i^c). General Bonferroni: partial sums of inclusion-exclusion alternate as bounds. Application — simultaneous confidence intervals: to get joint coverage >= 1-alpha for n intervals, use individual level 1 - alpha/n (Bonferroni correction). The bound is conservative (assumes worst-case dependence); becomes trivial (negative) when sum P(A_i^c) > 1. Kounias improved bound uses pairwise info. Bonferroni is the simplest guaranteed-probability tool when independence cannot be assumed.',
+  'ch08p1_bonferroni_inequality',
+  'formula_recall',
+  ['Bonferroni inequality', 'intersection bound', 'multiple testing', 'simultaneous inference']
+)
+
+// ============================================================
+// SECTION 3 — CLASSICAL & GEOMETRIC PROBABILITY (6 items)
+// ============================================================
+add(
+  'What is the classical (Laplace) definition of probability?',
+  'Classical (Laplace) definition: if the sample space Omega is finite with all equally likely outcomes, then P(A) = |A|/|Omega| = (number of favorable outcomes)/(total number of outcomes). Requires: (1) finite (or countable) Omega, (2) uniform/equally-likely outcomes (symmetry). Computation reduces to counting (combinatorics). Example: P(sum 7 on two dice) = 6/36 = 1/6 (six pairs: (1,6),(2,5),(3,4),(4,3),(5,2),(6,1)). P(royal flush in poker) = 4/C(52,5) = 4/2598960 ~ 1.5e-6. Limitation: cannot handle infinite or non-uniform spaces (use measure-theoretic/relative-frequency definitions). The assumption of equal likelihood is often justified by symmetry (fair coin, fair die) but can be circular if "equally likely" is taken as primitive.',
+  'ch08p1_classical_probability',
+  'formula_recall',
+  ['classical probability', 'Laplace', 'equally likely', 'counting probability']
+)
+add(
+  'What is the relative-frequency (frequentist) interpretation of probability?',
+  'Frequentist interpretation: the probability of an event A is the long-run relative frequency of occurrence: P(A) = lim_{n->inf} n_A/n, where n_A is the number of times A occurs in n independent repetitions. Justified theoretically by the Law of Large Numbers (P(lim n_A/n = P(A)) = 1). Strengths: objective, operational, no prior needed. Weaknesses: (1) requires repeatable experiment; (2) the limit is itself probabilistic (cannot be verified in finite time); (3) single-event probabilities ("probability this election is fair") are ill-defined. Contrast with classical (counting, needs equal likelihood) and Bayesian (degree of belief, allows priors). Frequentist underpins classical statistical inference (Neyman-Pearson hypothesis testing, confidence intervals).',
+  'ch08p1_frequentist_probability',
+  'formula_recall',
+  ['frequentist', 'relative frequency', 'law of large numbers', 'objective probability']
+)
+add(
+  'What is geometric probability and how is it computed?',
+  'Geometric probability: when Omega is a region in R^n (length, area, volume) with uniform distribution, P(A) = measure(A)/measure(Omega). Used when outcomes form a continuum. Example 1 (broken stick): break a unit stick at two random points; P(three pieces form a triangle) = 1/4. Example 2 (meeting problem): two people arrive uniformly in [0,1] hour; P(they meet given wait time 1/4 hr) = 1 - (3/4)^2 = 7/16 (area of |x-y| <= 1/4 in unit square). Example 3 (Buffon needle): drop needle length L on lines spaced D (L<=D); P(crosses a line) = 2L/(pi D). Key: "uniform" means probability proportional to length/area/volume; non-uniform requires a density.',
+  'ch08p1_geometric_probability',
+  'formula_recall',
+  ['geometric probability', 'Buffon needle', 'broken stick', 'meeting problem']
+)
+add(
+  'What is Bertrand\u2019s paradox and what does it illustrate?',
+  'Bertrand\u2019s paradox (1889): "a chord of a circle is chosen at random; what is the probability it is longer than the side of the inscribed equilateral triangle?" Different reasonable interpretations of "random chord" give different answers: (1) Random endpoints: fix one endpoint, the other uniform on circumference => P = 1/3. (2) Random midpoint along a radius: midpoint uniform on radius => P = 1/2. (3) Random midpoint uniform in the disk => P = 1/4. The paradox shows that "uniform over chords" is ambiguous without specifying the measure. Resolution (Jaynes, 1973): the maximum-ignorance/invariant principle (translation, rotation, scale invariance) selects solution (2), P=1/2. Lesson: in geometric probability, the probability measure must be specified precisely; "at random" alone is not well-defined on infinite spaces.',
+  'ch08p1_bertrand_paradox',
+  'formula_recall',
+  ['Bertrand paradox', 'random chord', 'geometric probability', 'maximum ignorance']
+)
+add(
+  'What is the birthday problem and what is its solution?',
+  'Birthday problem: in a group of n people (with birthdays uniformly distributed over 365 days, independent), what is P(at least two share a birthday)? Compute the complement: P(all distinct) = (365/365)*(364/365)*...*(365-n+1)/365 = 365!/(365^n (365-n)!). So P(shared) = 1 - product_{k=0}^{n-1} (365-k)/365. Surprising result: n=23 gives P ~ 0.507 (50% threshold), n=50 gives ~0.970, n=70 gives ~0.999. Approximation for large N days and small n: P(shared) ~ 1 - e^{-n(n-1)/(2N)}; threshold n ~ sqrt(2N ln 2). Generalizes to hash collisions: with m-bit hash, expect collision after ~ sqrt(2*2^m) items (birthday attack in cryptography). Lesson: coincidences are more likely than intuition suggests because the number of pairs grows as n(n-1)/2.',
+  'ch08p1_birthday_problem',
+  'problem_solving',
+  ['birthday problem', 'birthday paradox', 'hash collision', 'coincidence']
+)
+add(
+  'How do you handle equally likely vs non-equally likely outcomes in classical probability?',
+  'Equally likely outcomes (uniform): P(A) = |A|/|Omega| via counting. Non-equally likely: assign weights p(omega) with sum 1, then P(A) = sum_{omega in A} p(omega). When counting favorable/total, must ensure each outcome counted has the same probability. Common pitfall: miscounting equally likely atomic outcomes. Example — sum of two dice: outcomes are ordered pairs (i,j), 36 equally likely. P(sum=7) = 6/36 = 1/6 (correct). Wrong: treating sums {2,...,12} as 11 equally likely => P(7)=1/11 (incorrect; sums have different multiplicities). For non-uniform (loaded die), enumerate pairs and weight by p_i*p_j. Principle: always decompose into equally-likely atomic events before counting; if not uniform, use explicit probabilities. This is why combinatorics (counting) is the workhorse of classical probability.',
+  'ch08p1_equally_likely',
+  'problem_solving',
+  ['equally likely', 'uniform outcomes', 'counting', 'atomic events']
+)
+
+// ============================================================
+// SECTION 4 — CONDITIONAL PROBABILITY & MULTIPLICATION RULE (7 items)
+// ============================================================
+add(
+  'What is the definition of conditional probability?',
+  'Conditional probability of A given B (P(B) > 0): P(A|B) = P(A ∩ B)/P(B). Interpretation: the probability of A once we know B occurred; we restrict the sample space to B and renormalize. Properties: 0 <= P(A|B) <= 1; P(B|B) = 1; P(A^c|B) = 1 - P(A|B); for a partition {B_i}, P(A|B_i) defined per piece. Chain/multiplication rule: P(A ∩ B) = P(B) P(A|B) = P(A) P(B|A). For three: P(A∩B∩C) = P(A)P(B|A)P(C|A∩B). General: P(A_1∩...∩A_n) = P(A_1) P(A_2|A_1) P(A_3|A_1∩A_2) ... P(A_n|A_1∩...∩A_{n-1}). Conditional probability is itself a probability measure (satisfies Kolmogorov axioms) for fixed B with P(B)>0.',
+  'ch08p1_conditional_definition',
+  'formula_recall',
+  ['conditional probability', 'P(A given B)', 'renormalize', 'multiplication rule']
+)
+add(
+  'What is the multiplication rule (chain rule) for probabilities?',
+  'Multiplication (chain) rule: P(A_1 ∩ A_2 ∩ ... ∩ A_n) = P(A_1) * P(A_2 | A_1) * P(A_3 | A_1∩A_2) * ... * P(A_n | A_1∩...∩A_{n-1}). Derived by repeated application of P(A∩B) = P(A)P(B|A). For two events: P(A∩B) = P(A)P(B|A) = P(B)P(A|B) (symmetric). Application — drawing without replacement: P(3 aces in a row from a 52-card deck) = (4/52)(3/51)(2/50) = 24/132600 ~ 1.8e-4. Application — sequential reliability: P(system survives stages) = product of conditional survival probabilities. The chain rule underlies Bayesian networks (factorization of joint distribution as product of conditionals). Order of conditioning matters; choose a convenient order to simplify computation.',
+  'ch08p1_multiplication_rule',
+  'formula_recall',
+  ['multiplication rule', 'chain rule', 'sequential probability', 'without replacement']
+)
+add(
+  'What is the law of total probability?',
+  'Law of total probability (LTP): if {B_1, B_2, ...} is a partition of Omega (disjoint, union = Omega, P(B_i)>0), then for any event A: P(A) = sum_i P(A | B_i) P(B_i). For a binary partition {B, B^c}: P(A) = P(A|B)P(B) + P(A|B^c)P(B^c). The B_i are "cases" or "hypotheses"; the formula averages P(A) over cases weighted by their priors. Proof: A = A ∩ Omega = A ∩ (∪ B_i) = ∪ (A ∩ B_i) (disjoint), so P(A) = sum P(A∩B_i) = sum P(A|B_i)P(B_i). Application: P(defective item) = sum over factories P(defective|factory_i) P(factory_i). LTP is the denominator of Bayes theorem and the workhorse for "unconditioning" — moving from case-wise conditional probabilities to the marginal.',
+  'ch08p1_law_total_probability',
+  'formula_recall',
+  ['law of total probability', 'partition', 'marginal', 'unconditioning']
+)
+add(
+  'What is a partition of the sample space and how is it used in probability?',
+  'Partition of Omega: a collection {B_1, B_2, ...} of events with B_i ∩ B_j = empty for i != j (pairwise disjoint) and ∪ B_i = Omega (exhaustive). Every outcome falls in exactly one B_i. Used to decompose problems: any event A = ∪ (A ∩ B_i) (disjoint union), so P(A) = sum P(A ∩ B_i) = sum P(A|B_i)P(B_i) (law of total probability). Common partitions: {B, B^c}; {H_1,...,H_k} hypotheses; {X = x} for discrete RV; bins of a histogram. Refinement: a finer partition gives more detailed conditional analysis. Application — diagnostic testing: partition by disease status {D, D^c}; compute P(test+) = P(+|D)P(D) + P(+|D^c)P(D^c). The partition gives the "cases" for case analysis in probability.',
+  'ch08p1_partition',
+  'formula_recall',
+  ['partition', 'disjoint exhaustive', 'case analysis', 'decomposition']
+)
+add(
+  'How do conditional probabilities behave in a restricted sample space?',
+  'For fixed B with P(B) > 0, the conditional measure P_B(A) := P(A|B) = P(A∩B)/P(B) is itself a probability measure on Omega (restricted to subsets of B). It satisfies Kolmogorov axioms: P_B(B) = 1, P_B >= 0, countable additivity. Hence all probability rules apply under conditioning: P_B(A^c) = 1 - P_B(A); P_B(A∪C) = P_B(A) + P_B(C) - P_B(A∩C); P_B(∪A_i) <= sum P_B(A_i). Conditional conditioning: P(A | B ∩ C) = P(A∩B∩C)/P(B∩C) = P_{B∩C}(A). Multiplication under conditioning: P(A∩C|B) = P(A|B) P(C|A∩B). This justifies "conditioning then re-applying probability theory" and is the basis for sequential Bayesian updating.',
+  'ch08p1_conditional_restricted',
+  'formula_recall',
+  ['conditional probability', 'restricted sample space', 'P_B measure', 'conditioning']
+)
+add(
+  'What is the prosecutor\u2019s fallacy and how does it confuse conditional probabilities?',
+  'Prosecutor\u2019s fallacy: confusing P(evidence | innocent) with P(innocent | evidence). These are generally very different (related by Bayes: P(I|E) = P(E|I)P(I)/P(E)). Example: a DNA match has random-match probability 1 in a million, so P(match | innocent) = 1e-6. The fallacy claims P(innocent | match) ~ 1e-6, hence "guilty beyond reasonable doubt." But if the database searched has 10 million people, ~10 innocent matches expected; P(innocent | match) could be ~10/11 ~ 0.9. Correct: P(I|E) = P(E|I)P(I)/P(E), where P(E) = P(E|I)P(I) + P(E|G)P(G). The fallacy ignores the base rate / prior P(innocent) and the size of the candidate pool. Also appears as the "base rate fallacy." Defense attorney\u2019s fallacy is the opposite error (ignoring the evidence entirely).',
+  'ch08p1_prosecutor_fallacy',
+  'problem_solving',
+  ['prosecutor fallacy', 'base rate fallacy', 'conditional probability', 'DNA evidence']
+)
+add(
+  'How do you compute the probability of a sequential event using conditioning?',
+  'Sequential event probability via conditioning: break the event into stages and apply the chain rule P(A_1∩...∩A_n) = prod P(A_k | A_1∩...∩A_{k-1}). Choose an informative order so conditional probabilities are easy to compute. Example — 5-card poker hand is a full house (three of a kind + pair): order = pick rank for triple (13/13), 3 suits C(4,3)/48, then rank for pair (12/13 effectively 12 remaining ranks), 2 suits C(4,2)/47... but cleaner via counting: C(13,1)C(4,3)C(12,1)C(4,2)/C(52,5) ~ 0.00144. Sequential conditional approach is essential when stages have memory (sampling without replacement, Markov chains). Pitfall: assuming independence when stages are dependent; always verify via P(A_k | history) != P(A_k).',
+  'ch08p1_sequential_conditioning',
+  'problem_solving',
+  ['sequential', 'chain rule', 'staged experiment', 'without replacement']
+)
+
+// ============================================================
+// SECTION 5 — BAYES' THEOREM & LAW OF TOTAL PROBABILITY (7 items)
+// ============================================================
+add(
+  'What is Bayes\u2019 theorem?',
+  'Bayes\u2019 theorem: P(H | E) = P(E | H) P(H) / P(E), for P(E) > 0. Equivalently, posterior = (likelihood * prior) / evidence. General form with partition {H_1,...,H_k}: P(H_i | E) = P(E | H_i) P(H_i) / sum_j P(E | H_j) P(H_j), since P(E) = sum_j P(E|H_j)P(H_j) (law of total probability). Proof: P(H|E) = P(H∩E)/P(E) = P(E|H)P(H)/P(E). Interpretation: revises prior belief P(H) into posterior P(H|E) after observing evidence E. Foundation of Bayesian inference. Example — medical test: P(D) = 0.01, P(+|D) = 0.99, P(+|D^c) = 0.05; P(D|+) = 0.99*0.01 / (0.99*0.01 + 0.05*0.99) = 0.0099/0.0594 ~ 0.167. Despite high sensitivity, low prior means most positives are false.',
+  'ch08p1_bayes_theorem',
+  'formula_recall',
+  ['Bayes theorem', 'posterior', 'likelihood', 'prior', 'evidence']
+)
+add(
+  'What are prior, posterior, and likelihood in Bayesian inference?',
+  'In Bayesian inference: (1) Prior P(H) (or p(theta)): belief about hypothesis/parameter before seeing data. (2) Likelihood P(E|H) (or L(theta; data) = p(data|theta)): probability of observed data given the hypothesis; measures how well H explains E. (3) Posterior P(H|E) (or p(theta|data)): updated belief after data, via Bayes: posterior proportional to likelihood * prior. (4) Evidence / marginal likelihood P(E) = integral/sum of likelihood*prior: normalizing constant (often irrelevant for point estimation via MCMC). Priors: informative (strong belief), weakly informative, non-informative/flat, conjugate (posterior same family, e.g., Beta prior + Binomial data -> Beta posterior). The posterior is the complete inferential object; point estimates (MAP, posterior mean) and credible intervals are summaries. Sequential updating: today posterior = tomorrow prior.',
+  'ch08p1_prior_posterior_likelihood',
+  'formula_recall',
+  ['prior', 'posterior', 'likelihood', 'Bayesian inference', 'conjugate']
+)
+add(
+  'What is the odds form of Bayes\u2019 theorem and the Bayes factor?',
+  'Odds form of Bayes: posterior odds = prior odds * Bayes factor, i.e., P(H|E)/P(H^c|E) = [P(H)/P(H^c)] * [P(E|H)/P(E|H^c)]. The Bayes factor BF_{10} = P(E|H_1)/P(E|H_0) is the ratio of marginal likelihoods under two competing hypotheses; it measures the evidence in the data for H_1 over H_0, independent of priors on the hypotheses. Interpretation (Jeffreys scale): BF in (1,3) anecdotal, (3,10) substantial, (10,30) strong, (30,100) very strong, >100 decisive (for H_1; reciprocals for H_0). Log-odds update: log(post odds) = log(prior odds) + log(BF); each independent piece of evidence adds its log-likelihood-ratio. Sequential: multiply BFs from independent data batches. BF avoids the prior-on-hypothesis debate but still needs priors within each model (nuisance parameters).',
+  'ch08p1_bayes_factor',
+  'formula_recall',
+  ['Bayes factor', 'odds form', 'marginal likelihood', 'evidence ratio']
+)
+add(
+  'How is Bayes\u2019 theorem applied to medical diagnostic testing?',
+  'Medical testing via Bayes: given disease prevalence P(D), test sensitivity s = P(+|D), false-positive rate f = P(+|D^c), the positive predictive value (PPV) = P(D|+) = s*P(D) / (s*P(D) + f*(1-P(D))). Negative predictive value (NPV) = P(D^c|-) = (1-f)*(1-P(D)) / ((1-f)*(1-P(D)) + (1-s)*P(D)). Example: P(D)=0.001, s=0.99, f=0.05 -> PPV = 0.00099/(0.00099+0.04995) ~ 0.0194 (only ~2% of positives are true!). Lesson: with rare disease and imperfect specificity, most positives are false. Repeat testing: if two independent positives, P(D|+,+) = s^2 P(D) / (s^2 P(D) + f^2 (1-P(D))) rises sharply. Likelihood ratios: LR+ = s/f, LR- = (1-s)/(1-f); post-test odds = pre-test odds * LR. Prevalence (prior) dominates PPV for rare diseases.',
+  'ch08p1_medical_testing',
+  'problem_solving',
+  ['medical testing', 'PPV', 'sensitivity', 'specificity', 'predictive value']
+)
+add(
+  'What is sequential Bayesian updating?',
+  'Sequential Bayesian updating: with independent evidence E_1, E_2, ... given H, the posterior after n observations = prior * prod_{i=1}^{n} P(E_i | H) / P(E_i) (independent of order). Equivalently in log-odds: logit P(H|E_1,...,E_n) = logit P(H) + sum log(LR_i). The key property: posterior after E_1,...,E_k serves as prior for E_{k+1}, so updating can be done one observation at a time. Formally: P(H|E_1,...,E_n) proportional to P(H) prod P(E_i|H) = P(H|E_1,...,E_{n-1}) * P(E_n|H)/P(E_n) (assuming conditional independence of evidence given H). Application — online learning, spam filtering (Naive Bayes), belief tracking. Pitfall: if E_i are NOT conditionally independent given H, must use the joint likelihood P(E_1,...,E_n|H), not the product.',
+  'ch08p1_sequential_bayes',
+  'formula_recall',
+  ['sequential updating', 'online learning', 'log-odds', 'conditional independence']
+)
+add(
+  'What is the base rate fallacy and how does Bayes\u2019 theorem correct it?',
+  'Base rate fallacy: ignoring the prior (base rate) P(H) when judging P(H|E), focusing only on P(E|H). Classic example (Kahneman-Tversky): cabs in a city — 85% Green, 15% Blue; witness identifies a cab as Blue, witness is 80% accurate. People say P(Blue|identified Blue) ~ 80%, but Bayes gives P = 0.8*0.15 / (0.8*0.15 + 0.2*0.85) = 0.12/0.29 ~ 0.41. The base rate (15% Blue) drastically lowers the posterior. The fallacy arises from representing-availability heuristics: the vivid evidence (witness) dominates the abstract base rate. Correction: always compute P(H|E) = P(E|H)P(H)/P(E) with P(E) via LTP; P(E) includes both true and false positives. Bayesian training and explicit frequency formats (Gigerenzer) reduce the fallacy. Related: confusion of inverse (P(A|B) vs P(B|A)).',
+  'ch08p1_base_rate_fallacy',
+  'problem_solving',
+  ['base rate fallacy', 'Kahneman Tversky', 'prior', 'cab problem']
+)
+add(
+  'What is the Monty Hall problem and its Bayesian solution?',
+  'Monty Hall problem: 3 doors, one car (random). Player picks door 1. Host (who knows the car) opens a different door showing a goat. Offer to switch. Should you? Solution via Bayes/LTP: P(car=1) = 1/3 initially. Host opens door 3 (say). If car=1, host picks 2 or 3 with prob 1/2 each => P(open 3 | car=1) = 1/2. If car=2, host must open 3 => P(open 3 | car=2) = 1. If car=3, host cannot open 3 => P(open 3 | car=3) = 0. By Bayes: P(car=1 | open 3) = (1/2)(1/3)/P(open 3); P(car=2 | open 3) = 1*(1/3)/P(open 3), where P(open 3) = 1/6+1/3+0 = 1/2. So P(car=1|open3) = 1/3, P(car=2|open3) = 2/3. Switching doubles win probability. Common error: assuming P=1/2 each after the open (ignoring host\u2019s knowledge). The host\u2019s constrained choice is the information.',
+  'ch08p1_monty_hall',
+  'problem_solving',
+  ['Monty Hall', 'Bayesian updating', 'conditional probability', 'three doors']
+)
+
+// ============================================================
+// SECTION 6 — INDEPENDENCE & BOREL-CANTELLI LEMMA (7 items)
+// ============================================================
+add(
+  'What is the definition of independence of two events?',
+  'Independence of two events A and B: P(A ∩ B) = P(A) P(B). Equivalently P(A|B) = P(A) (B gives no info about A) when P(B)>0, and P(B|A) = P(B) when P(A)>0. Independence is a statement about probability (multiplicative), not about being disjoint — in fact disjoint events with positive probability are dependent (P(A∩B)=0 != P(A)P(B)). Visualized: knowing B occurred does not change the odds of A. For more than two events, pairwise independence (every pair independent) does NOT imply mutual independence; need P(∩_{i in S} A_i) = prod_{i in S} P(A_i) for every subset S. Example: toss two fair coins, A = first H, B = second H, C = same (HH or TT); pairwise independent but P(A∩B∩C) = 1/4 != 1/8, so not mutually independent.',
+  'ch08p1_independence_definition',
+  'formula_recall',
+  ['independence', 'pairwise independence', 'mutual independence', 'P(A cap B)']
+)
+add(
+  'What is the difference between pairwise and mutual independence?',
+  'Pairwise independence: every pair of events is independent, i.e., P(A_i ∩ A_j) = P(A_i)P(A_j) for all i != j. Mutual independence: every subset is independent, i.e., P(∩_{i in S} A_i) = prod_{i in S} P(A_i) for ALL subsets S (including triples, quadruples, etc.). Mutual => pairwise, but pairwise does NOT => mutual. Classic counterexample (Bernstein): toss two fair coins; let A = first H, B = second H, C = XOR (HT or TH). Then P(A)=P(B)=P(C)=1/2; pairwise: P(A∩B)=1/4=P(A)P(B), P(A∩C)=1/4=P(A)P(C), P(B∩C)=1/4=P(B)P(C); but P(A∩B∩C) = 0 != 1/8 = P(A)P(B)P(C). Mutual independence requires the full factorization. Consequence: proofs needing independence of many events (e.g., LLN) require mutual, not just pairwise.',
+  'ch08p1_pairwise_vs_mutual',
+  'formula_recall',
+  ['pairwise independence', 'mutual independence', 'Bernstein', 'counterexample']
+)
+add(
+  'What is conditional independence and how does it differ from independence?',
+  'Conditional independence of A and B given C: P(A ∩ B | C) = P(A | C) P(B | C). Equivalently P(A | B, C) = P(A | C) (once C is known, B adds no info about A). Notation: A _||_ B | C. Key: conditional independence does NOT imply (unconditional) independence, nor vice versa. Example: two independent tests A, B for disease D are unconditionally independent but conditionally DEPENDENT given D (knowing A=+ raises chance D, hence raises chance B=+). Conversely, A, B can be conditionally independent given C but dependent marginally (selection bias / Berkson\u2019s paradox). Conditional independence is the building block of Bayesian networks (graphical models): each node is conditionally independent of non-descendants given its parents. Chain rule factorizes joint via conditional independences.',
+  'ch08p1_conditional_independence',
+  'formula_recall',
+  ['conditional independence', 'Bayesian network', 'Berkson paradox', 'graphical model']
+)
+add(
+  'How do you test whether events are independent?',
+  'To test independence of A and B: verify P(A ∩ B) = P(A)P(B). Compute all three quantities from the model. If equality holds (exactly, for a theoretical model), A and B are independent. Common patterns: (1) independent samples => events defined on different samples are independent (e.g., A = "die 1 shows 6", B = "die 2 shows 6"); (2) sampling with replacement keeps draws independent; without replacement makes them dependent. For RVs X, Y: independent iff joint CDF factors F_{X,Y}(x,y) = F_X(x)F_Y(y) (equivalently joint pmf/pdf factors). Pitfall: do not equate "no causal link" with independence — they can be dependent via common cause. Empirically, test via chi-square test of independence on contingency tables. Beware: zero correlation != independence unless jointly normal.',
+  'ch08p1_independence_test',
+  'problem_solving',
+  ['independence test', 'factorization', 'contingency', 'correlation']
+)
+add(
+  'What is independence of sigma-algebras and random variables?',
+  'Independence of sigma-algebras F_1, F_2: for all A in F_1, B in F_2, P(A ∩ B) = P(A)P(B). Independence of random variables X_1,...,X_n: the sigma-algebras sigma(X_1),...,sigma(X_n) are independent; equivalently, for all Borel sets B_1,...,B_n, P(X_1 in B_1, ..., X_n in B_n) = prod P(X_i in B_i). For discrete RVs: joint pmf factors: p(x_1,...,x_n) = prod p_i(x_i). For continuous: joint pdf factors: f(x_1,...,x_n) = prod f_i(x_i). Functions of independent RVs remain independent (if g_i measurable, g_1(X_1),...,g_n(X_n) independent). Independence => covariance 0 (reverse holds for jointly normal only). Independence is the key assumption of i.i.d. sampling, LLN, CLT. Verification: factor the joint distribution.',
+  'ch08p1_sigma_independence',
+  'formula_recall',
+  ['sigma algebra independence', 'independent random variables', 'joint factorization', 'i.i.d.']
+)
+add(
+  'What is the first Borel-Cantelli lemma?',
+  'First Borel-Cantelli lemma: for any sequence of events {A_n} (no independence needed), if sum_{n=1}^{inf} P(A_n) < infinity, then P(A_n infinitely often) = 0, i.e., P(limsup A_n) = 0 where limsup A_n = ∩_{m} ∪_{n>=m} A_n = {omega: omega in A_n for infinitely many n}. Proof: P(limsup A_n) <= P(∪_{n>=m} A_n) <= sum_{n>=m} P(A_n) -> 0 as m -> inf (tail of convergent series). Interpretation: if the total expected number of occurrences is finite, almost surely only finitely many occur. Application: if errors have probabilities summing finitely, almost surely finitely many errors. Contrapositive: P(A_n i.o.) > 0 implies sum P(A_n) = inf. The second Borel-Cantelli (needs independence) gives the converse: independent + sum = inf => P(A_n i.o.) = 1.',
+  'ch08p1_borel_cantelli_first',
+  'formula_recall',
+  ['Borel-Cantelli', 'limsup', 'infinitely often', 'first lemma']
+)
+add(
+  'What is the second Borel-Cantelli lemma and its role?',
+  'Second Borel-Cantelli lemma: if {A_n} are (pairwise) independent events and sum_{n=1}^{inf} P(A_n) = infinity, then P(A_n infinitely often) = 1, i.e., P(limsup A_n) = 1. Proof (pairwise independent): let N_m = sum_{n>=m} 1_{A_n}; E[N_m] = sum P(A_n) = inf; using pairwise independence and Chebyshev/second-moment, P(N_m = 0) -> 0; hence P(∪_{n>=m} A_n i.o.) = 1. Interpretation: with independent events whose probabilities do not decay too fast (sum diverges), almost surely infinitely many occur. Together with first BC: for independent {A_n}, P(A_n i.o.) = 1 iff sum P(A_n) = inf (0-1 law). Application: if X_n ~ Bernoulli(p_n) independent with sum p_n = inf, then infinitely many successes a.s. Example: P(X_n = 1) = 1/n independent => infinitely many 1s a.s. (sum 1/n = inf). The 0-1 dichotomy is a prototype of Kolmogorov 0-1 laws.',
+  'ch08p1_borel_cantelli_second',
+  'formula_recall',
+  ['second Borel-Cantelli', 'pairwise independent', 'zero one law', 'infinitely often']
+)
+
+// ============================================================
+// SECTION 7 — WORKED PROBLEMS (8 items)
+// ============================================================
+add(
+  'How many ways can you arrange the letters of MISSISSIPPI?',
+  'Multiset permutation problem: MISSISSIPPI has 11 letters with repetitions: M=1, I=4, S=4, P=2 (total 1+4+4+2 = 11). Number of distinct arrangements = 11! / (1! * 4! * 4! * 2!) = 39916800 / (1 * 24 * 24 * 2) = 39916800 / 1152 = 34650. General formula: for n items with groups of sizes n_1, n_2, ..., n_k (sum = n), distinct arrangements = n! / (n_1! n_2! ... n_k!). Reasoning: 11! total permutations of distinct labels; divide by 4! (I indistinguishable), 4! (S indistinguishable), 2! (P indistinguishable) to collapse identical arrangements. Check: 11! = 39916800; 4! = 24; 2! = 2; denominator = 1*24*24*2 = 1152; 39916800/1152 = 34650. So there are 34,650 distinct spellings.',
+  'ch08p1_worked_mississippi',
+  'problem_solving',
+  ['MISSISSIPPI', 'multiset permutation', 'identical items', 'arrangement']
+)
+add(
+  'In a lottery of 6 numbers from 49, what is the probability of matching all 6?',
+  'Lottery 6/49: choose 6 distinct numbers from {1,...,49}; order irrelevant. Number of possible tickets = C(49, 6) = 49!/(6! * 43!) = (49*48*47*46*45*44)/(6*5*4*3*2*1) = 13983816. Exactly one ticket wins, so P(jackpot) = 1/13983816 ~ 7.15e-8. Matching exactly 5 of 6 plus bonus: C(6,5)*C(1,1)*C(42,0)/C(49,6)... more precisely C(6,5)*C(43,1)/C(49,6) = 6*43/13983816 ~ 1.8e-5 (for any 5-match). Matching exactly k of 6: C(6,k) C(43, 6-k) / C(49,6). Expected matches if random: 6*(6/49) ~ 0.735. The huge C(49,6) explains why jackpots roll over so often. To make P jackpot ~ 1 in 14 million matches 6/49 design; Powerball (5/69 + 1/26) ~ 1 in 292 million via multiplication rule C(69,5)*26.',
+  'ch08p1_worked_lottery',
+  'problem_solving',
+  ['lottery', '6 from 49', 'combination', 'jackpot probability']
+)
+add(
+  'A box has 5 red and 3 blue balls. Draw 3 without replacement; what is P(all same color)?',
+  'Drawing 3 balls without replacement from 5 red + 3 blue = 8 total. P(all same color) = P(all red) + P(all blue) (mutually exclusive). Total ways to choose 3 from 8 = C(8,3) = 56. Red: C(5,3) = 10 ways. Blue: C(3,3) = 1 way. So P(all red) = 10/56, P(all blue) = 1/56; P(same color) = (10+1)/56 = 11/56 ~ 0.196. Equivalent via chain rule: P(RRR) = (5/8)(4/7)(3/6) = 60/336 = 5/28 = 10/56; P(BBB) = (3/8)(2/7)(1/6) = 6/336 = 1/56. Sum = 11/56. Cross-check: P(exactly 2 red 1 blue) = C(5,2)C(3,1)/C(8,3) = 10*3/56 = 30/56; P(exactly 1 red 2 blue) = C(5,1)C(3,2)/C(8,3) = 5*3/56 = 15/56. Total: 11+30+15 = 56. ✓',
+  'ch08p1_worked_balls_draw',
+  'problem_solving',
+  ['without replacement', 'hypergeometric', 'same color', 'counting']
+)
+add(
+  'A disease has prevalence 1 in 1000. A test is 99% sensitive and 95% specific. What is P(disease | positive)?',
+  'Bayes diagnostic problem. Let D = disease, + = positive. P(D) = 0.001, P(+|D) = 0.99 (sensitivity), P(+|D^c) = 1 - 0.95 = 0.05 (false-positive rate = 1 - specificity). P(+) = P(+|D)P(D) + P(+|D^c)P(D^c) = 0.99*0.001 + 0.05*0.999 = 0.00099 + 0.04995 = 0.05094. By Bayes: P(D|+) = P(+|D)P(D)/P(+) = 0.00099 / 0.05094 ~ 0.01943 ~ 1.94%. So even with a 99% sensitive / 95% specific test, fewer than 2% of positives are true cases, because the disease is rare. Intuition: false positives (5% of 999 = ~50) vastly outnumber true positives (99% of 1 ~ 1). To improve PPV: raise specificity (most important for rare diseases), repeat test, or test high-risk subpopulations (raises P(D)). Lesson: PPV depends crucially on prevalence, not just test accuracy.',
+  'ch08p1_worked_disease_test',
+  'problem_solving',
+  ['Bayes', 'disease testing', 'PPV', 'sensitivity specificity']
+)
+add(
+  'What is the probability that in a group of 4 people, at least two share a birthday (365 days)?',
+  'Birthday problem, n = 4. Use complement: P(no shared birthday) = (365/365)(364/365)(363/365)(362/365) = 1 * 0.99726 * 0.99452 * 0.99178 = product. Compute: 364*363*362 / 365^3 = (364*363 = 132132; *362 = 47831784) / 48627125 ~ 0.98364. So P(no shared) ~ 0.98364, hence P(at least one shared) = 1 - 0.98364 ~ 0.01636 ~ 1.64%. So with just 4 people, ~1.6% chance of a shared birthday. Threshold for 50% is n = 23: P ~ 0.507. With n = 50, P ~ 0.970. The counterintuitive speed comes from C(n,2) = n(n-1)/2 pairs; for n=23, 253 pairs each with 1/365 collision chance => expected ~0.69 collisions. Formula: P(shared) = 1 - 365!/((365-n)! 365^n) = 1 - prod_{k=0}^{n-1} (1 - k/365).',
+  'ch08p1_worked_birthday_4',
+  'problem_solving',
+  ['birthday problem', 'n equals 4', 'complement', 'shared birthday']
+)
+add(
+  'Two fair coins and a fair die are tossed. What is P(at least one head AND die shows 6)?',
+  'Independence across experiments. Let A = at least one head in 2 coin tosses, B = die shows 6. Since coins and die are independent, P(A ∩ B) = P(A) * P(B). P(A) = 1 - P(no heads) = 1 - (1/2)^2 = 1 - 1/4 = 3/4. P(B) = 1/6. So P(A ∩ B) = (3/4)(1/6) = 3/24 = 1/8 = 0.125. Alternatively enumerate 4 coin outcomes * 6 die outcomes = 24 equally likely; favorable: coin in {HT, TH, HH} (3 of 4) AND die = 6 (1 of 6) => 3*1 = 3 favorable; 3/24 = 1/8. ✓ Independence is the key: events from disjoint random mechanisms are independent, so probabilities multiply. Caution: if A, B involved the SAME coin (e.g., A = first H, B = second H, both), still independent but via the mechanism, not disjointness.',
+  'ch08p1_worked_coins_die',
+  'problem_solving',
+  ['independence', 'coins die', 'at least one', 'multiplication']
+)
+add(
+  'A bag has 4 red, 3 green, 2 blue marbles. Draw 4 with replacement; P(exactly 1 of each non-blue)?',
+  'With replacement => independent draws, each with P(R)=4/9, P(G)=3/9, P(B)=2/9. "Exactly 1 of each non-blue" is ambiguous; interpret as exactly 1 red AND exactly 1 green in 4 draws (the other 2 are blue). Number of sequences with 1 R, 1 G, 2 B = multinomial 4!/(1!1!2!) = 12. Probability of any specific such sequence (e.g., R G B B) = (4/9)(3/9)(2/9)(2/9) = 48/6561. Times 12 orderings: P = 12 * 48/6561 = 576/6561 ~ 0.0878. If interpretation is "at least one R and at least one G" in 4 draws: complement = no R or no G. P(no R) = (5/9)^4, P(no G) = (6/9)^4, P(no R and no G) = (2/9)^4 (only B). Inclusion-exclusion: P(no R or no G) = (5/9)^4 + (6/9)^4 - (2/9)^4 = 625/6561 + 1296/6561 - 16/6561 = 1905/6561. So P(at least one R and at least one G) = 1 - 1905/6561 = 4656/6561 ~ 0.7097. State the interpretation clearly.',
+  'ch08p1_worked_marbles_replacement',
+  'problem_solving',
+  ['with replacement', 'multinomial', 'independent draws', 'inclusion-exclusion']
+)
+add(
+  'Cards are dealt one by one from a standard 52-card deck. What is P(the 4th card is the first ace)?',
+  'First ace at position 4 means: first 3 cards are non-aces, 4th card is an ace. Counting approach: number of favorable ordered 4-tuples = (number of non-aces for slot 1)(non-aces for slot 2)(non-aces for slot 3)(aces for slot 4) = 48 * 47 * 46 * 4. Total ordered 4-tuples from 52 = 52 * 51 * 50 * 49. So P = (48*47*46*4)/(52*51*50*49) = (48/52)(47/51)(46/50)(4/49). Compute: 48/52 = 12/13 ~ 0.9231; 47/51 ~ 0.9216; 46/50 = 0.92; 4/49 ~ 0.08163. Product ~ 0.9231*0.9216*0.92*0.08163 ~ 0.0641. Exact: 48*47*46*4 = 414528; 52*51*50*49 = 6497400; ratio = 414528/6497400 ~ 0.0638. So ~6.4%. General: P(first ace at position k) = (48)_{k-1} * 4 / (52)_k where (n)_k is falling factorial. Expected position of first ace = (52+1)/(4+1) = 53/5 = 10.6 (negative hypergeometric mean).',
+  'ch08p1_worked_first_ace',
+  'problem_solving',
+  ['first ace', 'without replacement', 'position', 'negative hypergeometric']
+)
+
+// ============================================================
+// VALIDATION & WRITE
+// ============================================================
+
+// De-dup check on topics
+const topicSet = new Set<string>()
+const dupes: string[] = []
+for (const it of items) {
+  if (topicSet.has(it.topic)) dupes.push(it.topic)
+  topicSet.add(it.topic)
+}
+if (dupes.length) {
+  console.error('DUPLICATE TOPICS:', dupes)
+  process.exit(1)
+}
+
+// Validate fields
+for (const it of items) {
+  if (!it.question || !it.answer || !it.topic || !it.keywords.length) {
+    console.error('INVALID ITEM:', it.topic)
+    process.exit(1)
+  }
+  if (!it.answer.includes('\u2713') && it.answer.length < 200) {
+    console.error('SUSPICIOUSLY SHORT ANSWER:', it.topic)
+    process.exit(1)
+  }
+}
+
+const out = {
+  generatedAt: new Date().toISOString(),
+  totalItems: items.length,
+  subject: 'mathematics_formulas_volume_9_chapter_08_part_01',
+  volume:
+    'Volume 9 — Comprehensive Formula Encyclopedia, Chapter 8 Part 1 (Probability & Statistics I: Foundations — Combinatorics & Counting Principles, Axioms of Probability & Sample Spaces, Classical & Geometric Probability, Conditional Probability & Multiplication Rule, Bayes Theorem & Law of Total Probability, Independence & Borel-Cantelli Lemma, Worked Problems)',
+  source: 'TRIZA Generated Formula Dataset',
+  language: 'en',
+  religionNeutral: true,
+  items,
+}
+
+mkdirSync('data', { recursive: true })
+writeFileSync('data/math-formulas-vol9-ch08p1.json', JSON.stringify(out, null, 2))
+
+console.log(`Wrote data/math-formulas-vol9-ch08p1.json with ${items.length} items.`)
+console.log('Topics:')
+for (const it of items) console.log('  -', it.topic)
+const intents = items.reduce<Record<string, number>>((a, it) => {
+  a[it.intent] = (a[it.intent] || 0) + 1
+  return a
+}, {})
+console.log('Intent counts:', intents)
+const lengths = items.map((i) => i.answer.length)
+console.log(
+  'Answer lengths: min',
+  Math.min(...lengths),
+  'max',
+  Math.max(...lengths),
+  'avg',
+  Math.round(lengths.reduce((a, b) => a + b, 0) / lengths.length)
+)
