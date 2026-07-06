@@ -1,0 +1,483 @@
+/**
+ * ============================================================
+ *  Mathematics Formula Encyclopedia — Volume 9
+ *  Comprehensive Formula Reference
+ *  Chapter 7 — Part 2 (Parabolic PDEs: Heat Equation in Depth)
+ *  Heat Equation Derivation & Physical Origin,
+ *  Maximum Principle & Uniqueness,
+ *  Heat Kernel & Fundamental Solution,
+ *  Duhamel's Principle & Nonhomogeneous Heat Equation,
+ *  Energy Methods & Decay Estimates,
+ *  Regularity & Smoothing Properties,
+ *  Black-Scholes & Reaction-Diffusion Equations,
+ *  Worked Problems
+ *  Generator for TRIZA
+ * ============================================================
+ *
+ *  Output: data/math-formulas-vol9-ch07p2.json
+ * ============================================================
+ */
+import { writeFileSync, mkdirSync } from 'fs'
+
+interface MathItem {
+  question: string
+  answer: string
+  topic: string
+  intent: 'factual_question' | 'how_to' | 'formula_recall' | 'problem_solving'
+  keywords: string[]
+}
+
+const items: MathItem[] = []
+
+function add(
+  question: string,
+  answer: string,
+  topic: string,
+  intent: MathItem['intent'] = 'formula_recall',
+  keywords: string[] = []
+) {
+  items.push({ question, answer, topic, intent, keywords })
+}
+
+// ============================================================
+// SECTION 1 — HEAT EQUATION DERIVATION & PHYSICAL ORIGIN (6 items)
+// ============================================================
+add(
+  'How is the heat equation derived from physical principles?',
+  'Derivation of heat equation u_t = alpha Delta u from Fourier\'s law and energy conservation. Consider a rod [0, L] with temperature u(x, t), cross-section A, density rho, specific heat c, thermal conductivity k. Heat content in slice [x, x+dx]: H = rho c A dx u(x, t). Rate of change: dH/dt = rho c A dx u_t. Heat flux (Fourier\'s law): q = -k u_x (heat flows opposite to gradient; k > 0). Net heat into slice = (flux in at x) - (flux out at x+dx) = A[-k u_x(x)] - A[-k u_x(x+dx)] = A k [u_x(x+dx) - u_x(x)] = A k u_{xx} dx. Energy balance: rho c A dx u_t = A k u_{xx} dx. Simplify: u_t = (k/(rho c)) u_{xx} = alpha u_{xx}, where alpha = k/(rho c) is thermal diffusivity (units m^2/s). In 3D: u_t = alpha (u_{xx} + u_{yy} + u_{zz}) = alpha Delta u. With internal heat source f(x, t) (W/m^3): u_t = alpha Delta u + f/(rho c). Boundary conditions: Dirichlet (fixed temperature u = T_0 at end), Neumann (insulated: -k u_x = 0, so u_x = 0), Robin (Newton cooling: -k u_x = h (u - u_env), h = convective coefficient). Initial condition: u(x, 0) = phi(x). Units check: alpha [m^2/s], u_{xx} [K/m^2], so alpha u_{xx} [K/s] = u_t [K/s] ✓. ✓',
+  'ch07p2_heat_derivation',
+  'formula_recall',
+  ['heat equation derivation', 'Fourier law', 'energy conservation', 'thermal diffusivity', 'flux']
+)
+
+add(
+  'What is thermal diffusivity and its physical meaning?',
+  'Thermal diffusivity alpha = k/(rho c) where k = thermal conductivity [W/(m·K)], rho = density [kg/m^3], c = specific heat [J/(kg·K)]. Units: alpha = k/(rho c) = [W/(m·K)] / ([kg/m^3][J/(kg·K)]) = [J/(s·m·K)] / ([J/(m^3·K)]) = [m^2/s]. Physical meaning: alpha measures how quickly heat spreads through a material. Large alpha = fast diffusion (e.g., metals: copper alpha ≈ 1.1×10^{-4} m^2/s, aluminum ≈ 9.7×10^{-5}). Small alpha = slow diffusion (insulators: wood ≈ 1.3×10^{-7}, glass ≈ 3.4×10^{-7}, water ≈ 1.4×10^{-7}). Air alpha ≈ 2.2×10^{-5}. Dimensionless form: rescale x -> x/L, t -> alpha t/L^2, giving u_t = u_{xx} (dimensionless). Characteristic diffusion time: t_diff = L^2/alpha (time for heat to diffuse across length L). Example: heat across 1 m of copper takes t = 1/(1.1×10^{-4}) ≈ 9000 s ≈ 2.5 hours. Across 1 m of wood: t = 1/(1.3×10^{-7}) ≈ 7.7×10^6 s ≈ 89 days. Diffusion length: L_diff = sqrt(alpha t) (distance heat spreads in time t). Relation to heat equation: alpha controls time scale; spatial shape governed by geometry. Anisotropic materials: alpha is a tensor (different in different directions), giving u_t = div(alpha_tensor grad u). ✓',
+  'ch07p2_thermal_diffusivity',
+  'formula_recall',
+  ['thermal diffusivity', 'alpha = k/(rho c)', 'diffusion time', 'diffusion length', 'units m^2/s']
+)
+
+add(
+  'What are the similarity (scaling) properties of the heat equation?',
+  'Scaling invariance of heat equation u_t = alpha u_{xx}. If u(x, t) solves it, then so does u_lambda(x, t) = u(lambda x, lambda^2 t) for any lambda > 0 (with alpha fixed). Verify: (u_lambda)_t = lambda^2 u_t(lambda x, lambda^2 t) = lambda^2 alpha u_{xx}(lambda x, lambda^2 t). (u_lambda)_{xx} = lambda^2 u_{xx}(lambda x, lambda^2 t). So (u_lambda)_t = alpha (u_lambda)_{xx} ✓. Interpretation: if you scale space by lambda, time must scale by lambda^2 to preserve the equation. This is the parabolic scaling: t ~ x^2. Consequence: doubling the spatial scale quadruples the time for the same diffusive effect (t_diff = L^2/alpha). Self-similar solutions: functions of eta = x/sqrt(t) (or x/sqrt(alpha t)) are invariant under this scaling. The heat kernel Phi(x, t) = (1/sqrt(4 pi alpha t)) exp(-x^2/(4 alpha t)) is self-similar: Phi(lambda x, lambda^2 t) = lambda^{-1} Phi(x, t) (scales by lambda^{-1} to conserve mass). Similarity variable: eta = x/(2 sqrt(alpha t)). Burgers similarity, Barenblatt solutions for nonlinear diffusion (porous medium equation u_t = (u^m)_{xx}). Scaling is key to asymptotic analysis: long-time behavior of heat equation is dominated by the self-similar Gaussian profile. ✓',
+  'ch07p2_scaling_similarity',
+  'formula_recall',
+  ['scaling invariance', 'parabolic scaling', 't ~ x^2', 'self-similar', 'similarity variable']
+)
+
+add(
+  'What is the diffusion length and how does it characterize heat spreading?',
+  'Diffusion length L_d(t) = sqrt(alpha t) (or 2 sqrt(alpha t) depending on convention) is the characteristic distance heat diffuses in time t. Derived from the heat kernel: the Gaussian exp(-x^2/(4 alpha t)) has standard deviation sigma = sqrt(2 alpha t), so "width" of the diffusing blob grows as sqrt(alpha t). Physical: in time t, heat (or diffusing particles) typically spreads a distance ~ sqrt(alpha t). Examples: alpha = 10^{-6} m^2/s (typical solid). After 1 s: L = 1 mm. After 1 min: L = 8 mm. After 1 hour: L = 6 cm. After 1 day: L = 30 cm. After 1 year: L = 5.6 m. Square-root growth: unlike waves (linear growth L = c t), diffusion grows only as sqrt(t) — much slower. Consequence: heating a thick object takes very long (t ~ L^2). Random walk interpretation: a particle taking N random steps of length a has RMS displacement sqrt(N) a; with step time tau, N = t/tau, so <x^2> = 2 alpha t (Einstein relation, alpha = a^2/(2 tau)). Mean square displacement: <x^2> = 2 alpha t (1D), <r^2> = 4 alpha t (2D), <r^2> = 6 alpha t (3D). Used in semiconductor physics (minority carrier diffusion length L_n = sqrt(D_n tau_n) where D_n is diffusivity, tau_n is carrier lifetime). ✓',
+  'ch07p2_diffusion_length',
+  'formula_recall',
+  ['diffusion length', 'sqrt(alpha t)', 'mean square displacement', 'random walk', 'Einstein relation']
+)
+
+add(
+  'What is the fundamental solution of the heat equation on the whole line?',
+  'Fundamental solution (heat kernel) of u_t = alpha u_{xx} on -inf < x < inf: Phi(x, t) = (1/sqrt(4 pi alpha t)) exp(-x^2/(4 alpha t)) for t > 0, and Phi(x, 0) = delta(x) (Dirac delta). Properties: (1) Phi solves heat equation for t > 0: Phi_t = alpha Phi_{xx} (verify by direct differentiation). (2) Integral over x: integral_{-inf}^{inf} Phi(x, t) dx = 1 for all t > 0 (mass conservation). (3) Limit t -> 0+: Phi(x, t) -> delta(x) (approximation to identity). (4) Phi > 0 (strict positivity). (5) Symmetric: Phi(-x, t) = Phi(x, t). (6) Maximum at x = 0: Phi(0, t) = 1/sqrt(4 pi alpha t) (decays like t^{-1/2}). (7) Width: std dev sigma = sqrt(2 alpha t). Solution of IVP u_t = alpha u_{xx}, u(x, 0) = f(x): u(x, t) = (Phi * f)(x, t) = integral_{-inf}^{inf} Phi(x - y, t) f(y) dy = integral_{-inf}^{inf} (1/sqrt(4 pi alpha t)) exp(-(x-y)^2/(4 alpha t)) f(y) dy. This convolution smooths f: even if f is discontinuous, u is C^inf for t > 0 (regularization). Infinite propagation speed: for any t > 0, u(x, t) > 0 wherever f > 0 somewhere (Gaussian has infinite tails). In n dimensions: Phi(x, t) = (4 pi alpha t)^{-n/2} exp(-|x|^2/(4 alpha t)). ✓',
+  'ch07p2_heat_kernel_fundamental',
+  'formula_recall',
+  ['heat kernel', 'fundamental solution', 'Gaussian', 'convolution', 'approximation to identity']
+)
+
+add(
+  'How do you derive the heat kernel using similarity methods?',
+  'Similarity (Boltzmann) method to derive heat kernel of u_t = alpha u_{xx}. Step 1: identify scaling: x -> lambda x, t -> lambda^2 t (parabolic scaling). Step 2: seek self-similar solution u(x, t) = t^{-beta} F(eta) where eta = x/sqrt(t) (or eta = x/(2 sqrt(alpha t))). Mass conservation: integral u dx = const implies t^{-beta} integral F(eta) sqrt(t) d eta = const, so -beta + 1/2 = 0, beta = 1/2. So u(x, t) = t^{-1/2} F(eta), eta = x/(2 sqrt(alpha t)). Step 3: substitute into heat equation. u_t = (-1/2) t^{-3/2} F + t^{-1/2} F\' · (d eta/d t) = (-1/2) t^{-3/2} F + t^{-1/2} F\' · (-eta/(2 t)) = t^{-3/2} [(-1/2) F - (eta/2) F\']. u_x = t^{-1/2} F\' · (1/(2 sqrt(alpha t))) = t^{-1} F\'/(2 sqrt(alpha)). u_{xx} = t^{-1} (1/(2 sqrt(alpha))) F\'\' · (1/(2 sqrt(alpha t))) = t^{-3/2} F\'\'/(4 alpha). Heat eq u_t = alpha u_{xx}: t^{-3/2} [(-1/2) F - (eta/2) F\'] = alpha · t^{-3/2} F\'\'/(4 alpha) = t^{-3/2} F\'\'/4. Multiply by t^{3/2}: (-1/2) F - (eta/2) F\' = F\'\'/4. ODE: F\'\' + 2 eta F\' + 2 F = 0. Step 4: solve ODE. Recognize (F\' + 2 eta F)\' = 0? Check: d/d eta (F\' + 2 eta F) = F\'\' + 2 F + 2 eta F\' = F\'\' + 2 eta F\' + 2 F = 0 ✓. So F\' + 2 eta F = C. Bounded at eta -> inf: F -> 0, F\' -> 0, so C = 0. F\' = -2 eta F, dF/F = -2 eta d eta, ln F = -eta^2 + const, F = A exp(-eta^2). Step 5: normalize. integral Phi dx = 1: A/sqrt(t) integral exp(-x^2/(4 alpha t)) dx = A/sqrt(t) · sqrt(4 pi alpha t) = A sqrt(4 pi alpha) = 1, so A = 1/sqrt(4 pi alpha). Phi(x, t) = (1/sqrt(4 pi alpha t)) exp(-x^2/(4 alpha t)) ✓. ✓',
+  'ch07p2_heat_kernel_similarity',
+  'problem_solving',
+  ['similarity method', 'Boltzmann transformation', 'self-similar', 'eta = x/sqrt(t)', 'derive heat kernel']
+)
+
+// ============================================================
+// SECTION 2 — MAXIMUM PRINCIPLE & UNIQUENESS (6 items)
+// ============================================================
+add(
+  'What is the maximum principle for the heat equation?',
+  'Maximum principle (weak form) for heat equation u_t = alpha Delta u on bounded domain D with parabolic boundary Gamma = (D_boundary × [0, T]) ∪ (D × {t = 0}). Statement: the maximum of u on the closed cylinder D̄ × [0, T] is attained on the parabolic boundary Gamma. Equivalently: if u_t = alpha Delta u in D × (0, T], then max_{D̄ × [0,T]} u = max_{Gamma} u. Similarly min_{D̄ × [0,T]} u = min_{Gamma} u (apply to -u). Strong maximum principle: if u attains its maximum at an interior point (x_0, t_0) with x_0 in D, t_0 in (0, T], then u is constant on D × [0, t_0]. Physical: heat cannot develop a hot spot in the interior without a hotter source on the boundary; temperature at any interior point is bounded by the max of initial and boundary temperatures. Contrast with wave equation (no max principle; interior can exceed boundary). Elliptic case: Laplace also has strong max principle (max on boundary; interior max => harmonic function constant). Consequences: (1) Uniqueness: if u_1, u_2 both solve heat eq with same IC and BC, then w = u_1 - u_2 solves heat eq with w = 0 on Gamma, so max w = max 0 = 0 and min w = 0, hence w = 0. (2) Comparison: if u_t = alpha Delta u and v_t = alpha Delta v with u <= v on Gamma, then u <= v everywhere. (3) Stability: |u| <= max |u| on Gamma, so small perturbations of data give small perturbations of solution. Proof uses that at an interior max, u_t >= 0 (if t < T) or u_t = 0 (if t < T), and Delta u <= 0, so u_t - alpha Delta u >= 0; contradiction with = 0 unless u constant. ✓',
+  'ch07p2_maximum_principle',
+  'formula_recall',
+  ['maximum principle', 'weak strong', 'parabolic boundary', 'interior max', 'comparison']
+)
+
+add(
+  'How does the maximum principle imply uniqueness for the heat equation?',
+  'Uniqueness via maximum principle. Setup: heat equation u_t = alpha Delta u on bounded domain D × (0, T] with u = g on boundary ∂D × [0, T] (Dirichlet) and u(x, 0) = f(x) (initial). Claim: at most one solution. Proof: suppose u_1 and u_2 both solve. Let w = u_1 - u_2. Then w_t = alpha Delta w (linearity) with w = 0 on parabolic boundary Gamma = (∂D × [0, T]) ∪ (D × {t = 0}) (since u_1 = u_2 = g on ∂D, = f on t = 0). By weak max principle: max_{D̄ × [0,T]} w = max_{Gamma} w = max 0 = 0. So w <= 0, i.e., u_1 <= u_2. By min principle (apply to -w): min w = min_{Gamma} w = 0, so w >= 0, i.e., u_1 >= u_2. Hence w = 0, u_1 = u_2 everywhere. ✓ Uniqueness. Neumann/Robin BCs: same argument (w = 0 or partial w/partial n = 0 on ∂D, so w = 0 on Gamma in Dirichlet sense — actually for Neumann the max principle still gives max on Gamma but the boundary part needs care; use energy method instead for Neumann). Unbounded domain (x in R^n): max principle doesn\'t directly apply; need growth condition at infinity (Tychonoff example: nontrivial solution with zero IC for heat eq on whole line, if no growth restriction). With growth condition |u(x, t)| <= C e^{a x^2}, uniqueness holds. Stability: continuous dependence on data. If u, v solve with ||u - v||_{Gamma} < eps, then ||u - v||_{D̄ × [0,T]} < eps (max principle). So heat equation is well-posed (Hadamard) on bounded domains. ✓',
+  'ch07p2_uniqueness_max_principle',
+  'formula_recall',
+  ['uniqueness', 'maximum principle', 'difference w = u1 - u2', 'well-posed', 'Tychonoff']
+)
+
+add(
+  'What is the comparison principle for parabolic equations?',
+  'Comparison principle (for parabolic PDEs): if u and v both satisfy u_t = alpha Delta u + f (same equation) on D × (0, T], and u <= v on the parabolic boundary Gamma = (∂D × [0, T]) ∪ (D × {t = 0}), and f is the same for both, then u <= v everywhere in D̄ × [0, T]. Proof: let w = u - v. Then w_t = alpha Delta w, w <= 0 on Gamma. By max principle, max w = max_{Gamma} w <= 0, so w <= 0, hence u <= v. ✓ Nonlinear extension: if u_t - alpha Delta u <= v_t - alpha Delta v in D × (0, T] (i.e., u is "subsolution", v is "supersolution"), and u <= v on Gamma, then u <= v everywhere. This is the basis of sub/supersolution method for nonlinear parabolic PDEs: find a subsolution u_ (below) and supersolution u^ (above); then a true solution exists between them. Application: reaction-diffusion u_t = alpha Delta u + f(u) with f smooth. If u_ is subsolution (u_{_,t} <= alpha Delta u_ + f(u_)) and u^ supersolution, and u_ <= u^ on Gamma, then u_ <= u <= u^. Monotone iteration: construct sequence u_n from u_{n+1, t} = alpha Delta u_{n+1} + f(u_n); converges to a solution. Physical: if initial/boundary temperatures of u are below those of v, interior temperatures stay ordered. Contrast elliptic: Laplace also has comparison; hyperbolic (wave) does NOT (waves can overtake). Strong comparison: if u < v on a boundary portion and equation holds, then u < v in interior (strict). ✓',
+  'ch07p2_comparison_principle',
+  'formula_recall',
+  ['comparison principle', 'subsolution supersolution', 'monotone iteration', 'parabolic', 'ordered']
+)
+
+add(
+  'What is the boundedness/stability estimate from the maximum principle?',
+  'Stability estimate from max principle for heat equation u_t = alpha Delta u with u = g on ∂D × [0, T] and u(x, 0) = f(x). Bound: |u(x, t)| <= max{ sup_{∂D × [0,T]} |g|, sup_{x in D} |f(x)| } for all (x, t) in D̄ × [0, T]. Proof: let M = max of |f| and |g| bounds on parabolic boundary. Then -M <= u <= M on Gamma. By max/min principle: -M <= min_{Gamma} u <= u <= max_{Gamma} u <= M. So |u| <= M. ✓ Continuous dependence on data: if u_1 solves with data (f_1, g_1) and u_2 with (f_2, g_2), then |u_1 - u_2| <= max{ sup |f_1 - f_2|, sup |g_1 - g_2| }. So small perturbation eps in initial/boundary data gives at most eps perturbation in solution. This is the third Hadamard condition (continuous dependence), confirming well-posedness. Energy method alternative: ||u(t)||_{L^2} <= ||f||_{L^2} (energy non-increasing for heat eq with homogeneous BC). Bound with source: u_t = alpha Delta u + F, |u| <= max{ sup|f|, sup|g| } + T sup|F| (integrate forcing). Higher norms: ||u(t)||_{L^inf} <= ||f||_{L^inf} (no boundary, whole space; follows from heat kernel representation |u(x,t)| <= ||f||_{L^inf} integral Phi = ||f||_{L^inf}). For Neumann/Robin: similar bounds but constants differ. Contrast with backward heat equation u_t = -alpha Delta u (ill-posed; no max principle; small high-freq noise grows exponentially). ✓',
+  'ch07p2_stability_estimate',
+  'formula_recall',
+  ['stability estimate', 'boundedness', 'continuous dependence', 'Hadamard', 'L infinity bound']
+)
+
+add(
+  'What is the Tychonoff non-uniqueness example for the heat equation?',
+  'Tychonoff (1935) example: nontrivial solution of heat equation u_t = u_{xx} on whole line R × (0, inf) with u(x, 0) = 0 (zero initial data) but u != 0 for t > 0. Construction: u(x, t) = sum_{n=0}^{inf} g^{(n)}(t) x^{2n}/(2n)! where g(t) = exp(-1/t^2) for t > 0, g(0) = 0. Verify: u_t = sum g^{(n+1)}(t) x^{2n}/(2n)!, u_{xx} = sum g^{(n+1)}(t) x^{2n}/(2n)! (termwise; uses g^{(n)}(0) = 0 for all n, which is why exp(-1/t^2) works). So u_t = u_{xx} ✓. Initial: u(x, 0) = sum g^{(n)}(0) x^{2n}/(2n)! = g(0) + 0 + ... = 0 ✓. But for t > 0: u != 0 (since g(t) > 0 for t > 0, leading term g(t) > 0). So non-uniqueness on unbounded domain without growth condition. Moral: on whole line R^n, heat equation uniqueness requires a growth condition at infinity. Standard: |u(x, t)| <= C e^{A |x|^2} for some constants C, A (Tychonoff growth condition). With this, uniqueness holds. Without: Tychonoff counterexample. Physical: solutions growing faster than e^{|x|^2} at infinity are "non-physical"; they correspond to infinite energy configurations. Bounded domain: no such issue; max principle gives uniqueness directly (no growth condition needed because domain is bounded). Practical: all physically meaningful solutions (bounded, polynomial growth, exponential growth) satisfy the Tychonoff condition, so heat equation is effectively unique for practical purposes. This is a "mathematical curiosity" showing the importance of growth conditions in PDE theory on unbounded domains. ✓',
+  'ch07p2_tychonoff_example',
+  'formula_recall',
+  ['Tychonoff', 'non-uniqueness', 'heat equation whole line', 'growth condition', 'exp(-1/t^2)']
+)
+
+add(
+  'How do you prove uniqueness using the energy method for the heat equation?',
+  'Energy method for uniqueness of heat equation u_t = alpha Delta u on bounded domain D with homogeneous BC (u = 0 on ∂D, or partial u/partial n = 0) and IC u(x, 0) = f(x). Suppose u_1, u_2 solve. Let w = u_1 - u_2. Then w_t = alpha Delta w, w = 0 on ∂D × [0, T] (or partial w/partial n = 0), w(x, 0) = 0. Define energy E(t) = (1/2) integral_D w^2 dx. dE/dt = integral_D w w_t dx = integral_D w (alpha Delta w) dx = alpha integral_D w Delta w dx. Integrate by parts (Green\'s identity): integral_D w Delta w dx = -integral_D |grad w|^2 dx + integral_{∂D} w (partial w/partial n) dS. With Dirichlet (w = 0 on ∂D) or Neumann (partial w/partial n = 0): boundary term = 0. So dE/dt = -alpha integral_D |grad w|^2 dx <= 0. So E(t) is non-increasing. E(0) = (1/2) integral w(x, 0)^2 dx = 0. E(t) <= E(0) = 0. But E(t) >= 0 always, so E(t) = 0, hence w = 0 a.e., u_1 = u_2. ✓ Uniqueness. Energy estimate: ||u(t)||_{L^2} <= ||f||_{L^2} (energy non-increasing). With forcing F: dE/dt = -alpha ||grad w||^2 + integral w F dx <= -alpha ||grad w||^2 + ||w|| · ||F|| (Cauchy-Schwarz). Gives Gronwall-type estimate. Advantages of energy method: works for Neumann/Robin BCs where max principle is awkward; generalizes to variable coefficients and nonlinear PDEs. Backward heat eq: dE/dt = +alpha ||grad w||^2 (sign flips), E grows -> ill-posed. ✓',
+  'ch07p2_energy_uniqueness',
+  'problem_solving',
+  ['energy method', 'uniqueness', 'E(t) = integral w^2', 'integration by parts', 'non-increasing']
+)
+
+// ============================================================
+// SECTION 3 — HEAT KERNEL & FUNDAMENTAL SOLUTION (7 items)
+// ============================================================
+add(
+  'What is the heat kernel in multiple dimensions?',
+  'Heat kernel (fundamental solution) of u_t = alpha Delta u in R^n: Phi(x, t) = (4 pi alpha t)^{-n/2} exp(-|x|^2/(4 alpha t)) for t > 0, x in R^n. Here |x|^2 = x_1^2 + ... + x_n^2. Properties (n-D): (1) Solves heat equation for t > 0. (2) integral_{R^n} Phi dx = 1 (mass 1). (3) Phi(x, t) -> delta(x) as t -> 0+. (4) Phi > 0. (5) Radially symmetric (depends only on |x|). (6) Product structure: in R^n = R × ... × R, Phi_n(x, t) = Phi_1(x_1, t) Phi_1(x_2, t) ... Phi_1(x_n, t) (n-fold product of 1D kernels). (7) L^inf norm: Phi(0, t) = (4 pi alpha t)^{-n/2} (decays like t^{-n/2}). Solution of IVP u(x, 0) = f(x): u(x, t) = integral_{R^n} Phi(x - y, t) f(y) dy. Smoothing: u is C^inf in x for t > 0 even if f is only L^inf. Decay: ||Phi(·, t)||_{L^p} = (8 pi alpha t)^{-n/(2p)} (1/(p^{n/2}))... (specific formula). For 2D: Phi = (1/(4 pi alpha t)) exp(-r^2/(4 alpha t)). For 3D: Phi = (4 pi alpha t)^{-3/2} exp(-r^2/(4 alpha t)). Heat kernel is the "transition density" of Brownian motion: P(X_t in dy | X_0 = x) = Phi(y - x, t) dy. Var(X_t) = 2 alpha t per dimension. ✓',
+  'ch07p2_heat_kernel_nd',
+  'formula_recall',
+  ['heat kernel n-D', 'fundamental solution', 'Gaussian', 'product structure', 'Brownian motion']
+)
+
+add(
+  'How do you compute the convolution solution u(x,t) = integral Phi(x-y,t) f(y) dy for specific initial data?',
+  'Convolution solution of u_t = alpha u_{xx}, u(x, 0) = f(x): u(x, t) = integral_{-inf}^{inf} (1/sqrt(4 pi alpha t)) exp(-(x-y)^2/(4 alpha t)) f(y) dy. Example 1: f(x) = delta(x-a) (point source). u(x, t) = Phi(x - a, t) = (1/sqrt(4 pi alpha t)) exp(-(x-a)^2/(4 alpha t)) (just the kernel centered at a). Example 2: f(x) = 1 (constant). u(x, t) = integral Phi f = 1 · integral Phi = 1 (mass conservation; constant is preserved). Example 3: f(x) = e^{i k x} (Fourier mode). u(x, t) = e^{i k x} e^{-alpha k^2 t} (Fourier mode decays exponentially with rate alpha k^2; high frequencies decay fast — smoothing). Example 4: f(x) = e^{-x^2/(4 sigma^2)} (Gaussian IC). u(x, t) = (sigma/sqrt(sigma^2 + alpha t)) exp(-x^2/(4 (sigma^2 + alpha t))) (Gaussian stays Gaussian, variance grows: sigma^2 -> sigma^2 + 2 alpha t... check: var = 2 sigma^2 initially (from exp(-x^2/(4 sigma^2)) means var = 2 sigma^2); after time t: var = 2 sigma^2 + 2 alpha t). Example 5: f(x) = step function (1 for x > 0, 0 for x < 0). u(x, t) = (1/2) erfc(-x/sqrt(4 alpha t)) = (1/2)(1 + erf(x/sqrt(4 alpha t))) (error function solution; smooths the jump). Example 6: f(x) = sin(k x). u(x, t) = sin(k x) e^{-alpha k^2 t} (oscillation preserved, amplitude decays). The convolution always smooths f for t > 0. ✓',
+  'ch07p2_convolution_examples',
+  'problem_solving',
+  ['convolution solution', 'specific initial data', 'Gaussian IC', 'Fourier mode', 'error function']
+)
+
+add(
+  'What is the method of images for the heat equation on a half-line?',
+  'Method of images for heat equation on half-line x > 0 with Dirichlet BC u(0, t) = 0 and IC u(x, 0) = f(x) for x > 0. Extend f to whole line as odd function: f_ext(x) = f(x) for x > 0, f_ext(x) = -f(-x) for x < 0. Solve on whole line: u_ext(x, t) = integral Phi(x - y, t) f_ext(y) dy. By symmetry (f_ext odd, Phi even in (x-y)): u_ext(0, t) = 0 (odd integrand over symmetric domain). Restrict to x > 0: u(x, t) = u_ext(x, t) solves the half-line problem with u(0, t) = 0. Explicit: u(x, t) = integral_0^inf [Phi(x - y, t) - Phi(x + y, t)] f(y) dy (difference of kernel at y and -y). Neumann BC (insulated) partial u/partial x(0, t) = 0: extend f as even function f_ext(x) = f(|x|). Solution: u(x, t) = integral_0^inf [Phi(x - y, t) + Phi(x + y, t)] f(y) dy (sum, not difference). Verify: partial u/partial x at x = 0 = integral [Phi_x(-y, t) + Phi_x(y, t)] f(y) dy = 0 (since Phi_x is odd: Phi_x(-y) = -Phi_x(y)). ✓ Finite interval [0, L] with Dirichlet: infinite series of images. u(x, t) = sum_{n=-inf}^inf integral_0^L [Phi(x - y - 2nL, t) - Phi(x + y - 2nL, t)] f(y) dy. Equivalent to Fourier sine series solution. Physical interpretation: image charges (like electrostatics). Heat from a source at y > 0 is canceled at x = 0 by an "image sink" at -y. ✓',
+  'ch07p2_method_of_images',
+  'problem_solving',
+  ['method of images', 'half-line', 'Dirichlet Neumann', 'odd even extension', 'image charge']
+)
+
+add(
+  'What is the Poisson formula for the heat equation on a bounded interval?',
+  'Poisson formula (series solution) for heat equation u_t = alpha u_{xx} on [0, L] with Dirichlet BC u(0, t) = u(L, t) = 0 and IC u(x, 0) = f(x). Separation of variables: u(x, t) = X(x) T(t). X T\' = alpha X\'\' T => T\'/(alpha T) = X\'\'/X = -lambda. X\'\' + lambda X = 0, X(0) = X(L) = 0. Eigenvalues: lambda_n = (n pi/L)^2, n = 1, 2, .... Eigenfunctions: X_n(x) = sin(n pi x/L). Time: T_n\' + alpha lambda_n T_n = 0, T_n(t) = exp(-alpha (n pi/L)^2 t). General solution: u(x, t) = sum_{n=1}^inf b_n sin(n pi x/L) exp(-alpha (n pi/L)^2 t), where b_n = (2/L) integral_0^L f(x) sin(n pi x/L) dx (Fourier sine coefficients of f). Decay rates: each mode decays as exp(-alpha (n pi/L)^2 t); higher n decays faster (smoothing). Long-time: only n = 1 mode survives: u ~ b_1 sin(pi x/L) exp(-alpha (pi/L)^2 t). Neumann BC (insulated u_x = 0 at both ends): eigenvalues (n pi/L)^2 with n = 0, 1, 2, ...; eigenfunctions cos(n pi x/L); n = 0 gives constant mode (no decay; approaches average (1/L) integral f). Robin BC: transcendental eigenvalue equation. Nonhomogeneous BC: subtract a function satisfying the BCs (lifting), solve homogeneous for the difference. Nonhomogeneous PDE u_t = alpha u_{xx} + F: use Duhamel or expand F in sine series and solve each mode. ✓',
+  'ch07p2_poisson_formula',
+  'problem_solving',
+  ['Poisson formula', 'series solution', 'separation of variables', 'Fourier sine', 'eigenvalues decay']
+)
+
+add(
+  'What is the asymptotic long-time behavior of the heat equation?',
+  'Long-time behavior of heat equation u_t = alpha Delta u on bounded domain D with absorbing (Dirichlet) BC u = 0 on ∂D. Spectral decomposition: u(x, t) = sum_n c_n phi_n(x) exp(-alpha lambda_n t), where (lambda_n, phi_n) are eigenpairs of -Delta with Dirichlet BC. Principal eigenvalue lambda_1 > 0 (smallest), phi_1 > 0 in D (Krein-Rutman / Perron-Frobenius). As t -> inf: u(x, t) ~ c_1 phi_1(x) exp(-alpha lambda_1 t). All higher modes decay faster. So solution approaches the shape of the first eigenfunction, decaying at rate alpha lambda_1. Example: interval [0, L] Dirichlet. lambda_1 = (pi/L)^2, phi_1 = sin(pi x/L). u ~ c_1 sin(pi x/L) exp(-alpha (pi/L)^2 t). Half-life: t_{1/2} = ln(2)/(alpha lambda_1) = L^2 ln 2/(alpha pi^2). Neumann BC: lambda_1 = 0 (constant eigenfunction), so solution approaches the average (1/|D|) integral_D f (mass conservation; no decay). Higher modes decay. Whole line R^n: no spectral gap; decay is algebraic, not exponential. ||u(t)||_{L^inf} ~ t^{-n/2} (heat kernel decay). ||u(t)||_{L^2} ~ t^{-n/4}. With integrable f of mass M: u(x, t) ~ M Phi(x, t) = M (4 pi alpha t)^{-n/2} exp(-|x|^2/(4 alpha t)) (approaches the fundamental solution scaled by total mass). Multi-dimensional bounded D: principal eigenvalue depends on geometry (Weyl asymptotics: N(lambda) ~ (omega_n/(2 pi)^n) |D| lambda^{n/2}; lambda_1 ~ (2 pi)^2/(omega_n^{2/n} |D|^{2/n})). ✓',
+  'ch07p2_asymptotic_behavior',
+  'formula_recall',
+  ['long-time behavior', 'principal eigenvalue', 'spectral decay', 'algebraic decay', 'asymptotic']
+)
+
+add(
+  'How do you compute the heat kernel using Fourier transform?',
+  'Fourier transform derivation of heat kernel. Setup: u_t = alpha u_{xx} on R, u(x, 0) = f(x). Take Fourier transform in x: hat u(k, t) = integral u(x, t) e^{-i k x} dx. Transform of u_{xx}: (ik)^2 hat u = -k^2 hat u. So PDE becomes: hat u_t = -alpha k^2 hat u, with hat u(k, 0) = hat f(k). ODE in t for each k: hat u(k, t) = hat f(k) exp(-alpha k^2 t). Solution: hat u(k, t) = hat f(k) e^{-alpha k^2 t}. Inverse transform: u(x, t) = (1/(2 pi)) integral hat f(k) e^{-alpha k^2 t} e^{i k x} dk = (1/(2 pi)) integral [integral f(y) e^{-i k y} dy] e^{-alpha k^2 t} e^{i k x} dk. Swap integrals: u(x, t) = integral f(y) [(1/(2 pi)) integral e^{-alpha k^2 t + i k (x - y)} dk] dy. Compute inner integral (Gaussian): integral_{-inf}^inf e^{-alpha k^2 t + i k (x-y)} dk = sqrt(pi/(alpha t)) exp(-(x-y)^2/(4 alpha t)). So u(x, t) = integral f(y) [sqrt(pi/(alpha t))/(2 pi)] exp(-(x-y)^2/(4 alpha t)) dy = integral f(y) [1/sqrt(4 pi alpha t)] exp(-(x-y)^2/(4 alpha t)) dy. So heat kernel Phi(x - y, t) = (1/sqrt(4 pi alpha t)) exp(-(x-y)^2/(4 alpha t)) ✓. Fourier interpretation: e^{-alpha k^2 t} is a low-pass filter; high frequencies (large k) are damped exponentially. Smoothing property: uhat(k, t) decays like e^{-alpha k^2 t} for large k, so u is C^inf. ✓',
+  'ch07p2_fourier_derivation',
+  'problem_solving',
+  ['Fourier transform', 'heat kernel derivation', 'low-pass filter', 'Gaussian integral', 'smoothing']
+)
+
+add(
+  'What is the heat kernel on a general bounded domain (eigenfunction expansion)?',
+  'Heat kernel on bounded domain D with Dirichlet BC. Spectral theorem: -Delta with Dirichlet BC has eigenpairs (lambda_n, phi_n) with 0 < lambda_1 < lambda_2 <= lambda_3 ... -> inf, phi_n orthonormal in L^2(D). Heat kernel: K_D(x, y, t) = sum_{n=1}^inf e^{-alpha lambda_n t} phi_n(x) phi_n(y). Solution: u(x, t) = integral_D K_D(x, y, t) f(y) dy. Properties: (1) K_D solves heat eq in (x, t): (partial_t - alpha Delta_x) K_D = 0. (2) K_D(x, y, 0) = delta(x - y) (completeness of eigenfunctions). (3) Symmetric: K_D(x, y, t) = K_D(y, x, t). (4) Positive: K_D > 0 for t > 0 (strong max principle). (5) integral K_D dy = survival probability (decays as e^{-alpha lambda_1 t} for absorbing BC). Examples: Interval [0, L] Dirichlet: lambda_n = (n pi/L)^2, phi_n = sqrt(2/L) sin(n pi x/L). K = (2/L) sum sin(n pi x/L) sin(n pi y/L) exp(-alpha (n pi/L)^2 t). Rectangle [0,a]×[0,b]: lambda_{mn} = (m pi/a)^2 + (n pi/b)^2, phi_{mn} = (2/sqrt(ab)) sin(m pi x/a) sin(n pi y/b). K = sum_{m,n} phi_{mn}(x,y) phi_{mn}(y) e^{-alpha lambda_{mn} t}. Disk: eigenfunctions are J_m(j_{m,n} r/a) cos(m theta) (Bessel functions), eigenvalues (j_{m,n}/a)^2. Spectral zeta, heat trace: integral_D K_D(x, x, t) dx = sum e^{-alpha lambda_n t} ~ |D|/(4 pi alpha t)^{n/2} (Weyl asymptotic as t -> 0+). ✓',
+  'ch07p2_heat_kernel_eigenfunction',
+  'formula_recall',
+  ['heat kernel bounded domain', 'eigenfunction expansion', 'spectral theorem', 'Dirichlet', 'heat trace']
+)
+
+// ============================================================
+// SECTION 4 — DUHAMEL'S PRINCIPLE & NONHOMOGENEOUS HEAT EQUATION (6 items)
+// ============================================================
+add(
+  'What is Duhamel\'s principle for the nonhomogeneous heat equation?',
+  'Duhamel\'s principle for u_t = alpha Delta u + F(x, t) on R^n (or bounded D with BC), u(x, 0) = f(x). Idea: F(x, t) acts as a continuous distribution of instantaneous sources. At time s, an impulse F(x, s) ds adds F(x, s) ds to the solution. This impulse then evolves by the homogeneous heat equation from time s to t (duration t - s). Formula: u(x, t) = integral_{-inf}^{inf} Phi(x - y, t) f(y) dy + integral_0^t integral Phi(x - y, t - s) F(y, s) dy ds. First term: evolution of initial data (homogeneous). Second term: superposition of impulses F(y, s) dy ds at point y, time s, each evolving for duration t - s. Verify: u_t = alpha Delta u + F. The first term solves homogeneous heat eq with IC f. The second term (Duhamel integral): partial derivative in t brings down (t - s) -> 0 limit giving F(x, t) (initial layer at s = t) plus the heat eq evolution. Bounded domain: replace Phi with K_D (Dirichlet heat kernel). Duhamel\'s principle is a special case of the variation of parameters / superposition principle. For ODEs: x\' = A x + F(t), x(0) = x_0, solution x(t) = e^{At} x_0 + integral_0^t e^{A(t-s)} F(s) ds. Duhamel is the PDE analog with e^{A t} -> heat semigroup e^{alpha t Delta}. Boundary forcing: if BC is nonhomogeneous u = g on ∂D, first lift to homogeneous by subtracting an extension of g, then apply Duhamel for the residual source. ✓',
+  'ch07p2_duhamel_principle',
+  'formula_recall',
+  ['Duhamel principle', 'nonhomogeneous heat equation', 'variation of parameters', 'impulse', 'superposition']
+)
+
+add(
+  'How do you solve u_t = alpha u_{xx} + F(x,t) with u(x,0) = f(x) on the whole line?',
+  'Solving nonhomogeneous heat equation on R: u_t = alpha u_{xx} + F(x, t), u(x, 0) = f(x). By Duhamel\'s principle: u(x, t) = integral Phi(x - y, t) f(y) dy + integral_0^t integral Phi(x - y, t - s) F(y, s) dy ds, where Phi(x, t) = (4 pi alpha t)^{-1/2} exp(-x^2/(4 alpha t)). Worked example: F(x, t) = 1 (constant source), f(x) = 0. u(x, t) = 0 + integral_0^t integral Phi(x - y, t - s) · 1 dy ds = integral_0^t 1 ds = t (since integral Phi dy = 1). So u(x, t) = t (temperature rises linearly from constant heating; no diffusion loss on whole line). Check: u_t = 1 = alpha u_{xx} + F = 0 + 1 ✓. Worked: F(x, t) = delta(x) delta(t) (instantaneous point source at origin at t = 0), f = 0. u(x, t) = integral_0^t integral Phi(x - y, t - s) delta(y) delta(s) dy ds = Phi(x, t) (the heat kernel itself; makes sense). Worked: F(x, t) = sin(x) (oscillatory), f = 0. Try u = A(t) sin(x): u_t = A\' sin, alpha u_{xx} = -alpha A sin. A\' sin = -alpha A sin + sin => A\' + alpha A = 1, A(0) = 0. A(t) = (1 - e^{-alpha t})/alpha. So u = (1 - e^{-alpha t})/alpha · sin(x). Verify via Duhamel: integral_0^t e^{-alpha (t-s)} sin(x) ds = sin(x) (1 - e^{-alpha t})/alpha ✓. ✓',
+  'ch07p2_duhamel_solve',
+  'problem_solving',
+  ['Duhamel solve', 'nonhomogeneous', 'worked examples', 'instantaneous source', 'oscillatory forcing']
+)
+
+add(
+  'How do you handle nonhomogeneous boundary conditions for the heat equation?',
+  'Nonhomogeneous BC for heat equation: u_t = alpha u_{xx} on [0, L], u(0, t) = g_0(t), u(L, t) = g_L(t), u(x, 0) = f(x). Method (lifting): find a simple function v(x, t) satisfying the BCs (but not necessarily the PDE or IC). Linear in x: v(x, t) = g_0(t) (1 - x/L) + g_L(t) (x/L). Set w = u - v. Then w satisfies: w_t = alpha w_{xx} + [alpha v_{xx} - v_t] = alpha w_{xx} - v_t (since v_{xx} = 0 for linear v). So w_t = alpha w_{xx} - v_t = alpha w_{xx} + F(x, t), where F = -v_t = -g_0\'(t)(1 - x/L) - g_L\'(t)(x/L). BC: w(0, t) = w(L, t) = 0 (homogeneous Dirichlet). IC: w(x, 0) = f(x) - v(x, 0) = f(x) - g_0(0)(1 - x/L) - g_L(0)(x/L). Now solve homogeneous BC problem for w with source F (using eigenfunction expansion or Duhamel). Then u = w + v. Neumann BC: partial u/partial x(0, t) = h_0(t), partial u/partial x(L, t) = h_L(t). Lift: v(x, t) = h_0(t) x + (h_L(t) - h_0(t)) x^2/(2L) (so v_x(0) = h_0, v_x(L) = h_0 + (h_L - h_0) = h_L). Time-dependent BC complicates: v_{xx} != 0 now, contributes to F. Robin: similar but lifting is more involved. Compatibility: for smooth solution, IC and BC must agree at corners: f(0) = g_0(0), f(L) = g_L(0). If not, solution has initial transient (corner singularity). ✓',
+  'ch07p2_nonhomogeneous_bc',
+  'problem_solving',
+  ['nonhomogeneous boundary', 'lifting', 'v(x,t)', 'homogeneous reduction', 'compatibility']
+)
+
+add(
+  'How do you solve the heat equation with a time-dependent source using eigenfunction expansion?',
+  'Eigenfunction expansion for nonhomogeneous heat eq u_t = alpha Delta u + F(x, t) on bounded D with homogeneous Dirichlet BC u = 0 on ∂D, u(x, 0) = f(x). Eigenbasis: phi_n orthonormal eigenfunctions of -Delta with Dirichlet BC, eigenvalues lambda_n. Expand: u(x, t) = sum a_n(t) phi_n(x), F(x, t) = sum F_n(t) phi_n(x) where F_n(t) = integral_D F(x, t) phi_n(x) dx. Substitute: sum a_n\'(t) phi_n = alpha sum (-lambda_n) a_n phi_n + sum F_n phi_n. Orthogonality: a_n\'(t) + alpha lambda_n a_n(t) = F_n(t). ODE for each mode. Solution: a_n(t) = a_n(0) e^{-alpha lambda_n t} + integral_0^t e^{-alpha lambda_n (t - s)} F_n(s) ds, where a_n(0) = integral_D f(x) phi_n(x) dx. Full solution: u(x, t) = sum_n [a_n(0) e^{-alpha lambda_n t} + integral_0^t e^{-alpha lambda_n (t-s)} F_n(s) ds] phi_n(x). Worked: F(x, t) = sin(pi x/L) (single mode forcing on [0, L]). lambda_1 = (pi/L)^2, phi_1 = sqrt(2/L) sin(pi x/L). F_1(t) = sqrt(2/L) · (L/2) = sqrt(L/2) (projection). Wait, with orthonormal phi_1: F_1 = integral_0^L sin(pi x/L) · sqrt(2/L) sin(pi x/L) dx = sqrt(2/L) (L/2) = sqrt(L/2). a_1(t) = a_1(0) e^{-alpha (pi/L)^2 t} + sqrt(L/2) integral_0^t e^{-alpha (pi/L)^2 (t-s)} ds. With f = 0: a_1(0) = 0, a_1(t) = sqrt(L/2) (1 - e^{-alpha (pi/L)^2 t})/(alpha (pi/L)^2). u(x, t) = a_1(t) sqrt(2/L) sin(pi x/L) = (1 - e^{-alpha (pi/L)^2 t})/(alpha (pi/L)^2) sin(pi x/L). Approaches steady state (1/(alpha (pi/L)^2)) sin(pi x/L) = (L/(alpha pi))^2 sin(pi x/L) as t -> inf. ✓',
+  'ch07p2_eigenfunction_nonhomogeneous',
+  'problem_solving',
+  ['eigenfunction expansion', 'nonhomogeneous', 'modal ODE', 'steady state', 'forced heat']
+)
+
+add(
+  'What is the heat semigroup and how does it formalize the solution operator?',
+  'Heat semigroup formalism. Define the operator A = alpha Delta (with appropriate domain, e.g., H^2 ∩ H^1_0 for Dirichlet BC). Heat equation u_t = A u, u(0) = f. Solution operator: u(t) = S(t) f where S(t) = e^{t A} = e^{alpha t Delta} is the heat semigroup. Properties (semigroup theory, Hille-Yosida): (1) S(0) = I (identity). (2) S(t + s) = S(t) S(s) (semigroup property). (3) t -> S(t) f is continuous (strong continuity). (4) ||S(t)|| <= 1 (contraction semigroup; energy decreasing). (5) Generator: A f = lim_{t -> 0+} (S(t) f - f)/t (domain D(A) = {f : limit exists}). On R^n: S(t) f = Phi · f (convolution with heat kernel). On bounded D with Dirichlet: S(t) f = sum e^{-alpha lambda_n t} <f, phi_n> phi_n (spectral definition). Properties: S(t) is compact for t > 0 (on bounded D), self-adjoint, positive (S(t) f >= 0 if f >= 0), ultracontractive (||S(t) f||_{L^inf} <= C t^{-n/2} ||f||_{L^1}). Nonhomogeneous: u(t) = S(t) f + integral_0^t S(t - s) F(s) ds (Duhamel = semigroup variation of constants). Backward: u(t) = S(-t) f is ill-posed (S(-t) unbounded for t > 0). Fractional powers: S(t) = e^{-t (-A)} = e^{-t (-alpha Delta)}; fractional A^{1/2} gives H^1 norm. Semigroup framework unifies heat eq, abstract parabolic equations, fractional diffusion, etc. ✓',
+  'ch07p2_heat_semigroup',
+  'formula_recall',
+  ['heat semigroup', 'S(t) = e^{alpha t Delta}', 'Hille-Yosida', 'generator', 'contraction semigroup']
+)
+
+add(
+  'How do you solve the heat equation with an impulsive (delta-function) source?',
+  'Impulsive source: u_t = alpha Delta u + delta(x - x_0) delta(t - t_0), u(x, 0) = 0 (for t_0 > 0). Physical: a unit amount of heat injected at point x_0 at time t_0. Solution via Duhamel: u(x, t) = integral_0^t integral Phi(x - y, t - s) delta(y - x_0) delta(s - t_0) dy ds. For t < t_0: u = 0 (nothing yet). For t > t_0: u(x, t) = Phi(x - x_0, t - t_0) = (4 pi alpha (t - t_0))^{-n/2} exp(-|x - x_0|^2/(4 alpha (t - t_0))) (just the heat kernel starting at (x_0, t_0)). General: u(x, t) = H(t - t_0) Phi(x - x_0, t - t_0), where H is Heaviside. Bounded domain D with Dirichlet BC: u(x, t) = H(t - t_0) K_D(x, x_0, t - t_0) (Dirichlet heat kernel). Green\'s function: G(x, t; x_0, t_0) = H(t - t_0) K_D(x, x_0, t - t_0) is the Green\'s function for the heat operator (partial_t - alpha Delta). Solution of general nonhomogeneous problem: u(x, t) = integral_D G(x, t; y, 0) f(y) dy + integral_0^t integral_D G(x, t; y, s) F(y, s) dy ds. Causality: G = 0 for t < t_0 (effect cannot precede cause; but note heat eq has infinite propagation speed, so for t > t_0 effect is everywhere, but for t < t_0 zero). Multiple impulses: superpose. Line source (continuous in time): F(x, t) = delta(x - x_0) (constant in t). u(x, t) = integral_0^t Phi(x - x_0, t - s) ds. Change variable tau = t - s: u = integral_0^t Phi(x - x_0, tau) d tau. In 1D: u(x, t) = integral_0^t (4 pi alpha tau)^{-1/2} exp(-(x-x_0)^2/(4 alpha tau)) d tau. Substitute z = |x-x_0|/sqrt(4 alpha tau): u = (|x-x_0|/(2 sqrt(pi alpha))) integral_{|x-x_0|/sqrt(4 alpha t)}^inf z^{-2} e^{-z^2} sqrt(4 alpha)/z dz ... simplifies to (1/sqrt(alpha)) sqrt(t)·... or error function form: u = (sqrt(t)/sqrt(alpha)) [something involving erfc]. ✓',
+  'ch07p2_impulsive_source',
+  'problem_solving',
+  ['impulsive source', 'delta function', 'Green\'s function', 'causality', 'line source']
+)
+
+// ============================================================
+// SECTION 5 — ENERGY METHODS & DECAY ESTIMATES (6 items)
+// ============================================================
+add(
+  'What is the energy estimate for the heat equation?',
+  'Energy estimate for heat equation u_t = alpha Delta u on bounded D with homogeneous Dirichlet BC u = 0 on ∂D, u(x, 0) = f(x). Define E(t) = (1/2) ||u(t)||_{L^2(D)}^2 = (1/2) integral_D u^2 dx. Compute dE/dt = integral_D u u_t dx = integral_D u (alpha Delta u) dx = alpha integral_D u Delta u dx. Integration by parts (Green\'s 1st identity): integral_D u Delta u dx = -integral_D |grad u|^2 dx + integral_{∂D} u (partial u/partial n) dS. With u = 0 on ∂D: boundary term = 0. So dE/dt = -alpha ||grad u||_{L^2}^2 <= 0. Hence E(t) <= E(0), i.e., ||u(t)||_{L^2} <= ||f||_{L^2} (energy non-increasing; solution stable). Poincare inequality (D bounded): ||u||_{L^2} <= C_P ||grad u||_{L^2} where C_P = 1/sqrt(lambda_1) (lambda_1 first Dirichlet eigenvalue). So ||grad u||^2 >= (1/C_P^2) ||u||^2 = lambda_1 ||u||^2. Thus dE/dt = -alpha ||grad u||^2 <= -alpha lambda_1 ||u||^2 = -2 alpha lambda_1 E. Gronwall: E(t) <= E(0) e^{-2 alpha lambda_1 t}. So ||u(t)||_{L^2} <= ||f||_{L^2} e^{-alpha lambda_1 t} (exponential decay to zero, rate alpha lambda_1). Higher-order energies: E_k(t) = (1/2) sum_{|alpha| <= k} ||D^alpha u||^2; similar decay. For Neumann BC: no Poincare (lambda_1 = 0), so no exponential decay; energy still non-increasing but approaches (mean of f)^2 |D| (constant mode persists). Nonhomogeneous F: dE/dt = -alpha ||grad u||^2 + <u, F> <= -alpha ||grad u||^2 + ||u|| ||F||. ✓',
+  'ch07p2_energy_estimate',
+  'formula_recall',
+  ['energy estimate', 'L^2 norm', 'integration by parts', 'Poincare', 'exponential decay']
+)
+
+add(
+  'What are decay estimates for the heat equation on the whole space?',
+  'Decay estimates for u_t = alpha Delta u on R^n with u(x, 0) = f(x). L^2 decay: ||u(t)||_{L^2} <= ||f||_{L^2} (energy non-increasing, no BC needed). With f in L^1 (integrable, mass M = integral f): ||u(t)||_{L^2} <= (8 pi alpha t)^{-n/4} ||f||_{L^1} (decays like t^{-n/4}). Proof: ||u||_2 = ||Phi · f||_2 <= ||Phi||_2 ||f||_1 = (8 pi alpha t)^{-n/4} ||f||_1. L^inf decay: ||u(t)||_{L^inf} <= (4 pi alpha t)^{-n/2} ||f||_{L^1} (decays like t^{-n/2}). L^p decay: ||u(t)||_{L^p} <= C_p (alpha t)^{-n/(2) (1 - 1/p)} ||f||_{L^1} (Nash inequality / Gagliardo-Nirenberg). Specifically ||u(t)||_p <= (4 pi alpha t)^{-n/2 (1 - 1/p)} ||f||_1. L^1 mass conservation: ||u(t)||_1 = ||f||_1 (if f >= 0, mass preserved; signed mass preserved too). Smoothing: ||u(t)||_{L^inf} <= C t^{-n/2 - k/2} ||D^k f||_{L^1} (each derivative of f gains t^{-1/2}). Time decay table (n=1, alpha=1, ||f||_1 = M): ||u||_inf ~ M/(sqrt(4 pi t)), ||u||_2 ~ M/(8 pi t)^{1/4}, ||u||_1 = M. In 3D: ||u||_inf ~ M/(4 pi t)^{3/2}. Contrast with bounded domain (exponential decay) vs whole space (algebraic decay). Long-time profile: u(x, t) ~ M Phi(x, t) (approaches heat kernel scaled by mass M) as t -> inf (if f in L^1). ✓',
+  'ch07p2_decay_estimates',
+  'formula_recall',
+  ['decay estimates', 'L^p norm', 'Nash inequality', 'mass conservation', 'algebraic decay']
+)
+
+add(
+  'How do you derive the L^1-L^inf smoothing estimate for the heat equation?',
+  'L^1-L^inf smoothing estimate for u_t = alpha Delta u on R^n: ||u(t)||_{L^inf} <= (4 pi alpha t)^{-n/2} ||f||_{L^1} for t > 0. Derivation: u(x, t) = integral Phi(x - y, t) f(y) dy. Take sup in x: |u(x, t)| <= integral Phi(x - y, t) |f(y)| dy <= ||Phi(·, t)||_{L^inf} ||f||_{L^1}? No, better: <= ||f||_{L^1} sup_y Phi(x - y, t) = ||f||_{L^1} (4 pi alpha t)^{-n/2}. So ||u||_{L^inf} <= (4 pi alpha t)^{-n/2} ||f||_1. Interpretation: starts as L^1 (mass M), immediately becomes L^inf bounded by M times the peak of the heat kernel, which is (4 pi alpha t)^{-n/2}. As t -> 0+, the bound blows up (concentrates back to delta). For t > 0, finite. Derivative smoothing: ||D^alpha u(t)||_{L^inf} <= C (alpha t)^{-n/2 - |alpha|/2} ||f||_1. Proof: D^alpha_x Phi = (something) · (alpha t)^{-|alpha|/2} Phi (each x-derivative brings a factor (x-y)/(alpha t) ~ t^{-1/2} after scaling). So ||D^alpha u||_inf <= ||D^alpha Phi||_1 ||f||_1 ~ (alpha t)^{-(n+|alpha|)/2} ||f||_1. Nash inequality approach (for L^2 -> L^inf): ||u||_inf <= C ||u||_2^{1 - n/(n+2)} ||grad u||_2^{n/(n+2)}... gives ||u(t)||_inf <= C t^{-n/4} ||f||_2 (L^2 -> L^inf). Application: even if f is merely L^1 (not even continuous), u becomes C^inf for any t > 0 (regularization). Physical: heat equation instantly smooths any initial singularity. Reverse (backward heat): unbounded; small high-frequency noise explodes. ✓',
+  'ch07p2_smoothing_estimate',
+  'problem_solving',
+  ['L^1-L^inf', 'smoothing estimate', 'regularization', 'derivative bound', 'Nash inequality']
+)
+
+add(
+  'What is the entropy method for decay estimates?',
+  'Entropy method for heat equation u_t = alpha Delta u on R^n with f >= 0, integral f = M. Relative entropy (to Gaussian G_M = M Phi): H(u | G_M) = integral u log(u/G_M) dx. Entropy dissipation: dH/dt = -alpha integral u |grad(log(u/G_M))|^2 dx <= 0 (entropy decreases). HWI inequality and log-Sobolev: H(u | G_M) <= (1/(2 alpha)) I(u | G_M) where I is Fisher information I = integral u |grad log(u/G_M)|^2. Combining: dH/dt <= -2 alpha H, so H(u(t) | G_M) <= H(u(0) | G_M) e^{-2 alpha t} (exponential convergence to Gaussian in entropy). Nash entropy: N(u) = -integral u log u dx (Shannon entropy with sign). For heat eq: dN/dt = alpha integral |grad u|^2/u dx = alpha I(u) (Fisher information). So entropy increases (more spread = more uncertainty), rate = Fisher info. Sharp decay: relative entropy method gives sharp constant 2 alpha in exponential rate. Carré du Champ: Gamma(f) = |grad f|^2 (for Laplacian). Bakry-Emery criterion: Gamma_2(f) = (1/2) Delta |grad f|^2 - <grad f, grad Delta f> >= (1/n) Gamma(f) gives log-Sobolev and exponential entropy decay. Applications: convergence to equilibrium for Fokker-Planck equations, Boltzmann equation, nonlinear diffusion. The entropy method is a nonlinear generalization of energy estimates; works where spectral methods fail (whole space, nonlinear PDEs). ✓',
+  'ch07p2_entropy_method',
+  'formula_recall',
+  ['entropy method', 'relative entropy', 'Fisher information', 'log-Sobolev', 'Bakry-Emery']
+)
+
+add(
+  'How do you derive decay rates using Fourier splitting?',
+  'Fourier splitting method (Schonbek) for decay of solutions to u_t = alpha Delta u + F(u) (e.g., Navier-Stokes, reaction-diffusion) on R^n. Idea: split Fourier space into low |k| <= g(t) and high |k| > g(t) frequencies. Energy: ||u(t)||_2^2 = integral |uhat(k, t)|^2 dk = integral_{|k| <= g} + integral_{|k| > g}. Heat eq in Fourier: uhat_t = -alpha |k|^2 uhat, so |uhat(k, t)|^2 = |uhat(k, 0)|^2 e^{-2 alpha |k|^2 t} for pure heat (no nonlinearity). For |k| > g(t) (high freq): |uhat|^2 <= |uhat(0)|^2 e^{-2 alpha g^2 t} (decays fast if g grows). Choose g(t) such that 2 alpha g^2 t = log(t + 1) or similar; then high freq part decays like (t+1)^{-something}. Low freq: bounded by ||f||_1 (mass in low freq). Optimize: ||u(t)||_2^2 <= C (t+1)^{-n/2} ||f||_1^2 (reproducing L^1-L^2 decay). For nonlinear: ||u_t||_{L^2}^2 evolution includes nonlinear term; Fourier splitting bounds it. Result: for Navier-Stokes n=3, ||u(t)||_2 <= C (1+t)^{-3/4} (with L^1 IC). For heat eq: recovers ||u(t)||_2 <= C (8 pi alpha t)^{-n/4} ||f||_1. Advantages: works for nonlinear problems where explicit solution isn\'t available. Generalizations: hybrid Fourier-physical space splitting, frequency-localized estimates (Littlewood-Paley). Application to fractional diffusion u_t + (-Delta)^{alpha/2} u = 0: different decay rates (||u||_2 ~ t^{-n/(2 alpha)} instead of t^{-n/4}). ✓',
+  'ch07p2_fourier_splitting',
+  'problem_solving',
+  ['Fourier splitting', 'Schonbek', 'decay rates', 'low high frequency', 'nonlinear PDE']
+)
+
+add(
+  'What is the Aronson bound for the heat kernel on general domains?',
+  'Aronson bound (1968): Gaussian upper and lower bounds for the heat kernel K(x, y, t) of u_t = alpha Delta u on a complete Riemannian manifold (or weighted Riemannian manifold with reasonable geometry). Upper bound: K(x, y, t) <= C_1 t^{-n/2} exp(-|x - y|^2/(C_2 t)) for some constants C_1, C_2 > 0. Lower bound (under nonneg Ricci curvature): K(x, y, t) >= C_3 t^{-n/2} exp(-|x - y|^2/(C_4 t)). For Euclidean R^n: K = (4 pi alpha t)^{-n/2} exp(-|x-y|^2/(4 alpha t)) exactly. So C_1 = C_3 = (4 pi alpha)^{-n/2}, C_2 = C_4 = 4 alpha. For manifolds with Ricci curvature >= 0 (Li-Yau): sharper bound K(x, y, t) ~ (Vol B(x, sqrt(t)))^{-1/2} (Vol B(y, sqrt(t)))^{-1/2} exp(-d(x,y)^2/((4+eps) t)) (Li-Yau inequality). Significance: Aronson bound shows that heat kernel always has Gaussian shape, even on curved spaces. Applications: Harnack inequalities (Moser, Krylov-Safonov), regularity theory for parabolic PDEs (Holder continuity of solutions, even with rough coefficients). Variable coefficients: u_t = div(A(x, t) grad u), A uniformly elliptic (lambda |xi|^2 <= xi^T A xi <= Lambda |xi|^2). Heat kernel K_A exists and satisfies Aronson bounds (with constants depending on lambda, Lambda). De Giorgi-Nash-Moser theory: solutions are Holder continuous (interior regularity), even with discontinuous coefficients. Harnack inequality: sup_D u <= C inf_D u (for positive solutions on compact subdomain). This is foundational for parabolic regularity theory. ✓',
+  'ch07p2_aronson_bound',
+  'formula_recall',
+  ['Aronson bound', 'Gaussian bound', 'Li-Yau', 'Harnack inequality', 'De Giorgi-Nash-Moser']
+)
+
+// ============================================================
+// SECTION 6 — REGULARITY & SMOOTHING PROPERTIES (6 items)
+// ============================================================
+add(
+  'What is the interior regularity theorem for the heat equation?',
+  'Interior regularity for heat equation u_t = alpha Delta u + F in D × (0, T]. If F is Holder continuous (F in C^{alpha, alpha/2}) and u is a weak solution, then u is C^{2+alpha, 1+alpha/2} in the interior (i.e., u has continuous second spatial derivatives and first time derivative, all Holder continuous). Parabolic Holder spaces: C^{k+alpha, (k+alpha)/2}(D × (0, T]) = functions with k spatial derivatives, k/2 time derivatives, all Holder continuous with exponent alpha (spatial) / alpha/2 (temporal). Note the parabolic scaling: time counts as 2 spatial dimensions. Schauder estimates: ||u||_{C^{2+alpha, 1+alpha/2}} <= C (||u||_{C^0} + ||F||_{C^{alpha, alpha/2}}) (interior). Boundary regularity: with smooth boundary and compatible BC, regularity extends to boundary. Higher regularity: if F in C^{k+alpha, (k+alpha)/2}, then u in C^{k+2+alpha, (k+2+alpha)/2} (bootstrapping). L^p theory (Calderon-Zygmund): if F in L^p, then u, u_t, D^2 u in L^p with ||u||_{W^{2,1}_p} <= C ||F||_p (maximal regularity). Sobolev embedding: W^{2,1}_p embeds into C^{alpha, alpha/2} if p > (n+2)/2 (Holder regularity from L^p data). Weak solutions: u in L^2(0,T; H^1_0) with u_t in L^2(0,T; H^{-1}) is a weak solution; energy estimates give existence (Lions theorem). Smooth IC + smooth F + smooth BC => smooth solution. ✓',
+  'ch07p2_interior_regularity',
+  'formula_recall',
+  ['interior regularity', 'Schauder estimates', 'Holder spaces', 'parabolic', 'bootstrapping']
+)
+
+add(
+  'What is the smoothing property of the heat equation (regularization)?',
+  'Smoothing property: for any t > 0, the solution u(·, t) of u_t = alpha Delta u on R^n with u(x, 0) = f(x) in L^p (1 <= p <= inf) is C^inf in x. Even if f is only L^inf (bounded measurable) or L^1 (integrable) or a measure (like delta), u(·, t) is smooth for t > 0. Reason: u(x, t) = integral Phi(x - y, t) f(y) dy, and Phi(x, t) is C^inf in x for t > 0 (Gaussian is smooth), so differentiating under the integral gives smoothness of u. Specific: D^alpha_x u(x, t) = integral D^alpha_x Phi(x - y, t) f(y) dy (valid for t > 0 by dominated convergence, since |D^alpha Phi| <= C t^{-n/2 - |alpha|/2} which is integrable against L^1 f for fixed t > 0). Analytic smoothing: u(x, t) is real-analytic in x for t > 0 (heat kernel is entire in complex x). Time smoothing: u is C^inf in t for t > 0 too (differentiate Phi in t). Contrast: elliptic (Laplace) solutions are analytic inside domain; hyperbolic (wave) solutions have same regularity as IC (no smoothing; singularities propagate along characteristics). Physical: heat equation instantly removes all sharp features; a step function IC becomes a smooth error-function profile for any t > 0. Boundary cases: at t = 0, regularity matches f. Nonhomogeneous F: if F is in L^2, u is in H^1 for t > 0 (one derivative better); if F in L^inf, u is C^{1+alpha} for any alpha < 1 (Holder). Loss: backward heat eq u_t = -alpha Delta u has opposite effect (roughens; ill-posed). ✓',
+  'ch07p2_smoothing_property',
+  'formula_recall',
+  ['smoothing property', 'regularization', 'C^inf for t>0', 'analytic', 'instant smoothing']
+)
+
+add(
+  'What is the instantaneous propagation property of the heat equation?',
+  'Instantaneous propagation (infinite propagation speed) of heat equation u_t = alpha Delta u on R^n. Property: if f is nonnegative and not identically zero (f >= 0, f != 0), then u(x, t) > 0 for all x in R^n and all t > 0. Reason: u(x, t) = integral Phi(x - y, t) f(y) dy, and Phi > 0 everywhere for t > 0 (Gaussian strictly positive), so if f > 0 on a set of positive measure, the integral is > 0 for every x. Physical: heat from any source is felt everywhere instantly (though exponentially small far away). Contrast with wave equation: finite propagation speed c; disturbance at origin reaches point x only at time |x|/c (sharp wavefront). Consequence: heat equation is "non-physical" at very short times / distances (real heat conduction has finite speed, modeled by Cattaneo equation tau u_{tt} + u_t = alpha Delta u, hyperbolic). Strong maximum principle (bounded domain): if u attains max at interior (x_0, t_0), then u is constant on D × [0, t_0] (so for nonconstant solution, max is on parabolic boundary). On unbounded domain: no max principle issue, but positivity everywhere. Compact support loss: if f has compact support, u(·, t) has full support for any t > 0 (support instantly becomes all of R^n). Asymptotic: u(x, t) ~ M Phi(x, t) as t -> inf where M = integral f (total mass). So very far away, u ~ M (4 pi alpha t)^{-n/2} exp(-|x|^2/(4 alpha t)) (exponentially small in |x|^2). ✓',
+  'ch07p2_infinite_propagation',
+  'formula_recall',
+  ['infinite propagation', 'instant propagation', 'positivity', 'compact support loss', 'Cattaneo']
+)
+
+add(
+  'What is the Schauder estimate for the heat equation?',
+  'Schauder interior estimate for u_t = alpha Delta u + F in D × (0, T]. If F in C^{alpha, alpha/2} (parabolic Holder) and u is a classical solution, then u in C^{2+alpha, 1+alpha/2} in interior, with bound ||u||_{C^{2+alpha, 1+alpha/2}(D\' × [t_1, t_2])} <= C (||u||_{C^0(D × [0,T])} + ||F||_{C^{alpha, alpha/2}(D × [0,T])}) where D\' << D (compactly contained), 0 < t_1 < t_2 <= T. Constant C depends on alpha, n, D\'/D (interior), t_1/t_2. Parabolic Holder norm: ||u||_{C^{alpha, alpha/2}} = sup |u| + sup |u(x,t) - u(y,t)|/|x-y|^alpha + sup |u(x,t) - u(x,s)|/|t-s|^{alpha/2} (Holder in space with exp alpha, in time with exp alpha/2). C^{2+alpha, 1+alpha/2}: u, u_{x_i}, u_{x_i x_j}, u_t all in C^{alpha, alpha/2}. Boundary Schauder: if boundary is C^{2+alpha} and BC are compatible, regularity extends to boundary. Application: bootstrapping regularity. If F is C^inf, then u is C^inf (iterate the estimate with higher alpha). If F is analytic, u is analytic. Linear theory: coefficients a_{ij}(x, t), b_i(x, t), c(x, t) in C^{alpha, alpha/2}: same Schauder estimate holds. Non-divergence form: u_t = a_{ij} u_{x_i x_j} + .... Divergence form: u_t = div(A grad u) + .... Schauder requires coefficients Holder. L^p theory (Calderon-Zygmund) handles measurable coefficients (VMO, Cordes-Nirenberg). ✓',
+  'ch07p2_schauder_estimate',
+  'formula_recall',
+  ['Schauder estimate', 'parabolic Holder', 'interior regularity', 'bootstrapping', 'C^{2+alpha,1+alpha/2}']
+)
+
+add(
+  'What is boundary regularity for the heat equation?',
+  'Boundary regularity for u_t = alpha Delta u + F in D × (0, T] with u = g on ∂D × [0, T] (Dirichlet) and u(x, 0) = f(x). If boundary ∂D is C^{2+alpha}, g in C^{2+alpha, 1+alpha/2}(∂D × [0,T]), f in C^{2+alpha}(D), F in C^{alpha, alpha/2}(D × [0,T]), and compatibility conditions hold (f = g on ∂D × {t=0}, i.e., f(x) = g(x, 0) for x in ∂D), then u in C^{2+alpha, 1+alpha/2}(D̄ × [0, T]) (up to boundary). Compatibility of order 0: f|_{∂D} = g(·, 0)|_{∂D}. Higher-order compatibility: (partial_t^k g)|_{t=0} = (alpha Delta)^k f + ... (matching time derivatives at corner t=0). If compatibility fails at order k, solution has corner singularity (Holder regularity drops near t=0 boundary). Neumann BC (partial u/partial n = h): need h in C^{1+alpha, (1+alpha)/2} for C^{2+alpha} solution. Oblique derivative: generalizes Neumann. Boundary Schauder estimate: ||u||_{C^{2+alpha,1+alpha/2}(D̄ × [0,T])} <= C (||F||_{C^{alpha,alpha/2}} + ||g||_{C^{2+alpha,1+alpha/2}} + ||f||_{C^{2+alpha}}) with compatibility. Flattening boundary: local coordinates transform boundary to flat, apply interior Schauder, transform back. Corner singularities: at re-entrant corners (non-smooth boundary), regularity limited by corner angle. Mixed BC (Dirichlet on part, Neumann on part): regularity limited at transition points. ✓',
+  'ch07p2_boundary_regularity',
+  'formula_recall',
+  ['boundary regularity', 'compatibility', 'corner singularity', 'Holder up to boundary', 'Neumann oblique']
+)
+
+add(
+  'What is the L^p maximal regularity for the heat equation?',
+  'Maximal L^p regularity for u_t = alpha Delta u + F in D × (0, T) with u = 0 on ∂D and u(0) = 0. Statement: ||u||_{L^p(0,T; W^{2,p}(D))} + ||u_t||_{L^p(0,T; L^p(D))} <= C ||F||_{L^p(0,T; L^p(D))} for 1 < p < inf (and u = 0 BC). Equivalently: ||u||_{W^{2,1}_p(D × (0,T))} <= C ||F||_p, where W^{2,1}_p = {u : u, u_{x_i}, u_{x_i x_j}, u_t in L^p}. This is "maximal" because we get exactly the regularity expected (u_t and D^2 u in L^p), no loss. Holds for: uniformly elliptic operators on smooth bounded domains, 1 < p < inf. Constants depend on p, domain, ellipticity. Fails for p = 1 and p = inf in general (though weak versions hold). Proof: Fourier multiplier theory (Mikhlin), Calderon-Zygmund singular integrals. Application: nonlinear PDEs. If F = F(u) with F smooth and u in L^p, then F(u) in L^p (Nemytskii), giving u in W^{2,1}_p; bootstrapping gives higher regularity. Quasilinear: u_t = a(u) Delta u + ..., use maximal regularity + contraction mapping for local existence. Stochastic PDEs: similar estimates for heat equation with noise (Krylov). Relation to semigroup: maximal regularity is stronger than semigroup bound ||u(t)||_p <= ||f||_p; it controls the full W^{2,1}_p norm. On R^n: explicit via Fourier (uhat_t = -alpha |k|^2 uhat + Fhat; maximal reg from Hilbert transform bounds). On rough domains: fails in general; needs "extension property" (Jones domains). ✓',
+  'ch07p2_maximal_regularity',
+  'formula_recall',
+  ['maximal regularity', 'L^p theory', 'W^{2,1}_p', 'Calderon-Zygmund', 'Schauder vs L^p']
+)
+
+// ============================================================
+// SECTION 7 — BLACK-SCHOLES & REACTION-DIFFUSION EQUATIONS (6 items)
+// ============================================================
+add(
+  'How is the Black-Scholes equation related to the heat equation?',
+  'Black-Scholes equation for option pricing: V_t + (1/2) sigma^2 S^2 V_{SS} + r S V_S - r V = 0, where V(S, t) = option value, S = stock price, t = time, sigma = volatility, r = risk-free rate. Terminal condition (European call option expiring at T with strike K): V(S, T) = max(S - K, 0). Transform to heat equation. Step 1: change variables. x = ln(S/K), tau = (1/2) sigma^2 (T - t) (time-to-maturity scaled), u(x, tau) = (1/K) V(S, t) e^{alpha x + beta tau} for suitable alpha, beta. Choose alpha = -1/2 - r/sigma^2 (puts the S V_S term into heat form), beta = -1/2 (2 r/sigma^2 + 1)^2/4 ... standard choice: alpha = -(1/2 + r/sigma^2), beta = -(1/2 r/sigma^2 + 1/2)^2. Actually the substitution: u(x, tau) = e^{a x + b tau} V(S, t)/K with x = ln(S), tau = sigma^2 (T - t)/2, a = (r/sigma^2 - 1/2)/(1) ... precise: x = ln(S/K) + (r - sigma^2/2)(T - t), tau = sigma^2 (T - t)/2, u = e^{-r(T-t)} V/K. Then u_t = u_{xx} (heat equation with alpha = 1). Initial: u(x, 0) = max(e^x - 1, 0) (transformed payoff). Solution by convolution with heat kernel: u(x, tau) = integral Phi(x - y, tau) max(e^y - 1, 0) dy. Closed form (Black-Scholes formula): V(S, t) = S N(d_1) - K e^{-r(T-t)} N(d_2), where d_1 = (ln(S/K) + (r + sigma^2/2)(T-t))/(sigma sqrt(T-t)), d_2 = d_1 - sigma sqrt(T-t), N = standard normal CDF. ✓ Black-Scholes reduces to heat equation via log-price + time-reversal + exponential scaling. ✓',
+  'ch07p2_black_scholes',
+  'problem_solving',
+  ['Black-Scholes', 'option pricing', 'transform to heat', 'log price', 'closed form']
+)
+
+add(
+  'What is the Fisher-KPP equation and its traveling wave solutions?',
+  'Fisher-KPP (Kolmogorov-Petrovskii-Piskunov) equation: u_t = D u_{xx} + r u (1 - u/K), where u(x, t) = population density, D = diffusion, r = growth rate, K = carrying capacity. Nondimensionalize: v = u/K, tau = r t, xi = sqrt(r/D) x: v_tau = v_{xi xi} + v (1 - v). This is the dimensionless Fisher-KPP. Traveling wave ansatz: v(xi, tau) = w(z), z = xi - c tau (wave moving right at speed c). Then -c w\' = w\'\' + w (1 - w), or w\'\' + c w\' + w (1 - w) = 0. Boundary: w(-inf) = 1 (populated), w(+inf) = 0 (unpopulated). Linearize near w = 0: w\'\' + c w\' + w = 0. Characteristic: lambda^2 + c lambda + 1 = 0, lambda = (-c ± sqrt(c^2 - 4))/2. For w > 0 monotone decreasing to 0, need real lambda < 0, so c^2 >= 4, c >= 2 (minimum wave speed c = 2 in dimensionless units; in original: c >= 2 sqrt(r D)). For c >= 2: traveling wave exists (1-parameter family indexed by c). For c < 2: no monotone traveling wave (oscillations, w < 0 unphysical). Steepest descent / linearization argument (KPP): minimal speed = 2 sqrt(r D) is the asymptotic speed of front propagation from compact initial data (Bramson: convergence to minimal-speed wave). Application: invasive species, gene spreading, combustion fronts. General KPP: u_t = D u_{xx} + f(u), f(0) = f(1) = 0, f > 0 on (0, 1), f\'(0) = r > 0. Minimal speed c* = 2 sqrt(D r). More general f: c* = 2 sqrt(D f\'(0)) if f(u) <= u f\'(0) (KPP condition). Combustion (Arrhenius): f(u) = (1-u) e^{-E/u} for u > 0 (ignition), different scaling c ~ sqrt(D) (Zeldovich). ✓',
+  'ch07p2_fisher_kpp',
+  'problem_solving',
+  ['Fisher-KPP', 'traveling wave', 'minimal speed', 'c = 2 sqrt(rD)', 'population dynamics']
+)
+
+add(
+  'What is the Nagumo / Allen-Cahn equation and its traveling waves?',
+  'Nagumo / Allen-Cahn equation: u_t = D u_{xx} + u (1 - u) (u - a), where 0 < a < 1 is a parameter. Cubic nonlinearity f(u) = u (1 - u) (u - a) = -u (u - a) (u - 1). Equilibria: u = 0, u = a, u = 1. Stability (without diffusion): f\'(0) = -a < 0 (stable), f\'(a) = a(1 - a) > 0 (unstable), f\'(1) = -(1-a) < 0 (stable). Bistable: two stable equilibria 0 and 1 separated by unstable a. Traveling wave connecting u = 1 (z = -inf) to u = 0 (z = +inf): w\'\' + c w\' + w (1 - w) (w - a) = 0 with w(-inf) = 1, w(+inf) = 0. Multiply by w\' and integrate: integral w\' [w\'\' + c w\' + f(w)] dz = 0. => [w\'^2/2]_{-inf}^{+inf} + c integral w\'^2 dz + integral f(w) w\' dz = 0. Boundary terms vanish (w\' -> 0). So c = -integral f(w) w\' dz / integral w\'^2 dz = -integral_0^1 f(w) dw / integral w\'^2 dz. Numerator: integral_0^1 f(w) dw = integral_0^1 w(1-w)(w-a) dw = integral (w^2 - w^3 - a w + a w^2) dw = (1/3 - 1/4) - a (1/2 - 1/3) = 1/12 - a/6 = (1 - 2a)/12. So c has sign of (1 - 2a) (numerator): c > 0 if a < 1/2 (state 1 invades 0), c < 0 if a > 1/2 (state 0 invades 1), c = 0 if a = 1/2 (standing wave, mass-conserving). Speed c = sqrt(D/2) (1 - 2a) (exact formula for Allen-Cahn). Application: phase transitions, pattern formation, Ginzburg-Landau. Allen-Cahn in higher dimensions: mean curvature flow in sharp-interface limit (u -> step function, interface moves by mean curvature). ✓',
+  'ch07p2_allen_cahn',
+  'problem_solving',
+  ['Allen-Cahn', 'Nagumo', 'bistable', 'traveling wave speed', 'cubic nonlinearity']
+)
+
+add(
+  'What is Turing instability in reaction-diffusion systems?',
+  'Turing instability (1952): a stable equilibrium of the reaction (ODE) system can become unstable when diffusion is added, leading to spontaneous pattern formation. Setup: two-species reaction-diffusion u_t = D_u u_{xx} + f(u, v), v_t = D_v v_{xx} + g(u, v), with D_u, D_v > 0 diffusion coefficients. Reaction-only stability: linearize at equilibrium (u*, v*): d/dt (delta u, delta v)^T = J (delta u, delta v)^T, where J = [[f_u, f_v], [g_u, g_v]] at (u*, v*). Stable if tr J = f_u + g_v < 0 and det J = f_u g_v - f_v g_u > 0. With diffusion: linearize, Fourier mode (delta u, delta v) = (U, V) e^{i k x + lambda t}. Eigenvalue: det(J - lambda I - k^2 D) = 0 where D = diag(D_u, D_v). (f_u - lambda - D_u k^2)(g_v - lambda - D_v k^2) - f_v g_u = 0. Quadratic in lambda. For instability at some k: Re(lambda) > 0 for some k > 0, even though k = 0 is stable. Turing conditions (need D_u != D_v): (1) tr J < 0 (stable without diffusion). (2) det J > 0 (stable without diffusion). (3) D_u g_v + D_v f_u > 0 (diffusion cannot destabilize if same sign). (4) (D_u g_v + D_v f_u)^2 - 4 D_u D_v det J > 0 (some k has Re lambda > 0). Classic activator-inhibitor: f_u > 0 (u activates itself, activator), g_v < 0 (v inhibits itself, inhibitor), f_v < 0, g_u > 0. Need D_v > D_u (inhibitor diffuses faster than activator). Result: patterns (stripes, spots) with characteristic wavelength k* = sqrt((D_v f_u + D_u g_v)/(2 D_u D_v)) ... Turing patterns. Examples: Gierer-Meinhardt, Gray-Scott, Brusselator, Schnakenberg. Biological: animal coat patterns (Murray), limb development. ✓',
+  'ch07p2_turing_instability',
+  'problem_solving',
+  ['Turing instability', 'reaction-diffusion', 'pattern formation', 'activator inhibitor', 'diffusion-driven instability']
+)
+
+add(
+  'How do you analyze blow-up in semilinear heat equations u_t = Delta u + u^p?',
+  'Semilinear heat equation u_t = Delta u + u^p, u(x, 0) = f(x) >= 0. Behavior depends on p vs critical exponent p_c = 1 + 2/n (n = dimension). (1) Subcritical p < p_c (Fujita, 1966): all nontrivial nonneg solutions blow up in finite time (Fujita exponent). (2) Critical p = p_c: all nontrivial nonneg solutions blow up. (3) Supercritical p > p_c: small data global existence; large data blow-up. Blow-up: there exists T* < inf such that ||u(t)||_{L^inf} -> inf as t -> T*^-. Blow-up rate: ||u(t)||_{inf} ~ C (T - t)^{-1/(p-1)} (universal rate). Blow-up profile: near blow-up point x_0, u(x, t) ~ (T - t)^{-1/(p-1)} U((x - x_0)/sqrt(T - t)) where U solves related ODE (self-similar profile). Type I vs Type II: Type I = universal rate; Type II = faster (e.g., exponential for some critical problems). Total mass: integral u dx may or may not blow up (depending on p). Kaplan eigenfunction method: multiply by first eigenfunction phi_1 (Dirichlet on bounded D), M(t) = integral u phi_1 dx. dM/dt = -lambda_1 M + integral u^p phi_1 dx. By Jensen: integral u^p phi_1 >= (integral u phi_1)^p (normalized). So dM/dt >= -lambda_1 M + M^p. ODE: M blows up if M(0) > lambda_1^{1/(p-1)}. So large data blows up (for any p > 1, bounded domain). Whole space: Fujita critical exponent p_c = 1 + 2/n. Lyapunov / energy: E(t) = integral (1/2 |grad u|^2 - 1/(p+1) u^{p+1}) dx. dE/dt = -integral u_t^2 <= 0 (decreases). For subcritical p, energy unbounded below => blow-up possible. Applications: combustion (thermal explosion), chemical kinetics, population dynamics. ✓',
+  'ch07p2_blow_up_analysis',
+  'problem_solving',
+  ['blow-up', 'semilinear heat', 'Fujita exponent', 'p_c = 1+2/n', 'Kaplan method']
+)
+
+add(
+  'What is the porous medium equation and its self-similar solutions?',
+  'Porous medium equation (PME): u_t = Delta (u^m) = (u^m)_{xx} for m > 1 (degenerate diffusion; m = 1 is heat eq). Also: u_t = (1/m) div(u^{m-1} grad u)... rewrite as u_t = div(D(u) grad u) with D(u) = m u^{m-1} (diffusion coefficient vanishes where u = 0). Physical: gas flow in porous media (m = gamma = adiabatic index), groundwater, population. Key property: finite propagation speed (unlike heat eq). Compact support preserved: if f has compact support, u(·, t) has compact support for all t, with sharp interface (free boundary). Barenblatt self-similar solution (Zeldovich-Kompaneets-Barenblatt): B(x, t) = t^{-alpha} [C - k |x|^2/t^{2 beta}]_+^{1/(m-1)}, where alpha = n/(n(m-1) + 2), beta = 1/(n(m-1) + 2), k = beta (m-1)/(2 m). The [·]_+ = max(·, 0) (compact support, zero outside). This is the fundamental solution (mass M parametrizes C). Asymptotic: any compactly supported L^1 solution converges to Barenblatt as t -> inf (Otto, Carrillo-Toscani). Mass conservation: integral B dx = M. L^inf decay: ||B(t)||_{inf} ~ t^{-alpha} (slower than heat eq t^{-n/2}). Interface: |x| <= R(t) = R_0 t^{beta} grows like t^{beta}; for n = 1, beta = 1/(m+1), so interface grows as t^{1/(m+1)} (slower than heat eq sqrt(t)). Free boundary regularity: interface is Holder, eventually C^inf (Caffarelli-Friedman). PME generalizes: fast diffusion m < 1 (infinite propagation; different asymptotics), m -> 1 limit recovers heat eq, m = 0 is eikonal-ish. p-Laplacian: u_t = div(|grad u|^{p-2} grad u) (different nonlinearity, similar analysis). ✓',
+  'ch07p2_porous_medium',
+  'problem_solving',
+  ['porous medium equation', 'Barenblatt', 'self-similar', 'finite propagation', 'free boundary']
+)
+
+// ============================================================
+// SECTION 8 — WORKED PROBLEMS (7 items)
+// ============================================================
+add(
+  'How do you solve u_t = u_{xx} on [0, pi] with u(0,t) = u(pi,t) = 0 and u(x,0) = sin(x) + 3 sin(2x)?',
+  'Heat equation u_t = u_{xx} on [0, pi], Dirichlet BC u(0, t) = u(pi, t) = 0, IC u(x, 0) = sin(x) + 3 sin(2x). Note: alpha = 1, L = pi. Separation of variables: eigenvalues lambda_n = n^2 (since lambda_n = (n pi/L)^2 = n^2 for L = pi), eigenfunctions sin(n x), decay rate exp(-n^2 t). General solution: u(x, t) = sum_{n=1}^inf b_n sin(n x) exp(-n^2 t). Fourier sine coefficients of f(x) = sin(x) + 3 sin(2x): since sin(x) and sin(2x) are already orthogonal eigenfunctions, b_1 = 1, b_2 = 3, b_n = 0 for n >= 3. So u(x, t) = sin(x) e^{-t} + 3 sin(2x) e^{-4 t}. Verify: u(0, t) = 0 + 0 = 0 ✓, u(pi, t) = sin(pi) e^{-t} + 3 sin(2 pi) e^{-4t} = 0 ✓. u(x, 0) = sin(x) + 3 sin(2x) ✓. PDE: u_t = -sin(x) e^{-t} - 12 sin(2x) e^{-4t}. u_{xx} = -sin(x) e^{-t} - 12 sin(2x) e^{-4t} (= u_t) ✓. Long-time: dominant mode is n = 1 (slowest decay), u ~ sin(x) e^{-t} as t -> inf (n = 2 decays 4x faster). Half-life of n = 1 mode: t_{1/2} = ln 2 / 1 = ln 2 ≈ 0.693. After t = 1: e^{-1} ≈ 0.368 of initial n=1 amplitude; n=2 mode at e^{-4} ≈ 0.0183 (essentially gone). Energy: E(t) = (1/2) integral u^2 dx = (1/2)[(pi/2) e^{-2t} + 9 (pi/2) e^{-8t}] = (pi/4)(e^{-2t} + 9 e^{-8t}) (using orthogonality). Decays to 0. ✓',
+  'ch07p2_worked_heat_sine',
+  'problem_solving',
+  ['worked heat equation', 'Fourier sine', 'Dirichlet BC', 'decay modes', 'long-time']
+)
+
+add(
+  'How do you solve u_t = 4 u_{xx} with u(x,0) = e^{-x} on the whole line?',
+  'Heat equation u_t = 4 u_{xx} on R (alpha = 4), IC u(x, 0) = e^{-x}. Solution by convolution with heat kernel: u(x, t) = integral_{-inf}^{inf} Phi(x - y, t) e^{-y} dy where Phi(x, t) = (1/sqrt(16 pi t)) exp(-x^2/(16 t)) (note 4 alpha t = 16 t for alpha = 4). Compute integral: u = integral (16 pi t)^{-1/2} exp(-(x-y)^2/(16 t)) e^{-y} dy. Complete the square in y: -(x-y)^2/(16 t) - y = -(y^2 - 2 x y + x^2)/(16 t) - y = -y^2/(16 t) + (x y)/(8 t) - x^2/(16 t) - y = -[y^2 - 2 x y + 16 t y]/(16 t) - x^2/(16 t) = -[y^2 - 2 (x - 8 t) y]/(16 t) - x^2/(16 t) = -[(y - (x - 8 t))^2 - (x - 8 t)^2]/(16 t) - x^2/(16 t) = -(y - (x - 8 t))^2/(16 t) + (x - 8 t)^2/(16 t) - x^2/(16 t). So u = (16 pi t)^{-1/2} exp([(x-8t)^2 - x^2]/(16 t)) integral exp(-(y-(x-8t))^2/(16t)) dy = (16 pi t)^{-1/2} e^{(x^2 - 16xt + 64t^2 - x^2)/(16t)} · sqrt(16 pi t) = e^{(-16 x t + 64 t^2)/(16 t)} = e^{-x + 4 t}. So u(x, t) = e^{-x + 4 t} = e^{-x} e^{4 t}. Check: u_t = 4 e^{-x} e^{4t} = 4 u. u_{xx} = e^{-x} e^{4t} = u. So u_t = 4 u_{xx} ✓. IC: u(x, 0) = e^{-x} ✓. Note: solution grows in time (e^{4t}) — this is because the initial condition e^{-x} is unbounded (exponentially growing as x -> -inf), violating the Tychonoff growth condition (|u| <= C e^{a x^2}). So the solution exists but grows. For bounded IC (e.g., Gaussian), solution decays. Lesson: heat equation is well-posed for IC in L^inf or with growth <= e^{a x^2}; exponential IC can grow. ✓',
+  'ch07p2_worked_heat_gaussian_conv',
+  'problem_solving',
+  ['worked heat', 'convolution', 'completing square', 'exponential IC', 'growth condition']
+)
+
+add(
+  'How do you solve u_t = u_{xx} + sin(x) with u(x,0) = 0 on the whole line?',
+  'Nonhomogeneous heat equation u_t = u_{xx} + sin(x) on R, u(x, 0) = 0. Method 1: Duhamel. u(x, t) = integral_0^t integral Phi(x - y, t - s) sin(y) dy ds. Compute inner: integral Phi(x - y, t - s) sin(y) dy = sin(x) e^{-(t-s)} (since sin(kx) is a Fourier mode with k = 1, decay rate k^2 = 1; heat kernel convolved with sin(y) gives sin(x) e^{-(t-s)}). So u(x, t) = sin(x) integral_0^t e^{-(t - s)} ds = sin(x) [e^{-(t-s)}/(-(-1))]_0^t = sin(x) [1 - e^{-t}]/1 = sin(x) (1 - e^{-t}). Method 2: ansatz u(x, t) = a(t) sin(x). u_t = a\'(t) sin(x). u_{xx} = -a(t) sin(x). PDE: a\' sin = -a sin + sin => a\' + a = 1, a(0) = 0. ODE: a(t) = 1 - e^{-t} (integrating factor e^t: d/dt (a e^t) = e^t, a e^t = e^t - 1, a = 1 - e^{-t}). So u(x, t) = (1 - e^{-t}) sin(x). Verify: u_t = e^{-t} sin(x). u_{xx} = -(1 - e^{-t}) sin(x). u_t - u_{xx} = e^{-t} sin + (1 - e^{-t}) sin = sin(x) ✓ (the forcing F = sin(x)). IC: u(x, 0) = 0 ✓. Long-time: u -> sin(x) (steady state, where u_t = 0, so 0 = u_{xx} + sin(x), i.e., u_{xx} = -sin(x), u = sin(x) is the steady solution). Steady state u_inf solves u_{xx} + sin(x) = 0, which has particular solution sin(x) (u_{xx} of sin is -sin, so -sin + sin = 0 ✓). ✓',
+  'ch07p2_worked_duhamel_sin',
+  'problem_solving',
+  ['worked nonhomogeneous', 'Duhamel', 'Fourier mode', 'steady state', 'sin forcing']
+)
+
+add(
+  'How do you solve u_t = u_{xx} on the half-line x > 0 with u(0,t) = 0 and u(x,0) = e^{-x}?',
+  'Heat equation u_t = u_{xx} on x > 0 (alpha = 1), Dirichlet BC u(0, t) = 0, IC u(x, 0) = e^{-x} for x > 0. Method of images: extend f(x) = e^{-x} (for x > 0) to odd function on R: f_ext(x) = e^{-x} for x > 0, f_ext(x) = -e^{x} for x < 0 (i.e., -f(-x) = -e^{x}). Solve on whole line: u_ext(x, t) = integral Phi(x - y, t) f_ext(y) dy = integral_0^inf Phi(x - y, t) e^{-y} dy - integral_{-inf}^0 Phi(x - y, t) e^{y} dy. Change variable y -> -y in second: = integral_0^inf Phi(x - y, t) e^{-y} dy - integral_0^inf Phi(x + y, t) e^{-y} dy = integral_0^inf [Phi(x - y, t) - Phi(x + y, t)] e^{-y} dy. Then u(x, t) = u_ext(x, t) for x > 0. Compute explicitly (using completing square in y, similar to previous problem): First integral I_1 = integral_0^inf (4 pi t)^{-1/2} exp(-(x-y)^2/(4t)) e^{-y} dy. Complete square: -(x-y)^2/(4t) - y = -(y - (x - 2t))^2/(4t) + (x - 2t)^2/(4t) - x^2/(4t) = -(y - (x-2t))^2/(4t) - x + t. So I_1 = (4 pi t)^{-1/2} e^{-x + t} integral_0^inf exp(-(y - (x-2t))^2/(4t)) dy. Substitute z = (y - (x - 2t))/(2 sqrt(t)): integral = 2 sqrt(t) integral_{-(x-2t)/(2 sqrt(t))}^inf e^{-z^2} dz = sqrt(pi) sqrt(t) erfc(-(x - 2t)/(2 sqrt(t))) = sqrt(pi) sqrt(t) erfc((2t - x)/(2 sqrt(t))). So I_1 = (1/2) e^{-x + t} erfc((2t - x)/(2 sqrt(t))) = (1/2) e^{-x + t} erfc(sqrt(t) - x/(2 sqrt(t))). Second integral I_2 = integral_0^inf Phi(x + y, t) e^{-y} dy = (replace y by -y in I_1 formula? No, x+y not x-y. Compute directly: -(x+y)^2/(4t) - y = -(y + x + 2t)^2/(4t) + (x + 2t)^2/(4t) - x^2/(4t) = -(y + x + 2t)^2/(4t) + x + t. So I_2 = (1/2) e^{x + t} erfc((x + 2t)/(2 sqrt(t))) = (1/2) e^{x + t} erfc(x/(2 sqrt(t)) + sqrt(t)). Final: u(x, t) = (1/2) e^{-x + t} erfc(sqrt(t) - x/(2 sqrt(t))) - (1/2) e^{x + t} erfc(sqrt(t) + x/(2 sqrt(t))). At x = 0: u(0, t) = (1/2) e^t erfc(sqrt(t)) - (1/2) e^t erfc(sqrt(t)) = 0 ✓. ✓',
+  'ch07p2_worked_half_line',
+  'problem_solving',
+  ['worked half-line', 'method of images', 'odd extension', 'error function', 'Dirichlet BC']
+)
+
+add(
+  'How do you find the steady-state solution of u_t = u_{xx} + sin(x) on [0, pi] with u(0,t) = u(pi,t) = 0?',
+  'Steady state of u_t = u_{xx} + F(x) on [0, pi] with homogeneous Dirichlet BC u(0) = u(pi) = 0. Steady state: u_t = 0, so u_{xx} + F(x) = 0, i.e., u_{xx} = -F(x). Here F(x) = sin(x). Solve: u_{xx} = -sin(x). Integrate: u_x = cos(x) + C_1. Integrate: u = sin(x) + C_1 x + C_2. Apply BC: u(0) = 0 + 0 + C_2 = 0 => C_2 = 0. u(pi) = sin(pi) + C_1 pi + 0 = 0 + C_1 pi = 0 => C_1 = 0. So u_steady(x) = sin(x). Verify: u_{xx} = -sin(x) = -F(x) ✓. BC: u(0) = 0, u(pi) = 0 ✓. General approach: steady state solves the elliptic BVP -u_{xx} = F(x) on [0, L], u(0) = u(L) = 0. Solvability (Fredholm alternative): for Dirichlet BC, always solvable (no kernel). For Neumann BC: need integral F dx = 0 (compatibility; otherwise no steady state, solution drifts linearly). Transient: full solution u(x, t) = u_steady(x) + v(x, t) where v solves homogeneous heat eq v_t = v_{xx} with v(0) = v(pi) = 0 and v(x, 0) = f(x) - u_steady(x). v decays to 0, so u -> u_steady. Eigenfunction: v(x, t) = sum b_n sin(n x) e^{-n^2 t}, b_n = (2/pi) integral_0^pi (f(x) - sin(x)) sin(n x) dx. If f = sin(x), then b_n = (2/pi) integral (sin(x) - sin(x)) sin(nx) dx = 0 for all n (resonance: f equals steady state). So v = 0, u(x, t) = sin(x) for all t (already steady). Resonance: if F = lambda_n phi_n (forcing at eigenfrequency), steady state amplitude = lambda_n / lambda_n^{eigenvalue} = 1/lambda_n^{eigenvalue}... for F = sin(x) = phi_1, lambda_1 = 1, steady amplitude = 1/lambda_1 = 1, so u_steady = sin(x) ✓. ✓',
+  'ch07p2_worked_steady_state',
+  'problem_solving',
+  ['worked steady state', 'elliptic BVP', 'transient', 'Fredholm', 'resonance']
+)
+
+add(
+  'How do you solve the heat equation with Neumann BC u_x(0,t) = u_x(pi,t) = 0 and u(x,0) = cos(x) + 5?',
+  'Heat equation u_t = u_{xx} on [0, pi] with Neumann BC u_x(0, t) = u_x(pi, t) = 0 (insulated ends), IC u(x, 0) = cos(x) + 5. Eigenvalues of -d^2/dx^2 with Neumann BC on [0, pi]: lambda_n = n^2 for n = 0, 1, 2, ... (n = 0 included for Neumann!). Eigenfunctions: cos(n x) (n = 0, 1, 2, ...). Note: lambda_0 = 0 (constant eigenfunction), so there\'s a non-decaying mode. General solution: u(x, t) = a_0/2 + sum_{n=1}^inf a_n cos(n x) e^{-n^2 t} (Fourier cosine series). Initial: u(x, 0) = cos(x) + 5 = 5 · 1 + 1 · cos(x) + 0 · cos(2x) + ... So a_0/2 = 5 (=> a_0 = 10), a_1 = 1, a_n = 0 for n >= 2. Solution: u(x, t) = 5 + cos(x) e^{-t}. Verify: u_x = -sin(x) e^{-t}. u_x(0, t) = 0 ✓, u_x(pi, t) = -sin(pi) e^{-t} = 0 ✓. u_{xx} = -cos(x) e^{-t}. u_t = -cos(x) e^{-t} = u_{xx} ✓. IC: u(x, 0) = 5 + cos(x) ✓. Long-time: u -> 5 (constant; the n = 0 mode persists, all n >= 1 decay). Mass conservation: integral_0^pi u dx = 5 pi + 0 = 5 pi for all t (since integral cos(nx) dx = 0 for n >= 1). Average = (1/pi) integral u dx = 5 (the constant mode). General fact: for Neumann BC, solution approaches the average of initial data: u_inf = (1/L) integral_0^L f(x) dx. Here (1/pi) integral_0^pi (cos(x) + 5) dx = (1/pi)(0 + 5 pi) = 5 ✓. Energy: E(t) = (1/2) integral u^2 dx - (1/2) (average)^2 · pi = (1/2) integral (u - 5)^2 dx (centered) = (1/2) integral cos^2(x) e^{-2t} dx = (1/2)(pi/2) e^{-2t} = (pi/4) e^{-2t} -> 0. ✓',
+  'ch07p2_worked_neumann',
+  'problem_solving',
+  ['worked Neumann', 'insulated', 'Fourier cosine', 'constant mode', 'mass conservation']
+)
+
+add(
+  'How do you solve u_t = u_{xx} on [0,1] with u(0,t) = 0, u(1,t) = 100, and u(x,0) = 0?',
+  'Heat equation u_t = u_{xx} on [0, 1], nonhomogeneous Dirichlet BC u(0, t) = 0, u(1, t) = 100, IC u(x, 0) = 0. Method: lift to homogeneous BC. Steady state u_s solves u_s\'\' = 0, u_s(0) = 0, u_s(1) = 100. So u_s(x) = 100 x (linear). Let v = u - u_s. Then v_t = v_{xx}, v(0, t) = u(0, t) - 0 = 0, v(1, t) = u(1, t) - 100 = 0 (homogeneous). IC: v(x, 0) = u(x, 0) - u_s(x) = 0 - 100 x = -100 x. Solve homogeneous heat eq for v with Dirichlet BC: v(x, t) = sum b_n sin(n pi x) exp(-(n pi)^2 t) (lambda_n = (n pi)^2 for L = 1). Fourier sine coefficients of -100 x on [0, 1]: b_n = 2 integral_0^1 (-100 x) sin(n pi x) dx = -200 integral_0^1 x sin(n pi x) dx. integral_0^1 x sin(n pi x) dx = [-x cos(n pi x)/(n pi)]_0^1 + integral_0^1 cos(n pi x)/(n pi) dx = -cos(n pi)/(n pi) + [sin(n pi x)/(n pi)^2]_0^1 = -(-1)^n/(n pi) + 0 = (-1)^{n+1}/(n pi). So b_n = -200 · (-1)^{n+1}/(n pi) = 200 (-1)^n / (n pi). Solution: v(x, t) = sum_{n=1}^inf (200 (-1)^n / (n pi)) sin(n pi x) exp(-(n pi)^2 t). Full: u(x, t) = 100 x + sum_{n=1}^inf (200 (-1)^n / (n pi)) sin(n pi x) exp(-(n pi)^2 t). Verify IC: u(x, 0) = 100 x + (200/pi) sum (-1)^n /n sin(n pi x). The Fourier sine series of -100 x is (200/pi) sum (-1)^n/n sin(n pi x) (just computed). So u(x, 0) = 100 x - 100 x = 0 ✓. BC: u(0, t) = 0 + 0 = 0 ✓, u(1, t) = 100 + sum (200 (-1)^n /n pi) sin(n pi) e^{...} = 100 + 0 = 100 ✓ (sin(n pi) = 0). Long-time: v -> 0, so u -> 100 x (steady linear profile). Physical: rod with one end at 0°C, other at 100°C, initially at 0°C; heats up to linear steady state. ✓',
+  'ch07p2_worked_nonhomogeneous_dirichlet',
+  'problem_solving',
+  ['worked nonhomogeneous Dirichlet', 'lifting', 'steady state linear', 'Fourier sine', 'transient']
+)
+
+// ============================================================
+// WRITE OUTPUT
+// ============================================================
+const output = {
+  generatedAt: new Date().toISOString(),
+  totalItems: items.length,
+  subject: 'mathematics_formulas_volume_9_chapter_07_part_02',
+  volume:
+    'Volume 9 — Comprehensive Formula Encyclopedia, Chapter 7 Part 2 (Parabolic PDEs: Heat Equation in Depth — Derivation and Physical Origin, Maximum Principle and Uniqueness, Heat Kernel and Fundamental Solution, Duhamel Principle and Nonhomogeneous Heat Equation, Energy Methods and Decay Estimates, Regularity and Smoothing Properties, Black-Scholes and Reaction-Diffusion Equations, Worked Problems)',
+  source: 'TRIZA Generated Formula Dataset',
+  language: 'en',
+  religionNeutral: true,
+  items,
+}
+
+mkdirSync('data', { recursive: true })
+writeFileSync('data/math-formulas-vol9-ch07p2.json', JSON.stringify(output, null, 2))
+console.log(`Wrote ${items.length} items to data/math-formulas-vol9-ch07p2.json`)

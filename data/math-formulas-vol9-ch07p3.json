@@ -1,0 +1,596 @@
+{
+  "generatedAt": "2026-07-06T14:21:07.877Z",
+  "totalItems": 45,
+  "subject": "mathematics_formulas_volume_9_chapter_07_part_03",
+  "volume": "Volume 9 — Comprehensive Formula Encyclopedia, Chapter 7 Part 3 (Hyperbolic PDEs: Wave Equation in Depth — Derivation and d'Alembert Solution, Finite Propagation and Characteristic Cone, Energy Conservation and Uniqueness, Kirchhoff/Poisson/Alexandrov Formulas, Method of Characteristics for Wave Equation, Dispersion and Shock Waves, Vibrating String and Membrane and Klein-Gordon and Maxwell, Worked Problems)",
+  "source": "TRIZA Generated Formula Dataset",
+  "language": "en",
+  "religionNeutral": true,
+  "items": [
+    {
+      "question": "How is the wave equation derived from a vibrating string?",
+      "answer": "Derivation of 1D wave equation u_{tt} = c^2 u_{xx} from Newton's second law on a vibrating string. Setup: string of linear density mu (kg/m) under tension T (N), small transverse displacement u(x, t). Consider small segment [x, x+dx]. Forces at ends: tension T tangential to string. Transverse component at x: -T sin(theta) ≈ -T tan(theta) ≈ -T u_x(x, t) (small angle). At x+dx: +T u_x(x+dx, t). Net transverse force: T [u_x(x+dx) - u_x(x)] ≈ T u_{xx} dx. Mass of segment: mu dx. Newton II (transverse): mu dx u_{tt} = T u_{xx} dx. So u_{tt} = (T/mu) u_{xx} = c^2 u_{xx}, where c = sqrt(T/mu) is wave speed [m/s]. Units: T [N = kg m/s^2], mu [kg/m], T/mu [m^2/s^2], sqrt(T/mu) [m/s] ✓. Typical: guitar string T = 50 N, mu = 0.005 kg/m, c = sqrt(50/0.005) = sqrt(10000) = 100 m/s. 3D wave equation: u_{tt} = c^2 Delta u (derived from elastic membrane or electromagnetic waves). Maxwell -> wave eq: from Maxwell's equations in vacuum, E and B satisfy u_{tt} = c^2 Delta u with c = 1/sqrt(mu_0 epsilon_0) = speed of light. Sound waves: u_{tt} = c_s^2 Delta u, c_s = sqrt(gamma P/rho) (adiabatic sound speed, gamma = C_p/C_v). Initial conditions: u(x, 0) = f(x) (initial displacement), u_t(x, 0) = g(x) (initial velocity). Two ICs needed (second-order in t). Boundary conditions: fixed end u(0, t) = 0, free end u_x(0, t) = 0, periodic, radiation. ✓",
+      "topic": "ch07p3_wave_derivation",
+      "intent": "formula_recall",
+      "keywords": [
+        "wave equation derivation",
+        "vibrating string",
+        "tension density",
+        "c = sqrt(T/mu)",
+        "Newton second law"
+      ]
+    },
+    {
+      "question": "What is the d'Alembert solution of the 1D wave equation?",
+      "answer": "d'Alembert (1746) solution of u_{tt} = c^2 u_{xx} on -inf < x < inf with u(x, 0) = f(x), u_t(x, 0) = g(x). Factor the wave operator: partial_t^2 - c^2 partial_x^2 = (partial_t - c partial_x)(partial_t + c partial_x) = (partial_t + c partial_x)(partial_t - c partial_x) (commutes). Let v = u_t + c u_x (right-traveling part). Then (partial_t - c partial_x) v = 0 (transport eq, v constant along x + c t = const). So v(x, t) = v(x, 0) = g(x) + c f'(x). Similarly w = u_t - c u_x satisfies (partial_t + c partial_x) w = 0, w(x, t) = g(x) - c f'(x). Solve: u_t = (v+w)/2 = g(x) (wait, need integrate). Cleaner: change variables xi = x + c t, eta = x - c t. Then u(x, t) = U(xi, eta). Wave eq: u_{tt} - c^2 u_{xx} = 4 c^2 U_{eta xi} = 0 (compute via chain rule). So U_{eta xi} = 0, integrate: U = F(xi) + G(eta) = F(x + c t) + G(x - c t). Apply IC: u(x, 0) = F(x) + G(x) = f(x). u_t(x, 0) = c F'(x) - c G'(x) = g(x). From first: F + G = f. Differentiate: F' + G' = f'. With c(F' - G') = g: F' - G' = g/c. Add: 2 F' = f' + g/c, F' = (f' + g/c)/2, F(x) = (1/2) [f(x) + (1/c) integral_0^x g(s) ds] + C_1. Subtract: 2 G' = f' - g/c, G' = (f' - g/c)/2, G(x) = (1/2) [f(x) - (1/c) integral_0^x g(s) ds] + C_2. C_1 + C_2 = 0 (from F + G = f). Final: u(x, t) = (1/2)[f(x + c t) + f(x - c t)] + (1/(2c)) integral_{x - c t}^{x + c t} g(s) ds. ✓ Interpretation: average of f at two points + integral of g over interval. F(x + ct) = left-traveling wave, G(x - ct) = right-traveling wave. ✓",
+      "topic": "ch07p3_dalembert_solution",
+      "intent": "formula_recall",
+      "keywords": [
+        "d'Alembert solution",
+        "wave equation",
+        "F(x+ct) + G(x-ct)",
+        "traveling waves",
+        "initial value problem"
+      ]
+    },
+    {
+      "question": "How do you interpret the d'Alembert formula as traveling waves?",
+      "answer": "d'Alembert formula u(x, t) = F(x + c t) + G(x - c t) where F, G determined by IC. Interpretation: F(x + c t) is a wave traveling LEFT (in -x direction) at speed c. Proof: at time t, feature at x_0 + (-c) t = x_0 - c t moves left; F(x + c t) peaks when x + c t = const, i.e., x = const - c t (moves left). G(x - c t) is a wave traveling RIGHT (+x direction) at speed c: peaks when x - c t = const, x = const + c t (moves right). With zero initial velocity g = 0: u(x, t) = (1/2)[f(x + ct) + f(x - ct)]. The initial profile f splits into two halves: one copy travels left, one travels right, each at speed c, each with half the original amplitude. At t = 0: both overlap, sum = f. As t increases, they separate. With zero initial displacement f = 0: u(x, t) = (1/(2c)) integral_{x-ct}^{x+ct} g(s) ds. The interval [x - ct, x + ct] is the \"domain of dependence\" of point (x, t). General: u = (1/2)(left half of f + right half of f) + (1/(2c)) integral of g over domain of dependence. Physical: pluck a string (f != 0, g = 0) -> the pluck splits into two pulses traveling in opposite directions. Strike a string (f = 0, g != 0, hammer) -> the impulse spreads out as the integral of g over the expanding interval. Finite propagation: u(x, t) depends only on f, g in [x - ct, x + ct]; outside this interval has no influence (signals propagate at exactly speed c, no faster). Contrast with heat eq (infinite propagation speed). ✓",
+      "topic": "ch07p3_traveling_wave_interpretation",
+      "intent": "formula_recall",
+      "keywords": [
+        "traveling wave",
+        "F(x+ct) left",
+        "G(x-ct) right",
+        "split pulse",
+        "domain of dependence"
+      ]
+    },
+    {
+      "question": "What is the domain of dependence and range of influence for the wave equation?",
+      "answer": "Domain of dependence: for the wave equation u_{tt} = c^2 u_{xx} on R, the solution at point (x_0, t_0) depends only on initial data in the interval [x_0 - c t_0, x_0 + c t_0] (from d'Alembert formula). This interval is the domain of dependence of (x_0, t_0). The boundary points x_0 ± c t_0 are where the characteristic lines through (x_0, t_0) meet the x-axis. Geometrically: the backward light cone from (x_0, t_0) intersects t = 0 in this interval. Range of influence: the set of points (x, t) that are influenced by initial data at x = x_1. A point (x, t) is influenced by x_1 iff x_1 is in [x - ct, x + ct], i.e., |x - x_1| <= c t, i.e., x in [x_1 - ct, x_1 + ct]. So the range of influence of x_1 is the forward light cone {(x, t) : |x - x_1| <= c t, t >= 0}. Finite propagation speed: signals from x_1 reach x only at time t >= |x - x_1|/c. Sharp wavefront: at t = |x - x_1|/c, the signal first arrives (unlike heat eq, no precursor). In n-D: domain of dependence of (x_0, t_0) is the closed ball B(x_0, c t_0) for n >= 2 (Kirchhoff/Poisson formulas). For n = 3 (Huygens): only the SPHERE |x - x_0| = c t_0 contributes (not the interior). For n = 2: the entire disk contributes (no Huygens principle). Causality: in relativity, the light cone structure means causes must be in the past light cone of effects. Characteristic lines: x ± c t = const (slope ±1/c in (x,t) plane). Characteristics through (x_0, t_0): x = x_0 ± c(t_0 - t), reaching x-axis at x_0 ± c t_0. ✓",
+      "topic": "ch07p3_domain_dependence",
+      "intent": "formula_recall",
+      "keywords": [
+        "domain of dependence",
+        "range of influence",
+        "light cone",
+        "finite propagation",
+        "characteristic lines"
+      ]
+    },
+    {
+      "question": "How do you solve the wave equation on a half-line with fixed-end BC?",
+      "answer": "Wave equation u_{tt} = c^2 u_{xx} on x > 0 with u(0, t) = 0 (fixed end), u(x, 0) = f(x), u_t(x, 0) = g(x) for x > 0. Method of images (like heat eq). Extend f, g to whole line as ODD functions: f_ext(x) = f(x) for x > 0, f_ext(x) = -f(-x) for x < 0. Similarly g_ext odd. Solve on whole line with d'Alembert: u_ext(x, t) = (1/2)[f_ext(x+ct) + f_ext(x-ct)] + (1/(2c)) integral_{x-ct}^{x+ct} g_ext(s) ds. By odd symmetry of f_ext, g_ext and evenness of the integral domain under x -> -x: u_ext(0, t) = (1/2)[f_ext(ct) + f_ext(-ct)] + (1/(2c)) integral_{-ct}^{ct} g_ext(s) ds = (1/2)[f_ext(ct) - f_ext(ct)] + 0 = 0 (since g_ext odd, integral over symmetric interval = 0). So u_ext(0, t) = 0 ✓, and u(x, t) = u_ext(x, t) for x > 0 solves the half-line problem. Explicit for x > 0: u(x, t) = (1/2)[f_ext(x+ct) + f_ext(x-ct)] + (1/(2c)) integral_{x-ct}^{x+ct} g_ext(s) ds. Cases: if x - ct > 0 (signal hasn't reached boundary): both x±ct > 0, f_ext = f, integral over [x-ct, x+ct] of g (all positive). So u = (1/2)[f(x+ct) + f(x-ct)] + (1/(2c)) integral_{x-ct}^{x+ct} g(s) ds (same as whole line; boundary doesn't matter). If x - ct < 0 (signal has reflected off boundary): f_ext(x-ct) = -f(ct - x) (since x - ct < 0, f_ext(-(ct-x)) = -f(ct-x)). And integral splits: integral_{x-ct}^0 g_ext + integral_0^{x+ct} g_ext = integral_{x-ct}^0 (-g(-s)) ds + integral_0^{x+ct} g(s) ds = -integral_0^{ct-x} g(s) ds + integral_0^{x+ct} g(s) ds (substituting s -> -s in first). So u(x, t) = (1/2)[f(x+ct) - f(ct-x)] + (1/(2c))[integral_0^{x+ct} g(s) ds - integral_0^{ct-x} g(s) ds] (reflected wave with sign flip). Physical: wave reflects off fixed end with INVERSION (sign flip). Free end (u_x(0,t) = 0): extend as EVEN functions; reflection without inversion. ✓",
+      "topic": "ch07p3_half_line_fixed",
+      "intent": "problem_solving",
+      "keywords": [
+        "half-line wave",
+        "fixed end",
+        "method of images",
+        "odd extension",
+        "reflection inversion"
+      ]
+    },
+    {
+      "question": "How do you solve the wave equation on a finite interval with Dirichlet BC?",
+      "answer": "Wave equation u_{tt} = c^2 u_{xx} on [0, L] with u(0, t) = u(L, t) = 0, u(x, 0) = f(x), u_t(x, 0) = g(x). Separation of variables: u = X(x) T(t). X T'' = c^2 X'' T => T''/(c^2 T) = X''/X = -lambda. X'' + lambda X = 0, X(0) = X(L) = 0. Eigenvalues: lambda_n = (n pi/L)^2, eigenfunctions X_n = sin(n pi x/L). Time: T_n'' + c^2 lambda_n T_n = 0, T_n(t) = A_n cos(c n pi t/L) + B_n sin(c n pi t/L). General solution: u(x, t) = sum_{n=1}^inf [A_n cos(n pi c t/L) + B_n sin(n pi c t/L)] sin(n pi x/L). Apply IC: u(x, 0) = sum A_n sin(n pi x/L) = f(x), so A_n = (2/L) integral_0^L f(x) sin(n pi x/L) dx (Fourier sine). u_t(x, 0) = sum B_n (n pi c/L) sin(n pi x/L) = g(x), so B_n (n pi c/L) = (2/L) integral g sin(n pi x/L) dx, B_n = (2/(n pi c)) integral_0^L g(x) sin(n pi x/L) dx. Periodicity: each mode oscillates with frequency omega_n = n pi c/L, period 2L/(n c). Fundamental frequency omega_1 = pi c/L, period 2L/c. Overtones: omega_n = n omega_1 (harmonic series). Musical: string fundamental f_1 = c/(2L); overtones at n f_1. Change L, T, mu to tune pitch. Energy: E = (1/2) integral (mu u_t^2 + T u_x^2) dx = sum (pi^2 c^2 n^2/(4 L)) [mu (A_n^2 sin^2 + B_n^2 cos^2) + T (A_n^2 cos^2 + B_n^2 sin^2)] ... per mode conserved. Long-time: no decay (unlike heat eq); energy oscillates between kinetic and potential but total is conserved. No smoothing (regularity = that of f, g). ✓",
+      "topic": "ch07p3_finite_interval_dirichlet",
+      "intent": "problem_solving",
+      "keywords": [
+        "finite interval",
+        "Dirichlet BC",
+        "separation of variables",
+        "Fourier sine",
+        "harmonic frequencies"
+      ]
+    },
+    {
+      "question": "What is the normal mode expansion for a vibrating string and its musical interpretation?",
+      "answer": "Normal modes of vibrating string u_{tt} = c^2 u_{xx} on [0, L], fixed ends u(0,t) = u(L,t) = 0. Modes: u_n(x, t) = sin(n pi x/L) cos(omega_n t) (or sin(omega_n t)), where omega_n = n pi c/L = n omega_1. Each mode is a standing wave with n half-wavelengths fitting in [0, L]. n = 1: fundamental (first harmonic), one antinode at x = L/2, frequency f_1 = c/(2L). n = 2: second harmonic (first overtone), node at x = L/2, frequency 2 f_1. n = 3: third harmonic, nodes at L/3, 2L/3, frequency 3 f_1. General solution = superposition of modes (Fourier sine series). Energy per mode: E_n = (1/4) mu L omega_n^2 (A_n^2 + B_n^2) (each mode independent, energy conserved). Musical acoustics: fundamental f_1 determines pitch; overtones (n >= 2) determine timbre. Plucked string (triangular initial shape): all harmonics present, A_n ~ 1/n^2 (even/odd depending on pluck point). Bowed string (Helmboltz motion): sawtooth, A_n ~ 1/n. Blown pipe (open): similar to string but pressure modes; closed pipe: only odd harmonics. Tuning: f_1 = c/(2L) = (1/(2L)) sqrt(T/mu). To raise pitch: increase tension T, decrease length L, decrease mass density mu. Guitar: press fret to shorten L (raise pitch by 2^{1/12} per semitone). Piano: thicker strings for low notes (higher mu), thinner for high. Struck vs plucked vs bowed: different initial conditions -> different harmonic content. Damping: real strings lose energy (air drag, sound radiation, internal friction); amplitudes decay exponentially. Inharmonicity: real strings have slight stiffness, making overtones slightly sharp (n omega_1 -> n omega_1 sqrt(1 + B n^2)). ✓",
+      "topic": "ch07p3_normal_modes_musical",
+      "intent": "formula_recall",
+      "keywords": [
+        "normal modes",
+        "vibrating string",
+        "harmonics",
+        "fundamental frequency",
+        "timbre overtones"
+      ]
+    },
+    {
+      "question": "What is the finite propagation speed property of the wave equation?",
+      "answer": "Finite propagation speed for wave equation u_{tt} = c^2 Delta u on R^n. Property: if initial data f, g vanish outside a ball B(0, R) (compact support), then u(x, t) vanishes outside the \"sphere of influence\" {|x| <= R + c t} AND also vanishes inside {|x| < c t - R} for t > R/c (in odd n >= 3, Huygens principle). Specifically: a disturbance at point x_0 at time 0 reaches point x at time |x - x_0|/c (sharp wavefront, no precursor). For t < |x - x_0|/c: u(x, t) = 0 (signal hasn't arrived). For t = |x - x_0|/c: signal first arrives. For t > |x - x_0|/c: signal present (in n = 1, 2, persists; in n = 3, may pass through, Huygens). Contrast heat equation: infinite propagation speed (heat felt everywhere instantly, though exponentially small). Proof (n=1): d'Alembert formula u(x, t) = (1/2)[f(x+ct) + f(x-ct)] + (1/(2c)) integral_{x-ct}^{x+ct} g(s) ds. If f, g vanish outside [a, b], then u(x, t) != 0 only if [x-ct, x+ct] intersects [a, b], i.e., x-ct <= b and x+ct >= a, i.e., a - ct <= x <= b + ct. So support of u(·, t) ⊆ [a - ct, b + ct] (expanding at speed c). Physical: sound propagates at finite speed c_s ≈ 343 m/s (air); light at c ≈ 3×10^8 m/s. Lightning: see flash instantly (light fast), hear thunder later (sound slow). Earthquake: P-waves (~6 km/s) arrive before S-waves (~3.5 km/s). Relativistic causality: wave eq is the prototypical \"causal\" PDE; signals cannot travel faster than c. Hyperbolic systems (Maxwell, Euler linearized) all have finite propagation speed. Energy argument for finite propagation: define local energy E(x_0, t_0) = integral_{|x-x_0| <= c(t_0 - t)} (u_t^2 + c^2 |grad u|^2) dx at time t < t_0. Show dE/dt <= 0 (energy doesn't enter the cone from outside), so if E(x_0, 0) = 0 (no IC in cone base), then E(x_0, t_0) = 0, so u = 0 in cone. ✓",
+      "topic": "ch07p3_finite_propagation",
+      "intent": "formula_recall",
+      "keywords": [
+        "finite propagation",
+        "sharp wavefront",
+        "wave speed c",
+        "sphere of influence",
+        "causality"
+      ]
+    },
+    {
+      "question": "What is the characteristic cone and characteristic surfaces for the wave equation?",
+      "answer": "Characteristic cone for wave equation u_{tt} = c^2 Delta u. At point (x_0, t_0), the characteristic cone (light cone) is {(x, t) : |x - x_0|^2 = c^2 (t - t_0)^2}. This is a double cone: future cone (t > t_0) and past cone (t < t_0). The cone surface |x - x_0| = c |t - t_0| consists of characteristic surfaces (wavefronts). Inside the cone: |x - x_0| < c |t - t_0| (timelike region). Outside: |x - x_0| > c |t - t_0| (spacelike region, no causal connection). Characteristic surfaces: hypersurfaces in spacetime along which the PDE degenerates (highest-order normal derivative undetermined). For wave eq, characteristic surfaces satisfy (partial phi/partial t)^2 - c^2 |grad_x phi|^2 = 0 (eikonal equation). Examples: t - |x|/c = const (expanding sphere), t + |x|/c = const (contracting sphere), x ± ct = const (planes in 1D). Role of characteristics: (1) Information propagates along them (wavefronts). (2) Discontinuities in derivatives propagate along them (singular support). (3) Domain of dependence bounded by them. (4) Cauchy problem: data on a non-characteristic surface (spacelike, t = const) gives unique solution; data on characteristic surface (light cone) is degenerate. Characteristic coordinates: in 1D, xi = x + ct, eta = x - ct (null coordinates). Wave eq becomes u_{xi eta} = 0 (factored). In n-D, null vectors: k = (omega, k_vec) with omega^2 = c^2 |k_vec|^2 (dispersion relation; light cone in Fourier space). Lorentzian structure: Minkowski metric ds^2 = c^2 dt^2 - dx^2 - dy^2 - dz^2. Light cone = null geodesics. Causal structure of special relativity. Hyperbolic systems in general: characteristic surfaces determine propagation of singularities (Hamilton-Jacobi, geometrical optics). ✓",
+      "topic": "ch07p3_characteristic_cone",
+      "intent": "formula_recall",
+      "keywords": [
+        "characteristic cone",
+        "light cone",
+        "eikonal equation",
+        "null coordinates",
+        "Minkowski metric"
+      ]
+    },
+    {
+      "question": "What is Huygens' principle for the wave equation and in which dimensions does it hold?",
+      "answer": "Huygens' principle (strict form): for wave equation u_{tt} = c^2 Delta u in R^n, the solution at (x_0, t_0) depends only on initial data on the SPHERE {|x - x_0| = c t_0}, not on the interior of the ball. Holds in ODD dimensions n >= 3 (n = 3, 5, 7, ...). Fails in EVEN dimensions (n = 2, 4, ...) and in n = 1. n = 3 (Kirchhoff formula): u(x_0, t_0) = (1/(4 pi c^2 t_0)) integral_{|y-x_0|=ct_0} g(y) dS_y + (1/(4 pi c^2)) partial/partial t [ (1/t_0) integral_{|y-x_0|=ct_0} f(y) dS_y ] (surface integrals only, no volume). Consequence: a flash of light at t = 0 from origin is observed at x_0 only during the instant t = |x_0|/c (sharp arrival and departure; \"no tail\"). Sound in 3D: clap heard as a sharp clap, not a lingering rumble. n = 2 (Poisson formula, method of descent): u(x_0, t_0) = (1/(2 pi c)) integral_{|y-x_0|<=ct_0} g(y)/sqrt(c^2 t_0^2 - |y-x_0|^2) dy + (1/(2 pi c)) partial/partial t integral_{|y-x_0|<=ct_0} f(y)/sqrt(c^2 t_0^2 - |y-x_0|^2) dy (VOLUME integral over disk). Consequence: wave in 2D has a \"tail\" — after the wavefront passes, residual disturbance lingers (decays). Ripples on a pond: after main wave passes, smaller ripples continue (no Huygens in 2D). n = 1 (d'Alembert): u depends on integral over interval [x_0 - ct_0, x_0 + ct_0] (also \"tail\"; wave in 1D has persistence). General (Hadamard): strict Huygens holds iff n is odd and n >= 3. Method of descent: derive n-D formula from (n+1)-D by taking data independent of one coordinate. n = 2 from n = 3: integrate Kirchhoff over z. Physical reason: in 3D, waves radiate outward and don't \"come back\"; in 2D, waves from a point source spread but also linger (geometric focusing/defocusing). ✓",
+      "topic": "ch07p3_huygens_principle",
+      "intent": "formula_recall",
+      "keywords": [
+        "Huygens principle",
+        "strict form",
+        "odd dimensions",
+        "Kirchhoff sphere",
+        "method of descent"
+      ]
+    },
+    {
+      "question": "How does the wave equation propagate singularities along characteristics?",
+      "answer": "Singularity propagation for wave equation u_{tt} = c^2 Delta u. Theorem: if initial data f, g have a singularity (jump, delta) at point x_0, then the singularity of u propagates along the characteristic cone through (x_0, 0). In 1D: if f has a jump at x_0, then u has jumps along x + ct = x_0 and x - ct = x_0 (the two characteristics through (x_0, 0)). The jumps travel at speed c in both directions. If f is C^k except at x_0, then u is C^k except on the characteristics. If f has a delta (point impulse), u has deltas on the characteristics (delta waves). In n-D: singularities propagate along null bicharacteristics (Hamiltonian flow of the symbol). For wave eq, bicharacteristics are straight lines in spacetime with (dx/dt, c^2 dt/ds) etc; physically, rays along which light/sound travels. Geometrical optics: high-frequency asymptotic solutions u ~ a(x, t) e^{i omega phi(x, t)}/omega^k, where phi solves eikonal (partial_t phi)^2 - c^2 |grad_x phi|^2 = 0, and amplitude a transported along rays. Wavefront set: WF(u) is a subset of the characteristic variety; propagation of singularities theorem (Duistermaat-Hormander) says WF(u) is invariant under Hamiltonian flow. Discontinuities: if f jumps across surface S, then u jumps across the characteristic surfaces emanating from S (envelope of cones from each point of S). Caustics: where rays focus, amplitude blows up (geometrical optics breaks down; need uniform asymptotics). Shock waves: for nonlinear hyperbolic (Burgers, Euler), characteristics can cross, forming shocks (see Section 6). For linear wave eq, characteristics don't cross (linear superposition), so no shocks — singularities just propagate. Contrast heat eq: singularities are instantly smoothed (no propagation; infinite speed). Contrast elliptic (Laplace): singularities cannot occur inside domain (analytic smoothing). ✓",
+      "topic": "ch07p3_singularity_propagation",
+      "intent": "formula_recall",
+      "keywords": [
+        "singularity propagation",
+        "characteristics",
+        "wavefront set",
+        "geometrical optics",
+        "eikonal"
+      ]
+    },
+    {
+      "question": "What is the energy method for uniqueness and finite propagation of the wave equation?",
+      "answer": "Energy method for wave equation u_{tt} = c^2 Delta u. Define energy E(t) = (1/2) integral_D (u_t^2 + c^2 |grad u|^2) dx (kinetic + potential). Compute dE/dt = integral_D (u_t u_{tt} + c^2 grad u · grad u_t) dx = integral_D u_t (u_{tt} - c^2 Delta u) dx + c^2 integral_{partial D} u_t (partial u/partial n) dS. PDE u_{tt} = c^2 Delta u makes first term 0. With Dirichlet (u = 0 on boundary => u_t = 0) or Neumann (partial u/partial n = 0) BC: boundary term = 0. So dE/dt = 0, E(t) = E(0) (energy CONSERVED, unlike heat eq where energy decreases). Uniqueness: if u_1, u_2 solve with same IC and BC, w = u_1 - u_2 solves wave eq with zero IC and BC. E_w(t) = E_w(0) = 0. So u_t = 0 and grad u = 0, hence w = const = 0. ✓ Uniqueness. Finite propagation (local energy): define E(x_0, t_0; t) = (1/2) integral_{|x - x_0| <= c(t_0 - t)} (u_t^2 + c^2 |grad u|^2) dx for t < t_0 (energy in backward cone). Compute dE/dt = -integral_{|x-x_0| = c(t_0-t)} (flux) + (boundary moving). Careful computation gives dE/dt <= 0 (energy doesn't leak INTO the cone from outside). So if E(x_0, t_0; 0) = 0 (no IC in ball B(x_0, c t_0)), then E(x_0, t_0; t_0) = 0, so u = 0 at (x_0, t_0). This proves finite propagation (and gives a quantitative bound). Domain of dependence: ball B(x_0, c t_0) is exactly the domain of dependence of (x_0, t_0). Continuous dependence: |u(x_0, t_0)|^2 <= C E(x_0, t_0; 0) (energy estimate). Multipliers: more refined energies using multipliers M u = a(x,t) u_t + b(x,t) · grad u (Morawetz, Levine). ✓",
+      "topic": "ch07p3_energy_method_wave",
+      "intent": "problem_solving",
+      "keywords": [
+        "energy method",
+        "wave equation",
+        "energy conservation",
+        "local energy",
+        "finite propagation proof"
+      ]
+    },
+    {
+      "question": "How do you derive the conservation of energy for the vibrating string?",
+      "answer": "Energy conservation for 1D wave eq u_{tt} = c^2 u_{xx} on [0, L] with fixed ends. Energy density: e(x, t) = (1/2)(u_t^2 + c^2 u_x^2) (kinetic + potential per unit length). Total energy E(t) = integral_0^L e dx = (1/2) integral (u_t^2 + c^2 u_x^2) dx. Derive conservation: de/dt = u_t u_{tt} + c^2 u_x u_{xt} = u_t (c^2 u_{xx}) + c^2 u_x u_{xt} (using PDE) = c^2 (u_t u_{xx} + u_x u_{xt}) = c^2 partial_x (u_t u_x) (product rule: partial_x(u_t u_x) = u_{xt} u_x + u_t u_{xx}). So de/dt = c^2 partial_x(u_t u_x), a conservation law de/dt + partial_x(-c^2 u_t u_x) = 0. Flux: j = -c^2 u_t u_x (energy flowing in -x direction). Integrate: dE/dt = integral de/dt dx = c^2 [u_t u_x]_0^L. With fixed ends u(0,t) = u(L,t) = 0 => u_t(0,t) = u_t(L,t) = 0 => boundary term = 0. So dE/dt = 0, E = const ✓. Physical: energy oscillates between kinetic (u_t^2) and potential (c^2 u_x^2 = stretched-string elastic). Plucked string at t=0: all potential (u_t = 0). At t = L/(2c) (quarter period): passes through equilibrium (u = 0, max u_t), all kinetic. Half period: back to potential (negative displacement). Energy is E = sum_n (pi^2 c^2 n^2/(4 L)) [A_n^2 + B_n^2] (sum over modes; each mode contributes independently because sin are orthogonal). Mode energies: E_n = (pi^2 c^2 n^2/(4 L)) (A_n^2 + B_n^2). Each E_n individually conserved (orthogonal modes don't exchange energy; linearity). With damping (u_t = c^2 u_{xx} - gamma u_t): dE/dt = -gamma integral u_t^2 dx <= 0 (energy decreases). Free end (u_x(0) = 0): boundary term at 0 = c^2 u_t(0) u_x(0) = 0 (Neumann). Periodic BC: boundary terms cancel. ✓",
+      "topic": "ch07p3_energy_conservation_string",
+      "intent": "problem_solving",
+      "keywords": [
+        "energy conservation",
+        "vibrating string",
+        "kinetic potential",
+        "energy density flux",
+        "mode energy"
+      ]
+    },
+    {
+      "question": "What is the weighted energy inequality and Morawetz estimate for the wave equation?",
+      "answer": "Morawetz estimate for wave equation u_{tt} = Delta u in 3D (exterior domain or whole space). Multiplier method: multiply PDE by M u = (x · grad u + t u_t + (n-1)/2 u) (Morawetz multiplier) and integrate. Conservation law (Morawetz identity): partial_t e_M + div f_M = -|grad_S u|^2/|x| (conformal energy identity), where grad_S = tangential gradient on sphere, e_M = Morawetz energy density. Integrated: integral_0^T integral_{R^3} |grad_S u|^2/|x| dx dt <= C E(0) (Morawetz estimate). Interpretation: angular/local energy decays; energy \"leaks\" to infinity in each direction. Implies local energy decay (energy in any bounded region -> 0). Exterior domains (obstacle scattering): local energy decays (Lax-Phillips, Morawetz 1961). Precludes trapped rays (geometric control condition). Conformal conservation law (n=3): K(u) = (1/2) integral [(t^2 + |x|^2)(u_t^2 + |grad u|^2) + 4 t u_t (x·grad u) + 2 t u u_t + |x|^2 + ... ] dx (conformal energy). Conserved: K(t) = K(0). Gives decay: ||u(t)||_{L^inf} <= C/t · (K(0)). So 3D wave decays as 1/t (Kirchhoff formula shows u ~ (1/t) integral_sphere ...). Weighted Sobolev: ||u(t)||_{L^inf} <= C/t (||f||_{H^2} + ||g||_{H^1}) for t > 0 (decay with smoothness). Nonlinear applications: Morawetz estimate key for global existence of nonlinear wave (semilinear u_{tt} - Delta u = |u|^p, p > (n+1)/(n-1) Strauss exponent). Concentration-compactness, induction on energy (Bourgain). Dispersion: |u(x, t)| ~ t^{-(n-1)/2} (dispersive decay; n=3: t^{-1}). Strichartz estimates: ||u||_{L^q_t L^r_x} <= C (||f||_{H^s} + ||g||_{H^{s-1}}) (q, r admissible pair). ✓",
+      "topic": "ch07p3_morawetz_estimate",
+      "intent": "formula_recall",
+      "keywords": [
+        "Morawetz estimate",
+        "multiplier method",
+        "conformal energy",
+        "local energy decay",
+        "Strichartz"
+      ]
+    },
+    {
+      "question": "What is the Kirchhoff formula for the 3D wave equation?",
+      "answer": "Kirchhoff formula (1882) for u_{tt} = c^2 Delta u in R^3 with u(x, 0) = f(x), u_t(x, 0) = g(x). Solution: u(x_0, t_0) = (1/(4 pi c^2 t_0)) integral_{|y-x_0|=ct_0} g(y) dS_y + (1/(4 pi c^2)) partial/partial t_0 [ (1/t_0) integral_{|y-x_0|=ct_0} f(y) dS_y ]. Equivalently using spherical means: u(x_0, t_0) = partial/partial t_0 [ t_0 M_{ct_0} f(x_0) ] + t_0 M_{ct_0} g(x_0), where M_r h(x) = (1/(4 pi r^2)) integral_{|y-x|=r} h(y) dS_y (spherical mean). Key: only data on the SPHERE |y - x_0| = c t_0 contributes (Huygens principle in 3D). Derivation sketch: spherical means M_r u(x, t) = (1/(4 pi)) integral_{|omega|=1} u(x + r omega, t) d omega satisfy Darboux equation (M_r u)_{rr} + (2/r) (M_r u)_r = (1/c^2) (M_r u)_{tt}. Define v(r, t) = r M_r u. Then v_{rr} = (1/c^2) v_{tt} (1D wave eq in r > 0!). Apply d'Alembert: v(r, t) = (1/2)[v(r+ct, 0) + v(r-ct, 0)] + (1/(2c)) integral_{r-ct}^{r+ct} v_t(s, 0) ds. At r = 0: v(0, t) = 0 (defn). u(x, t) = M_0 u = lim v(r,t)/r = v_r(0, t). Compute v_r(0, t) from d'Alembert and you get Kirchhoff formula. Physical: 3D wave propagates sharply; flash of light observed only at instant t = |x|/c (no tail). Decay: ||u(t)||_{L^inf} ~ t^{-1} (1/t decay in 3D). Singularity propagation: if f has singularity at x_0, u has singularity on sphere |x - x_0| = c t (sharp wavefront). ✓",
+      "topic": "ch07p3_kirchhoff_formula",
+      "intent": "formula_recall",
+      "keywords": [
+        "Kirchhoff formula",
+        "3D wave equation",
+        "spherical means",
+        "surface integral",
+        "Huygens 3D"
+      ]
+    },
+    {
+      "question": "What is the Poisson formula for the 2D wave equation (method of descent)?",
+      "answer": "Poisson formula for u_{tt} = c^2 (u_{xx} + u_{yy}) in R^2 with u(x, y, 0) = f(x, y), u_t(x, y, 0) = g(x, y). Solution: u(x_0, y_0, t_0) = (1/(2 pi c)) integral_{(y-x_0)^2 + (eta-y_0)^2 <= c^2 t_0^2} g(y, eta)/sqrt(c^2 t_0^2 - (y-x_0)^2 - (eta-y_0)^2) dy d eta + (1/(2 pi c)) partial/partial t_0 integral_{disk} f(y, eta)/sqrt(c^2 t_0^2 - r^2) dy d eta. Equivalently: u = partial/partial t_0 [ (1/(2 pi c)) integral_{disk(x_0, ct_0)} f(y)/sqrt(c^2 t_0^2 - |y - x_0|^2) dy ] + (1/(2 pi c)) integral_{disk} g(y)/sqrt(c^2 t_0^2 - |y - x_0|^2) dy. Key: VOLUME integral over the disk |y - x_0| <= c t_0 (not just the circle). 1/sqrt(c^2 t^2 - r^2) is the Poisson kernel (integrable singularity at r = ct). Method of descent (Hadamard): derive 2D formula from 3D Kirchhoff by taking data independent of z. Extend f_3D(x, y, z) = f_2D(x, y), g_3D = g_2D. Apply Kirchhoff in 3D, integrate out z. The sphere |y_3D - x_3D| = ct projects to disk in 2D, with surface element giving the 1/sqrt factor. Physical: 2D wave has TAIL (no Huygens). Ripples on pond: after main wavefront passes, smaller ripples continue (disk integral includes interior). Decay: ||u(t)||_{L^inf} ~ t^{-1/2} (slower than 3D t^{-1}). Singularity: wavefront still at |x - x_0| = ct (sharp arrival), but interior also nonzero (tail). Application: surface water waves, membrane vibrations, 2D acoustics. n-D generalization: even dimensions have tail (disk integral), odd >= 3 have Huygens (sphere only). ✓",
+      "topic": "ch07p3_poisson_formula_2d",
+      "intent": "formula_recall",
+      "keywords": [
+        "Poisson formula",
+        "2D wave equation",
+        "method of descent",
+        "disk integral",
+        "tail 2D"
+      ]
+    },
+    {
+      "question": "What is the method of spherical means for solving the wave equation?",
+      "answer": "Method of spherical means (Euler, Poisson, Kirchhoff). For u_{tt} = c^2 Delta u in R^n, define spherical mean M_r u(x, t) = (1/|S^{n-1}|) integral_{|omega|=1} u(x + r omega, t) d omega = (1/(omega_n r^{n-1})) integral_{|y-x|=r} u(y, t) dS_y. Properties: M_0 u = u(x, t), M_r u is radial in r, smooth. Darboux equation: (M_r u)_{rr} + ((n-1)/r) (M_r u)_r = Delta (M_r u) = M_r (Delta u) = (1/c^2) M_r (u_{tt}) = (1/c^2) (M_r u)_{tt} (spherical mean commutes with Delta by symmetry). So M_r u satisfies (n-D radial wave eq): (M_r u)_{tt} = c^2 [ (M_r u)_{rr} + ((n-1)/r) (M_r u)_r ]. n odd (n = 2k+1): substitute v = (r partial_r)^{?} ... actually transform v(r, t) = (1/r partial_r)^{(n-3)/2} (r^{n-2} M_r u). For n = 3: v = r M_r u. Then v_{tt} = c^2 v_{rr} (1D wave eq!). Solve by d'Alembert, then recover u = M_0 u = lim_{r->0} M_r u = lim v/r (l'Hospital). Gives Kirchhoff. n = 5: v = (1/r) partial_r (r^3 M_r u)... gives 5D formula (sphere only, Huygens). n even (n = 2k): apply method of descent from n+1 (Hadamard). For n = 2: descend from 3D Kirchhoff. Gives Poisson formula (disk integral, tail). General formula: u(x, t) = partial/partial t [ (1/c) Q_{ct} f(x) ] + (1/c) Q_{ct} g(x), where Q_r is an integral operator involving derivatives of spherical means. For n = 3: Q_r h = (1/(4 pi)) integral_{|omega|=1} h(x + r omega) d omega = M_r h (just mean). For n = 2: Q_r involves integral over disk with 1/sqrt kernel. Asymptotic decay: ||u(t)||_{L^inf} ~ t^{-(n-1)/2} (dispersive decay; n=1: t^0 = const but localized; n=2: t^{-1/2}; n=3: t^{-1}). ✓",
+      "topic": "ch07p3_spherical_means_method",
+      "intent": "problem_solving",
+      "keywords": [
+        "spherical means",
+        "Darboux equation",
+        "method of descent",
+        "radial wave eq",
+        "Hadamard"
+      ]
+    },
+    {
+      "question": "What is the Alexandrov representation formula for the wave equation?",
+      "answer": "Alexandrov (or Alexeev) representation formula for the n-dimensional wave equation. General form using fractional derivatives of spherical means: for n odd >= 3: u(x, t) = (1/gamma((n-1)/2)) (1/(2c)) (1/(2 t) partial/partial t)^{(n-3)/2} [ t^{n-2} partial/partial t (t M_{ct} f) + c t M_{ct} g·t ] ... precise: u(x, t) = (1/gamma((n-2)/2)) (2/(n-2) · 1/|S^{n-1}|) (1/(2c t) partial/partial t)^{(n-3)/2} (t^{n-2} · partial/partial t (t M_{ct} f(x))) + similar for g. For n = 3: u = partial_t (t M_{ct} f) + t M_{ct} g (Kirchhoff). For n = 5: u = (1/(3c^2)) (1/t) partial_t [ (1/t) partial_t (t^3 M_{ct} f) ] + (1/(3 c^2)) (1/t) partial_t (t^3 M_{ct} g) ... involves second derivative. For n = 7: third derivative, etc. Pattern: each +2 dimensions adds one t-derivative. For even n: combine with method of descent; fractional derivative (Riemann-Liouville). General (n >= 2): u(x, t) = (1/gamma((n-2)/2)) integral_0^{ct} r^{n-2}/sqrt(c^2 t^2 - r^2) [some expression involving M_r f, g] dr ... or in terms of fractional derivative: u = c^{(n-3)/2} D_t^{(n-3)/2} [ t M_{ct} ... ] for odd; for even, use (n-2)/2 fractional derivative. This unifies Kirchhoff (n=3), Poisson (n=2), and higher-D formulas. Fractional derivative: D^alpha h(t) = (1/gamma(1-alpha)) d/dt integral_0^t h(s)/(t-s)^alpha ds. Significance: shows the general structure — for odd n >= 3, integral over sphere (Huygens); for even n, integral over ball (tail). Applications: theoretical analysis of decay rates, singularity propagation, well-posedness in fractional Sobolev. ✓",
+      "topic": "ch07p3_alexandrov_formula",
+      "intent": "formula_recall",
+      "keywords": [
+        "Alexandrov formula",
+        "fractional derivative",
+        "general n-D",
+        "spherical means",
+        "unified formula"
+      ]
+    },
+    {
+      "question": "How do you compute the Kirchhoff formula for a point source in 3D?",
+      "answer": "Kirchhoff for point source: u_{tt} = c^2 Delta u in R^3 with u(x, 0) = 0, u_t(x, 0) = delta(x) (point impulse at origin). By Kirchhoff: u(x_0, t_0) = (1/(4 pi c^2 t_0)) integral_{|y-x_0|=ct_0} delta(y) dS_y + 0. The integral is 1 if origin is on the sphere |y - x_0| = c t_0 (i.e., |x_0| = c t_0), else 0. So u(x_0, t_0) = (1/(4 pi c^2 t_0)) delta(|x_0| - c t_0) (delta on the sphere, i.e., delta(|x_0| - c t_0)/(4 pi c^2 t_0)). Equivalent: u(x, t) = (1/(4 pi c^2 t)) delta(|x| - c t) = (1/(4 pi c t |x|)) delta(|x| - c t) (using delta(r - ct) = delta(|x| - ct)/(|x| ... actually delta(|x|-ct) = delta(r - ct) in radial, and integral over R^3 = integral_0^inf delta(r-ct) 4 pi r^2 dr = 4 pi c^2 t^2, so to have integral 1, u = delta(r - ct)/(4 pi r^2)|_{r=ct} = delta(r-ct)/(4 pi c^2 t^2)·... = delta(r-ct)/(4 pi c t · r)). Cleaner: u(x, t) = (1/(4 pi c t)) delta(|x|^2 - c^2 t^2) = delta(|x| - ct)/(8 pi c^2 t) + delta(|x| + ct)/(8 pi c^2 t) ... = delta(|x| - ct)/(8 pi c^2 t) (the +ct term is spurious since |x| >= 0). Hmm, normalization: integral_R^3 u dx = 1 (mass conserved). integral delta(r - ct)/(4 pi c^2 t^2 · r) · 4 pi r^2 dr = (1/(c^2 t^2)) integral delta(r-ct) r dr = (1/(c^2 t^2)) ct = 1/(c t). Not 1. Let me redo: u(x, t) = (1/(4 pi c t)) delta(r - ct)/r? integral 4 pi r^2 (1/(4 pi c t)) delta(r-ct)/r dr = (1/(c t)) integral r delta(r-ct) dr = (1/(c t)) · c t = 1 ✓. So u = delta(|x| - ct)/(4 pi c t |x|) (fundamental solution / Green's function). Physical: a point impulse creates an expanding spherical shell wave of radius ct, with amplitude decaying as 1/(ct·r) ~ 1/t^2 on the shell (geometric spreading). Inside and outside the shell: u = 0 (sharp, Huygens). 3D \"sound\": a hand-clap is heard as a sharp clap, not a rumble (no tail). 2D (drop stone in pond): ripples persist after main wave (tail). ✓",
+      "topic": "ch07p3_kirchhoff_point_source",
+      "intent": "problem_solving",
+      "keywords": [
+        "point source",
+        "Green's function wave",
+        "delta on sphere",
+        "Huygens 3D",
+        "geometric spreading"
+      ]
+    },
+    {
+      "question": "What is the retarded potential solution for the wave equation with a source?",
+      "answer": "Retarded potential for u_{tt} = c^2 Delta u + F(x, t) in R^3 with u(x, 0) = f(x), u_t(x, 0) = g(x), and source F. By Duhamel's principle (wave eq analog): u(x, t) = (homogeneous solution with f, g) + integral_0^t S(t - s) F(s) ds, where S(tau) F(s) is the homogeneous solution at time tau with IC (0, F(s)). Using Kirchhoff for S(tau) F(s): the contribution from source F at time s, evolved for duration tau = t - s, is (1/(4 pi c^2 tau)) integral_{|y-x|=c tau} F(y, s) dS_y. So full: u(x, t) = Kirchhoff(f, g) + integral_0^t (1/(4 pi c^2 (t - s))) integral_{|y-x|=c(t-s)} F(y, s) dS_y ds. Change variable tau = t - s: u = Kirchhoff(f, g) + (1/(4 pi c^2)) integral_0^t (1/tau) integral_{|y-x|=c tau} F(y, t - tau) dS_y d tau. This is the RETARDED POTENTIAL. Equivalently (using delta on sphere): u(x, t) = Kirchhoff(f, g) + (1/(4 pi c^2)) integral_{R^3} F(y, t - |y-x|/c)/|y - x| dy. The F is evaluated at RETARDED TIME t - |y - x|/c (signal from y takes time |y-x|/c to reach x). Electromagnetic interpretation: scalar potential phi(x, t) = (1/(4 pi epsilon_0)) integral rho(y, t - |y-x|/c)/|y-x| dy (Lienard-Wiechert retarded potential; rho at retarded time). Vector potential A similar with current J. Radiation: oscillating charge radiates EM waves; retarded potential gives the far-field ~ 1/r · ddot{p}(t - r/c) (p = dipole moment; radiation field decays 1/r, power decays 1/r^2 = finite total). Lienard-Wiechert potentials for moving point charge: phi = (q/(4 pi epsilon_0)) (1 - v·n/c)/(R - R·v/c) (evaluated at retarded time; R = vector from retarded position to field point; n = R/|R|). ✓",
+      "topic": "ch07p3_retarded_potential",
+      "intent": "problem_solving",
+      "keywords": [
+        "retarded potential",
+        "Duhamel wave",
+        "source term",
+        "Lienard-Wiechert",
+        "electromagnetic radiation"
+      ]
+    },
+    {
+      "question": "How do you use the method of characteristics for the first-order wave equation?",
+      "answer": "First-order wave (transport) equation u_t + c u_x = 0 with u(x, 0) = f(x). Characteristics: dx/ds = c, dt/ds = 1, du/ds = 0. From (x_0, 0): x = c s + x_0, t = s, u = u_0 = f(x_0). So x = c t + x_0, i.e., x_0 = x - c t, and u(x, t) = f(x_0) = f(x - c t). ✓ Solution is the initial profile translated right at speed c. General first-order linear: a(x, t) u_t + b(x, t) u_x + c(x, t) u = F(x, t). Characteristics: dt/ds = a, dx/ds = b, du/ds = F - c u (linear ODE along char). Quasi-linear: a(x, t, u) u_t + b(x, t, u) u_x = c(x, t, u). Char ODE: dt/ds = a, dx/ds = b, du/ds = c. Initial curve (x_0(r), t_0(r), u_0(r)). Solve ODE system to get (t(s, r), x(s, r), u(s, r)), invert to get u(x, t). Validity: Jacobian != 0 (chars don't cross). Shock formation: if chars cross (Jacobian -> 0), classical solution breaks. Example: u_t + u u_x = 0 (inviscid Burgers), chars dx/dt = u, du/dt = 0. If f'(x_0) < 0 somewhere, chars converge and cross at t_s = -1/min f'. Second-order wave eq u_{tt} = c^2 u_{xx}: factor as (partial_t - c partial_x)(partial_t + c partial_x) u = 0. Let v = u_t + c u_x, w = u_t - c u_x. Then v_t - c v_x = 0 (left-traveling transport), w_t + c w_x = 0 (right-traveling). Solve each by characteristics: v(x, t) = v(x + ct, 0) = g(x + ct) + c f'(x + ct), w(x, t) = w(x - ct, 0) = g(x - ct) - c f'(x - ct). Recover u: u_t = (v + w)/2, u_x = (v - w)/(2c). Integrate to get d'Alembert. ✓",
+      "topic": "ch07p3_characteristics_first_order",
+      "intent": "problem_solving",
+      "keywords": [
+        "method of characteristics",
+        "first-order wave",
+        "transport equation",
+        "f(x-ct)",
+        "factor second-order"
+      ]
+    },
+    {
+      "question": "How do you derive the d'Alembert solution by factoring the wave operator?",
+      "answer": "Factoring the 1D wave operator. Wave equation u_{tt} - c^2 u_{xx} = 0. Factor: (partial_t - c partial_x)(partial_t + c partial_x) u = 0 (note: partial_t and partial_x commute, so order doesn't matter). Let v = (partial_t + c partial_x) u = u_t + c u_x. Then the equation becomes (partial_t - c partial_x) v = 0, i.e., v_t - c v_x = 0 (transport eq, v constant along chars x + c t = const, traveling LEFT). Solve: v(x, t) = v(x + c t, 0) (value at the foot of the characteristic). At t = 0: v(x, 0) = u_t(x, 0) + c u_x(x, 0) = g(x) + c f'(x). So v(x, t) = g(x + c t) + c f'(x + c t). Similarly let w = (partial_t - c partial_x) u = u_t - c u_x. Then (partial_t + c partial_x) w = 0, w_t + c w_x = 0 (right-traveling transport). w(x, t) = w(x - c t, 0) = g(x - c t) - c f'(x - c t). Now u_t = (v + w)/2 = (1/2)[g(x+ct) + c f'(x+ct) + g(x-ct) - c f'(x-ct)]. Integrate in t: u(x, t) = (1/2) integral_0^t [g(x + cs) + g(x - cs)] ds + (c/2) integral_0^t [f'(x + cs) - f'(x - cs)] ds + f(x) (constant from u(x,0)=f(x)). First integral: (1/2)·(1/c)[integral_x^{x+ct} g(xi) dxi + integral_{x-ct}^x g(xi) dxi] = (1/(2c)) integral_{x-ct}^{x+ct} g(xi) dxi. Second: (c/2)·(1/c)[integral_x^{x+ct} f'(xi) dxi - integral_{x-ct}^x f'(xi) dxi] = (1/2)[f(x+ct) - f(x) - (f(x) - f(x-ct))] = (1/2)[f(x+ct) + f(x-ct) - 2 f(x)]. Add f(x): u = (1/2)[f(x+ct) + f(x-ct)] + (1/(2c)) integral_{x-ct}^{x+ct} g(xi) dxi ✓ d'Alembert. ✓",
+      "topic": "ch07p3_factoring_wave_operator",
+      "intent": "problem_solving",
+      "keywords": [
+        "factoring wave operator",
+        "partial_t ± c partial_x",
+        "transport equations",
+        "d'Alembert derivation",
+        "characteristics"
+      ]
+    },
+    {
+      "question": "What are Riemann invariants for the wave equation and hyperbolic systems?",
+      "answer": "Riemann invariants for 1D hyperbolic systems. Consider the system u_t + A(u) u_x = 0 where A is a matrix with real eigenvalues lambda_1 < lambda_2 < ... < lambda_n (strictly hyperbolic). Diagonalize: A = R Lambda R^{-1}, R = matrix of right eigenvectors. Let w = R^{-1} u (characteristic variables). Then w_t + Lambda w_x = 0 (decoupled system): w_{i,t} + lambda_i w_{i,x} = 0 for each i. Each w_i satisfies a transport equation with speed lambda_i. The w_i are the Riemann invariants. For scalar: w_i = l_i · u where l_i is left eigenvector. w_i is constant along characteristics dx/dt = lambda_i. Example: wave equation as first-order system. Let p = u_t, q = c u_x. Then p_t = c q_x, q_t = c p_x (from u_{tt} = c^2 u_{xx}: p_t = c^2 u_{xx} = c (c u_x)_x = c q_x; q_t = c u_{xt} = c p_x). System: [p; q]_t + [[0, -c]; [-c, 0]] [p; q]_x = 0. Matrix A = [[0, -c]; [-c, 0]], eigenvalues ±c, eigenvectors [1; 1] (lambda = -c) and [1; -1] (lambda = c). Riemann invariants: w_1 = p - c q = u_t - c^2 u_x = (partial_t - c partial_x)... wait, q = c u_x so c q = c^2 u_x. w_1 = p - c q = u_t - c^2 u_x? No, careful. Actually for the system in form u_t + A u_x = 0, A = -[[0, c]; [c, 0]] = [[0,-c];[-c,0]]. Eigenvalues -c, +c. Left eigenvec for -c: [1, 1]/sqrt2? Let me just use the standard form: define w_+ = p + c q = u_t + c^2 u_x (right-traveling), w_- = p - c q = u_t - c^2 u_x (left-traveling). Then (w_+)_t - c (w_+)_x = 0 (right-traveling, speed +c... sign depends on convention). Verify: w_+ constant along x + ct = const if speed is -c. Standard: r = u_t + c u_x, s = u_t - c u_x. r_t + c r_x = 0? r_t = u_{tt} + c u_{xt}, r_x = u_{tx} + c u_{xx}. r_t + c r_x = u_{tt} + c u_{xt} + c u_{tx} + c^2 u_{xx} = u_{tt} + 2c u_{xt} + c^2 u_{xx}. Not zero. Let me redo: r = u_t + c u_x, s = u_t - c u_x. r_t - c r_x = u_{tt} + c u_{xt} - c u_{tx} - c^2 u_{xx} = u_{tt} - c^2 u_{xx} = 0 ✓ (wave eq). So r_t - c r_x = 0 (r constant along x + ct = const, LEFT-traveling). s_t + c s_x = u_{tt} - c u_{xt} + c u_{tx} - c^2 u_{xx}... no wait: s_t + c s_x = u_{tt} - c u_{xt} + c u_{tx} - c^2 u_{xx} = u_{tt} - c^2 u_{xx} = 0 ✓. So s_t + c s_x = 0 (s constant along x - ct = const, RIGHT-traveling). r and s are Riemann invariants. Gas dynamics: Euler equations have Riemann invariants u ± 2c/(gamma-1) (where c = sound speed). Useful for shock/reflection analysis. ✓",
+      "topic": "ch07p3_riemann_invariants",
+      "intent": "problem_solving",
+      "keywords": [
+        "Riemann invariants",
+        "hyperbolic system",
+        "characteristic variables",
+        "eigenvectors",
+        "gas dynamics"
+      ]
+    },
+    {
+      "question": "What is the Cauchy problem for the wave equation on a general curve?",
+      "answer": "Cauchy problem for u_{tt} = c^2 u_{xx}: prescribe u and u_t (or u and partial u/partial n) on an initial curve gamma in the (x, t) plane. Standard Cauchy: gamma = {t = 0} (the x-axis), prescribe u(x, 0) = f(x), u_t(x, 0) = g(x). Well-posed iff gamma is non-characteristic (not tangent to characteristics x ± ct = const). For gamma = {t = 0}: tangent is (1, 0), characteristics have tangent (1, ±c); not parallel (since c != 0), so non-characteristic ✓. Bad Cauchy (characteristic curve): gamma = {x - ct = 0} (a characteristic). Prescribing u on a characteristic is INSUFFICIENT (or overdetermined). If u = h on x = ct: along this line, u(x, t) = h(x) (one piece of data, but PDE involves u_t, u_x in a constrained way). The general solution u = F(x + ct) + G(x - ct); on x = ct: u = F(2x) + G(0) = h(x) determines F but G is free. So data on characteristic doesn't determine G -> non-unique. If also prescribe u_t: overdetermined (consistency needed). General Cauchy-Kowalewski theorem: for analytic PDE and analytic non-characteristic Cauchy data, unique analytic local solution. For wave eq with smooth (non-analytic) data on non-characteristic curve: local well-posedness (energy method). Goursat problem: prescribe u on two intersecting characteristics (e.g., u(x, 0) = f(x) on x-axis... no, that's standard). Goursat: u(x, ct) = phi(x) on x - ct = 0 and u(x, -ct) = psi(x) on x + ct = 0 (data on two chars). Solution: u = F(x + ct) + G(x - ct) with F(xi) + G(0) = phi(xi/2) (from first char, xi = 2x), F(0) + G(eta) = psi(eta/2) (from second). Solve for F, G. ✓",
+      "topic": "ch07p3_cauchy_problem_curve",
+      "intent": "formula_recall",
+      "keywords": [
+        "Cauchy problem",
+        "general curve",
+        "non-characteristic",
+        "Goursat problem",
+        "Cauchy-Kowalewski"
+      ]
+    },
+    {
+      "question": "How do you solve the inhomogeneous wave equation u_{tt} = c^2 u_{xx} + F(x,t)?",
+      "answer": "Inhomogeneous 1D wave equation u_{tt} = c^2 u_{xx} + F(x, t), u(x, 0) = f(x), u_t(x, 0) = g(x). Duhamel's principle (wave analog): u(x, t) = (homogeneous d'Alembert) + (1/(2c)) integral_0^t integral_{x - c(t-s)}^{x + c(t-s)} F(y, s) dy ds. Homogeneous: (1/2)[f(x+ct) + f(x-ct)] + (1/(2c)) integral_{x-ct}^{x+ct} g(s) ds. Inhomogeneous term: integral over the characteristic triangle (backward light cone from (x, t)): {(y, s) : 0 <= s <= t, |y - x| <= c(t - s)}. Physical: F is a continuous source; each impulse F(y, s) dy ds propagates to (x, t) if (y, s) is in the domain of dependence. Verify: differentiate u in t, the s = t boundary gives F(x, t) (Duhamel). Worked: F = 1 constant, f = g = 0. u = (1/(2c)) integral_0^t integral_{x-c(t-s)}^{x+c(t-s)} 1 dy ds = (1/(2c)) integral_0^t 2c(t-s) ds = integral_0^t (t - s) ds = t^2/2. So u = t^2/2 (quadratic growth; constant force -> quadratic displacement). Check: u_tt = 1 = c^2 u_{xx} + F = 0 + 1 ✓. Worked: F = delta(x) delta(t) (impulse at origin at t=0). u = (1/(2c)) integral_0^t integral_{x-c(t-s)}^{x+c(t-s)} delta(y) delta(s) dy ds = (1/(2c)) · [1 if 0 in [x-c(t-s), x+c(t-s)] for s=0] = (1/(2c)) · [1 if |x| <= ct] = (1/(2c)) H(ct - |x|) (Heaviside). So u = (1/(2c)) H(ct - |x|) (constant 1/(2c) inside the cone |x| <= ct, 0 outside; persists, no Huygens in 1D). 3D analog: Kirchhoff + retarded potential. ✓",
+      "topic": "ch07p3_inhomogeneous_wave",
+      "intent": "problem_solving",
+      "keywords": [
+        "inhomogeneous wave",
+        "Duhamel wave",
+        "characteristic triangle",
+        "backward light cone",
+        "impulse response"
+      ]
+    },
+    {
+      "question": "What is the energy of the wave equation with a source and how does it evolve?",
+      "answer": "Energy evolution for inhomogeneous wave u_{tt} = c^2 Delta u + F(x, t) on bounded D with homogeneous Dirichlet BC. Energy E(t) = (1/2) integral_D (u_t^2 + c^2 |grad u|^2) dx. Compute dE/dt = integral_D (u_t u_{tt} + c^2 grad u · grad u_t) dx = integral_D u_t (u_{tt} - c^2 Delta u) dx + c^2 integral_{partial D} u_t (partial u/partial n) dS. PDE: u_{tt} - c^2 Delta u = F. So dE/dt = integral_D u_t F dx + boundary. With homogeneous BC: boundary = 0. So dE/dt = integral_D u_t F dx (energy changes due to work done by source F). By Cauchy-Schwarz: |dE/dt| <= ||u_t||_{L^2} ||F||_{L^2} <= sqrt(2 E(t)) ||F||_{L^2} (since ||u_t||^2 <= 2 E). Let e(t) = sqrt(E(t)). Then 2 e e' = dE/dt, so 2 e e' <= sqrt(2) e ||F||, i.e., e' <= ||F||/sqrt(2). Integrate: e(t) <= e(0) + (1/sqrt(2)) integral_0^t ||F(s)||_{L^2} ds. So sqrt(E(t)) <= sqrt(E(0)) + (1/sqrt(2)) integral_0^t ||F|| ds. Squared: E(t) <= 2 E(0) + (integral_0^t ||F|| ds)^2 + 2 sqrt(2 E(0)) integral ||F|| (Gronwall-type). Continuous dependence: small F and small initial data give small E. For conservative forcing F = -V'(u) (e.g., F = -omega^2 u, Klein-Gordon u_{tt} = c^2 u_{xx} - omega^2 u): dE/dt = integral u_t (-omega^2 u) dx = -omega^2 d/dt (1/2) integral u^2 dx. So E + (omega^2/2) integral u^2 = const (modified conserved energy: E_modified = (1/2) integral (u_t^2 + c^2 u_x^2 + omega^2 u^2) dx, conserved). Damping F = -gamma u_t: dE/dt = -gamma integral u_t^2 <= 0 (energy decreases; damping). Resonance: F = A sin(omega t) phi_1(x) at eigenfrequency omega = c sqrt(lambda_1) -> amplitude grows linearly (resonance, undamped). With damping, bounded. ✓",
+      "topic": "ch07p3_energy_with_source",
+      "intent": "problem_solving",
+      "keywords": [
+        "energy source",
+        "wave inhomogeneous",
+        "Gronwall",
+        "continuous dependence",
+        "damping resonance"
+      ]
+    },
+    {
+      "question": "What is the dispersion relation for the wave equation and what does it imply?",
+      "answer": "Dispersion relation for linear PDEs. Plane wave ansatz u = e^{i(k·x - omega t)}. For wave eq u_{tt} = c^2 Delta u: -omega^2 = -c^2 |k|^2, so omega^2 = c^2 |k|^2, omega = ±c|k|. This is the dispersion relation. Phase velocity: v_p = omega/|k| = ±c (constant, independent of k). Group velocity: v_g = d omega/d k = ±c k_hat (magnitude c, direction of k). Both equal c — wave is NON-DISPERSIVE (all frequencies travel at same speed c; wave packet maintains shape). Contrast: Schrodinger i hbar psi_t = -(hbar^2/(2m)) Delta psi: omega = hbar |k|^2/(2m). v_p = hbar |k|/(2m), v_g = hbar k/m = 2 v_p (dispersive; different frequencies travel at different speeds; wave packet spreads). Klein-Gordon u_{tt} = c^2 Delta u - (mc^2/hbar)^2 u: omega = sqrt(c^2 |k|^2 + (mc^2/hbar)^2). v_p = omega/|k| = c sqrt(1 + (mc/(hbar|k|))^2) > c (phase velocity > c, but v_g = c^2 |k|/omega < c, the signal velocity). Dispersive (massive field). Beam equation u_{tt} + gamma^2 u_{xxxx} = 0: omega = gamma k^2 (strongly dispersive, flexural waves in beams). Surface water waves (deep water): omega = sqrt(g |k|), v_p = sqrt(g/|k|) (long wavelengths faster). Shallow water: omega = c |k|, c = sqrt(g h) (non-dispersive). KdV u_t + u u_x + u_{xxx} = 0: linearized omega = -k^3 (dispersive); full has solitons (balance nonlinearity and dispersion). Implications of dispersion: wave packets spread (dispersive spreading); different Fourier components separate; information travels at group velocity (<= c for relativistic). For pure wave eq: no spreading; a pulse maintains shape indefinitely (in non-dispersive medium). ✓",
+      "topic": "ch07p3_dispersion_relation",
+      "intent": "formula_recall",
+      "keywords": [
+        "dispersion relation",
+        "omega = c|k|",
+        "phase velocity",
+        "group velocity",
+        "non-dispersive"
+      ]
+    },
+    {
+      "question": "What are shock waves in nonlinear hyperbolic equations?",
+      "answer": "Shock waves in nonlinear hyperbolic PDEs. Inviscid Burgers: u_t + u u_x = 0. Characteristics dx/dt = u (speed = u itself), du/dt = 0 (u constant along char). If initial u_0 = f(x) with f' < 0 somewhere, faster chars behind catch slower chars ahead -> chars cross -> classical solution breaks down (multivalued). Shock formation time: t_s = -1/min f'(x) (first time chars cross). After t_s, no classical solution; need weak solution with discontinuity (shock). Rankine-Hugoniot (jump) condition for conservation law u_t + F(u)_x = 0: shock speed s = (F(u_R) - F(u_L))/(u_R - u_L) where u_L, u_R are left/right states. For Burgers F(u) = u^2/2: s = (u_L^2/2 - u_R^2/2)/(u_L - u_R) = (u_L + u_R)/2 (average of states). Entropy condition (Lax): characteristics enter shock, u_L > s > u_R (for Burgers; ensures unique physical solution). Without entropy: many weak solutions; entropy picks the physical (vanishing viscosity) one. Viscosity solution: solve u_t + u u_x = eps u_{xx} (viscous Burgers), take eps -> 0; gives entropy solution. Riemann problem: u(x, 0) = u_L (x < 0), u_R (x > 0). If u_L > u_R: shock at x = s t with s = (u_L + u_R)/2. If u_L < u_R: rarefaction (fan) u = x/t for u_L < x/t < u_R (chars spread, no shock). General scalar conservation law: u_t + F(u)_x = 0. Lax-Oleinik formula (Hopf-Lax) for convex F. Systems (Euler): shocks, contact discontinuities, rarefactions; Riemann invariants; Lax theorem (n+1 characteristics for n-D system). Physical shocks: supersonic flow (Mach cone, sonic boom), traffic flow (jam front), gas dynamics (compressive). Blast waves (Sedov-Taylor). Detonation waves. ✓",
+      "topic": "ch07p3_shock_waves",
+      "intent": "formula_recall",
+      "keywords": [
+        "shock waves",
+        "Burgers equation",
+        "Rankine-Hugoniot",
+        "entropy condition",
+        "Lax viscosity"
+      ]
+    },
+    {
+      "question": "How do you solve the Riemann problem for inviscid Burgers equation?",
+      "answer": "Riemann problem for u_t + u u_x = 0 (inviscid Burgers, F(u) = u^2/2) with u(x, 0) = u_L for x < 0, u_R for x > 0 (step initial data). Two cases. Case 1: u_L > u_R (compressive). Characteristics from x_0 < 0 have speed u_L; from x_0 > 0 have speed u_R. Since u_L > u_R, left chars faster, catch up -> shock forms immediately at x = 0. Shock speed (Rankine-Hugoniot): s = (F(u_L) - F(u_R))/(u_L - u_R) = ((u_L^2 - u_R^2)/2)/(u_L - u_R) = (u_L + u_R)/2. Entropy (Lax): u_L > s > u_R, i.e., u_L > (u_L+u_R)/2 > u_R, i.e., u_L > u_R ✓. Solution: u(x, t) = u_L for x < s t, u_R for x > s t (single jump at x = s t moving right at speed s). Case 2: u_L < u_R (expansive). Left chars slower than right; they spread apart, leaving a gap (no chars in region u_L t < x < u_R t). Fill with rarefaction fan: continuous solution u(x, t) = x/t for u_L < x/t < u_R, with u = u_L for x/t < u_L and u = u_R for x/t > u_R. Verify: u = x/t, u_t = -x/t^2, u_x = 1/t. u_t + u u_x = -x/t^2 + (x/t)(1/t) = 0 ✓ (PDE satisfied in fan). Self-similar: u depends only on x/t (Riemann problem has no scale). Boundary: at x/t = u_L, u = u_L (continuous join); at x/t = u_R, u = u_R. Case 3: u_L = u_R: trivial, u = u_L constant. General conservation law u_t + F(u)_x = 0 with convex F (F'' > 0): same structure. Convex F: shocks for u_L > u_R, rarefactions for u_L < u_R. Non-convex F: compound waves (shock-rarefaction, undercompressive shocks). Systems: Riemann problem solved by combination of shocks, rarefactions, contact discontinuities (one per characteristic family). Gas dynamics: Sod shock tube (classic test). ✓",
+      "topic": "ch07p3_riemann_burgers",
+      "intent": "problem_solving",
+      "keywords": [
+        "Riemann problem",
+        "Burgers",
+        "shock rarefaction",
+        "u_L u_R",
+        "self-similar"
+      ]
+    },
+    {
+      "question": "What is the Lax-Oleinik formula and Hopf-Lax for Hamilton-Jacobi equations?",
+      "answer": "Lax-Oleinik formula for scalar conservation law u_t + F(u)_x = 0 with u(x, 0) = u_0(x), F convex (F'' > 0). Hopf-Cole transformation: let phi solve Hamilton-Jacobi phi_t + F(phi_x) = 0 with phi(x, 0) = phi_0(x) = integral_0^x u_0(s) ds (so phi_x = u_0). Then u = phi_x solves the conservation law. Hopf-Lax formula (viscosity solution of HJ): phi(x, t) = min_y [ phi_0(y) + t L((x - y)/t) ], where L is the Legendre transform of F: L(v) = sup_p [ p v - F(p) ] (Lagrangian = Legendre-Fenchel of Hamiltonian F). For Burgers F(p) = p^2/2: L(v) = sup_p [pv - p^2/2] = v^2/2 (at p = v). So phi(x, t) = min_y [ phi_0(y) + (x-y)^2/(2t) ]. Then u = phi_x = (x - y*)/t where y* = argmin (optimal characteristic foot). Lax-Oleinik: u(x, t) = (x - y*(x, t))/t where y* minimizes phi_0(y) + (x-y)^2/(2t). If multiple minimizers: u has a shock at x (jump between (x-y_1*)/t and (x-y_2*)/t). Entropy solution: this formula gives the viscosity (entropy) solution. Properties: monotone (u_0 >= v_0 => u >= v), L^inf contraction (||u(t)||_inf <= ||u_0||_inf), L^1 contraction. Hopf-Lax generalizes: HJ phi_t + H(phi_x) = 0, phi(x, 0) = phi_0. Solution: phi(x, t) = min_y [ phi_0(y) + t L((x-y)/t) ], L = Legendre of H. Applications: calculus of variations (action = integral L dt), optimal control (value function), semiclassical quantum mechanics (WKB). Viscosity solution concept (Crandall-Lions): unique weak solution selected by vanishing viscosity; Hopf-Lax gives it for convex H. ✓",
+      "topic": "ch07p3_lax_oleinik",
+      "intent": "formula_recall",
+      "keywords": [
+        "Lax-Oleinik",
+        "Hopf-Lax",
+        "Hamilton-Jacobi",
+        "viscosity solution",
+        "Legendre transform"
+      ]
+    },
+    {
+      "question": "What are solitons and the inverse scattering transform for KdV?",
+      "answer": "Solitons and KdV. Korteweg-de Vries (KdV) equation: u_t + 6 u u_x + u_{xxx} = 0 (nondimensional; signs vary). Models shallow water waves, plasma, lattice. Balances nonlinearity (u u_x, steepens) and dispersion (u_{xxx}, spreads) -> stable solitary waves. One-soliton: u(x, t) = 2 kappa^2 sech^2(kappa (x - x_0 - 4 kappa^2 t)) (traveling wave, speed 4 kappa^2, amplitude 2 kappa^2; taller solitons move faster). Verify: substitute, get ODE u'' + 6 u u' + ... actually use ansatz u = A sech^2(k(xi)), xi = x - c t. ODE: -c u' + 6 u u' + u''' = 0. Integrate: -c u + 3 u^2 + u'' = 0 (const 0). With u = A sech^2(k xi): u'' = 4 k^2 u - 6 k^2 u^2/A. Substitute: -c A + 3 A^2 + 4 k^2 A - 6 k^2 A^2/A·A... = -c A + 3 A^2 + 4 k^2 A - 6 k^2 A = wait. Let me redo: u = A s^2, s = sech(k xi). u' = -2 A k s tanh(k xi) ... this gets messy. Standard result: c = 4 k^2, A = 2 k^2 (so c = 2 A, taller solitons faster). Two-soliton: nonlinear superposition; solitons pass through each other with phase shifts (unlike linear waves). Elastic collision: amplitudes unchanged after collision; only phase shifts. Inverse Scattering Transform (IST, Gardner-Greene-Kruskal-Miura 1967): solves KdV exactly. Idea: KdV is isospectral flow of Schrodinger operator L = -partial_x^2 - u (time evolution preserves eigenvalues). Step 1: scatter data at t = 0 from L psi = lambda psi with u(x, 0) = u_0(x). Step 2: time-evolve scatter data simply (eigenvalues const, norming constants evolve). Step 3: inverse scattering (Gelfand-Levitan-Marchenko) reconstructs u(x, t) from evolved scatter data. Solitons = discrete eigenvalues of L. N-soliton solution: N discrete eigenvalues lambda_i = -kappa_i^2, gives N-soliton. Continuous spectrum = radiation (decays). Conservation laws: KdV has infinitely many (mass, momentum, energy, ...). IST is the nonlinear analog of Fourier transform. Generalizes to other integrable PDEs: NLS (nonlinear Schrodinger, Zakharov-Shabat), sine-Gordon, Toda lattice. Hirota bilinear method: alternative direct construction of soliton solutions. ✓",
+      "topic": "ch07p3_solitons_kdv",
+      "intent": "formula_recall",
+      "keywords": [
+        "solitons",
+        "KdV",
+        "inverse scattering",
+        "ispectral",
+        "Gelfand-Levitan-Marchenko"
+      ]
+    },
+    {
+      "question": "What is the method of characteristics for nonlinear first-order PDEs (Hamilton-Jacobi)?",
+      "answer": "Method of characteristics for nonlinear first-order PDE (Hamilton-Jacobi): phi_t + H(x, t, grad_x phi) = 0 with phi(x, 0) = phi_0(x). Treat as F(x, t, phi, p, q) = 0 with p = grad_x phi, q = phi_t, F = q + H(x, t, p). Charpit / Hamilton equations: dx/ds = H_p (Hamilton's equation for x), dt/ds = 1 (parameter is t), dphi/ds = p · H_p + q = p · H_p - H (since q = -H), dp/ds = -H_x - p H_phi (H_phi = 0 here since H doesn't depend on phi directly), dq/ds = -H_t - q H_phi. Simplify (H = H(x, t, p), no phi): dx/dt = H_p (group velocity), dp/dt = -H_x (force = -gradient of H), dphi/dt = p · H_p - H (action along trajectory). These are Hamilton's equations of classical mechanics! H = Hamiltonian, p = momentum, x = position. Characteristics = classical trajectories. Solve ODEs to get x(s; x_0), p(s; x_0), then phi from dphi/ds. Hopf-Lax (when H = H(p) only, convex): phi(x, t) = min_{y} [ phi_0(y) + t L((x-y)/t) ], L = Legendre of H (Lagrangian). Action = integral_0^t L(x_dot) ds = t L((x-y)/t) (straight-line trajectory, L convex). Minimum action principle: classical trajectory minimizes action. Caustics: where characteristics cross (multiple y give same x), phi becomes multivalued -> shock (viscosity solution selects min). Viscosity solution: limit of phi_t + H(grad phi) = eps Delta phi as eps -> 0+. Unique, physically relevant. Vanishing viscosity method. Applications: classical mechanics (Hamilton-Jacobi = action), optimal control (value function = viscosity solution), geometric optics (eikonal), front propagation (level set method). ✓",
+      "topic": "ch07p3_characteristics_hamilton_jacobi",
+      "intent": "problem_solving",
+      "keywords": [
+        "Hamilton-Jacobi",
+        "characteristics",
+        "Hamilton equations",
+        "Hopf-Lax",
+        "viscosity solution"
+      ]
+    },
+    {
+      "question": "How do you model and solve the vibrating membrane (2D wave equation)?",
+      "answer": "Vibrating membrane: u_{tt} = c^2 (u_{xx} + u_{yy}) = c^2 Delta u on domain D (e.g., rectangle or disk), with u = 0 on boundary (clamped edge), u(x, y, 0) = f(x, y), u_t(x, y, 0) = g(x, y). c = sqrt(T/sigma) where T = tension per unit length, sigma = mass per unit area. Rectangular membrane [0, a] × [0, b]: separation u = X(x) Y(y) T(t). X'' + mu X = 0, X(0) = X(a) = 0 => mu_m = (m pi/a)^2, X_m = sin(m pi x/a). Y'' + nu Y = 0, Y(0) = Y(b) = 0 => nu_n = (n pi/b)^2, Y_n = sin(n pi y/b). T'' + c^2 (mu_m + nu_n) T = 0 => T_{mn}(t) = A_{mn} cos(omega_{mn} t) + B_{mn} sin(omega_{mn} t), omega_{mn} = c pi sqrt(m^2/a^2 + n^2/b^2). Modes: u_{mn} = sin(m pi x/a) sin(n pi y/b) cos(omega_{mn} t) (nodal lines at x = k a/m, y = l b/n). General: u = sum_{m,n} [A_{mn} cos(omega_{mn} t) + B_{mn} sin(omega_{mn} t)] sin(m pi x/a) sin(n pi y/b). Coefficients: A_{mn} = (4/(ab)) integral integral f sin sin, B_{mn} = (4/(ab omega_{mn})) integral integral g sin sin. Frequencies: omega_{mn} = c pi sqrt(m^2/a^2 + n^2/b^2). Fundamental omega_{11} = c pi sqrt(1/a^2 + 1/b^2). For square (a = b): omega_{mn} = c pi/a sqrt(m^2 + n^2). Degeneracy: omega_{12} = omega_{21} (same frequency, two modes; degenerate). Drum (circular membrane, Bessel): u_{tt} = c^2 (u_{rr} + (1/r) u_r + (1/r^2) u_{theta theta}). Separation u = R(r) Theta(theta) T(t). Theta = cos(m theta), sin(m theta) (m = 0, 1, ...). R = J_m(k r) (Bessel), k = j_{m,n}/a (a = radius, j_{m,n} = nth zero of J_m). Frequencies omega_{m,n} = c j_{m,n}/a. Fundamental: omega_{0,1} = c j_{0,1}/a = c · 2.405/a. Nodal lines: circles (r = const) and diameters (theta = const). Drum harmonics non-integer multiples of fundamental (inharmonic; drums vs strings). Kac (1966): \"Can one hear the shape of a drum?\" Answer: no (isospectral non-isometric drums exist, Gordon-Webb-Wolpert 1992). ✓",
+      "topic": "ch07p3_vibrating_membrane",
+      "intent": "problem_solving",
+      "keywords": [
+        "vibrating membrane",
+        "2D wave",
+        "rectangular circular",
+        "Bessel drum",
+        "nodal lines"
+      ]
+    },
+    {
+      "question": "What is the Klein-Gordon equation and its dispersion?",
+      "answer": "Klein-Gordon equation: u_{tt} = c^2 Delta u - (mc^2/hbar)^2 u (relativistic quantum wave eq for massive spin-0 particle). Equivalent: (partial_t^2 - c^2 Delta + (mc^2/hbar)^2) u = 0, or (Box + (mc/hbar)^2) u = 0 in relativistic notation (Box = (1/c^2) partial_t^2 - Delta). History: Schrodinger found it before his non-relativistic equation; Klein and Gordon rediscovered. Derivation: relativistic energy E^2 = p^2 c^2 + m^2 c^4. Quantize E -> i hbar partial_t, p -> -i hbar grad: (-hbar^2 partial_t^2/c^2 + hbar^2 Delta - m^2 c^2) psi = 0, i.e., psi_{tt} = c^2 Delta psi - (m^2 c^4/hbar^2) psi ✓. Dispersion relation: plane wave e^{i(k·x - omega t)} gives omega^2 = c^2 |k|^2 + (mc^2/hbar)^2 = c^2 |k|^2 + omega_0^2 (omega_0 = mc^2/hbar = Compton frequency). Phase velocity: v_p = omega/|k| = c sqrt(1 + omega_0^2/(c^2 |k|^2)) > c (superluminal, but not signal velocity). Group velocity: v_g = d omega/d k = c^2 |k|/omega = c^2 |k|/(c sqrt(|k|^2 + omega_0^2/c^2)) = c/sqrt(1 + omega_0^2/(c^2|k|^2)) < c (subluminal, signal speed). Rest frame k = 0: omega = omega_0 (oscillation at Compton frequency). Long wavelengths (k -> 0): omega ~ omega_0 (mass gap; cannot have omega < omega_0). Massive field: dispersion, wave packets spread. Massless limit m = 0: recovers wave equation (omega = c|k|, photons). Energy: E = (1/2) integral (u_t^2 + c^2 |grad u|^2 + omega_0^2 u^2) dx (conserved; includes mass term omega_0^2 u^2 = \"rest energy\"). Decay: 3D KG decays as t^{-3/2} (faster than wave t^{-1}); massive fields decay faster (no Huygens in general, but exponential time-decay due to mass gap). Quantum field: KG is classical field equation; quantization gives scalar particles of mass m. Yukawa interaction: massive KG mediates short-range force (range ~ hbar/(mc) = Compton wavelength); massless (wave eq) gives long-range (Coulomb). Pion (massive) -> Yukawa nuclear force. Photon (massless) -> Coulomb. ✓",
+      "topic": "ch07p3_klein_gordon",
+      "intent": "formula_recall",
+      "keywords": [
+        "Klein-Gordon",
+        "relativistic wave",
+        "mass gap",
+        "Compton frequency",
+        "Yukawa short-range"
+      ]
+    },
+    {
+      "question": "How do Maxwell's equations imply the wave equation for electromagnetic fields?",
+      "answer": "Maxwell -> wave equation. Maxwell's equations in vacuum (no charges, currents): div E = 0, div B = 0, Faraday curl E = -partial B/partial t, Ampere-Maxwell curl B = mu_0 epsilon_0 partial E/partial t. Take curl of Faraday: curl curl E = -partial/partial t (curl B) = -mu_0 epsilon_0 partial^2 E/partial t^2. Vector identity: curl curl E = grad(div E) - Delta E = -Delta E (since div E = 0 in vacuum). So -Delta E = -mu_0 epsilon_0 E_{tt}, i.e., E_{tt} = (1/(mu_0 epsilon_0)) Delta E. Similarly for B: B_{tt} = (1/(mu_0 epsilon_0)) Delta B. Wave equation with c^2 = 1/(mu_0 epsilon_0), so c = 1/sqrt(mu_0 epsilon_0) = speed of light. Numerically: mu_0 = 4 pi × 10^{-7} N/A^2, epsilon_0 = 8.854 × 10^{-12} F/m, c = 1/sqrt(4 pi × 10^{-7} · 8.854e-12) ≈ 2.998 × 10^8 m/s ✓. Maxwell's prediction (1865): light is an electromagnetic wave. Hertz (1887): experimental confirmation. In medium: c -> v = 1/sqrt(mu epsilon) = c/n (n = refractive index). With sources: wave eq becomes E_{tt} - c^2 Delta E = -partial J/partial t/(epsilon_0) - c^2 grad(rho/epsilon_0) (driven by charges/currents). Vector/scalar potentials: B = curl A, E = -grad phi - partial A/partial t. Lorenz gauge: (1/c^2) partial phi/partial t + div A = 0. Then phi, A each satisfy wave equation: phi_{tt} - c^2 Delta phi = rho/epsilon_0, A_{tt} - c^2 Delta A = mu_0 J (retarded potentials). Plane wave solution: E = E_0 cos(k·x - omega t), B = (k_hat/omega) × E (transverse, E perp B perp k). Polarization: direction of E (linear, circular, elliptical). Energy: u = (epsilon_0/2)(E^2 + c^2 B^2) (energy density), S = (1/mu_0) E × B (Poynting vector, energy flux). ✓",
+      "topic": "ch07p3_maxwell_wave",
+      "intent": "problem_solving",
+      "keywords": [
+        "Maxwell equations",
+        "electromagnetic wave",
+        "c = 1/sqrt(mu_0 epsilon_0)",
+        "Lorenz gauge",
+        "Poynting vector"
+      ]
+    },
+    {
+      "question": "What is the telegrapher equation and Cattaneo law for finite heat propagation?",
+      "answer": "Telegrapher's equation and Cattaneo law (finite-speed heat propagation). Cattaneo (1958) modification of Fourier's law: q + tau partial q/partial t = -k grad u (heat flux relaxes with time tau). With energy conservation rho c u_t = -div q. Combine: take partial_t of conservation: rho c u_{tt} = -div(q_t). From Cattaneo: q_t = (-k grad u - q)/tau. So div q_t = (-k Delta u - div q)/tau. And div q = -rho c u_t (from conservation). So rho c u_{tt} = (k Delta u + rho c u_t)/tau. Rearrange: tau u_{tt} + u_t = (k/(rho c)) Delta u = alpha Delta u. This is the telegrapher's equation: tau u_{tt} + u_t = alpha u_{xx} (1D). Hyperbolic (unlike parabolic heat eq); finite propagation speed c = sqrt(alpha/tau) = sqrt(k/(rho c tau)). Physical: heat propagates as a wave at speed c, then diffuses. For tau -> 0: recovers heat equation (parabolic, infinite speed). Cattaneo number: Ca = tau alpha/L^2 (dimensionless); small -> heat eq, large -> wave-like. Maxwell-Cattaneo: same idea for viscoelasticity. Telegrapher's equation in electrical engineering: voltage V(x, t) on a transmission line with inductance L, capacitance C, resistance R, conductance G per unit length. Equations: L I_t + R I = -V_x (Kirchhoff voltage), C V_t + G V = -I_x (Kirchhoff current). Combine: V_{tt} + (R/L + G/C) V_t + (RG/(LC)) V = (1/(LC)) V_{xx} (telegrapher eq). Lossless (R = G = 0): V_{tt} = (1/(LC)) V_{xx} (wave eq, c = 1/sqrt(LC)). Heaviside condition: distortionless line R/L = G/C -> signals propagate without distortion (attenuated but shape preserved). Undersea telegraph cable (Kelvin, 1850s): modeled as diffusion (R, C dominant, L, G negligible), giving heat eq -> signal spreading/distortion. Heaviside: add loading coils to increase L -> wave-like propagation. ✓",
+      "topic": "ch07p3_telegrapher_cattaneo",
+      "intent": "formula_recall",
+      "keywords": [
+        "telegrapher equation",
+        "Cattaneo law",
+        "finite heat speed",
+        "transmission line",
+        "Heaviside"
+      ]
+    },
+    {
+      "question": "What is the Sine-Gordon equation and its soliton (kink) solutions?",
+      "answer": "Sine-Gordon equation: u_{tt} - u_{xx} + sin u = 0 (nondimensional). Models: pendulum lattice, Josephson junction (fluxon), dislocation in crystals, DNA dynamics, Bäcklund transformation geometry. Lorentz-invariant: (partial_t^2 - partial_x^2) u + sin u = 0 (relativistic field theory). Static kink soliton: seek u = u(x). -u'' + sin u = 0, multiply by u': -u' u'' + u' sin u = 0, integrate: -(u')^2/2 - cos u = const. Boundary u(-inf) = 0, u(+inf) = 2 pi (kink), u'(±inf) = 0: const = -cos(0) = -1 at -inf, = -cos(2pi) = -1 at +inf ✓. So -(u')^2/2 = cos u - 1 = -2 sin^2(u/2), (u')^2 = 4 sin^2(u/2), u' = 2 sin(u/2) (positive for kink). Separate: du/(2 sin(u/2)) = dx. integral du/sin(u/2) = integral csc(u/2) du = 2 ln|tan(u/4)|. So ln tan(u/4) = x - x_0, tan(u/4) = e^{x - x_0}, u(x) = 4 arctan(e^{x - x_0}) (kink). Goes from 0 (x -> -inf) to 2 pi (x -> +inf), localized at x = x_0. Width ~ 1. Antikink: u = 4 arctan(e^{-(x-x_0)}) (goes 2 pi -> 0). Moving kink (Lorentz boost): u(x, t) = 4 arctan(exp((x - v t - x_0)/sqrt(1 - v^2))) (speed |v| < 1; c = 1 in nondimensional). Lorentz contraction: width contracted by 1/sqrt(1-v^2). Two-soliton (kink-antikink collision): u = 4 arctan(v sinh(x/sqrt(1-v^2))/cosh(v t/sqrt(1-v^2))) (kink-antikink pass through, phase shift). Breather: u = 4 arctan(sin(omega t)/(omega cosh(sqrt(1-omega^2) x))) (oscillating localized soliton, \"breathes\"; bound kink-antikink pair). Energy: E_kink = 8 (rest mass). Energy conservation: E = (1/2) integral (u_t^2 + u_x^2 + 2(1 - cos u)) dx. Bäcklund transformation: generates new solutions from old (Bianchi permutability). IST: sine-Gordon is integrable; solitons = discrete spectrum. Topological charge: Q = (u(+inf) - u(-inf))/(2 pi) (integer; kink Q = 1, antikink Q = -1). Q conserved (topological stability: kink can't decay to vacuum Q = 0 without infinite energy). ✓",
+      "topic": "ch07p3_sine_gordon",
+      "intent": "problem_solving",
+      "keywords": [
+        "sine-Gordon",
+        "kink soliton",
+        "Bäcklund",
+        "breather",
+        "topological charge"
+      ]
+    },
+    {
+      "question": "How do you solve the wave equation with periodic boundary conditions?",
+      "answer": "Wave eq u_{tt} = c^2 u_{xx} on [0, 2 pi] with periodic BC u(0, t) = u(2 pi, t), u_x(0, t) = u_x(2 pi, t) (and all derivatives match), IC u(x, 0) = f(x), u_t(x, 0) = g(x) (both 2 pi-periodic). Separation: X'' + lambda X = 0, periodic BC. Eigenvalues lambda_n = n^2 (n = 0, 1, 2, ...), eigenfunctions: for n = 0, X_0 = 1 (constant); for n >= 1, X_n^c = cos(nx), X_n^s = sin(nx) (each doubly degenerate). Time: T_n'' + c^2 n^2 T_n = 0. n = 0: T_0'' = 0, T_0 = A_0 + B_0 t (constant + linear drift; linear drift corresponds to uniform motion). n >= 1: T_n = A_n cos(n c t) + B_n sin(n c t). General: u(x, t) = A_0 + B_0 t + sum_{n=1}^inf [A_n cos(nct) + B_n sin(nct)] [cos(nx) factor?... actually sum of cos and sin modes]. More explicitly: u(x, t) = (A_0 + B_0 t)/2 + sum_{n=1}^inf [(a_n cos(nct) + b_n sin(nct)/n) cos(nx) + (c_n cos(nct) + d_n sin(nct)/n) sin(nx)] where coefficients from Fourier of f, g. Frequencies: omega_n = n c (harmonic, integer multiples). Period: T = 2 pi / c (fundamental); all modes periodic with this (omega_n = n omega_1, integer). Recurrence: u(x, t + 2 pi/c) = u(x, t) (periodic in time). No decay (energy conserved). Compact form via complex Fourier: u(x, t) = sum_{n in Z} c_n(t) e^{i n x}, c_n'' + n^2 c^2 c_n = 0, c_n(t) = alpha_n e^{i n c t} + beta_n e^{-i n c t}. Each Fourier mode rotates in complex plane at frequency n c. Physical: ring of string (closed loop), torus, ring waveguide. On [0, L] periodic: rescale x -> 2 pi x/L, frequencies omega_n = 2 pi n c/L. Traveling wave form: e^{i n (x ± ct)} (each Fourier mode is left or right traveling wave at speed c). General solution = superposition of left and right traveling waves. ✓",
+      "topic": "ch07p3_periodic_wave",
+      "intent": "problem_solving",
+      "keywords": [
+        "periodic BC",
+        "Fourier series",
+        "ring",
+        "harmonic frequencies",
+        "traveling waves Fourier"
+      ]
+    },
+    {
+      "question": "How do you solve u_{tt} = 4 u_{xx} with u(x,0) = sin(x) and u_t(x,0) = 0 using d'Alembert?",
+      "answer": "Wave equation u_{tt} = 4 u_{xx} (so c^2 = 4, c = 2), on whole line, IC u(x, 0) = sin(x), u_t(x, 0) = 0. d'Alembert formula: u(x, t) = (1/2)[f(x + ct) + f(x - ct)] + (1/(2c)) integral_{x-ct}^{x+ct} g(s) ds. Here f(x) = sin(x), g(x) = 0, c = 2. The integral term is 0 (g = 0). So u(x, t) = (1/2)[sin(x + 2t) + sin(x - 2t)] = (1/2)[sin x cos 2t + cos x sin 2t + sin x cos 2t - cos x sin 2t] (sum-to-product: sin A + sin B = 2 sin((A+B)/2) cos((A-B)/2)) = (1/2) · 2 sin(x) cos(2t) = sin(x) cos(2t). So u(x, t) = sin(x) cos(2 t). Verify: u_{tt} = -4 sin(x) cos(2t). u_{xx} = -sin(x) cos(2t). u_{tt} = 4 u_{xx} ✓ (-4 = 4·(-1)). IC: u(x, 0) = sin(x) cos(0) = sin(x) ✓. u_t(x, 0) = sin(x) · (-2 sin(0)) = 0 ✓. Interpretation: standing wave (no translation). sin(x) is a single Fourier mode (n=1 on [0, 2pi]); it's an eigenfunction of the wave operator, so it oscillates in time as cos(omega t) with omega = c · 1 = 2. Nodes at x = 0, pi, 2 pi (fixed); antinodes at pi/2, 3pi/2 (max amplitude). Period: T = 2 pi/omega = pi. Energy: E = (1/2) integral (u_t^2 + 4 u_x^2) dx (per period 2pi) = (1/2) integral (4 sin^2(x) sin^2(2t) + 4 cos^2(x) cos^2(2t)) dx = (1/2)·4·(pi sin^2(2t) + pi cos^2(2t)) = 2 pi (constant ✓; energy conserved). Kinetic = 2 pi sin^2(2t), potential = 2 pi cos^2(2t); oscillates between all-kinetic and all-potential. ✓",
+      "topic": "ch07p3_worked_dalembert_sine",
+      "intent": "problem_solving",
+      "keywords": [
+        "worked d'Alembert",
+        "sin IC",
+        "standing wave",
+        "cos(2t)",
+        "energy oscillation"
+      ]
+    },
+    {
+      "question": "How do you solve u_{tt} = u_{xx} with u(x,0) = 0 and u_t(x,0) = cos(x) using d'Alembert?",
+      "answer": "Wave equation u_{tt} = u_{xx} (c = 1), IC u(x, 0) = 0, u_t(x, 0) = cos(x). d'Alembert: u(x, t) = (1/2)[f(x + t) + f(x - t)] + (1/(2·1)) integral_{x-t}^{x+t} g(s) ds. f = 0 so first term 0. g(s) = cos(s). u(x, t) = (1/2) integral_{x-t}^{x+t} cos(s) ds = (1/2)[sin(s)]_{x-t}^{x+t} = (1/2)[sin(x+t) - sin(x-t)]. Use identity sin A - sin B = 2 cos((A+B)/2) sin((A-B)/2): sin(x+t) - sin(x-t) = 2 cos(x) sin(t). So u(x, t) = (1/2) · 2 cos(x) sin(t) = cos(x) sin(t). Verify: u_{tt} = -cos(x) sin(t). u_{xx} = -cos(x) sin(t). u_{tt} = u_{xx} ✓. IC: u(x, 0) = cos(x) · 0 = 0 ✓. u_t(x, 0) = cos(x) · cos(0) = cos(x) ✓. Interpretation: cos(x) is an eigenfunction; with zero initial displacement and cos(x) initial velocity, the mode oscillates as sin(omega t) = sin(t) (omega = c · 1 = 1). Standing wave, 90 degrees out of phase with previous problem (sin displacement -> cos time; cos velocity -> sin time). Period 2 pi. Energy: E = (1/2) integral (u_t^2 + u_x^2) dx = (1/2) integral (cos^2(x) cos^2(t) + sin^2(x) sin^2(t)) dx. Over [0, 2 pi]: = (1/2)[pi cos^2(t) + pi sin^2(t)] = pi/2 (constant). At t = 0: all kinetic (u = 0, u_t = cos(x), K = (1/2) integral cos^2 = pi/2). At t = pi/2: all potential (u_t = 0, u = cos(x), P = (1/2) integral sin^2 ... wait u_x = -sin(x), P = (1/2) integral sin^2(x) sin^2(pi/2) = pi/2). ✓",
+      "topic": "ch07p3_worked_dalembert_velocity",
+      "intent": "problem_solving",
+      "keywords": [
+        "worked d'Alembert",
+        "velocity IC",
+        "cos velocity",
+        "sin time",
+        "standing wave phase"
+      ]
+    },
+    {
+      "question": "How do you solve u_{tt} = 9 u_{xx} with u(x,0) = e^{-x^2} and u_t(x,0) = 0?",
+      "answer": "Wave eq u_{tt} = 9 u_{xx} (c = 3), IC u(x, 0) = e^{-x^2} (Gaussian), u_t(x, 0) = 0. d'Alembert: u(x, t) = (1/2)[f(x + ct) + f(x - ct)] + (1/(2c)) integral g = (1/2)[f(x + 3t) + f(x - 3t)] + 0 (g = 0). So u(x, t) = (1/2)[e^{-(x+3t)^2} + e^{-(x-3t)^2}]. Interpretation: the Gaussian initial profile splits into two half-amplitude copies, one traveling left (e^{-(x+3t)^2}, peak at x = -3t) and one traveling right (e^{-(x-3t)^2}, peak at x = 3t), each at speed c = 3. At t = 0: both overlap at x = 0, sum = e^{-x^2} (full amplitude). As t increases: they separate. At large t: two distinct Gaussian pulses far apart, each with amplitude 1/2. Verify: u_t = (1/2)[e^{-(x+3t)^2} · (-2(x+3t)·3) + e^{-(x-3t)^2} · (-2(x-3t)·(-3))] = -3(x+3t) e^{-(x+3t)^2} + 3(x-3t) e^{-(x-3t)^2}. At t = 0: u_t = -3x e^{-x^2} + 3x e^{-x^2} = 0 ✓ (cancellation). u_{tt}: compute, will get 9 u_{xx} (PDE holds). Energy: E = (1/2) integral (u_t^2 + 9 u_x^2) dx. At t = 0: u_t = 0, u_x = -2x e^{-x^2}. E(0) = (1/2) integral 9 · 4 x^2 e^{-2x^2} dx = 18 integral x^2 e^{-2x^2} dx = 18 · sqrt(pi)/(2 · 2^{3/2}) = 18 sqrt(pi)/(4 sqrt(2)) = (9 sqrt(pi))/(2 sqrt(2)) (using integral x^2 e^{-a x^2} dx = sqrt(pi)/(4 a^{3/2})). Conserved for all t. For large t, the two pulses are independent: each has energy E/2 = (9 sqrt(pi))/(4 sqrt(2)). ✓",
+      "topic": "ch07p3_worked_gaussian_split",
+      "intent": "problem_solving",
+      "keywords": [
+        "worked Gaussian",
+        "split pulses",
+        "e^{-(x±ct)^2}",
+        "traveling waves",
+        "energy split"
+      ]
+    },
+    {
+      "question": "How do you solve u_{tt} = u_{xx} on [0, pi] with u(0,t) = u(pi,t) = 0 and u(x,0) = x(pi - x), u_t(x,0) = 0?",
+      "answer": "Wave eq u_{tt} = u_{xx} on [0, pi] (c = 1, L = pi), Dirichlet BC, IC u(x, 0) = x(pi - x), u_t(x, 0) = 0. Separation: u(x, t) = sum [A_n cos(nt) + B_n sin(nt)] sin(nx) (lambda_n = n^2, omega_n = n). B_n = 0 (g = 0). A_n = (2/pi) integral_0^pi x(pi - x) sin(nx) dx. Compute: integral x(pi - x) sin(nx) dx = pi integral x sin(nx) dx - integral x^2 sin(nx) dx. integral x sin(nx) dx = -x cos(nx)/n + sin(nx)/n^2, evaluated [0, pi] = -pi cos(n pi)/n + 0 = -pi (-1)^n/n = pi (-1)^{n+1}/n. integral x^2 sin(nx) dx = -x^2 cos(nx)/n + (2/n) integral x cos(nx) dx = -x^2 cos(nx)/n + (2/n)[x sin(nx)/n + cos(nx)/n^2], eval [0, pi] = -pi^2 (-1)^n/n + (2/n)[0 + ((-1)^n - 1)/n^2] = -pi^2 (-1)^n/n + 2((-1)^n - 1)/n^3. So integral = pi · pi (-1)^{n+1}/n - [-pi^2 (-1)^n/n + 2((-1)^n - 1)/n^3] = pi^2 (-1)^{n+1}/n + pi^2 (-1)^n/n - 2((-1)^n - 1)/n^3 = 0 - 2((-1)^n - 1)/n^3 = 2(1 - (-1)^n)/n^3. For n odd: 1 - (-1)^n = 2, integral = 4/n^3. For n even: 0. So A_n = (2/pi) · 4/n^3 = 8/(pi n^3) for n odd, 0 for n even. Solution: u(x, t) = sum_{k=0}^inf (8/(pi (2k+1)^3)) cos((2k+1) t) sin((2k+1) x). Explicit: u = (8/pi)[cos(t) sin(x)/1^3 + cos(3t) sin(3x)/3^3 + cos(5t) sin(5x)/5^3 + ...]. Long-time: all modes persist (energy conserved); no decay. Fundamental mode (n=1) dominates (amplitude 8/pi ≈ 2.55). Energy: E = (1/2) integral (u_t^2 + u_x^2) dx = sum (1/2) A_n^2 n^2 (pi/2) = (pi/4) sum n^2 A_n^2. For our A_n: E = (pi/4) sum_{k} (2k+1)^2 (8/(pi (2k+1)^3))^2 = (pi/4)(64/pi^2) sum 1/(2k+1)^4 = (16/pi) · (pi^4/96) = pi^3/6 (using sum_{odd n} 1/n^4 = pi^4/96). Check at t=0: E(0) = (1/2) integral_0^pi (pi - 2x)^2 dx (u_x at t=0 = pi - 2x) = (1/2) integral (pi^2 - 4 pi x + 4 x^2) dx = (1/2)[pi^3 - 4 pi · pi^2/2 + 4 pi^3/3] = (1/2)[pi^3 - 2 pi^3 + 4 pi^3/3] = (1/2)[pi^3/3] = pi^3/6 ✓. ✓",
+      "topic": "ch07p3_worked_plucked_string",
+      "intent": "problem_solving",
+      "keywords": [
+        "worked plucked string",
+        "x(pi-x)",
+        "Fourier sine",
+        "odd harmonics",
+        "energy check"
+      ]
+    },
+    {
+      "question": "How do you solve u_{tt} = u_{xx} on the half-line x > 0 with u(0,t) = 0 and u(x,0) = e^{-(x-3)^2}, u_t(x,0) = 0?",
+      "answer": "Wave eq u_{tt} = u_{xx} (c = 1) on x > 0, fixed end u(0, t) = 0, IC u(x, 0) = e^{-(x-3)^2} (Gaussian centered at x = 3), u_t(x, 0) = 0. Method of images (odd extension). Extend f(x) = e^{-(x-3)^2} for x > 0 to odd f_ext on R: f_ext(x) = e^{-(x-3)^2} for x > 0, f_ext(x) = -e^{-(-x-3)^2} = -e^{-(x+3)^2} for x < 0 (image at x = -3, negated). Solve on whole line: u_ext(x, t) = (1/2)[f_ext(x + t) + f_ext(x - t)]. For x > 0 (our domain), evaluate: depends on signs of x ± t. Case t < 3 (wave hasn't reached boundary): x + t > 0 (for x > 0), x - t > 0 if x > t. If x > t > 0: both args positive, f_ext = f. u(x, t) = (1/2)[e^{-(x+t-3)^2} + e^{-(x-t-3)^2}] (right-going + left-going, both Gaussian, no boundary effect yet). If 0 < x < t (left-going pulse has crossed boundary): x + t > 0 (f_ext = f), x - t < 0 (f_ext = -e^{-(x-t+3)^2} ... wait f_ext(y) for y < 0 is -e^{-(-y-3)^2} = -e^{-(|y|-3+...)... let me recompute: f_ext(y) = -f(-y) = -e^{-(-y-3)^2} = -e^{-(y+3)^2} for y < 0. So f_ext(x - t) for x - t < 0: = -e^{-(x-t+3)^2} = -e^{-(3 - (t - x))^2}. Hmm, (x - t + 3)^2 = (3 - (t - x))^2, and the original pulse was at x = 3, so this is the reflected pulse. u(x, t) = (1/2)[e^{-(x+t-3)^2} - e^{-(x-t+3)^2}] (right-going minus reflected-from-boundary). For t > 3 (after reflection): the original left-going pulse (centered at x = 3 - t) has gone negative (off the domain); the reflected pulse (centered at x = t - 3, the mirror) appears on x > 0 with INVERTED sign. So u(x, t) = (1/2)[e^{-(x+t-3)^2} - e^{-(x - (t-3))^2}] (right-going original + inverted reflected). The reflected pulse is centered at x = t - 3, moving right, with negative sign (inverted). Verify BC: u(0, t) = (1/2)[f_ext(t) + f_ext(-t)] = (1/2)[f(t) + (-f(t))] = 0 ✓ (odd extension). Physical: pulse travels left (at t < 3), hits fixed end at t = 3, reflects with INVERSION (sign flip), travels right for t > 3. Free end (u_x(0,t) = 0): even extension, reflection WITHOUT inversion. ✓",
+      "topic": "ch07p3_worked_half_line_gaussian",
+      "intent": "problem_solving",
+      "keywords": [
+        "worked half-line",
+        "Gaussian pulse",
+        "reflection",
+        "inversion fixed end",
+        "method of images"
+      ]
+    },
+    {
+      "question": "How do you solve the 3D wave equation with u(x,0) = 0 and u_t(x,0) = cos(|x|) (radial impulse)?",
+      "answer": "3D wave u_{tt} = Delta u (c = 1) on R^3, radial IC u(x, 0) = 0, u_t(x, 0) = g(r) = cos(r) where r = |x|. By Kirchhoff (n=3): u(x, t) = (1/(4 pi t)) integral_{|y-x|=t} g(y) dS_y + 0 (f = 0) = (1/(4 pi t)) integral_{|y-x|=t} cos(|y|) dS_y. Let x_0 = x, r_0 = |x|. Parametrize sphere |y - x_0| = t by angles; |y|^2 = r_0^2 + t^2 + 2 r_0 t cos(theta) (law of cosines, theta = angle from x_0). dS = t^2 sin(theta) d theta d phi. integral = integral_0^{2 pi} d phi integral_0^pi cos(sqrt(r_0^2 + t^2 + 2 r_0 t cos theta)) t^2 sin(theta) d theta. Substitute mu = cos(theta), d mu = -sin theta d theta: = 2 pi t^2 integral_{-1}^1 cos(sqrt(r_0^2 + t^2 + 2 r_0 t mu)) d mu. Substitute s = sqrt(r_0^2 + t^2 + 2 r_0 t mu), s^2 = r_0^2 + t^2 + 2 r_0 t mu, 2 s ds = 2 r_0 t d mu, d mu = s ds/(r_0 t). When mu = -1: s = |r_0 - t|. When mu = 1: s = r_0 + t. So integral = 2 pi t^2 integral_{|r_0 - t|}^{r_0 + t} cos(s) · s/(r_0 t) ds = (2 pi t / r_0) integral_{|r_0 - t|}^{r_0 + t} s cos(s) ds. integral s cos s ds = s sin s + cos s (by parts). = (2 pi t / r_0) [(r_0 + t) sin(r_0 + t) + cos(r_0 + t) - |r_0 - t| sin|r_0 - t| - cos|r_0 - t|]. Since cos|r_0 - t| = cos(r_0 - t) and |r_0 - t| sin|r_0 - t| = (r_0 - t) sin(r_0 - t) (sin odd, |·| even, product even): = (2 pi t / r_0) [(r_0 + t) sin(r_0 + t) - (r_0 - t) sin(r_0 - t) + cos(r_0 + t) - cos(r_0 - t)]. So u(x, t) = (1/(4 pi t)) · this = (1/(2 r_0)) [(r_0 + t) sin(r_0 + t) - (r_0 - t) sin(r_0 - t) + cos(r_0 + t) - cos(r_0 - t)]. Simplify using trig: r_0 sin(r_0 + t) + t sin(r_0 + t) - r_0 sin(r_0 - t) + t sin(r_0 - t) + ... Use sum-to-product. This is getting complex; final form involves sin and cos of r_0 ± t. At x = 0 (r_0 = 0): use l'Hospital, gives u(0, t) = (1/(4 pi t)) integral_{|y| = t} cos(|y|) dS = (1/(4 pi t)) · 4 pi t^2 cos(t) = t cos(t). Check Huygens: for c = 1, signal from radius r arrives at r_0 at t = |r_0 - r|... ✓",
+      "topic": "ch07p3_worked_kirchhoff_radial",
+      "intent": "problem_solving",
+      "keywords": [
+        "worked Kirchhoff",
+        "3D radial",
+        "cos(r) impulse",
+        "spherical mean",
+        "Huygens"
+      ]
+    },
+    {
+      "question": "How do you solve u_{tt} = u_{xx} - u with u(x,0) = sin(x) and u_t(x,0) = 0 (Klein-Gordon)?",
+      "answer": "Klein-Gordon equation u_{tt} = u_{xx} - u (c = 1, omega_0 = 1), IC u(x, 0) = sin(x), u_t(x, 0) = 0. This is Klein-Gordon with mass term. Plane wave / Fourier approach: u(x, t) = sum c_n(t) e^{i n x} (on periodic domain) or single mode. sin(x) is a single Fourier mode (k = 1). Try u(x, t) = a(t) sin(x). u_{tt} = a''(t) sin(x). u_{xx} = -a(t) sin(x). PDE: a'' sin = -a sin - a sin = -2 a sin. So a'' + 2 a = 0, a(0) = 1, a'(0) = 0 (from u_t(x,0) = a'(0) sin(x) = 0). Solution: a(t) = cos(sqrt(2) t) (omega = sqrt(1^2 + 1^2) = sqrt(2) from dispersion omega^2 = k^2 + omega_0^2 = 1 + 1 = 2). So u(x, t) = sin(x) cos(sqrt(2) t). Verify: u_{tt} = -2 sin(x) cos(sqrt(2) t). u_{xx} = -sin(x) cos(sqrt(2) t). u_{xx} - u = -sin(x) cos(sqrt(2) t) - sin(x) cos(sqrt(2) t) = -2 sin(x) cos(sqrt(2) t) = u_{tt} ✓. IC: u(x, 0) = sin(x) cos(0) = sin(x) ✓. u_t(x, 0) = sin(x) · (-sqrt(2) sin(0)) = 0 ✓. Compare with wave eq (no mass term): u_{tt} = u_{xx} gives a'' + a = 0, a = cos(t), so u = sin(x) cos(t). KG adds mass term, increases frequency: omega = sqrt(k^2 + omega_0^2) = sqrt(2) > 1 = omega_wave. Energy: E = (1/2) integral (u_t^2 + u_x^2 + u^2) dx = (1/2) integral (2 sin^2(x) sin^2(sqrt(2)t) + cos^2(x) cos^2(sqrt(2)t) + sin^2(x) cos^2(sqrt(2)t)) dx. Over [0, 2 pi]: = (1/2)[2 pi sin^2(sqrt(2)t) + pi cos^2(sqrt(2)t) + pi cos^2(sqrt(2)t)] = (1/2)[2 pi sin^2 + 2 pi cos^2] = pi (conserved ✓; the extra u^2 term is the \"mass energy\"). General KG mode: u = sin(k x) cos(sqrt(k^2 + omega_0^2) t); mass shifts all frequencies up (mass gap omega_0). ✓",
+      "topic": "ch07p3_worked_klein_gordon",
+      "intent": "problem_solving",
+      "keywords": [
+        "worked Klein-Gordon",
+        "mass term",
+        "omega = sqrt(k^2 + omega_0^2)",
+        "mass gap",
+        "modified energy"
+      ]
+    }
+  ]
+}
