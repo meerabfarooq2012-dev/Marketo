@@ -1,0 +1,686 @@
+/**
+ * ============================================================
+ *  Mathematics Formula Encyclopedia — Volume 9
+ *  Comprehensive Formula Reference
+ *  Chapter 4 — Part 2 (Differential Calculus Applications)
+ *  Rolle's Theorem & Mean Value Theorem, Cauchy's MVT,
+ *  L'Hôpital's Rule, Linear Approximation & Differentials,
+ *  Related Rates, Optimization (Applied Max/Min),
+ *  First & Second Derivative Tests, Concavity & Inflection,
+ *  Curve Sketching & Asymptotes, Newton's Method,
+ *  Taylor & Maclaurin Polynomials, Error Bounds,
+ *  Antiderivatives (Intro to Integration),
+ *  Separable Differential Equations (Intro),
+ *  Marginal Analysis in Economics
+ *  Generator for TRIZA
+ * ============================================================
+ *
+ *  Output: data/math-formulas-vol9-ch04p2.json
+ * ============================================================
+ */
+import { writeFileSync, mkdirSync } from 'fs'
+
+interface MathItem {
+  question: string
+  answer: string
+  topic: string
+  intent: 'factual_question' | 'how_to' | 'formula_recall' | 'problem_solving'
+  keywords: string[]
+}
+
+const items: MathItem[] = []
+
+function add(
+  question: string,
+  answer: string,
+  topic: string,
+  intent: MathItem['intent'] = 'formula_recall',
+  keywords: string[] = []
+) {
+  items.push({ question, answer, topic, intent, keywords })
+}
+
+// ============================================================
+// SECTION 1 — ROLLE'S THEOREM & MEAN VALUE THEOREM (6 items)
+// ============================================================
+add(
+  'What is Rolle\'s Theorem?',
+  'Rolle\'s Theorem: If f is (1) continuous on [a,b], (2) differentiable on (a,b), and (3) f(a)=f(b), then there exists at least one c in (a,b) such that f\'(c)=0. Geometrically: a smooth curve starting and ending at the same height must have a horizontal tangent somewhere in between. Example: f(x)=x²−1 on [−1,1]. f(−1)=0=f(1). f\'(x)=2x=0 ⇒ c=0 ∈ (−1,1). ✓',
+  'ch04p2_rolles_theorem',
+  'formula_recall',
+  ['Rolle', 'theorem', 'horizontal tangent', 'f(a)=f(b)', 'continuous differentiable']
+)
+
+add(
+  'What is the Mean Value Theorem (MVT)?',
+  'Mean Value Theorem: If f is (1) continuous on [a,b] and (2) differentiable on (a,b), then there exists at least one c in (a,b) such that f\'(c) = [f(b)−f(a)]/(b−a). The right side is the average (secant) slope over [a,b]; MVT guarantees a point where the tangent slope equals this average. Example: f(x)=x² on [1,3]. Average slope = (9−1)/(3−1) = 4. f\'(x)=2x=4 ⇒ c=2 ∈ (1,3). ✓',
+  'ch04p2_mvt',
+  'formula_recall',
+  ['Mean Value Theorem', 'MVT', 'average slope', 'secant tangent', 'continuous differentiable']
+)
+
+add(
+  'What is the geometric interpretation of the Mean Value Theorem?',
+  'Geometric interpretation of MVT: For a smooth curve y=f(x) on [a,b], there is at least one point c where the tangent line is parallel to the secant line connecting (a,f(a)) and (b,f(b)). The secant slope is [f(b)−f(a)]/(b−a); MVT finds c where the tangent slope f\'(c) equals this. Example: A car travels 120 miles in 2 hours. Average speed = 60 mph. MVT guarantees at some instant the speedometer read exactly 60 mph. ✓',
+  'ch04p2_mvt_geometric',
+  'formula_recall',
+  ['MVT', 'geometric interpretation', 'parallel', 'secant', 'tangent']
+)
+
+add(
+  'How do you use the MVT to prove inequalities?',
+  'MVT for inequalities: If |f\'(x)| ≤ M on (a,b), then |f(b)−f(a)| ≤ M|b−a|. Applied by choosing f cleverly. Example: Prove |sin x − sin y| ≤ |x − y|. Let f(t)=sin t on [x,y]. f\'(t)=cos t, |cos t|≤1. By MVT: |sin x − sin y| = |cos c|·|x−y| ≤ 1·|x−y|. ✓',
+  'ch04p2_mvt_inequalities',
+  'problem_solving',
+  ['MVT', 'inequality', 'Lipschitz', 'bound', 'prove']
+)
+
+add(
+  'How do you use the MVT to show a function is constant?',
+  'MVT to prove a function is constant: If f\'(x)=0 for all x in an interval, then f is constant on that interval. Proof: For any a<b in the interval, MVT gives f(b)−f(a)=f\'(c)(b−a)=0·(b−a)=0, so f(a)=f(b). Since a,b were arbitrary, f is constant. Example: If f\'(x)=0 for all x and f(0)=5, then f(x)=5 for all x. ✓',
+  'ch04p2_mvt_constant',
+  'formula_recall',
+  ['MVT', 'constant function', 'zero derivative', 'identity']
+)
+
+add(
+  'What is Cauchy\'s Mean Value Theorem (Generalized MVT)?',
+  'Cauchy\'s Mean Value Theorem: If f and g are continuous on [a,b] and differentiable on (a,b), then there exists c in (a,b) such that [f(b)−f(a)]·g\'(c) = [g(b)−g(a)]·f\'(c). Equivalently: [f(b)−f(a)]/[g(b)−g(a)] = f\'(c)/g\'(c) (if g(b)≠g(a) and g\'(c)≠0). Setting g(x)=x recovers the standard MVT. Cauchy\'s MVT is the foundation of L\'Hôpital\'s Rule. Example: f(x)=sin x, g(x)=cos x on [0,π/2]: [1−0]/[0−1] = −1 = cos c/(−sin c) = −cot c, so cot c = 1, c = π/4 ∈ (0,π/2). ✓',
+  'ch04p2_cauchy_mvt',
+  'formula_recall',
+  ['Cauchy MVT', 'generalized MVT', 'two functions', "L'Hopital foundation"]
+)
+
+// ============================================================
+// SECTION 2 — L'HÔPITAL'S RULE (6 items)
+// ============================================================
+add(
+  'What is L\'Hôpital\'s Rule?',
+  'L\'Hôpital\'s Rule: If lim(x→a) f(x)/g(x) is of indeterminate form 0/0 or ∞/∞, and f, g are differentiable near a with g\'(x)≠0, then lim(x→a) f(x)/g(x) = lim(x→a) f\'(x)/g\'(x), provided the latter limit exists (or is ±∞). Based on Cauchy\'s MVT. Example: lim(x→0) (sin x)/x = 0/0. Apply L\'H: lim cos x / 1 = 1/1 = 1. ✓',
+  'ch04p2_lhopital_rule',
+  'formula_recall',
+  ["L'Hopital", 'rule', 'indeterminate', '0/0', 'infinity/infinity', 'derivative ratio']
+)
+
+add(
+  'When can L\'Hôpital\'s Rule be applied?',
+  'Conditions for L\'Hôpital\'s Rule: (1) The limit must be of the form 0/0 or ∞/∞ (the only forms directly applicable). (2) f and g must be differentiable near a (except possibly at a). (3) g\'(x) must not be 0 near a (except possibly at a). (4) The new limit lim f\'/g\' must exist, be ±∞, or the rule gives no information. The rule can be applied repeatedly if the result is still indeterminate. Example: lim(x→0) (1−cos x)/x² = 0/0 → lim sin x/(2x) = 0/0 → lim cos x/2 = 1/2. ✓',
+  'ch04p2_lhopital_conditions',
+  'formula_recall',
+  ["L'Hopital", 'conditions', '0/0', 'infinity/infinity', 'differentiable', 'repeated']
+)
+
+add(
+  'How do you apply L\'Hôpital\'s Rule to the ∞−∞ form?',
+  'L\'Hôpital for ∞−∞ form: Combine the expression into a single fraction first (common denominator, rationalization), producing a 0/0 or ∞/∞ form, then apply L\'Hôpital. Example: lim(x→0⁺) (1/x − 1/sin x). Combine: (sin x − x)/(x sin x) → 0/0. L\'H: (cos x − 1)/(sin x + x cos x) → 0/0. L\'H again: (−sin x)/(cos x + cos x − x sin x) = (−sin x)/(2cos x − x sin x) → 0/2 = 0. ✓',
+  'ch04p2_lhopital_infty_minus',
+  'problem_solving',
+  ["L'Hopital", 'infinity minus infinity', 'common denominator', 'combine']
+)
+
+add(
+  'How do you apply L\'Hôpital\'s Rule to the 0·∞ form?',
+  'L\'Hôpital for 0·∞ form: Rewrite as a quotient: f·g = f/(1/g) → 0/0, or f·g = g/(1/f) → ∞/∞. Choose the rewriting that gives simpler derivatives. Example: lim(x→0⁺) x·ln x (∞ form 0·∞). Rewrite as ln x/(1/x) → −∞/∞. L\'H: (1/x)/(−1/x²) = (1/x)·(−x²) = −x → 0. So lim(x→0⁺) x ln x = 0. ✓',
+  'ch04p2_lhopital_zero_infty',
+  'problem_solving',
+  ["L'Hopital", '0 times infinity', 'rewrite', 'quotient']
+)
+
+add(
+  'How do you apply L\'Hôpital\'s Rule to exponential indeterminate forms (1^∞, 0^0, ∞^0)?',
+  'L\'Hôpital for exponential forms (1^∞, 0^0, ∞^0): Take natural log first. If y = f(x)^g(x), then ln y = g(x)·ln f(x), which is now 0·∞, ∞·(−∞), or 0·∞. After evaluating lim ln y = L, the original limit is e^L. Example: lim(x→0⁺) x^x (form 0^0). Let y=x^x, ln y = x ln x → 0 (computed via L\'H on 0·∞). So lim y = e^0 = 1. ✓',
+  'ch04p2_lhopital_exponential',
+  'problem_solving',
+  ["L'Hopital", '1 to infinity', '0 to 0', 'infinity to 0', 'logarithm', 'exponential']
+)
+
+add(
+  'What are common pitfalls when using L\'Hôpital\'s Rule?',
+  'Pitfalls of L\'Hôpital\'s Rule: (1) Applying when the form is NOT 0/0 or ∞/∞ — verify first! (2) Forgetting to differentiate numerator and denominator SEPARATELY (NOT using quotient rule). (3) Applying infinitely without progress (the rule cycles). (4) Assuming the rule works when lim f\'/g\' doesn\'t exist — if that limit DNE, the original limit may still exist; rule gives no info. (5) Mis-handling the form ∞/∞ where g\' vanishes. Example pitfall: lim(x→∞) (x+sin x)/x is ∞/∞, but L\'H gives lim (1+cos x)/1 which DNE (oscillates). Yet the original limit = lim (1 + sin x/x) = 1+0 = 1. L\'H does not apply here. ✓',
+  'ch04p2_lhopital_pitfalls',
+  'problem_solving',
+  ["L'Hopital", 'pitfalls', 'common mistakes', 'does not exist', 'oscillates']
+)
+
+// ============================================================
+// SECTION 3 — LINEAR APPROXIMATION & DIFFERENTIALS (5 items)
+// ============================================================
+add(
+  'What is linear approximation (tangent line approximation)?',
+  'Linear approximation: For f differentiable at a, the linearization at a is L(x) = f(a) + f\'(a)(x − a). For x near a, f(x) ≈ L(x). This uses the fact that the tangent line closely matches the curve near the point of tangency. Example: Estimate √4.1. f(x)=√x, a=4, f(4)=2, f\'(x)=1/(2√x), f\'(4)=1/4. L(x) = 2 + (1/4)(x−4). L(4.1) = 2 + 0.025 = 2.025. (Actual √4.1 ≈ 2.02485.) ✓',
+  'ch04p2_linear_approximation',
+  'formula_recall',
+  ['linear approximation', 'tangent line', 'linearization', 'estimate', 'near point']
+)
+
+add(
+  'What are differentials and how are they used?',
+  'Differentials: For y=f(x), the differential dy = f\'(x)·dx. For small Δx, Δy ≈ dy = f\'(x)·dx. Used to estimate small changes in f. Note dx=Δx is the change in x; dy approximates Δy=f(x+Δx)−f(x). Example: Estimate change in y=x³ when x goes from 2 to 2.01. dy = 3x²·dx = 3(4)(0.01) = 0.12. Actual Δy = 2.01³−8 = 8.120601−8 = 0.120601. ✓',
+  'ch04p2_differentials',
+  'formula_recall',
+  ['differentials', 'dy', 'dx', 'small change', 'estimate', 'delta y']
+)
+
+add(
+  'How do you use differentials to estimate errors?',
+  'Error estimation with differentials: If a quantity Q=f(x) and x has measurement error dx (or Δx), then the propagated error in Q is approximately dQ = f\'(x)·dx. The relative error is |dQ/Q| = |f\'(x)·dx/f(x)|; the percentage error is 100·|dQ/Q|%. Example: Radius of sphere measured as r=10 cm ± 0.1 cm. Volume V=(4/3)πr³. dV = 4πr²·dr = 4π(100)(0.1) = 40π ≈ 125.66 cm³. Relative error: |dV/V| = 40π / ((4/3)π(1000)) = 40/1333 ≈ 3%. ✓',
+  'ch04p2_error_estimation',
+  'problem_solving',
+  ['error', 'differentials', 'propagation', 'relative error', 'percentage error']
+)
+
+add(
+  'What is the linearization formula and when is it accurate?',
+  'Linearization formula: L(x) = f(a) + f\'(a)(x − a). Accurate when: (1) x is close to a (|x−a| small), (2) f\'\'(a) is not too large (small curvature), (3) f is smooth near a. The error is bounded by |f(x)−L(x)| ≤ (M/2)(x−a)² where M = max|f\'\'| on the interval. Example: Linearize cos x at a=0: L(x)=cos 0 + (−sin 0)(x−0) = 1. So cos x ≈ 1 for small x. At x=0.1: L=1, actual cos(0.1)=0.995004, error ≈ 0.005. ✓',
+  'ch04p2_linearization',
+  'formula_recall',
+  ['linearization', 'formula', 'accuracy', 'error bound', 'second derivative']
+)
+
+add(
+  'How do you use linear approximation for common functions?',
+  'Common linear approximations near 0 (i.e., for small x): (1) (1+x)^n ≈ 1 + nx. (2) √(1+x) ≈ 1 + x/2. (3) e^x ≈ 1 + x. (4) ln(1+x) ≈ x. (5) sin x ≈ x. (6) cos x ≈ 1 − x²/2 (or 1 for very small x). (7) tan x ≈ x. Example: Estimate (1.02)^3 ≈ 1 + 3(0.02) = 1.06. Actual: 1.02³ = 1.061208. Estimate e^0.05 ≈ 1+0.05 = 1.05. Actual: 1.05127. ✓',
+  'ch04p2_common_approximations',
+  'formula_recall',
+  ['small x', 'approximation', 'binomial', 'exponential', 'logarithm', 'trig']
+)
+
+// ============================================================
+// SECTION 4 — RELATED RATES (6 items)
+// ============================================================
+add(
+  'What is the related rates technique?',
+  'Related rates: When two or more quantities vary with time and are related by an equation, differentiate the equation with respect to time t (using chain rule) to relate their rates of change. Steps: (1) Identify variables and their rates (dy/dt, dx/dt, etc.). (2) Write an equation relating the variables. (3) Differentiate w.r.t. t. (4) Substitute known values and solve for the unknown rate. Example: For y=x², if dx/dt=3, find dy/dt when x=5. Differentiate: dy/dt = 2x·dx/dt = 2(5)(3) = 30. ✓',
+  'ch04p2_related_rates',
+  'formula_recall',
+  ['related rates', 'chain rule', 'time derivative', 'rate of change']
+)
+
+add(
+  'How do you solve the expanding circle related rates problem?',
+  'Expanding circle (area vs radius): A circle\'s area A=πr². Differentiate w.r.t. time: dA/dt = 2πr·(dr/dt). Example: A circle\'s radius increases at dr/dt = 2 cm/s. How fast is the area increasing when r=5 cm? dA/dt = 2π(5)(2) = 20π ≈ 62.83 cm²/s. Conversely, if dA/dt=10 and r=3, then dr/dt = dA/dt/(2πr) = 10/(6π) = 5/(3π) ≈ 0.53 cm/s. ✓',
+  'ch04p2_related_rates_circle',
+  'problem_solving',
+  ['related rates', 'circle', 'area', 'radius', 'expanding']
+)
+
+add(
+  'How do you solve the sliding ladder related rates problem?',
+  'Sliding ladder: A ladder of length L leans against a wall; bottom slides away at dx/dt, top slides down at dy/dt. Constraint: x²+y²=L². Differentiate: 2x·(dx/dt) + 2y·(dy/dt) = 0, so dy/dt = −(x/y)·(dx/dt). Example: 10-ft ladder, bottom at x=6 ft (so y=8 ft), sliding at dx/dt=2 ft/s. dy/dt = −(6/8)(2) = −1.5 ft/s (top moving down at 1.5 ft/s). ✓',
+  'ch04p2_related_rates_ladder',
+  'problem_solving',
+  ['related rates', 'ladder', 'Pythagoras', 'wall', 'sliding']
+)
+
+add(
+  'How do you solve related rates involving a cone or volume?',
+  'Related rates for a cone: Volume V=(1/3)πr²h. For a cone with fixed shape (r/h constant), V = (π/3)(r/h)²·h³ or use the constraint r=kh. Differentiate: dV/dt = πr²·(dh/dt) (if r constant) or more generally via product rule. Example: Water fills a conical tank (point down) at dV/dt=2 m³/min. Tank has r=4 m, h=8 m (so r=h/2). When h=5, r=2.5. V=(π/3)(2.5)²(5)=(π/3)(31.25). dV/dt = πr²·(dh/dt) only if r constant; but here r changes with h. Use V=(π/12)h³. dV/dt=(π/4)h²(dh/dt). 2=(π/4)(25)(dh/dt) ⇒ dh/dt = 8/(25π) ≈ 0.102 m/min. ✓',
+  'ch04p2_related_rates_cone',
+  'problem_solving',
+  ['related rates', 'cone', 'volume', 'water filling', 'similar triangles']
+)
+
+add(
+  'How do you solve related rates with shadows and angles?',
+  'Related rates with angles: Use trigonometry. Example: A 6-ft man walks away from a 15-ft lamppost at 4 ft/s. How fast is his shadow tip moving? Let x = man\'s distance from post, s = shadow tip distance from post (so s−x = shadow length). By similar triangles: 15/s = 6/(s−x). So 15(s−x)=6s ⇒ 15s−15x=6s ⇒ 9s=15x ⇒ s=(5/3)x. ds/dt=(5/3)·(dx/dt)=(5/3)(4)=20/3≈6.67 ft/s. ✓',
+  'ch04p2_related_rates_shadow',
+  'problem_solving',
+  ['related rates', 'shadow', 'similar triangles', 'angle', 'trigonometry']
+)
+
+add(
+  'How do you solve related rates involving distance between two moving objects?',
+  'Related rates — distance between moving objects: Use the distance formula D²=(x₂−x₁)²+(y₂−y₁)². Differentiate w.r.t. t: 2D·(dD/dt) = 2(x₂−x₁)(v₂x−v₁x) + 2(y₂−y₁)(v₂y−v₁y). Example: Car A goes north at 60 mph from origin; car B goes east at 80 mph from origin, both starting at t=0. At t=1 hr, A=(0,60), B=(80,0), D=100. dD/dt = [(80−0)(80−0) + (0−60)(0−60)]/100 = [6400+3600]/100 = 100 mph. Wait — they\'re separating, check sign: 2D·dD/dt = 2(80)(80)+2(−60)(−60)=12800+7200=20000. dD/dt=20000/200=100 mph. ✓',
+  'ch04p2_related_rates_distance',
+  'problem_solving',
+  ['related rates', 'distance', 'two objects', 'moving', 'velocity']
+)
+
+// ============================================================
+// SECTION 5 — OPTIMIZATION (APPLIED MAX/MIN) (7 items)
+// ============================================================
+add(
+  'What is the optimization procedure using derivatives?',
+  'Optimization procedure: (1) Identify the quantity Q to maximize/minimize. (2) Write Q as a function of one variable (use a constraint to eliminate variables). (3) Find critical points: solve Q\'=0 (or Q\' undefined). (4) Use First or Second Derivative Test to classify. (5) Verify global max/min by comparing values (or use EVT if on closed interval). Example: Maximize area A=x·y with perimeter 2x+2y=40, so y=20−x, A=x(20−x)=20x−x². A\'=20−2x=0 ⇒ x=10, y=10. Square gives max area 100. ✓',
+  'ch04p2_optimization_procedure',
+  'formula_recall',
+  ['optimization', 'maximize', 'minimize', 'critical point', 'procedure']
+)
+
+add(
+  'How do you find the maximum area of a rectangle with fixed perimeter?',
+  'Max area with fixed perimeter: For a rectangle with perimeter P=2(x+y), area A=xy. With y=P/2−x, A=x(P/2−x)=(P/2)x−x². A\'=P/2−2x=0 ⇒ x=P/4, so y=P/4. Maximum area is a SQUARE with side P/4, area (P/4)²=P²/16. Example: P=40 ⇒ x=y=10, A_max=100. (A rectangle 5×15 also has P=40 but A=75<100.) ✓',
+  'ch04p2_optimize_rectangle_area',
+  'problem_solving',
+  ['optimization', 'rectangle', 'area', 'perimeter', 'square']
+)
+
+add(
+  'How do you find the minimum surface area of a can with fixed volume?',
+  'Min surface area of cylinder with fixed volume: V=πr²h=C (constant), so h=C/(πr²). Surface area S=2πr²+2πrh=2πr²+2C/r. dS/dr=4πr−2C/r²=0 ⇒ 4πr³=2C ⇒ r³=C/(2π) ⇒ r=(C/(2π))^(1/3). Then h=C/(πr²)=C/(π·(C/(2π))^(2/3))=2·(C/(2π))^(1/3)=2r. So h=2r (height = diameter) for minimum surface area. Example: V=500 cm³. r=(500/(2π))^(1/3)≈4.30 cm, h≈8.60 cm. ✓',
+  'ch04p2_optimize_cylinder',
+  'problem_solving',
+  ['optimization', 'cylinder', 'can', 'minimum surface area', 'volume']
+)
+
+add(
+  'How do you find the largest area of a rectangle inscribed in a semicircle?',
+  'Rectangle in a semicircle: Semicircle y=√(r²−x²), upper half. Rectangle has corners at (±x, 0) and (±x, √(r²−x²)). Area A = 2x·√(r²−x²). dA/dx = 2√(r²−x²) + 2x·(−x/√(r²−x²)) = [2(r²−x²) − 2x²]/√(r²−x²) = [2r²−4x²]/√(r²−x²). Setting numerator=0: x²=r²/2 ⇒ x=r/√2. Then y=√(r²−r²/2)=r/√2. A_max = 2(r/√2)(r/√2)=r². ✓',
+  'ch04p2_optimize_inscribed_rect',
+  'problem_solving',
+  ['optimization', 'inscribed', 'rectangle', 'semicircle', 'maximum area']
+)
+
+add(
+  'How do you minimize the distance from a point to a curve?',
+  'Min distance from point to curve: To minimize distance from (a,b) to curve y=f(x), minimize D²=(x−a)²+(f(x)−b)² (squaring avoids square roots). Differentiate: 2(x−a)+2(f(x)−b)f\'(x)=0. Example: Closest point on y=x² to (0,1). D²=x²+(x²−1)²=x²+x⁴−2x²+1=x⁴−x²+1. dD²/dx=4x³−2x=2x(2x²−1)=0 ⇒ x=0 or x=±1/√2. At x=±1/√2: y=1/2, D²=1/4−1/2+1=3/4, D=√(3/4)=√3/2≈0.866. At x=0: D²=1, D=1. So closest points are (±1/√2, 1/2). ✓',
+  'ch04p2_optimize_distance',
+  'problem_solving',
+  ['optimization', 'minimum distance', 'point to curve', 'shortest']
+)
+
+add(
+  'How do you minimize cost or material in a packaging problem?',
+  'Cost optimization: Express total cost as a function of dimensions; minimize using derivatives. Example: Box with square base, volume 32 m³, no top. Base material costs $3/m², sides $2/m². Let base side x, height h. V=x²h=32 ⇒ h=32/x². Cost C=3x² (base) + 2·4·x·h (sides) = 3x²+8x·(32/x²)=3x²+256/x. dC/dx=6x−256/x²=0 ⇒ 6x³=256 ⇒ x³=128/3 ⇒ x≈3.50 m, h=32/(3.50²)≈2.61 m. Min cost C=3(12.27)+256/3.50≈36.82+73.14≈$109.96. ✓',
+  'ch04p2_optimize_cost',
+  'problem_solving',
+  ['optimization', 'cost', 'packaging', 'box', 'minimize']
+)
+
+add(
+  'How do you find optimal values on a closed interval?',
+  'Optimization on [a,b]: (1) Find critical points c in (a,b) where f\'(c)=0 or f\'(c) undefined. (2) Evaluate f at each critical point and at endpoints a, b. (3) The largest value is the absolute max; the smallest is the absolute min. (Justified by the Extreme Value Theorem, assuming continuity.) Example: f(x)=x³−3x+1 on [−2,2]. f\'=3x²−3=0 ⇒ x=±1. f(−2)=−8+6+1=−1; f(−1)=−1+3+1=3; f(1)=1−3+1=−1; f(2)=8−6+1=3. Abs max=3 at x=−1,2; abs min=−1 at x=−2,1. ✓',
+  'ch04p2_optimize_closed_interval',
+  'problem_solving',
+  ['optimization', 'closed interval', 'absolute max', 'absolute min', 'endpoints']
+)
+
+// ============================================================
+// SECTION 6 — FIRST & SECOND DERIVATIVE TESTS (5 items)
+// ============================================================
+add(
+  'What is the First Derivative Test?',
+  'First Derivative Test: Let c be a critical point of f (f\'(c)=0 or undefined). (1) If f\' changes from + to − at c: local max. (2) If f\' changes from − to + at c: local min. (3) If f\' does not change sign: neither (inflection or flat). Test by checking sign of f\' on either side of c. Example: f(x)=x³−3x, f\'=3x²−3=3(x−1)(x+1). Critical: x=±1. At x=−1: f\' goes from + to − (test x=−2: f\'=9>0; x=0: f\'=−3<0) ⇒ local max. At x=1: f\' goes from − to + ⇒ local min. ✓',
+  'ch04p2_first_derivative_test',
+  'formula_recall',
+  ['first derivative test', 'local max', 'local min', 'sign change', 'critical point']
+)
+
+add(
+  'What is the Second Derivative Test?',
+  'Second Derivative Test: If f\'(c)=0 and f\'\' is continuous near c, then: (1) If f\'\'(c)>0: local min at c. (2) If f\'\'(c)<0: local max at c. (3) If f\'\'(c)=0: test inconclusive (use First Derivative Test). Quicker than First Derivative Test when f\'\' is easy to compute. Example: f(x)=x³−3x. f\'=3x²−3, f\'\'=6x. At x=−1: f\'\'=−6<0 ⇒ local max. At x=1: f\'\'=6>0 ⇒ local min. (Consistent with First Derivative Test.) ✓',
+  'ch04p2_second_derivative_test',
+  'formula_recall',
+  ['second derivative test', 'local max', 'local min', 'concavity', 'inconclusive']
+)
+
+add(
+  'What is a critical point and how do you find critical points?',
+  'Critical point: A point c in the domain of f where either (1) f\'(c)=0, or (2) f\'(c) does not exist. Critical points are candidates for local extrema. To find: solve f\'(x)=0 and identify where f\' is undefined (but f is defined). Example: f(x)=x^(2/3). f\'(x)=(2/3)x^(−1/3)=2/(3·x^(1/3)). f\'=0 has no solution; f\' undefined at x=0 (where f is defined). So x=0 is a critical point (it\'s a cusp/local min). Example 2: f(x)=x³−12x. f\'=3x²−12=3(x−2)(x+2)=0 ⇒ x=±2 are critical points. ✓',
+  'ch04p2_critical_points',
+  'formula_recall',
+  ['critical point', 'f prime zero', 'undefined derivative', 'cusp', 'candidates']
+)
+
+add(
+  'How do you determine where a function is increasing or decreasing?',
+  'Increasing/decreasing test: f is increasing on intervals where f\'(x)>0; decreasing where f\'(x)<0. Procedure: (1) Find f\'. (2) Find critical points and where f\' is undefined. (3) These divide the domain into intervals; pick a test point in each and check sign of f\'. Example: f(x)=x³−3x. f\'=3(x−1)(x+1). Critical points ±1 divide R into (−∞,−1), (−1,1), (1,∞). Test: x=−2 → f\'=9>0 (increasing); x=0 → f\'=−3<0 (decreasing); x=2 → f\'=9>0 (increasing). So f increases on (−∞,−1)∪(1,∞), decreases on (−1,1). ✓',
+  'ch04p2_increasing_decreasing',
+  'formula_recall',
+  ['increasing', 'decreasing', 'sign of derivative', 'monotonic', 'intervals']
+)
+
+add(
+  'How do you classify critical points when the Second Derivative Test fails?',
+  'When Second Derivative Test fails (f\'\'(c)=0): Use the First Derivative Test or higher-order derivative test. Higher-order test: differentiate repeatedly; the first non-zero derivative at c of order n determines: if n is even, n-th derivative >0 → min, <0 → max; if n is odd, c is an inflection point (not extremum). Example: f(x)=x⁴. f\'=4x³, f\'\'=12x², f\'\'\'=24x, f⁽⁴⁾=24. At x=0: f\'=f\'\'=f\'\'\'=0, f⁽⁴⁾=24>0 (even order) ⇒ local min. ✓',
+  'ch04p2_higher_derivative_test',
+  'problem_solving',
+  ['higher derivative test', 'inconclusive', 'second derivative test fails', 'fourth derivative']
+)
+
+// ============================================================
+// SECTION 7 — CONCAVITY & INFLECTION POINTS (5 items)
+// ============================================================
+add(
+  'What is concavity and how is it determined?',
+  'Concavity: f is concave UP (convex, opens upward) on an interval if f\'\'>0 there; concave DOWN if f\'\'<0. Geometrically: concave up = shaped like a cup (∪), tangent lines below the curve; concave down = shaped like a cap (∩), tangent lines above. Example: f(x)=x³. f\'\'=6x. f\'\'>0 for x>0 (concave up); f\'\'<0 for x<0 (concave down). ✓',
+  'ch04p2_concavity',
+  'formula_recall',
+  ['concavity', 'concave up', 'concave down', 'second derivative', 'convex']
+)
+
+add(
+  'What is an inflection point and how do you find it?',
+  'Inflection point: A point (c, f(c)) where the concavity changes (f\'\' changes sign). Candidates: where f\'\'(c)=0 or f\'\'(c) undefined. Verify sign change of f\'\' across c. Example: f(x)=x³. f\'\'=6x=0 at x=0. f\'\'<0 for x<0, f\'\'>0 for x>0 ⇒ sign change ⇒ (0,0) is an inflection point. Example 2: f(x)=x⁴. f\'\'=12x²=0 at x=0, but f\'\'>0 on both sides ⇒ NOT an inflection point (just a flat minimum). ✓',
+  'ch04p2_inflection_point',
+  'formula_recall',
+  ['inflection point', 'concavity change', 'second derivative', 'sign change']
+)
+
+add(
+  'What is the relationship between concavity and the tangent line?',
+  'Concavity and tangent line: If f is concave up at a point, the tangent line lies BELOW the curve nearby (the curve "holds water"). If concave down, the tangent lies ABOVE (the curve "sheds water"). This gives: f(x) ≥ L(x) for concave up; f(x) ≤ L(x) for concave down, near the point of tangency. Globally concave up functions satisfy f(tx+(1−t)y) ≤ tf(x)+(1−t)f(y) (Jensen\'s inequality). Example: f(x)=x² concave up everywhere, so x² ≥ 2a(x−a)+a² = 2ax−a² for any a (tangent line below parabola). ✓',
+  'ch04p2_concavity_tangent',
+  'formula_recall',
+  ['concavity', 'tangent line', 'above below', 'Jensen inequality', 'convex']
+)
+
+add(
+  'How do you find all inflection points of a function?',
+  'Finding inflection points: (1) Compute f\'\'. (2) Find where f\'\'=0 or f\'\' is undefined (within the domain of f). (3) For each candidate c, check if f\'\' changes sign at c. (4) Only candidates with a sign change are inflection points; compute f(c) for the point. Example: f(x)=x⁴−6x². f\'=4x³−12x, f\'\'=12x²−12=12(x²−1)=0 ⇒ x=±1. Test: x=−2 → f\'\'=36>0; x=0 → f\'\'=−12<0; x=2 → f\'\'=36>0. Sign changes at both x=−1 and x=1. Inflection points: (−1, −5) and (1, −5). ✓',
+  'ch04p2_find_inflection_points',
+  'problem_solving',
+  ['inflection points', 'find', 'second derivative', 'sign change', 'all']
+)
+
+add(
+  'What is the Second Derivative Test for concavity at a critical point?',
+  'Concavity at critical points: If c is a critical point (f\'(c)=0) and f\'\'(c)>0, the function is concave up at c, so c is a local minimum (the curve cups upward, holding the lowest point). If f\'\'(c)<0, concave down, so c is a local maximum. This is the basis of the Second Derivative Test. If f\'\'(c)=0, the test is inconclusive. Example: f(x)=x³−6x²+9x+1. f\'=3x²−12x+9=3(x−1)(x−3), critical at x=1,3. f\'\'=6x−12. At x=1: f\'\'=−6<0 (concave down, local max). At x=3: f\'\'=6>0 (concave up, local min). ✓',
+  'ch04p2_concavity_critical',
+  'formula_recall',
+  ['concavity', 'critical point', 'local max', 'local min', 'second derivative test']
+)
+
+// ============================================================
+// SECTION 8 — CURVE SKETCHING & ASYMPTOTES (6 items)
+// ============================================================
+add(
+  'How do you find vertical asymptotes?',
+  'Vertical asymptote: A vertical line x=a where lim(x→a) f(x) = ±∞. Occurs where f is undefined (denominator=0 after simplification) and the limit is infinite. Procedure: identify candidate a values (zeros of denominator, log arguments =0, etc.), then compute one-sided limits. Example: f(x)=1/(x−2). At x=2: lim(x→2⁻)=−∞, lim(x→2⁺)=+∞. So x=2 is a vertical asymptote. Example 2: f(x)=(x²−1)/(x−1)=x+1 for x≠1. After simplification, NO vertical asymptote at x=1 (it\'s a hole, not an asymptote). ✓',
+  'ch04p2_vertical_asymptote',
+  'formula_recall',
+  ['vertical asymptote', 'infinite limit', 'denominator zero', 'one-sided']
+)
+
+add(
+  'How do you find horizontal asymptotes?',
+  'Horizontal asymptote: y=L is a horizontal asymptote if lim(x→∞) f(x)=L or lim(x→−∞) f(x)=L. For rational f(x)=P(x)/Q(x) with deg P = p, deg Q = q: (1) p<q: HA at y=0. (2) p=q: HA at y=(leading coeff of P)/(leading coeff of Q). (3) p>q: no HA (but possibly an oblique asymptote). Example: f(x)=(3x²+1)/(2x²−5). Degrees equal (2=2), HA at y=3/2. f(x)=(x+1)/(x²−4): p=1<q=2, HA at y=0. ✓',
+  'ch04p2_horizontal_asymptote',
+  'formula_recall',
+  ['horizontal asymptote', 'limit at infinity', 'rational function', 'end behavior']
+)
+
+add(
+  'How do you find oblique (slant) asymptotes?',
+  'Oblique (slant) asymptote: For rational f(x)=P(x)/Q(x) with deg P = deg Q + 1, perform polynomial long division: f(x) = (quotient) + (remainder)/Q(x). The quotient y=mx+b is the slant asymptote (as x→±∞, the remainder term →0). Example: f(x)=(x²+1)/x = x + 1/x. Long division gives quotient x. So y=x is the slant asymptote. Example 2: f(x)=(2x²−3x+1)/(x−2). Divide: 2x²−3x+1 = (x−2)(2x+1)+3. So f(x)=2x+1+3/(x−2). Slant asymptote: y=2x+1. ✓',
+  'ch04p2_oblique_asymptote',
+  'formula_recall',
+  ['oblique asymptote', 'slant asymptote', 'long division', 'rational function']
+)
+
+add(
+  'What is the full curve sketching procedure?',
+  'Curve sketching checklist: (1) Domain and intercepts (y-int: f(0); x-int: f(x)=0). (2) Symmetry (even f(−x)=f(x); odd f(−x)=−f(x); periodic). (3) Asymptotes (vertical, horizontal, oblique). (4) First derivative: critical points, intervals of increase/decrease. (5) Second derivative: concavity, inflection points. (6) Local extrema (First or Second Derivative Test). (7) Plot key points and sketch. Example: f(x)=x³−3x. Domain R, y-int (0,0), x-int 0, ±√3. Odd. No asymptotes. f\'=3(x²−1): crit at ±1; increasing on (−∞,−1)∪(1,∞), decreasing on (−1,1). f\'\'=6x: concave down (−∞,0), up (0,∞); inflection at (0,0). Local max (−1,2), local min (1,−2). ✓',
+  'ch04p2_curve_sketching',
+  'formula_recall',
+  ['curve sketching', 'checklist', 'procedure', 'graph', 'steps']
+)
+
+add(
+  'How do you analyze a rational function for graphing?',
+  'Graphing rational functions: (1) Factor numerator and denominator; identify holes (common factors) vs vertical asymptotes (denom zeros after cancellation). (2) Find intercepts. (3) Find horizontal or oblique asymptote. (4) Compute f\' to find critical points and increase/decrease. (5) Compute f\'\' for concavity and inflection. (6) Sketch with asymptotic behavior near vertical asymptotes and at ±∞. Example: f(x)=(x²−4)/(x²−1)=((x−2)(x+2))/((x−1)(x+1)). No holes. VAs at x=±1. x-int ±2, y-int 4. HA y=1 (deg P=deg Q). f\'=... shows local extrema between asymptotes. ✓',
+  'ch04p2_graph_rational',
+  'problem_solving',
+  ['rational function', 'graphing', 'asymptotes', 'holes', 'analysis']
+)
+
+add(
+  'How do you sketch a curve using calculus (worked example)?',
+  'Worked curve sketching: Sketch f(x)=x⁴−4x³. (1) Domain R; y-int f(0)=0; x-int x⁴−4x³=x³(x−4)=0 ⇒ x=0,4. (2) No asymptotes (polynomial). (3) f\'=4x³−12x²=4x²(x−3); critical at x=0,3. Sign: x<0: f\'<0 (dec); 0<x<3: f\'<0 (dec); x>3: f\'>0 (inc). So x=0 not extremum (no sign change), x=3 local min. (4) f\'\'=12x²−24x=12x(x−2); inflection candidates x=0,2. Sign: x<0: f\'\'>0 (CCU); 0<x<2: f\'\'<0 (CCD); x>2: f\'\'>0 (CCU). Inflections at (0,0) and (2,−16). Local min at (3, −27). Sketch: decreasing until x=3, curve changes concavity at 0 and 2. ✓',
+  'ch04p2_curve_sketching_example',
+  'problem_solving',
+  ['curve sketching', 'worked example', 'polynomial', 'inflection', 'local min']
+)
+
+// ============================================================
+// SECTION 9 — NEWTON'S METHOD (4 items)
+// ============================================================
+add(
+  'What is Newton\'s Method for finding roots?',
+  'Newton\'s Method (Newton-Raphson): Iterative method to approximate roots of f(x)=0. Start with guess x₀. Update: x_(n+1) = x_n − f(x_n)/f\'(x_n). Geometrically: at each step, draw the tangent line at (x_n, f(x_n)) and find where it crosses the x-axis. Repeat until convergence. Example: Find √2 by solving f(x)=x²−2=0. Start x₀=1.5. f(1.5)=0.25, f\'(1.5)=3. x₁=1.5−0.25/3=1.4167. f(1.4167)=0.0069, f\'=2.833. x₂=1.4167−0.0069/2.833=1.41422. (Actual √2≈1.41421.) ✓',
+  'ch04p2_newtons_method',
+  'formula_recall',
+  ['Newton method', 'Newton-Raphson', 'root finding', 'iteration', 'tangent line']
+)
+
+add(
+  'When does Newton\'s Method fail or converge slowly?',
+  'Failures of Newton\'s Method: (1) f\'(x_n)=0 (tangent horizontal, no x-intercept) — method breaks. (2) f\' is undefined at x_n. (3) Poor initial guess causes divergence or oscillation (especially for functions with multiple roots). (4) Slow convergence near a multiple root (f and f\' both vanish) — use modified Newton: x_(n+1)=x_n − 2f(x_n)/f\'(x_n) for double roots. (5) Cycles: bouncing between two values. Example: f(x)=x³−2x+2, start x₀=0: x₁=0−2/(−2)=1; x₂=1−1/1=0; cycles 0↔1 forever. Need different starting guess. ✓',
+  'ch04p2_newton_failures',
+  'problem_solving',
+  ['Newton method', 'failure', 'divergence', 'cycle', 'multiple root']
+)
+
+add(
+  'How do you estimate the error in Newton\'s Method?',
+  'Error estimate in Newton\'s Method: If r is the true root and x_n is the nth iterate, the error e_n = x_n − r. Near a simple root, Newton\'s method has quadratic convergence: e_(n+1) ≈ [f\'\'(r)/(2f\'(r))]·e_n². So the number of correct digits roughly DOUBLES each iteration. Practical stopping: |x_(n+1)−x_n| < tolerance (e.g., 10⁻⁸), or |f(x_n)| < tolerance. Example: Starting error 0.1 with f\'\'/2f\' = 1, next error ~0.01, then ~0.0001, then ~10⁻⁸ — quadratically decreasing. ✓',
+  'ch04p2_newton_error',
+  'formula_recall',
+  ['Newton method', 'error', 'quadratic convergence', 'tolerance', 'iteration']
+)
+
+add(
+  'How do you apply Newton\'s Method to find the nth root of a number?',
+  'Newton for nth roots: To compute a^(1/n), solve f(x)=xⁿ−a=0. Newton update: x_(n+1) = x_n − (x_nⁿ−a)/(n·x_n^(n−1)) = x_n − x_n/n + a/(n·x_n^(n−1)) = (1/n)[(n−1)x_n + a/x_n^(n−1)]. Special case for √a (n=2): x_(n+1) = (1/2)(x_n + a/x_n) (Babylonian method). Example: √5 with x₀=2: x₁=(2+5/2)/2=2.25; x₂=(2.25+5/2.25)/2=(2.25+2.222)/2=2.2361. (Actual √5≈2.23607.) ✓',
+  'ch04p2_newton_nth_root',
+  'problem_solving',
+  ['Newton method', 'nth root', 'Babylonian', 'square root', 'iteration']
+)
+
+// ============================================================
+// SECTION 10 — TAYLOR & MACLAURIN POLYNOMIALS (6 items)
+// ============================================================
+add(
+  'What is the Taylor polynomial of degree n?',
+  'Taylor polynomial: The degree-n Taylor polynomial of f at x=a is T_n(x) = f(a) + f\'(a)(x−a) + f\'\'(a)(x−a)²/2! + f\'\'\'(a)(x−a)³/3! + ... + f^(n)(a)(x−a)ⁿ/n!. It approximates f near a, matching f and its first n derivatives at a. Example: f(x)=eˣ at a=0, n=3: T_3(x) = 1 + x + x²/2 + x³/6. At x=0.1: T_3=1+0.1+0.005+0.000167=1.105167. (Actual e^0.1≈1.105171.) ✓',
+  'ch04p2_taylor_polynomial',
+  'formula_recall',
+  ['Taylor polynomial', 'approximation', 'degree n', 'derivatives at a', 'Maclaurin']
+)
+
+add(
+  'What is the Maclaurin polynomial?',
+  'Maclaurin polynomial: A Taylor polynomial centered at a=0. T_n(x) = f(0) + f\'(0)x + f\'\'(0)x²/2! + ... + f^(n)(0)xⁿ/n!. Common Maclaurin series: eˣ = 1 + x + x²/2! + x³/3! + ...; sin x = x − x³/3! + x⁵/5! − ...; cos x = 1 − x²/2! + x⁴/4! − ...; ln(1+x) = x − x²/2 + x³/3 − ... (for |x|<1); (1+x)^n = 1 + nx + n(n−1)x²/2! + ... Example: sin(0.1) ≈ 0.1 − 0.001/6 = 0.099833. (Actual: 0.0998334.) ✓',
+  'ch04p2_maclaurin_polynomial',
+  'formula_recall',
+  ['Maclaurin', 'Taylor at 0', 'series', 'expansion', 'common series']
+)
+
+add(
+  'What is the Maclaurin series for e to the x?',
+  'Maclaurin series for eˣ: eˣ = Σ_{n=0}^∞ xⁿ/n! = 1 + x + x²/2! + x³/3! + x⁴/4! + ... Converges for ALL real x (radius of convergence ∞). Derivation: f^(n)(0)=1 for all n (since dⁿ/dxⁿ[eˣ]=eˣ and e⁰=1). Example: e^1 ≈ 1+1+1/2+1/6+1/24+1/120 = 2.7167 (5 terms). Actual e≈2.71828. Each additional term brings closer. ✓',
+  'ch04p2_maclaurin_exp',
+  'formula_recall',
+  ['Maclaurin series', 'e to the x', 'exponential', 'infinite series', 'convergence']
+)
+
+add(
+  'What are the Maclaurin series for sin x and cos x?',
+  'Maclaurin series for sin and cos: sin x = x − x³/3! + x⁵/5! − x⁷/7! + ... = Σ_{n=0}^∞ (−1)ⁿx^(2n+1)/(2n+1)!. cos x = 1 − x²/2! + x⁴/4! − x⁶/6! + ... = Σ_{n=0}^∞ (−1)ⁿx^(2n)/(2n)!. Both converge for all x. Note Euler\'s formula e^(ix)=cos x+i·sin x combines these. Example: sin(0.5) ≈ 0.5 − 0.125/6 + 0.03125/120 = 0.5 − 0.020833 + 0.000260 = 0.479427. (Actual: 0.479426.) ✓',
+  'ch04p2_maclaurin_sin_cos',
+  'formula_recall',
+  ['Maclaurin series', 'sine', 'cosine', 'alternating', 'convergence']
+)
+
+add(
+  'What is the binomial series (Maclaurin for (1+x)^n)?',
+  'Binomial series: (1+x)^k = Σ_{n=0}^∞ C(k,n)xⁿ = 1 + kx + k(k−1)x²/2! + k(k−1)(k−2)x³/3! + ..., where C(k,n)=k(k−1)...(k−n+1)/n!. Converges for |x|<1 (and at x=1 if k>0, at x=−1 if k>−1). For integer k, becomes a finite sum (binomial theorem). Example: √(1+x)=(1+x)^(1/2)=1+(1/2)x−(1/8)x²+(1/16)x³−... At x=0.1: 1+0.05−0.00125+0.0000625=1.048813. (Actual √1.1≈1.048809.) ✓',
+  'ch04p2_binomial_series',
+  'formula_recall',
+  ['binomial series', '(1+x)^k', 'Maclaurin', 'generalized binomial', 'Newton']
+)
+
+add(
+  'How do you compute a Taylor polynomial of a composite function?',
+  'Taylor polynomial of composite function: Either (1) compute derivatives of the composite directly at a, or (2) substitute the Taylor polynomial of the inner function into the outer Taylor series and truncate. Example: Find T_3(x) for f(x)=e^(x²) at 0. Method: e^u = 1+u+u²/2+u³/6+..., with u=x². Substitute: e^(x²)=1+x²+x⁴/2+x⁶/6+... Truncate at degree 3: 1+x² (since x⁴ and higher exceed degree 3). So T_3(x)=1+x². (Note: T_3=T_2 here since x³ coefficient is 0.) ✓',
+  'ch04p2_taylor_composite',
+  'problem_solving',
+  ['Taylor polynomial', 'composite function', 'substitution', 'truncation']
+)
+
+// ============================================================
+// SECTION 11 — TAYLOR REMAINDER & ERROR BOUNDS (4 items)
+// ============================================================
+add(
+  'What is Taylor\'s Theorem with remainder?',
+  'Taylor\'s Theorem: f(x) = T_n(x) + R_n(x), where T_n is the degree-n Taylor polynomial and R_n(x) is the remainder. Lagrange form: R_n(x) = f^(n+1)(c)·(x−a)^(n+1)/(n+1)! for some c between a and x. So |R_n(x)| ≤ M·|x−a|^(n+1)/(n+1)!, where M = max|f^(n+1)| on [a,x]. Example: Bound error in T_2(0.5) for eˣ at 0. R_2 ≤ e^0.5·(0.5)³/6 ≈ 1.6487·0.02083 ≈ 0.0344. Actual error: e^0.5 − (1+0.5+0.125) = 1.6487−1.625 = 0.0237 < 0.0344. ✓',
+  'ch04p2_taylor_remainder',
+  'formula_recall',
+  ['Taylor theorem', 'remainder', 'Lagrange', 'error bound', 'next derivative']
+)
+
+add(
+  'How do you find the maximum error of a Taylor polynomial?',
+  'Maximum Taylor error: |R_n(x)| ≤ M·|x−a|^(n+1)/(n+1)!, where M is the max of |f^(n+1)| on the interval between a and x. To find M: bound f^(n+1) using properties of the function. Example: Error of T_4(x) for sin x at a=0, evaluated at x=1. f^(5)(x)=cos x, |cos x|≤1, so M=1. |R_4(1)| ≤ 1·1⁵/5! = 1/120 ≈ 0.00833. Actual: sin(1) − (1 − 1/6 + 1/120) = 0.841471 − 0.841667 = −0.000196, well within bound. ✓',
+  'ch04p2_taylor_error_bound',
+  'problem_solving',
+  ['Taylor error', 'maximum error', 'bound', 'next term', 'M value']
+)
+
+add(
+  'How many terms of a Taylor series are needed for a given accuracy?',
+  'Finding required degree for accuracy: Solve |R_n(x)| ≤ M·|x−a|^(n+1)/(n+1)! < ε (desired accuracy) for n. Often trial-and-error on n until the bound is small enough. Example: How many terms of eˣ at a=0 needed to compute e^1 within 0.001? |R_n(1)| ≤ e·1^(n+1)/(n+1)! < 0.001. Use e<3: 3/(n+1)!<0.001 ⇒ (n+1)!>3000. 6!=720, 7!=5040. So n+1=7, n=6. T_6(1)=1+1+1/2+1/6+1/24+1/120+1/720=2.71806, error<0.001. ✓',
+  'ch04p2_taylor_required_terms',
+  'problem_solving',
+  ['Taylor', 'required terms', 'accuracy', 'tolerance', 'number of terms']
+)
+
+add(
+  'What is the alternating series error bound?',
+  'Alternating series error bound: For an alternating series Σ(−1)ⁿa_n with a_n decreasing to 0, the error after n terms is |R_n| ≤ a_(n+1) (the first omitted term). For Taylor series of sin, cos, this applies (alternating). Example: Estimate sin(1) using first 3 non-zero terms: 1 − 1/6 + 1/120 = 0.841667. Error ≤ next term = 1/7! = 1/5040 ≈ 0.000198. Actual sin(1)=0.841471; actual error=0.000196 < 0.000198. ✓',
+  'ch04p2_alternating_error',
+  'formula_recall',
+  ['alternating series', 'error bound', 'first omitted term', 'Leibniz', 'sin cos']
+)
+
+// ============================================================
+// SECTION 12 — ANTIDERIVATIVES (INTRO TO INTEGRATION) (5 items)
+// ============================================================
+add(
+  'What is an antiderivative?',
+  'Antiderivative: F is an antiderivative of f on an interval if F\'(x) = f(x) for all x in the interval. Antiderivatives differ by a constant: if F is one, then F+C is the general antiderivative, written ∫f(x)dx = F(x) + C. Example: f(x)=3x². Antiderivative F(x)=x³+C (any C). Check: d/dx[x³+C]=3x² ✓. The "+C" is essential because differentiation kills constants. ✓',
+  'ch04p2_antiderivative',
+  'formula_recall',
+  ['antiderivative', 'indefinite integral', 'plus C', 'F prime equals f']
+)
+
+add(
+  'What are the basic antiderivative formulas?',
+  'Basic antiderivatives: ∫xⁿ dx = x^(n+1)/(n+1) + C (n ≠ −1). ∫(1/x) dx = ln|x| + C. ∫eˣ dx = eˣ + C. ∫aˣ dx = aˣ/ln a + C. ∫sin x dx = −cos x + C. ∫cos x dx = sin x + C. ∫sec²x dx = tan x + C. ∫csc²x dx = −cot x + C. ∫sec x tan x dx = sec x + C. ∫csc x cot x dx = −csc x + C. ∫1/(1+x²) dx = arctan x + C. ∫1/√(1−x²) dx = arcsin x + C. Example: ∫5x³ dx = 5x⁴/4 + C. ✓',
+  'ch04p2_basic_antiderivatives',
+  'formula_recall',
+  ['antiderivative', 'basic formulas', 'integral table', 'common integrals']
+)
+
+add(
+  'What are the antiderivative rules (linearity, substitution)?',
+  'Antiderivative rules: (1) Linearity: ∫[af(x)+bg(x)]dx = a∫f dx + b∫g dx. (2) Substitution (reverse chain rule): ∫f(g(x))·g\'(x) dx = ∫f(u) du = F(u)+C = F(g(x))+C, where u=g(x). (3) For ∫f\'(x)·g(x) dx, use integration by parts (next chapter). Example: ∫2x·cos(x²) dx. Let u=x², du=2x dx. ∫cos(u) du = sin(u)+C = sin(x²)+C. ✓',
+  'ch04p2_antiderivative_rules',
+  'formula_recall',
+  ['antiderivative rules', 'linearity', 'substitution', 'reverse chain rule', 'u-sub']
+)
+
+add(
+  'How do you find an antiderivative using substitution?',
+  'Substitution method (u-substitution): (1) Choose u=g(x) such that du=g\'(x)dx appears (or can be made to appear). (2) Substitute to rewrite integral in u. (3) Integrate. (4) Substitute back to x. (5) Add +C. Example: ∫(3x²+1)·(x³+x)⁵ dx. Let u=x³+x, du=(3x²+1)dx. ∫u⁵ du = u⁶/6 + C = (x³+x)⁶/6 + C. ✓',
+  'ch04p2_u_substitution',
+  'problem_solving',
+  ['u-substitution', 'antiderivative', 'method', 'reverse chain rule', 'steps']
+)
+
+add(
+  'How do you find a specific antiderivative given an initial condition?',
+  'Antiderivative with initial condition: Find the general antiderivative F(x)+C, then use the initial condition F(x₀)=y₀ to solve for C. Example: f(x)=6x, and F(1)=9. General: F(x)=3x²+C. Apply F(1)=3(1)²+C=3+C=9 ⇒ C=6. Specific antiderivative: F(x)=3x²+6. ✓',
+  'ch04p2_antiderivative_initial',
+  'problem_solving',
+  ['antiderivative', 'initial condition', 'specific', 'solve for C']
+)
+
+// ============================================================
+// SECTION 13 — SEPARABLE DIFFERENTIAL EQUATIONS (INTRO) (4 items)
+// ============================================================
+add(
+  'What is a separable differential equation?',
+  'Separable differential equation: A first-order ODE that can be written as dy/dx = g(x)·h(y), i.e., the right side factors into a function of x times a function of y. Solve by separating: dy/h(y) = g(x)dx, then integrate both sides: ∫dy/h(y) = ∫g(x)dx + C. Example: dy/dx = xy. Separate: dy/y = x dx. Integrate: ln|y| = x²/2 + C. Solve: y = Ae^(x²/2) where A=±e^C. ✓',
+  'ch04p2_separable_ode',
+  'formula_recall',
+  ['separable', 'differential equation', 'ODE', 'separate variables', 'integrate']
+)
+
+add(
+  'How do you solve dy/dx = ky (exponential growth/decay)?',
+  'Exponential growth/decay: dy/dx = ky. Separate: dy/y = k dx. Integrate: ln|y| = kx + C. Solve: y = y₀·e^(kx), where y₀ = y(0). k>0: growth; k<0: decay. Half-life: T = ln 2/|k|. Example: Population grows as dP/dt=0.05P, P(0)=1000. Solution: P(t)=1000e^(0.05t). At t=10: P=1000e^0.5≈1649. Half-life (if decay, k=−0.05): T=ln2/0.05≈13.86. ✓',
+  'ch04p2_exponential_growth',
+  'formula_recall',
+  ['exponential growth', 'decay', 'dy/dx=ky', 'half-life', 'population']
+)
+
+add(
+  'How do you solve a separable ODE with an initial condition?',
+  'Solving separable ODE with initial condition: (1) Separate variables. (2) Integrate both sides (general solution with +C). (3) Apply initial condition (x₀,y₀) to find C. (4) Solve for y explicitly if possible. Example: dy/dx = y²/x, y(1)=2. Separate: dy/y² = dx/x. Integrate: −1/y = ln|x| + C. Apply (1,2): −1/2 = 0 + C ⇒ C = −1/2. So −1/y = ln|x| − 1/2, solve: y = −1/(ln|x| − 1/2) = 1/(1/2 − ln|x|). ✓',
+  'ch04p2_separable_ode_ivp',
+  'problem_solving',
+  ['separable ODE', 'initial condition', 'IVP', 'solve', 'particular solution']
+)
+
+add(
+  'How do you solve Newton\'s Law of Cooling?',
+  'Newton\'s Law of Cooling: dT/dt = k(T − T_s), where T_s is the surrounding temperature. Solution: T(t) = T_s + (T₀ − T_s)·e^(kt), where T₀=T(0). Example: A body at 90°C placed in 20°C room; after 1 hour, 60°C. Find T(2). T(t)=20+(90−20)e^(kt)=20+70e^(kt). T(1)=60: 60=20+70e^k ⇒ e^k=40/70=4/7, k=ln(4/7)≈−0.5596. T(2)=20+70e^(2k)=20+70(4/7)²=20+70(16/49)=20+22.857≈42.86°C. ✓',
+  'ch04p2_newton_cooling',
+  'problem_solving',
+  ['Newton cooling', 'separable ODE', 'temperature', 'decay', 'surrounding']
+)
+
+// ============================================================
+// SECTION 14 — MARGINAL ANALYSIS IN ECONOMICS (4 items)
+// ============================================================
+add(
+  'What is marginal cost, revenue, and profit?',
+  'Marginal analysis in economics: If C(x) is total cost of producing x units, then marginal cost MC = C\'(x) ≈ cost of producing one more unit. Similarly marginal revenue MR = R\'(x), marginal profit MP = P\'(x) where P=R−C. Profit maximized when MP=0, i.e., MR=MC. Example: R(x)=100x−x², C(x)=200+40x. MR=100−2x, MC=40. Set MR=MC: 100−2x=40 ⇒ x=30. P(30)=R(30)−C(30)=(3000−900)−(200+1200)=2100−1400=$700. ✓',
+  'ch04p2_marginal_analysis',
+  'formula_recall',
+  ['marginal cost', 'marginal revenue', 'marginal profit', 'economics', 'profit max']
+)
+
+add(
+  'How do you maximize profit using marginal analysis?',
+  'Profit maximization: Profit P(x)=R(x)−C(x). Maximize: P\'(x)=R\'(x)−C\'(x)=0 ⇒ MR=MC. Verify max: P\'\'=R\'\'−C\'\'<0 (i.e., MR decreasing faster than MC, or MR curve below MC curve past the point). Example: R(x)=50x−x², C(x)=x²+10x+100. MR=50−2x, MC=2x+10. MR=MC: 50−2x=2x+10 ⇒ 4x=40 ⇒ x=10. Check: R\'\'=−2, C\'\'=2, P\'\'=−4<0 ✓ max. P(10)=(500−100)−(100+100+100)=400−300=$100. ✓',
+  'ch04p2_profit_maximization',
+  'problem_solving',
+  ['profit maximization', 'MR=MC', 'economics', 'marginal', 'second derivative']
+)
+
+add(
+  'How do you find the elasticity of demand?',
+  'Elasticity of demand: E = −(x/P)·(dP/dx) = −(P/x)/(dx/dP), where P is price, x is demand. Interpretation: |E|>1 elastic (price change has big effect on demand), |E|<1 inelastic, |E|=1 unit elastic. Revenue maximized when E=1. Example: x=100−2P (demand). dx/dP=−2. E=−(P/x)·(dx/dP) = −(P/(100−2P))·(−2) = 2P/(100−2P). At P=20: E=40/60=2/3<1 (inelastic). At P=25: E=50/50=1 (unit elastic, revenue max). ✓',
+  'ch04p2_elasticity_demand',
+  'formula_recall',
+  ['elasticity', 'demand', 'price', 'inelastic', 'unit elastic', 'revenue max']
+)
+
+add(
+  'How do you find the maximum revenue given a demand curve?',
+  'Maximum revenue: Revenue R(x) = x·P(x) where P(x) is the price-demand function. Maximize: R\'(x) = P(x) + x·P\'(x) = 0. Equivalently, maximum revenue when elasticity E=1. Example: P(x)=100−2x. R(x)=x(100−2x)=100x−2x². R\'=100−4x=0 ⇒ x=25. P(25)=50. R_max=25·50=$1250. Check E at x=25: P\'=−2, E=−(P/x)·(1/P\')·1 — wait use formula E=−(x/P)·(dP/dx) = −(25/50)·(−2) = 1. ✓ Unit elastic at max revenue. ✓',
+  'ch04p2_max_revenue',
+  'problem_solving',
+  ['maximum revenue', 'demand curve', 'price', 'elasticity', 'optimize']
+)
+
+// ============================================================
+// WRITE OUTPUT
+// ============================================================
+const output = {
+  generatedAt: new Date().toISOString(),
+  totalItems: items.length,
+  subject: 'mathematics_formulas_volume_9_chapter_04_part_02',
+  volume:
+    'Volume 9 — Comprehensive Formula Encyclopedia, Chapter 4 Part 2 (Differential Calculus Applications: Rolle\'s & Mean Value Theorems, Cauchy\'s MVT, L\'Hôpital\'s Rule, Linear Approximation & Differentials, Related Rates, Optimization, First & Second Derivative Tests, Concavity & Inflection, Curve Sketching & Asymptotes, Newton\'s Method, Taylor & Maclaurin Polynomials, Error Bounds, Antiderivatives, Separable ODEs, Marginal Analysis)',
+  source: 'TRIZA Generated Formula Dataset',
+  language: 'en',
+  religionNeutral: true,
+  items,
+}
+
+mkdirSync('data', { recursive: true })
+writeFileSync('data/math-formulas-vol9-ch04p2.json', JSON.stringify(output, null, 2))
+console.log(`Wrote ${items.length} items to data/math-formulas-vol9-ch04p2.json`)
