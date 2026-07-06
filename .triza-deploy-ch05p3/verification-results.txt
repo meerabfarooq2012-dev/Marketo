@@ -1,0 +1,69 @@
+Starting verification of 61 queries...
+[s1q1] DIRECT_HIT | conf=1 | topic=math_vol9_ch05p3_vector_field_definition | q=What is a vector field?
+[s1q2] DIRECT_HIT | conf=1 | topic=math_vol9_ch05p3_gradient_field | q=What is a gradient vector field?
+[s1q3] DIRECT_HIT | conf=1 | topic=math_vol9_ch05p3_potential_function | q=How do you find the potential function of a conservative vec
+[s1q4] DIRECT_HIT | conf=1 | topic=math_vol9_ch05p3_physics_vector_fields | q=What are examples of important vector fields in physics?
+[s1q5] DIRECT_HIT | conf=1 | topic=math_vol9_ch05p3_sketch_vector_field | q=How do you sketch a vector field?
+[s2q1] DIRECT_HIT | conf=1 | topic=math_vol9_ch05p3_line_integral_scalar | q=What is a line integral of a scalar function?
+[s2q2] DIRECT_HIT | conf=1 | topic=math_vol9_ch05p3_line_integral_vector | q=How do you compute a line integral of a vector field?
+[s2q3] DIRECT_HIT | conf=1 | topic=math_vol9_ch05p3_line_integral_work | q=What is the physical interpretation of a line integral?
+[s2q4] DIRECT_HIT | conf=1 | topic=math_vol9_ch05p3_line_integral_piecewise | q=How do you compute line integrals along piecewise smooth cur
+[s2q5] DIRECT_HIT | conf=1 | topic=math_vol9_ch05p3_line_integral_coordinates | q=How do you compute line integrals with respect to x y z sepa
+[s2q6] DIRECT_HIT | conf=1 | topic=math_vol9_ch05p3_line_integral_arc_length | q=What is the relationship between line integrals and arc leng
+[s3q1] DIRECT_HIT | conf=1 | topic=math_vol9_ch05p3_ftc_line_integrals | q=What is the Fundamental Theorem for Line Integrals?
+[s3q2] DIRECT_HIT | conf=1 | topic=math_vol9_ch05p3_conservative_test | q=How do you determine if a vector field is conservative?
+[s3q3] DIRECT_HIT | conf=1 | topic=math_vol9_ch05p3_path_independence | q=What is path independence of line integrals?
+[s3q4] DIRECT_HIT | conf=1 | topic=math_vol9_ch05p3_ftc_evaluate | q=How do you use the Fundamental Theorem to evaluate line inte
+[s3q5] DIRECT_HIT | conf=1 | topic=math_vol9_ch05p3_work_conservative | q=How do you find the work done by a conservative force?
+[s4q1] OTHER_VOL(math_vol5_vol5_greens_theorem) | conf=1 | topic=math_vol5_vol5_greens_theorem | q=What is Green Theorem?
+[s4q2] OTHER_VOL(math_vol5_vol5_greens_theorem) | conf=1 | topic=math_vol5_vol5_greens_theorem | q=How do you use Green Theorem to evaluate line integrals?
+[s4q3] OTHER_VOL(math_vol5_vol5_greens_theorem) | conf=1 | topic=math_vol5_vol5_greens_theorem | q=How do you use Green Theorem to find area?
+[s4q4] OTHER_VOL(math_vol5_vol5_greens_theorem) | conf=1 | topic=math_vol5_vol5_greens_theorem | q=What is the extended form of Green Theorem for regions with 
+[s4q5] OTHER_VOL(math_vol5_vol5_greens_theorem) | conf=1 | topic=math_vol5_vol5_greens_theorem | q=What is the alternative flux divergence form of Green Theore
+[s4q6] OTHER_VOL(math_vol5_vol5_greens_theorem) | conf=1 | topic=math_vol5_vol5_greens_theorem | q=How do you compute flux and circulation using Green Theorem?
+[s5q1] OTHER_VOL(math_vol5_vol5_curl) | conf=1 | topic=math_vol5_vol5_curl | q=What is the curl of a vector field?
+[s5q2] OTHER_VOL(math_vol5_vol5_divergence) | conf=1 | topic=math_vol5_vol5_divergence | q=What is the divergence of a vector field?
+[s5q3] DIRECT_HIT | conf=1 | topic=math_vol9_ch05p3_curl_div_relationships | q=What is the relationship between curl div and conservative f
+[s5q4] DIRECT_HIT | conf=1 | topic=math_vol9_ch05p3_laplacian_div_grad | q=What is the Laplacian and how does it relate to div and grad
+[s5q5] DIRECT_HIT | conf=1 | topic=math_vol9_ch05p3_vector_identities | q=What are the vector calculus identities?
+[s6q1] DIRECT_HIT | conf=1 | topic=math_vol9_ch05p3_parametric_surface | q=What is a parametric surface?
+[s6q2] DIRECT_HIT | conf=1 | topic=math_vol9_ch05p3_tangent_plane_parametric | q=How do you find the tangent plane to a parametric surface?
+[s6q3] DIRECT_HIT | conf=1 | topic=math_vol9_ch05p3_surface_area_parametric | q=How do you find the surface area of a parametric surface?
+[s6q4] DIRECT_HIT | conf=1 | topic=math_vol9_ch05p3_surface_normal | q=How do you find the normal vector to a surface?
+[s6q5] DIRECT_HIT | conf=1 | topic=math_vol9_ch05p3_surface_orientation | q=How do you find the orientation of a surface?
+[s7q1] DIRECT_HIT | conf=1 | topic=math_vol9_ch05p3_surface_integral_scalar | q=What is a surface integral of a scalar function?
+[s7q2] OTHER_VOL(math_vol5_vol5_surface_integral) | conf=1 | topic=math_vol5_vol5_surface_integral | q=How do you compute a surface integral of a vector field flux
+[s7q3] DIRECT_HIT | conf=1 | topic=math_vol9_ch05p3_surface_integral_graph | q=How do you compute surface integrals over graphs z = g(x,y)?
+[s7q4] DIRECT_HIT | conf=1 | topic=math_vol9_ch05p3_surface_integral_sphere | q=How do you compute surface integrals over spheres?
+[s7q5] DIRECT_HIT | conf=1 | topic=math_vol9_ch05p3_surface_integral_cylinder | q=How do you compute surface integrals over cylinders?
+[s7q6] DIRECT_HIT | conf=1 | topic=math_vol9_ch05p3_surface_mass_center | q=How do you find the mass and center of mass of a surface?
+[s8q1] OTHER_VOL(math_vol5_vol5_stokes_theorem) | conf=1 | topic=math_vol5_vol5_stokes_theorem | q=What is Stokes Theorem?
+[s8q2] OTHER_VOL(math_vol5_vol5_stokes_theorem) | conf=1 | topic=math_vol5_vol5_stokes_theorem | q=How do you use Stokes Theorem to evaluate line integrals?
+[s8q3] OTHER_VOL(math_vol5_vol5_stokes_theorem) | conf=1 | topic=math_vol5_vol5_stokes_theorem | q=How do you use Stokes Theorem to evaluate surface integrals?
+[s8q4] OTHER_VOL(math_vol5_vol5_stokes_theorem) | conf=1 | topic=math_vol5_vol5_stokes_theorem | q=What is the significance of Stokes Theorem being independent
+[s8q5] OTHER_VOL(math_vol5_vol5_stokes_theorem) | conf=1 | topic=math_vol5_vol5_stokes_theorem | q=How do you verify Stokes Theorem with an example?
+[s9q1] OTHER_VOL(math_vol5_vol5_divergence_theorem) | conf=1 | topic=math_vol5_vol5_divergence_theorem | q=What is the Divergence Theorem Gauss Theorem?
+[s9q2] DIRECT_HIT | conf=1 | topic=math_vol9_ch05p3_divergence_evaluate | q=How do you use the Divergence Theorem to evaluate surface in
+[s9q3] DIRECT_HIT | conf=1 | topic=math_vol9_ch05p3_divergence_volume | q=How do you use the Divergence Theorem to evaluate volume int
+[s9q4] DIRECT_HIT | conf=1 | topic=math_vol9_ch05p3_gauss_law | q=How do you apply the Divergence Theorem to electric and grav
+[s9q5] DIRECT_HIT | conf=1 | topic=math_vol9_ch05p3_divergence_verify | q=How do you verify the Divergence Theorem with an example?
+[s9q6] DIRECT_HIT | conf=1 | topic=math_vol9_ch05p3_flux_non_closed | q=How do you find flux for a surface that is not closed?
+[s10q1] OTHER_VOL(math_vol5_vol5_stokes_theorem) | conf=1 | topic=math_vol5_vol5_stokes_theorem | q=How do the Fundamental Theorem Green Stokes and Divergence T
+[s10q2] DIRECT_HIT | conf=1 | topic=math_vol9_ch05p3_choosing_theorem | q=How do you choose which vector calculus theorem to use?
+[s10q3] DIRECT_HIT | conf=1 | topic=math_vol9_ch05p3_applications_physics | q=What are the applications of vector calculus in physics?
+[s10q4] DIRECT_HIT | conf=1 | topic=math_vol9_ch05p3_maxwells_equations | q=What are Maxwell equations in differential form?
+[s11q1] DIRECT_HIT | conf=1 | topic=math_vol9_ch05p3_continuity_equation | q=What is the continuity equation for conservation of mass?
+[s11q2] DIRECT_HIT | conf=1 | topic=math_vol9_ch05p3_heat_equation | q=What is the heat equation?
+[s11q3] DIRECT_HIT | conf=1 | topic=math_vol9_ch05p3_wave_equation | q=What is the wave equation?
+[s11q4] DIRECT_HIT | conf=1 | topic=math_vol9_ch05p3_laplace_poisson | q=What are Laplace and Poisson equations?
+[s12q1] DIRECT_HIT | conf=1 | topic=math_vol9_ch05p3_work_problem | q=How do you compute the work done moving a particle along a c
+[s12q2] DIRECT_HIT | conf=1 | topic=math_vol9_ch05p3_circulation_problem | q=How do you find the circulation of a vector field around a c
+[s12q3] DIRECT_HIT | conf=1 | topic=math_vol9_ch05p3_flux_problem | q=How do you find the flux of a vector field across a surface?
+[s12q4] DIRECT_HIT | conf=1 | topic=math_vol9_ch05p3_conservative_potential_problem | q=How do you verify a vector field is conservative and find it
+
+=== SUMMARY ===
+Total queries: 61
+Direct hits: 45
+Cross/other matches: 16
+Misses: 0
+Direct hit rate: 73.8%
