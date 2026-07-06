@@ -6266,3 +6266,31 @@ Stage Summary:
 - KEY LEARNING: Probability theory continues to be the most distinctive topic domain. The combination of (1) named distribution families with unique terminology, (2) named theorems/properties (LOTUS, Jensen, Le Cam, De Moivre-Laplace), and (3) concrete worked scenarios with unique numbers (lambda=3, p=0.8, N=52) makes every query an unambiguous retrieval target. Two consecutive perfect scores (ch08p1 + ch08p2) suggest the entire Probability & Statistics chapter may maintain ~100% direct-hit rates, which would be unprecedented in the encyclopedia.
 - Cumulative encyclopedia total: 2280 formulas across Volume 1-9.
 - READY FOR NEXT BATCH. Chapter 8 Part 3 would be Continuous Random Variables (Uniform, Exponential, Normal, Gamma, Beta, Weibull, Cauchy, lognormal, joint/marginal/conditional distributions, transformations, worked problems).
+
+---
+Task ID: ch08p3
+Agent: main (Z.ai Code)
+Task: Generate, deploy, and verify Volume 9 Chapter 8 Part 3 (Continuous Random Variables — Continuous RV Basics PDF CDF Expectation Variance, Uniform & Exponential Distributions, Normal (Gaussian) Distribution, Gamma Beta & Chi-Square Distributions, Weibull Cauchy Lognormal & Other Continuous Distributions, Functions of RVs & Transformations, Worked Problems) — 50 formulas.
+
+Work Log:
+- Verified prior state: remote origin/main = cb39f17 (ch08p2), production at 2280 items. Local triza-deploy7 re-synced to cb39f17 via `git fetch && git reset --hard origin/main`.
+- Wrote scripts/generate-math-formulas-vol9-ch08p3.ts: 7 sections, 50 Q&A items, topic prefix ch08p3_. Sections: (1) Continuous RV Basics [8], (2) Uniform & Exponential [7], (3) Normal (Gaussian) [7], (4) Gamma Beta Chi-Square [7], (5) Weibull Cauchy Lognormal Pareto Laplace Rayleigh Extreme Value [7], (6) Functions of RVs & Transformations [7], (7) Worked Problems [7].
+- Ran generator -> data/math-formulas-vol9-ch08p3.json (50 items). Validated: 50 unique topics all prefixed ch08p3_, all have keywords, answer lengths 687-1289 chars (avg 988), intents formula_recall (40) + problem_solving (10), no duplicates.
+- Copied generator + JSON into /tmp/triza-deploy7. Updated route.ts via python insertion: added vol9ch08p3 VOLUME_CONFIG block after vol9ch08p2. Route.ts: 514 -> 521 lines.
+- Git deploy: standard `git add + git commit`. Commit 2be0102 on top of cb39f17 (ch08p2). Pushed to BOTH remotes: origin main (cb39f17..2be0102) and origin triza/main (cb39f17..2be0102). Clean fast-forward on both.
+- Waited ~285s for Vercel rebuild. Import POST /api/triza/import-formulas {"volumes":["vol9ch08p3"]} with Origin header -> imported 50 items (fresh). Production: 2280 -> 2330.
+- Production chat verification (50 queries, all 7 sections, using item questions as queries):
+  * 50/50 (100.0%) direct hits on expected math_vol9_ch08p3_ topics — THIRD CONSECUTIVE PERFECT SCORE.
+  * 0 cross-part, 0 cross-volume, 0 misses.
+  * ALL 50 hits returned confidence = 1.000.
+  * Every section block 100% direct (S1 8/8, S2 7/7, S3 7/7, S4 7/7, S5 7/7, S6 7/7, S7 7/7 — verify script section labels inherited from ch08p1 but per-block counts confirm all 100%).
+  * Used sed to clone the ch08p1 verify script with s/ch08p1/ch08p3/g — STORED_PREFIX = "math_vol9_" correctly preserved.
+
+Stage Summary:
+- Vol 9 Ch08 Part 3 (Continuous Random Variables) — 50 formulas — is LIVE in production and verified.
+- Production knowledge store: 2330 items (381 vol1-vol8 + 201 ch01 + 343 ch02 + 248 ch03 + 238 ch04 + 228 ch05 + 313 ch06 + 228 ch07 + 150 ch08).
+- Git: main = 2be0102 (ch08p3, clean fast-forward on cb39f17 ch08p2). Also pushed to triza/main.
+- Production chat verified: 50/50 (100.0%) direct hits — THIRD CONSECUTIVE PERFECT SCORE (ch08p1, ch08p2, ch08p3). ALL with confidence=1.000. Continuous distribution terminology (PDF, CDF, survival, hazard, memoryless, Normal, standard normal, 68-95-99.7, CLT, max entropy, Gamma, Beta, Chi-square, Student t, F distribution, Weibull, Cauchy, Lognormal, Pareto, Laplace, Rayleigh, Gumbel/Frechet/GEV, CDF method, change of variables, convolution, min/max, ratio, product, order statistics) all retrieve perfectly. Worked scenarios (bus wait Poisson, test scores Normal, bulb lifetime Exp, Y=X^2 Uniform, PDF 2x Beta, task time Normal, Weibull part) also 100%. Zero overlap with any prior volume.
+- KEY LEARNING: Probability & Statistics is now 3-for-3 with perfect scores (150/150 across ch08p1-p3). Both discrete and continuous RV families, named distributions, named theorems/properties, and concrete worked scenarios all retrieve with perfect precision. The chapter has the highest direct-hit rate of any chapter in the encyclopedia (100% so far). Expect continued perfect scores for subsequent parts (joint distributions, limit theorems, estimation, hypothesis testing).
+- Cumulative encyclopedia total: 2330 formulas across Volume 1-9.
+- READY FOR NEXT BATCH. Chapter 8 Part 4 would be Joint Distributions & Multivariate (joint/marginal/conditional distributions, covariance, correlation, independence, bivariate normal, conditional expectation/variance, transformations of joint RVs, order statistics multivariate, worked problems).
