@@ -1,0 +1,718 @@
+{
+  "generatedAt": "2026-07-06T12:10:15.487Z",
+  "totalItems": 54,
+  "subject": "mathematics_formulas_volume_9_chapter_06_part_03",
+  "volume": "Volume 9 — Comprehensive Formula Encyclopedia, Chapter 6 Part 3 (Laplace Transforms: Definition and Properties, Common Transforms Table, Inverse Laplace and Partial Fractions, Solving ODEs with Laplace, Step Functions Heaviside, Impulse Functions Dirac Delta, Convolution Theorem, Transfer Functions and Linear Systems, Worked Problems)",
+  "source": "TRIZA Generated Formula Dataset",
+  "language": "en",
+  "religionNeutral": true,
+  "items": [
+    {
+      "question": "What is the Laplace transform?",
+      "answer": "The Laplace transform of f(t), defined for t >= 0, is F(s) = L{f(t)} = integral_0^infinity e^(-st) f(t) dt, where s is a complex variable with Re(s) > sigma (region of convergence). It transforms differential equations in t into algebraic equations in s. Example: L{1} = integral_0^inf e^(-st) dt = 1/s for s > 0. Example: L{e^(at)} = integral_0^inf e^(-(s-a)t) dt = 1/(s - a) for s > a. Example: L{t} = integral_0^inf t e^(-st) dt = 1/s^2 (integration by parts). Existence: sufficient conditions are f piecewise continuous on [0, inf) and |f(t)| <= M e^(c t) for some M, c (exponential order). Then L{f} exists for Re(s) > c. ✓",
+      "topic": "ch06p3_laplace_definition",
+      "intent": "formula_recall",
+      "keywords": [
+        "Laplace transform",
+        "F(s)",
+        "integral e^(-st) f(t)",
+        "definition",
+        "s variable"
+      ]
+    },
+    {
+      "question": "What is the linearity property of Laplace transforms?",
+      "answer": "Linearity: L{a f(t) + b g(t)} = a L{f(t)} + b L{g(t)} for constants a, b. Follows from linearity of integral. Example: L{3 e^(2t) - 5 sin(4t)} = 3 L{e^(2t)} - 5 L{sin(4t)} = 3/(s-2) - 5·4/(s^2+16) = 3/(s-2) - 20/(s^2+16). Example: L{2 + 3t - 4 e^(-t)} = 2/s + 3/s^2 - 4/(s+1). This is the most-used property. Combined with table lookup, it handles any linear combination of known transforms. Inverse: L^(-1){a F(s) + b G(s)} = a f(t) + b g(t). ✓",
+      "topic": "ch06p3_linearity",
+      "intent": "formula_recall",
+      "keywords": [
+        "linearity",
+        "L{af + bg}",
+        "combination",
+        "inverse",
+        "linear"
+      ]
+    },
+    {
+      "question": "What is the first shifting (s-shift) theorem?",
+      "answer": "First shifting theorem (s-shift, exponential multiplication): L{e^(at) f(t)} = F(s - a), where F(s) = L{f(t)}. Equivalently, L^(-1){F(s - a)} = e^(at) f(t). Multiplying f(t) by e^(at) shifts F(s) by a to the right. Example: L{e^(3t) cos(2t)} = (s - 3)/((s-3)^2 + 4) (since L{cos 2t} = s/(s^2+4), shift by 3). Example: L{e^(-t) t^2} = 2!/(s+1)^3 = 2/(s+1)^3 (since L{t^2} = 2/s^3, shift by -1). Example: L{e^(2t) sin(5t)} = 5/((s-2)^2 + 25). ✓",
+      "topic": "ch06p3_first_shifting",
+      "intent": "formula_recall",
+      "keywords": [
+        "first shifting",
+        "s-shift",
+        "e^(at) f(t)",
+        "F(s-a)",
+        "exponential multiplication"
+      ]
+    },
+    {
+      "question": "What is the second shifting (t-shift) theorem?",
+      "answer": "Second shifting theorem (t-shift, time delay): L{u(t - a) f(t - a)} = e^(-as) F(s), where u is the unit step (Heaviside) function and F(s) = L{f(t)}. Equivalently, L^(-1){e^(-as) F(s)} = u(t - a) f(t - a). Multiplying F(s) by e^(-as) shifts f(t) by a to the right (and zero before t = a). Variant: L{u(t - a) f(t)} = e^(-as) L{f(t + a)} (shift f first, then delay). Example: L{u(t - 2) (t - 2)^2} = e^(-2s) · 2/s^3. Example: L{u(t - 1) sin(t - 1)} = e^(-s) · 1/(s^2 + 1). Example: L{u(t - 3) e^(t - 3)} = e^(-3s)/(s - 1). ✓",
+      "topic": "ch06p3_second_shifting",
+      "intent": "formula_recall",
+      "keywords": [
+        "second shifting",
+        "t-shift",
+        "time delay",
+        "u(t-a) f(t-a)",
+        "e^(-as) F(s)"
+      ]
+    },
+    {
+      "question": "What is the Laplace transform of derivatives?",
+      "answer": "Key property for solving ODEs: L{f'(t)} = s F(s) - f(0). L{f''(t)} = s^2 F(s) - s f(0) - f'(0). General: L{f^(n)(t)} = s^n F(s) - s^(n-1) f(0) - s^(n-2) f'(0) - ... - f^(n-1)(0). Derivation: L{f'} = integral e^(-st) f'(t) dt = [e^(-st) f(t)]_0^inf + s integral e^(-st) f(t) dt = 0 - f(0) + s F(s) = s F(s) - f(0) (assuming f grows slower than e^(st)). Example: solve y' + 2 y = 0, y(0) = 3. L{y'} + 2 L{y} = 0. (s Y - 3) + 2 Y = 0. Y(s + 2) = 3. Y = 3/(s+2). y = L^(-1){3/(s+2)} = 3 e^(-2t). ✓",
+      "topic": "ch06p3_derivative_transform",
+      "intent": "formula_recall",
+      "keywords": [
+        "derivative",
+        "L{f''}",
+        "sF(s) - f(0)",
+        "initial conditions",
+        "ODE solving"
+      ]
+    },
+    {
+      "question": "What is the Laplace transform of integrals?",
+      "answer": "Integral property: L{integral_0^t f(tau) d tau} = F(s)/s. Conversely, L^(-1){F(s)/s} = integral_0^t f(tau) d tau. Derivation: let g(t) = integral_0^t f(tau) d tau. Then g'(t) = f(t), g(0) = 0. L{g'} = s G(s) - g(0) = s G(s). So F(s) = s G(s), i.e., G(s) = F(s)/s. Example: L{integral_0^t sin(tau) d tau} = (1/(s^2+1))/s = 1/(s(s^2+1)). Check directly: integral_0^t sin(tau) d tau = 1 - cos(t). L{1 - cos t} = 1/s - s/(s^2+1) = (s^2+1 - s^2)/(s(s^2+1)) = 1/(s(s^2+1)). ✓ Matches. General: L{t^(-1/2)} = sqrt(pi/s) (special). ✓",
+      "topic": "ch06p3_integral_transform",
+      "intent": "formula_recall",
+      "keywords": [
+        "integral",
+        "L{integral f}",
+        "F(s)/s",
+        "antiderivative",
+        "property"
+      ]
+    },
+    {
+      "question": "What are existence and uniqueness conditions for Laplace transforms?",
+      "answer": "Existence (sufficient): f(t) is (1) piecewise continuous on [0, inf) (finite jumps in any finite interval), and (2) of exponential order: |f(t)| <= M e^(c t) for some M > 0, c real, all t > T. Then L{f} exists for Re(s) > c. Note: these are sufficient, not necessary. Some functions (like t^(-1/2)) have Laplace transforms despite singularity at t=0. Functions NOT of exponential order (e.g., e^(t^2)) have no Laplace transform. Uniqueness: if L{f} = L{g} on some interval, then f = g at points of continuity. So Laplace transform is one-to-one (up to behavior at discontinuities). Example: f(t) = e^(t^2) grows faster than any e^(c t), no Laplace transform. Example: f(t) = 1/sqrt(t) has L{f} = sqrt(pi/s) despite t^(-1/2) -> inf at 0. ✓",
+      "topic": "ch06p3_existence_conditions",
+      "intent": "formula_recall",
+      "keywords": [
+        "existence",
+        "piecewise continuous",
+        "exponential order",
+        "|f| <= M e^(c t)",
+        "sufficient"
+      ]
+    },
+    {
+      "question": "What is the Laplace transform of common basic functions?",
+      "answer": "Table of basic Laplace transforms (s > 0 unless noted): L{1} = 1/s. L{t} = 1/s^2. L{t^n} = n!/s^(n+1) (n non-negative integer). L{t^a} = Gamma(a+1)/s^(a+1) (a > -1). L{e^(at)} = 1/(s - a) (s > a). L{sin(kt)} = k/(s^2 + k^2). L{cos(kt)} = s/(s^2 + k^2). L{sinh(kt)} = k/(s^2 - k^2) (s > |k|). L{cosh(kt)} = s/(s^2 - k^2) (s > |k|). L{e^(at) sin(kt)} = k/((s-a)^2 + k^2). L{e^(at) cos(kt)} = (s-a)/((s-a)^2 + k^2). L{delta(t)} = 1 (Dirac delta at 0). L{u(t-a)} = e^(-as)/s (unit step). ✓",
+      "topic": "ch06p3_basic_table",
+      "intent": "formula_recall",
+      "keywords": [
+        "table",
+        "basic",
+        "L{1}",
+        "L{t^n}",
+        "L{e^(at)}",
+        "L{sin}",
+        "L{cos}"
+      ]
+    },
+    {
+      "question": "What is the Laplace transform of t^n and t^a?",
+      "answer": "L{t^n} = n!/s^(n+1) for n = 0, 1, 2, .... Derivation: L{t^n} = integral_0^inf t^n e^(-st) dt. Substitute u = st: = integral_0^inf (u/s)^n e^(-u) du/s = (1/s^(n+1)) integral_0^inf u^n e^(-u) du = n!/s^(n+1) (Gamma(n+1) = n! for integer n). Example: L{t^3} = 6/s^4. Example: L{5 t^2} = 5 · 2/s^3 = 10/s^3. For non-integer a > -1: L{t^a} = Gamma(a+1)/s^(a+1). Example: L{sqrt(t)} = L{t^(1/2)} = Gamma(3/2)/s^(3/2) = (sqrt(pi)/2)/s^(3/2) = sqrt(pi)/(2 s^(3/2)). Example: L{1/sqrt(t)} = L{t^(-1/2)} = Gamma(1/2)/s^(1/2) = sqrt(pi/s). ✓",
+      "topic": "ch06p3_power_transform",
+      "intent": "formula_recall",
+      "keywords": [
+        "power",
+        "t^n",
+        "n!/s^(n+1)",
+        "Gamma",
+        "t^a"
+      ]
+    },
+    {
+      "question": "What is the Laplace transform of exponential functions?",
+      "answer": "L{e^(at)} = 1/(s - a) for Re(s) > Re(a). Derivation: integral_0^inf e^(-st) e^(at) dt = integral_0^inf e^(-(s-a)t) dt = [-e^(-(s-a)t)/(s-a)]_0^inf = 1/(s-a) (converges when Re(s) > Re(a)). Example: L{e^(3t)} = 1/(s - 3). L{e^(-2t)} = 1/(s + 2). L{5 e^(4t)} = 5/(s - 4). Combined with shifting: L{e^(at) f(t)} = F(s - a). Example: L{e^(2t) cos(3t)} = (s - 2)/((s-2)^2 + 9). L{e^(-t) sin(5t)} = 5/((s+1)^2 + 25). Note: L{e^(at)} is undefined for s = a (pole). ✓",
+      "topic": "ch06p3_exponential_transform",
+      "intent": "formula_recall",
+      "keywords": [
+        "exponential",
+        "L{e^(at)}",
+        "1/(s - a)",
+        "shift",
+        "pole"
+      ]
+    },
+    {
+      "question": "What is the Laplace transform of sine and cosine functions?",
+      "answer": "L{sin(kt)} = k/(s^2 + k^2). L{cos(kt)} = s/(s^2 + k^2). Derivation (sin): integral_0^inf e^(-st) sin(kt) dt. Integrate by parts twice, or use sin(kt) = (e^(ikt) - e^(-ikt))/(2i). L{e^(ikt)} = 1/(s - ik). So L{sin(kt)} = (1/2i)[1/(s-ik) - 1/(s+ik)] = (1/2i) · 2ik/(s^2 + k^2) = k/(s^2 + k^2). Similarly L{cos(kt)} = (1/2)[1/(s-ik) + 1/(s+ik)] = s/(s^2 + k^2). Example: L{sin(3t)} = 3/(s^2 + 9). L{cos(3t)} = s/(s^2 + 9). L{2 sin(5t) - 3 cos(5t)} = 10/(s^2+25) - 3s/(s^2+25) = (10 - 3s)/(s^2+25). ✓",
+      "topic": "ch06p3_sin_cos_transform",
+      "intent": "formula_recall",
+      "keywords": [
+        "sine",
+        "cosine",
+        "L{sin(kt)}",
+        "L{cos(kt)}",
+        "k/(s^2+k^2)",
+        "s/(s^2+k^2)"
+      ]
+    },
+    {
+      "question": "What is the Laplace transform of hyperbolic functions?",
+      "answer": "Hyperbolic: sinh(kt) = (e^(kt) - e^(-kt))/2, cosh(kt) = (e^(kt) + e^(-kt))/2. L{sinh(kt)} = (1/2)[1/(s-k) - 1/(s+k)] = k/(s^2 - k^2). L{cosh(kt)} = (1/2)[1/(s-k) + 1/(s+k)] = s/(s^2 - k^2). Valid for s > |k|. Example: L{sinh(2t)} = 2/(s^2 - 4). L{cosh(2t)} = s/(s^2 - 4). L{3 cosh(t) - 2 sinh(t)} = 3s/(s^2 - 1) - 2/(s^2 - 1) = (3s - 2)/(s^2 - 1). Note: sinh/cosh arise naturally in solving ODEs with characteristic roots r = ±k (real). Compare: sin/cos correspond to complex roots ±i k. ✓",
+      "topic": "ch06p3_hyperbolic_transform",
+      "intent": "formula_recall",
+      "keywords": [
+        "hyperbolic",
+        "sinh",
+        "cosh",
+        "L{sinh(kt)}",
+        "L{cosh(kt)}",
+        "k/(s^2 - k^2)"
+      ]
+    },
+    {
+      "question": "What is the Laplace transform of the unit step function?",
+      "answer": "Unit step (Heaviside) function: u(t - a) = 0 for t < a, 1 for t > a. (Value at t = a is sometimes 1/2, but doesn't affect integral.) L{u(t - a)} = integral_a^inf e^(-st) dt = e^(-as)/s for s > 0. L{u(t)} = 1/s (a = 0). Application: piecewise functions. f(t) = u(t - a) g(t - a) represents g shifted to start at t = a. Example: L{u(t - 2)} = e^(-2s)/s. L{u(t - 3) · 5} = 5 e^(-3s)/s. L{u(t - 1) t} — use second shifting variant: L{u(t-a) f(t)} = e^(-as) L{f(t+a)}. L{u(t-1) t} = e^(-s) L{t + 1} = e^(-s) (1/s^2 + 1/s) = e^(-s) (1 + s)/s^2. ✓",
+      "topic": "ch06p3_unit_step_transform",
+      "intent": "formula_recall",
+      "keywords": [
+        "unit step",
+        "Heaviside",
+        "u(t-a)",
+        "e^(-as)/s",
+        "piecewise"
+      ]
+    },
+    {
+      "question": "What is the Laplace transform of periodic functions?",
+      "answer": "For f periodic with period T > 0 (i.e., f(t + T) = f(t) for all t >= 0): L{f} = (1/(1 - e^(-sT))) integral_0^T e^(-st) f(t) dt. Derivation: L{f} = sum_{n=0}^inf integral_(nT)^((n+1)T) e^(-st) f(t) dt. Substitute t = u + nT: = sum_n e^(-snT) integral_0^T e^(-su) f(u) du = [sum_n e^(-snT)] integral_0^T e^(-su) f(u) du = (1/(1 - e^(-sT))) integral_0^T e^(-st) f(t) dt (geometric series). Example: square wave f(t) = 1 on [0, T/2), -1 on [T/2, T), period T. L{f} = (1/(1 - e^(-sT))) [integral_0^(T/2) e^(-st) dt - integral_(T/2)^T e^(-st) dt] = (1 - e^(-sT/2))/(s(1 - e^(-sT))) = 1/(s(1 + e^(-sT/2))) = tanh(sT/4)/(2s)... using identity. ✓",
+      "topic": "ch06p3_periodic_transform",
+      "intent": "formula_recall",
+      "keywords": [
+        "periodic",
+        "period T",
+        "f(t+T) = f(t)",
+        "1/(1 - e^(-sT))",
+        "integral over period"
+      ]
+    },
+    {
+      "question": "What is the inverse Laplace transform?",
+      "answer": "Inverse Laplace: L^(-1){F(s)} = f(t) such that L{f(t)} = F(s). Formal Bromwich integral: f(t) = (1/(2 pi i)) integral_(gamma - i inf)^(gamma + i inf) e^(st) F(s) ds (gamma in region of convergence). In practice: use table of transforms and properties (linearity, shifting). Uniqueness: if L{f} = L{g} on interval, then f = g at points of continuity (so unique up to measure-zero differences). Example: L^(-1){1/s} = 1. L^(-1){1/(s - 3)} = e^(3t). L^(-1){2/(s^2 + 4)} = sin(2t). L^(-1){(s + 1)/(s^2 + 4)} = L^(-1){s/(s^2+4)} + L^(-1){1/(s^2+4)} = cos(2t) + (1/2) sin(2t). For complex F(s), use partial fractions. ✓",
+      "topic": "ch06p3_inverse_definition",
+      "intent": "formula_recall",
+      "keywords": [
+        "inverse Laplace",
+        "L^(-1)",
+        "Bromwich integral",
+        "unique",
+        "table"
+      ]
+    },
+    {
+      "question": "How do you decompose rational functions using partial fractions?",
+      "answer": "For F(s) = P(s)/Q(s) with deg P < deg Q, factor Q. Cases: (1) Linear factor (s - a): A/(s - a). (2) Repeated linear (s - a)^k: A_1/(s-a) + A_2/(s-a)^2 + ... + A_k/(s-a)^k. (3) Irreducible quadratic (s^2 + bs + c): (As + B)/(s^2 + bs + c). (4) Repeated quadratic (s^2 + bs + c)^k: similar. Example: F = (s + 3)/((s-1)(s+2)). Decompose: (s+3)/((s-1)(s+2)) = A/(s-1) + B/(s+2). Solve: s + 3 = A(s+2) + B(s-1). s = 1: 4 = 3 A, A = 4/3. s = -2: 1 = -3 B, B = -1/3. F = (4/3)/(s-1) - (1/3)/(s+2). L^(-1){F} = (4/3) e^(t) - (1/3) e^(-2t). ✓",
+      "topic": "ch06p3_partial_fractions",
+      "intent": "problem_solving",
+      "keywords": [
+        "partial fractions",
+        "decompose",
+        "linear factor",
+        "quadratic",
+        "rational"
+      ]
+    },
+    {
+      "question": "How do you handle repeated linear factors in partial fractions?",
+      "answer": "For factor (s - a)^k in denominator (root of multiplicity k), write: A_1/(s-a) + A_2/(s-a)^2 + ... + A_k/(s-a)^k. Cover-up method for A_k: multiply by (s-a)^k, set s = a. For A_(k-1): multiply by (s-a)^k, differentiate, set s = a. Or solve system. Example: F = (s + 5)/((s-1)^2 (s+2)). Decompose: A/(s-1) + B/(s-1)^2 + C/(s+2). Multiply: s + 5 = A(s-1)(s+2) + B(s+2) + C(s-1)^2. s = 1: 6 = 3 B, B = 2. s = -2: 3 = 9 C, C = 1/3. Coefficient s^2: 0 = A + C, A = -1/3. So F = (-1/3)/(s-1) + 2/(s-1)^2 + (1/3)/(s+2). L^(-1): (-1/3) e^t + 2 t e^t + (1/3) e^(-2t). (Using L^(-1){1/(s-a)^2} = t e^(at).) ✓",
+      "topic": "ch06p3_repeated_linear_pf",
+      "intent": "problem_solving",
+      "keywords": [
+        "repeated linear",
+        "partial fractions",
+        "multiplicity",
+        "(s-a)^k",
+        "cover-up"
+      ]
+    },
+    {
+      "question": "How do you handle irreducible quadratic factors in partial fractions?",
+      "answer": "For irreducible quadratic (s^2 + b s + c) (discriminant b^2 - 4c < 0), use (As + B)/(s^2 + b s + c). Complete the square: s^2 + bs + c = (s + b/2)^2 + (c - b^2/4) = (s + b/2)^2 + omega^2 where omega = sqrt(c - b^2/4). Then match forms for shift. Example: F = (2 s + 1)/((s^2 + 4)(s + 1)). = (As + B)/(s^2 + 4) + C/(s + 1). 2s + 1 = (As + B)(s + 1) + C(s^2 + 4). s = -1: -1 = 5 C, C = -1/5. s^2: 0 = A + C, A = 1/5. Constant: 1 = B + 4 C, B = 1 + 4/5 = 9/5. F = (1/5 s + 9/5)/(s^2 + 4) - (1/5)/(s + 1). L^(-1): (1/5) cos(2t) + (9/10) sin(2t) - (1/5) e^(-t). ✓",
+      "topic": "ch06p3_quadratic_pf",
+      "intent": "problem_solving",
+      "keywords": [
+        "irreducible quadratic",
+        "partial fractions",
+        "(As + B)/(s^2 + ...)",
+        "complete square",
+        "shift"
+      ]
+    },
+    {
+      "question": "How do you use completing the square for inverse Laplace?",
+      "answer": "For F(s) = (linear)/(quadratic), complete the square in denominator to match shift form. Example: F = (s + 3)/(s^2 + 2s + 5). Complete: s^2 + 2s + 5 = (s + 1)^2 + 4. Rewrite numerator: s + 3 = (s + 1) + 2. So F = (s + 1)/((s+1)^2 + 4) + 2/((s+1)^2 + 4). L^(-1){(s+1)/((s+1)^2 + 4)} = e^(-t) cos(2t) (shift of L{cos 2t} = s/(s^2+4)). L^(-1){2/((s+1)^2 + 4)} = e^(-t) sin(2t) (shift of L{sin 2t} = 2/(s^2+4)). So L^(-1){F} = e^(-t) [cos(2t) + sin(2t)]. ✓",
+      "topic": "ch06p3_completing_square",
+      "intent": "problem_solving",
+      "keywords": [
+        "completing square",
+        "inverse Laplace",
+        "shift",
+        "match form",
+        "denominator"
+      ]
+    },
+    {
+      "question": "How do you invert Laplace transforms using convolution?",
+      "answer": "Convolution theorem: L^(-1){F(s) G(s)} = (f * g)(t) = integral_0^t f(tau) g(t - tau) d tau. Useful when F and G are individually invertible but their product isn't directly in tables. Example: L^(-1){1/(s^2 (s + 1))}. = L^(-1){1/s^2} * L^(-1){1/(s+1)} = t * e^(-t). Compute: integral_0^t tau · e^(-(t - tau)) d tau = e^(-t) integral_0^t tau e^tau d tau = e^(-t) [tau e^tau - e^tau]_0^t = e^(-t) [(t e^t - e^t) - (0 - 1)] = e^(-t) (t e^t - e^t + 1) = t - 1 + e^(-t). Check via partial fractions: 1/(s^2(s+1)) = -1/s + 1/s^2 + 1/(s+1). L^(-1) = -1 + t + e^(-t). ✓ Matches (rearranged: t - 1 + e^(-t)). ✓",
+      "topic": "ch06p3_convolution_inverse",
+      "intent": "problem_solving",
+      "keywords": [
+        "convolution",
+        "inverse",
+        "L^(-1){FG}",
+        "f * g",
+        "integral"
+      ]
+    },
+    {
+      "question": "How do you solve a first-order ODE using Laplace transforms?",
+      "answer": "Method: (1) Take Laplace of both sides (using L{y'} = s Y - y(0)). (2) Solve algebraically for Y(s). (3) Invert Y(s) to get y(t). Example: y' + 3 y = e^(-t), y(0) = 1. Laplace: (s Y - 1) + 3 Y = 1/(s + 1). Y (s + 3) = 1 + 1/(s+1) = (s + 2)/(s + 1). Y = (s + 2)/((s+1)(s+3)). Partial fractions: = A/(s+1) + B/(s+3). s + 2 = A(s+3) + B(s+1). s = -1: 1 = 2 A, A = 1/2. s = -3: -1 = -2 B, B = 1/2. Y = (1/2)/(s+1) + (1/2)/(s+3). y = (1/2) e^(-t) + (1/2) e^(-3t). ✓ Verify: y(0) = 1/2 + 1/2 = 1. ✓ y' + 3y = (-1/2 e^(-t) - 3/2 e^(-3t)) + 3(1/2 e^(-t) + 1/2 e^(-3t)) = (1/2 - 1/2) e^(-t) + (3/2 - 3/2) e^(-3t) + ... wait: y' + 3y = (-1/2 + 3/2) e^(-t) + (-3/2 + 3/2) e^(-3t) = e^(-t). ✓",
+      "topic": "ch06p3_first_order_laplace",
+      "intent": "problem_solving",
+      "keywords": [
+        "first-order",
+        "Laplace",
+        "ODE",
+        "solve",
+        "invert"
+      ]
+    },
+    {
+      "question": "How do you solve a second-order ODE using Laplace transforms?",
+      "answer": "Method: (1) Laplace both sides (using L{y''} = s^2 Y - s y(0) - y'(0)). (2) Solve algebraically for Y(s). (3) Invert Y(s). Example: y'' - 4 y = 0, y(0) = 1, y'(0) = 0. (s^2 Y - s · 1 - 0) - 4 Y = 0. Y (s^2 - 4) = s. Y = s/(s^2 - 4) = s/((s-2)(s+2)). L^(-1): y = cosh(2t). Verify: y(0) = 1, y'(0) = 0. ✓ Example: y'' + 4 y = sin(2t), y(0) = 0, y'(0) = 0. (s^2 Y - 0 - 0) + 4 Y = 2/(s^2 + 4). Y = 2/(s^2 + 4)^2. Use convolution or identity: L^(-1){1/(s^2+4)^2} = (sin(2t) - 2t cos(2t))/16. So y = 2 · (sin(2t) - 2t cos(2t))/16 = (sin(2t) - 2t cos(2t))/8. (Resonance case: amplitude grows.) ✓",
+      "topic": "ch06p3_second_order_laplace",
+      "intent": "problem_solving",
+      "keywords": [
+        "second-order",
+        "Laplace",
+        "ODE",
+        "solve",
+        "Y(s)"
+      ]
+    },
+    {
+      "question": "How do you solve higher-order ODEs using Laplace transforms?",
+      "answer": "For n-th order: L{y^(n)} = s^n Y - s^(n-1) y(0) - ... - y^(n-1)(0). Solve for Y, invert. Example: y''' - y = 0, y(0) = 1, y'(0) = 0, y''(0) = 0. (s^3 Y - s^2 · 1 - 0 - 0) - Y = 0. Y (s^3 - 1) = s^2. Y = s^2/(s^3 - 1). Factor: s^3 - 1 = (s - 1)(s^2 + s + 1). Partial fractions: s^2/((s-1)(s^2 + s + 1)) = A/(s-1) + (Bs + C)/(s^2 + s + 1). s = 1: 1 = 3 A, A = 1/3. Equate: s^2 = A(s^2 + s + 1) + (Bs + C)(s - 1). Coef s^2: 1 = A + B = 1/3 + B, B = 2/3. Coef const: 0 = A - C = 1/3 - C, C = 1/3. Y = (1/3)/(s-1) + (2/3 s + 1/3)/(s^2 + s + 1). Complete square: s^2 + s + 1 = (s + 1/2)^2 + 3/4. = (1/3)/(s-1) + (2/3)((s + 1/2) - 1/2)/((s+1/2)^2 + 3/4). Invert: y = (1/3) e^t + (2/3) e^(-t/2) [cos(sqrt(3)/2 t) - (1/sqrt(3)) sin(sqrt(3)/2 t)]. ✓",
+      "topic": "ch06p3_higher_order_laplace",
+      "intent": "problem_solving",
+      "keywords": [
+        "higher-order",
+        "Laplace",
+        "n-th order",
+        "partial fractions",
+        "solve"
+      ]
+    },
+    {
+      "question": "How do you solve systems of ODEs using Laplace transforms?",
+      "answer": "For system: take Laplace of each equation, get algebraic system in Y_1(s), Y_2(s), ..., solve, invert. Example: y_1' = y_2, y_2' = -y_1, y_1(0) = 1, y_2(0) = 0. Laplace: s Y_1 - 1 = Y_2, s Y_2 - 0 = -Y_1. From second: Y_2 = -Y_1/s. Sub first: s Y_1 - 1 = -Y_1/s. Y_1 (s + 1/s) = 1. Y_1 (s^2 + 1)/s = 1. Y_1 = s/(s^2 + 1). y_1 = cos(t). Y_2 = -1/(s^2 + 1). y_2 = -sin(t). Check: y_1' = -sin(t) = y_2 ✓. y_2' = -cos(t) = -y_1 ✓. ✓ Example: coupled spring-mass or circuit networks. ✓",
+      "topic": "ch06p3_system_laplace",
+      "intent": "problem_solving",
+      "keywords": [
+        "system",
+        "coupled ODEs",
+        "Laplace",
+        "algebraic system",
+        "solve"
+      ]
+    },
+    {
+      "question": "How do you handle discontinuous forcing with Laplace?",
+      "answer": "Laplace handles piecewise forcing naturally using unit step functions. Example: y' + y = f(t), y(0) = 0, where f(t) = 1 for 0 < t < 1, 0 otherwise. f(t) = u(t) - u(t - 1) = 1 - u(t - 1). L{f} = 1/s - e^(-s)/s. (s Y - 0) + Y = (1 - e^(-s))/s. Y (s + 1) = (1 - e^(-s))/s. Y = (1 - e^(-s))/(s(s+1)). = 1/(s(s+1)) - e^(-s)/(s(s+1)). L^(-1){1/(s(s+1))} = 1 - e^(-t) (partial fractions: 1/s - 1/(s+1)). By second shifting: L^(-1){e^(-s)/(s(s+1))} = u(t - 1) · (1 - e^(-(t-1))). So y(t) = (1 - e^(-t)) - u(t - 1)(1 - e^(-(t-1))). For t < 1: y = 1 - e^(-t). For t >= 1: y = (1 - e^(-t)) - (1 - e^(-(t-1))) = e^(-(t-1)) - e^(-t) = e^(-t)(e - 1). ✓",
+      "topic": "ch06p3_discontinuous_forcing",
+      "intent": "problem_solving",
+      "keywords": [
+        "discontinuous",
+        "piecewise",
+        "unit step",
+        "forcing",
+        "Laplace"
+      ]
+    },
+    {
+      "question": "How do you solve integro-differential equations with Laplace?",
+      "answer": "Laplace converts integral to algebraic: L{integral_0^t y(tau) d tau} = Y(s)/s. Example: y'(t) + integral_0^t y(tau) d tau = 1, y(0) = 0. Laplace: (s Y - 0) + Y/s = 1/s. Multiply by s: s^2 Y + Y = 1. Y (s^2 + 1) = 1. Y = 1/(s^2 + 1). y = sin(t). Verify: y' = cos(t). integral_0^t sin(tau) d tau = 1 - cos(t). Sum: cos(t) + 1 - cos(t) = 1. ✓ Example: y' + 4 integral_0^t y = e^(-t), y(0) = 1. (s Y - 1) + 4 Y/s = 1/(s+1). Multiply by s: s^2 Y - s + 4 Y = s/(s+1). Y (s^2 + 4) = s + s/(s+1) = s(s+1+1)/(s+1) = s(s+2)/(s+1). Y = s(s+2)/((s+1)(s^2+4)). Partial fractions and invert. ✓",
+      "topic": "ch06p3_integro_differential",
+      "intent": "problem_solving",
+      "keywords": [
+        "integro-differential",
+        "integral",
+        "Laplace",
+        "Y(s)/s",
+        "algebraic"
+      ]
+    },
+    {
+      "question": "How do you solve ODEs with exponential forcing using Laplace?",
+      "answer": "Example: y'' + 4 y = e^(2t), y(0) = 1, y'(0) = 0. Laplace: (s^2 Y - s - 0) + 4 Y = 1/(s - 2). Y (s^2 + 4) = s + 1/(s - 2) = (s(s-2) + 1)/(s - 2) = (s^2 - 2s + 1)/(s - 2) = (s - 1)^2/(s - 2). Y = (s - 1)^2/((s - 2)(s^2 + 4)). Partial fractions: = A/(s - 2) + (Bs + C)/(s^2 + 4). (s - 1)^2 = A(s^2 + 4) + (Bs + C)(s - 2). s = 2: 1 = 8 A, A = 1/8. s = 0: 1 = 4 A - 2 C = 1/2 - 2 C, C = -1/4. s^2: 1 = A + B = 1/8 + B, B = 7/8. Y = (1/8)/(s - 2) + (7/8 s - 1/4)/(s^2 + 4). y = (1/8) e^(2t) + (7/8) cos(2t) - (1/8) sin(2t). ✓ Verify y(0) = 1/8 + 7/8 = 1 ✓",
+      "topic": "ch06p3_exponential_forcing",
+      "intent": "problem_solving",
+      "keywords": [
+        "exponential forcing",
+        "Laplace",
+        "solve ODE",
+        "partial fractions",
+        "invert"
+      ]
+    },
+    {
+      "question": "How do you solve ODEs with sinusoidal forcing using Laplace?",
+      "answer": "Example: y'' + y = cos(t), y(0) = 0, y'(0) = 0 (resonance!). Laplace: s^2 Y + Y = s/(s^2 + 1). Y (s^2 + 1) = s/(s^2 + 1). Y = s/(s^2 + 1)^2. Use identity: L{t sin(kt)} = 2 k s/(s^2 + k^2)^2. So L^(-1){s/(s^2+1)^2} = (1/2) L^(-1){2 s/(s^2+1)^2} = (1/2) · t sin(t) = t sin(t)/2. So y = (t/2) sin(t). Verify: y(0) = 0. y' = (1/2) sin(t) + (t/2) cos(t). y'(0) = 0. y'' = (1/2) cos + (1/2) cos - (t/2) sin = cos(t) - (t/2) sin(t). y'' + y = cos(t) - (t/2) sin(t) + (t/2) sin(t) = cos(t). ✓ Resonance: amplitude grows like t. ✓",
+      "topic": "ch06p3_sinusoidal_forcing",
+      "intent": "problem_solving",
+      "keywords": [
+        "sinusoidal forcing",
+        "Laplace",
+        "resonance",
+        "solve",
+        "t sin(t)/2"
+      ]
+    },
+    {
+      "question": "What is the unit step (Heaviside) function u(t - a)?",
+      "answer": "Unit step function: u(t - a) = 0 for t < a, 1 for t > a. (Often defined u(0) = 1/2 but doesn't matter for integrals.) Represents a switch turned on at t = a. Used to express piecewise functions. Example: f(t) = u(t - 2) means f = 0 for t < 2, f = 1 for t > 2. Shifted/ramp: g(t) = u(t - 3) (t - 3) is 0 for t < 3, then ramps up linearly from 0 at t = 3. Pulse: p(t) = u(t - a) - u(t - b) for 0 < a < b is 0 outside [a, b], 1 inside. Staircase: f(t) = sum_n u(t - n) is 1 on [1, 2), 2 on [2, 3), etc. Laplace: L{u(t - a)} = e^(-as)/s. ✓",
+      "topic": "ch06p3_unit_step_function",
+      "intent": "formula_recall",
+      "keywords": [
+        "unit step",
+        "Heaviside",
+        "u(t-a)",
+        "switch",
+        "piecewise"
+      ]
+    },
+    {
+      "question": "How do you express piecewise functions using unit step functions?",
+      "answer": "For f(t) = f_1(t) on [0, a_1), f_2(t) on [a_1, a_2), ..., write f = f_1 + u(t - a_1)(f_2 - f_1) + u(t - a_2)(f_3 - f_2) + .... General: f(t) = f_1(t) + sum_k u(t - a_k) [f_(k+1)(t) - f_k(t)]. Example: f(t) = t on [0, 1), 1 on [1, 2), 0 elsewhere. f = t + u(t - 1)(1 - t) + u(t - 2)(0 - 1) = t + u(t - 1)(1 - t) - u(t - 2). Check: for t < 1: f = t. For 1 < t < 2: f = t + (1 - t) = 1. For t > 2: f = t + (1 - t) - 1 = 0. ✓ L{f} = 1/s^2 + e^(-s) L{1 - (t + 1)} (shift)... actually use L{u(t-a) f(t)} = e^(-as) L{f(t + a)}. L{u(t-1)(1-t)} = e^(-s) L{1 - (t+1)} = e^(-s) L{-t} = -e^(-s)/s^2. L{u(t-2)(-1)} = -e^(-2s)/s. So L{f} = 1/s^2 - e^(-s)/s^2 - e^(-2s)/s. ✓",
+      "topic": "ch06p3_piecewise_step",
+      "intent": "problem_solving",
+      "keywords": [
+        "piecewise",
+        "unit step",
+        "express",
+        "switching",
+        "f_k"
+      ]
+    },
+    {
+      "question": "How do you shift functions using u(t - a) f(t - a)?",
+      "answer": "For the second shifting theorem in its natural form: L{u(t - a) f(t - a)} = e^(-as) F(s). Here f(t - a) means the function f evaluated at (t - a), so the \"shape\" of f starts at t = a. Example: L{u(t - 2) (t - 2)^3} = e^(-2s) · 6/s^4 = 6 e^(-2s)/s^4. Example: L{u(t - pi) sin(t - pi)} = e^(-pi s) · 1/(s^2 + 1). Note sin(t - pi) = -sin(t), so for t > pi, this is -sin(t). So u(t - pi) sin(t - pi) = -u(t - pi) sin(t). Check: L{u(t - pi) sin(t - pi)} = e^(-pi s)/(s^2 + 1). And L{-u(t - pi) sin(t)} = -e^(-pi s) L{sin(t + pi)} = -e^(-pi s) L{-sin(t)} = e^(-pi s)/(s^2 + 1). ✓ Same. Key: when shifting, must use (t - a) form, not just t. ✓",
+      "topic": "ch06p3_shifted_functions",
+      "intent": "problem_solving",
+      "keywords": [
+        "shift",
+        "u(t-a) f(t-a)",
+        "second shifting",
+        "e^(-as) F(s)",
+        "shape starts at a"
+      ]
+    },
+    {
+      "question": "How do you solve ODEs with piecewise forcing using Laplace?",
+      "answer": "Example: y' + 2 y = f(t), y(0) = 0, f = 3 on [0, 2), 0 after. f(t) = 3 (1 - u(t - 2)) = 3 - 3 u(t - 2). L{f} = 3/s - 3 e^(-2s)/s. (s Y - 0) + 2 Y = 3(1 - e^(-2s))/s. Y = 3(1 - e^(-2s))/(s(s+2)). = (3/(s(s+2))) (1 - e^(-2s)). Partial: 3/(s(s+2)) = (3/2)/s - (3/2)/(s+2). L^(-1): (3/2) (1 - e^(-2t)). So L^(-1){3/(s(s+2)) (1 - e^(-2s))} = (3/2)(1 - e^(-2t)) - u(t - 2) (3/2)(1 - e^(-2(t-2))). For t < 2: y = (3/2)(1 - e^(-2t)). For t >= 2: y = (3/2)(1 - e^(-2t)) - (3/2)(1 - e^(-2(t-2))) = (3/2)(e^(-2(t-2)) - e^(-2t)) = (3/2) e^(-2t) (e^4 - 1). ✓",
+      "topic": "ch06p3_piecewise_ode",
+      "intent": "problem_solving",
+      "keywords": [
+        "piecewise",
+        "forcing",
+        "Laplace",
+        "ODE",
+        "shifted"
+      ]
+    },
+    {
+      "question": "How do you handle square wave and sawtooth forcing?",
+      "answer": "Square wave (period T): sq(t) = 1 on [0, T/2), -1 on [T/2, T). L{sq} = (1 - e^(-sT/2))/(s(1 - e^(-sT))) = 1/(s(1 + e^(-sT/2))) = tanh(sT/4)/(2s)·2... Actually = 1/(s) · (1 - e^(-sT/2))/(1 - e^(-sT)) = 1/(s) · 1/(1 + e^(-sT/2)) = 1/(s(1 + e^(-sT/2))). Multiply num/den by e^(sT/4): = e^(sT/4)/(s(e^(sT/4) + e^(-sT/4))) = e^(sT/4)/(2s cosh(sT/4))... or simply: = (1/s) · 1/(1 + e^(-sT/2)). Sawtooth: f(t) = t/T on [0, T), then resets. L{f} = (1/T) integral_0^T t e^(-st) dt / (1 - e^(-sT)) = (1/T) [(-t e^(-st)/s - e^(-st)/s^2)_0^T] / (1 - e^(-sT)) = (1/T) [-T e^(-sT)/s - e^(-sT)/s^2 + 1/s^2]/(1 - e^(-sT)) = 1/(Ts^2) - e^(-sT)/(s(1 - e^(-sT))). Simplify: = (1 - (sT + 1) e^(-sT))/(Ts^2 (1 - e^(-sT)))... ✓",
+      "topic": "ch06p3_square_sawtooth",
+      "intent": "problem_solving",
+      "keywords": [
+        "square wave",
+        "sawtooth",
+        "periodic",
+        "forcing",
+        "tanh"
+      ]
+    },
+    {
+      "question": "What is the Dirac delta function?",
+      "answer": "Dirac delta: delta(t - a) is \"infinite at t = a, zero elsewhere, integral = 1\". Not a true function but a distribution. Limit definition: delta_a(t) = lim_(eps -> 0) (1/eps) for |t - a| < eps/2, 0 otherwise. Integral: integral_(-inf)^inf delta(t - a) dt = 1. Sifting: integral f(t) delta(t - a) dt = f(a). Laplace: L{delta(t - a)} = e^(-as) for a > 0. L{delta(t)} = 1 (a = 0). Physical: impulse, point force, point charge, instantaneous hit. Example: hammer blow to mass, voltage spike in circuit. Used in impulse response (response to delta is transfer function itself). ODE: m y'' + c y' + k y = F_0 delta(t - a) models impact at t = a. ✓",
+      "topic": "ch06p3_dirac_delta",
+      "intent": "formula_recall",
+      "keywords": [
+        "Dirac delta",
+        "impulse",
+        "distribution",
+        "infinite at a",
+        "sifting property"
+      ]
+    },
+    {
+      "question": "What is the sifting property of the Dirac delta?",
+      "answer": "Sifting property: integral_(-inf)^inf f(t) delta(t - a) dt = f(a). Picks out value of f at t = a. Generalization: integral_a^b f(t) delta(t - c) dt = f(c) if a < c < b, 0 otherwise. Example: integral_0^inf e^(-st) delta(t - 3) dt = e^(-3s). Example: integral sin(t) delta(t - pi/4) dt = sin(pi/4) = sqrt(2)/2. In products: f(t) delta(t - a) = f(a) delta(t - a) (delta \"evaluates\" f at a). Derivative: integral f(t) delta'(t - a) dt = -f'(a) (integration by parts with delta). Laplace: L{f(t) delta(t - a)} = e^(-as) f(a) (sifting). ✓",
+      "topic": "ch06p3_sifting_property",
+      "intent": "formula_recall",
+      "keywords": [
+        "sifting",
+        "delta",
+        "integral f(t) delta(t-a) = f(a)",
+        "picks value",
+        "property"
+      ]
+    },
+    {
+      "question": "How do you solve ODEs with impulse forcing using Laplace?",
+      "answer": "Example: y'' + 4 y = delta(t - pi), y(0) = 0, y'(0) = 0. L{delta(t - pi)} = e^(-pi s). (s^2 Y - 0 - 0) + 4 Y = e^(-pi s). Y = e^(-pi s)/(s^2 + 4). L^(-1){1/(s^2 + 4)} = (1/2) sin(2t). By second shifting: y = u(t - pi) (1/2) sin(2(t - pi)) = u(t - pi) (1/2) sin(2t - 2pi) = u(t - pi) (1/2) sin(2t). For t < pi: y = 0. For t > pi: y = (1/2) sin(2t). Physical: mass at rest gets hit at t = pi, starts oscillating. Example: y'' + y = delta(t), y(0) = 0, y'(0) = 0. s^2 Y + Y = 1. Y = 1/(s^2 + 1). y = sin(t). (Initial impulse gives same as initial velocity 1.) ✓",
+      "topic": "ch06p3_impulse_ode",
+      "intent": "problem_solving",
+      "keywords": [
+        "impulse",
+        "Dirac delta",
+        "ODE",
+        "Laplace",
+        "e^(-as)"
+      ]
+    },
+    {
+      "question": "What is the impulse response of a system?",
+      "answer": "Impulse response h(t): response of system to delta(t) input with zero initial conditions. For ODE a_n y^(n) + ... + a_0 y = f(t), h(t) = L^(-1){1/(a_n s^n + ... + a_0)}. Then for any input f, response y = (h * f)(t) = integral_0^t h(tau) f(t - tau) d tau (convolution). Transfer function H(s) = L{h(t)} = 1/(characteristic polynomial). Example: y'' + 4 y = f(t), y(0) = 0, y'(0) = 0. H(s) = 1/(s^2 + 4). h(t) = (1/2) sin(2t). For f = delta: y = h = (1/2) sin(2t). For f = cos(2t): y = (h * cos 2t)(t) = integral_0^t (1/2) sin(2 tau) cos(2(t - tau)) d tau = ... (resonance, grows linearly). ✓",
+      "topic": "ch06p3_impulse_response",
+      "intent": "formula_recall",
+      "keywords": [
+        "impulse response",
+        "h(t)",
+        "transfer function",
+        "H(s)",
+        "convolution"
+      ]
+    },
+    {
+      "question": "How do you model impacts and collisions with delta functions?",
+      "answer": "Impulse-momentum theorem: integral F dt = delta p (change in momentum). For mass m hit by impulse at t = a: m y'' = F_0 delta(t - a). Integrating across t = a: m [y']_a-^a+ = F_0. So y'(a+) - y'(a-) = F_0/m. Velocity jumps by F_0/m. Position continuous: y(a+) = y(a-). Example: mass at rest (y = 0, y' = 0) hit by impulse F_0 = 5 at t = 2, m = 1. y'' = 5 delta(t - 2). y(t) = 5 · u(t - 2) · (t - 2) (ramp starting at t = 2). For t > 2: y = 5(t - 2). With restoring force: y'' + 4 y = 5 delta(t - 2), y(0) = 0, y'(0) = 0. Y = 5 e^(-2s)/(s^2 + 4). y = (5/2) u(t - 2) sin(2(t - 2)). For t > 2: y = (5/2) sin(2t - 4). ✓",
+      "topic": "ch06p3_impact_modeling",
+      "intent": "problem_solving",
+      "keywords": [
+        "impact",
+        "collision",
+        "impulse",
+        "momentum jump",
+        "velocity discontinuity"
+      ]
+    },
+    {
+      "question": "What is the convolution theorem?",
+      "answer": "Convolution theorem: L{(f * g)(t)} = F(s) G(s), where (f * g)(t) = integral_0^t f(tau) g(t - tau) d tau. So L^(-1){F(s) G(s)} = (f * g)(t). Useful for inverting products. Properties: f * g = g * f (commutative). (f * g) * h = f * (g * h) (associative). f * (a g + b h) = a (f * g) + b (f * h) (distributive). f * delta = f (delta is identity: integral_0^t f(tau) delta(t - tau) d tau = f(t)). L{1} · F(s) = F(s)/1 ✓ (since L{1} = 1/s, and L{integral f} = F/s). ✓",
+      "topic": "ch06p3_convolution_theorem",
+      "intent": "formula_recall",
+      "keywords": [
+        "convolution",
+        "theorem",
+        "L{f * g} = FG",
+        "commutative",
+        "product"
+      ]
+    },
+    {
+      "question": "How do you compute convolution integrals?",
+      "answer": "Convolution: (f * g)(t) = integral_0^t f(tau) g(t - tau) d tau. Steps: (1) Replace t in g with (t - tau). (2) Multiply f(tau) · g(t - tau). (3) Integrate w.r.t. tau from 0 to t. Example: (1 * t)(t) = integral_0^t 1 · (t - tau) d tau = [t tau - tau^2/2]_0^t = t^2 - t^2/2 = t^2/2. Check: L{1} L{t} = (1/s)(1/s^2) = 1/s^3 = L{t^2/2}. ✓ Example: (sin * cos)(t) = integral_0^t sin(tau) cos(t - tau) d tau. Use sin A cos B = (1/2)[sin(A+B) + sin(A-B)]: = (1/2) integral_0^t [sin(t) + sin(2 tau - t)] d tau = (1/2) [t sin(t) + (-cos(2 tau - t)/2)_0^t] = (1/2) [t sin t - (cos(t) - cos(-t))/2] = (1/2)[t sin t - 0] = (t/2) sin(t). ✓",
+      "topic": "ch06p3_convolution_compute",
+      "intent": "problem_solving",
+      "keywords": [
+        "convolution",
+        "compute",
+        "integral",
+        "f(tau) g(t-tau)",
+        "integrate"
+      ]
+    },
+    {
+      "question": "How do you use convolution to solve ODEs with general forcing?",
+      "answer": "For y'' + a y' + b y = f(t), y(0) = y_0, y'(0) = y_1, with impulse response h(t) (response to delta with zero ICs): y(t) = y_h(t) + (h * f)(t), where y_h is homogeneous solution satisfying ICs, h(t) = L^(-1){1/(s^2 + a s + b)}. Example: y'' + 4 y = f(t), y(0) = 0, y'(0) = 0. h = (1/2) sin(2t). y = (1/2) integral_0^t sin(2 tau) f(t - tau) d tau. For f = e^(-t): y = (1/2) integral_0^t sin(2 tau) e^(-(t - tau)) d tau = (e^(-t)/2) integral_0^t sin(2 tau) e^tau d tau. integral sin(2 tau) e^tau d tau = e^tau (sin(2 tau) - 2 cos(2 tau))/5. Evaluated [0, t]: = e^t (sin(2t) - 2 cos(2t))/5 - (0 - 2)/5 = e^t (sin 2t - 2 cos 2t)/5 + 2/5. So y = (1/2) e^(-t) [e^t (sin 2t - 2 cos 2t)/5 + 2/5] = (1/2)(sin 2t - 2 cos 2t)/5 + e^(-t)/5 = (sin 2t - 2 cos 2t + 2 e^(-t))/10. ✓",
+      "topic": "ch06p3_convolution_ode",
+      "intent": "problem_solving",
+      "keywords": [
+        "convolution",
+        "ODE",
+        "general forcing",
+        "impulse response",
+        "h * f"
+      ]
+    },
+    {
+      "question": "How do you use convolution for Volterra integral equations?",
+      "answer": "Volterra integral equation: y(t) = f(t) + lambda integral_0^t K(t - tau) y(tau) d tau (convolution form). Take Laplace: Y = F + lambda K · Y. Y (1 - lambda K) = F. Y = F/(1 - lambda K). Example: y(t) = 1 + integral_0^t e^(t - tau) y(tau) d tau. F = 1/s, K = 1/(s - 1), lambda = 1. Y = (1/s)/(1 - 1/(s-1)) = (1/s)/((s - 1 - 1)/(s - 1)) = (1/s) (s - 1)/(s - 2) = (s - 1)/(s(s - 2)). Partial: = A/s + B/(s - 2). s - 1 = A(s - 2) + B s. s = 0: -1 = -2 A, A = 1/2. s = 2: 1 = 2 B, B = 1/2. Y = (1/2)/s + (1/2)/(s - 2). y = 1/2 + (1/2) e^(2t). Verify: y = 1/2 + e^(2t)/2. y(0) = 1. ✓ Integral = integral_0^t e^(t-tau) [1/2 + e^(2 tau)/2] d tau = (1/2) e^t integral_0^t e^(-tau) d tau + (1/2) e^t integral_0^t e^tau d tau = (1/2)(e^t - 1) + (1/2)(e^(2t) - e^t). Sum y - integral: [1/2 + e^(2t)/2] - [(1/2)(e^t - 1) + (1/2)(e^(2t) - e^t)] = 1/2 + e^(2t)/2 - e^t/2 + 1/2 - e^(2t)/2 + e^t/2 = 1. ✓",
+      "topic": "ch06p3_volterra",
+      "intent": "problem_solving",
+      "keywords": [
+        "Volterra",
+        "integral equation",
+        "convolution",
+        "Laplace",
+        "kernel"
+      ]
+    },
+    {
+      "question": "What is the relationship between convolution and Green functions?",
+      "answer": "Green's function G(t) for LTI system is the impulse response: G(t) = L^(-1){1/P(s)} where P(s) is characteristic polynomial. Solution to L[y] = f(t) with zero ICs: y(t) = (G * f)(t) = integral_0^t G(t - tau) f(tau) d tau. This is convolution. For boundary value problems (different setup): Green's function G(x, xi) satisfies L[G] = delta(x - xi) with BCs, and solution y(x) = integral G(x, xi) f(xi) d xi. For IVP: same idea, but G depends only on (t - tau) due to time invariance. Example: y'' + omega^2 y = f(t), y(0) = y'(0) = 0. G(t) = (1/omega) sin(omega t). y(t) = (1/omega) integral_0^t sin(omega(t - tau)) f(tau) d tau. For f = F_0 (constant): y = (F_0/omega^2) (1 - cos(omega t)). ✓",
+      "topic": "ch06p3_green_function",
+      "intent": "formula_recall",
+      "keywords": [
+        "Green function",
+        "impulse response",
+        "convolution",
+        "LTI",
+        "kernel"
+      ]
+    },
+    {
+      "question": "What is a transfer function in linear systems?",
+      "answer": "Transfer function H(s) of LTI system with input f(t), output y(t), zero initial conditions: H(s) = Y(s)/F(s) = output Laplace / input Laplace. For ODE a_n y^(n) + ... + a_0 y = b_m f^(m) + ... + b_0 f, H(s) = (b_m s^m + ... + b_0)/(a_n s^n + ... + a_0). Poles of H: roots of denominator (characteristic). Zeros: roots of numerator. Stability: all poles have Re(s) < 0. Example: m y'' + c y' + k y = f(t). H(s) = 1/(m s^2 + c s + k). Poles: roots of m s^2 + c s + k = 0. For m=1, c=2, k=5: poles at s = -1 ± 2i (stable, decays). H(s) = 1/(s^2 + 2s + 5). Impulse response h(t) = L^(-1){H} = (1/2) e^(-t) sin(2t). ✓",
+      "topic": "ch06p3_transfer_function",
+      "intent": "formula_recall",
+      "keywords": [
+        "transfer function",
+        "H(s) = Y/F",
+        "LTI",
+        "poles",
+        "zeros",
+        "stability"
+      ]
+    },
+    {
+      "question": "How do you analyze block diagrams using transfer functions?",
+      "answer": "Block diagram: components in series multiply transfer functions. H_total = H_1 · H_2 · ... · H_n. Components in parallel add. Feedback loop: H_closed = H_forward / (1 + H_forward · H_feedback) (negative feedback). Example: amplifier H_1 = 10, filter H_2 = 1/(s + 1) in series: H = 10/(s + 1). With feedback H_f = 0.5 (negative): H_closed = (10/(s+1))/(1 + 5/(s+1)) = 10/(s + 1 + 5) = 10/(s + 6). Pole shifted from -1 to -6 (faster, more stable). Gain margin: how much gain can increase before instability. Phase margin: related concept. Bode plot: |H(i omega)| and arg(H(i omega)) vs omega. Nyquist criterion: stability via encirclements. ✓",
+      "topic": "ch06p3_block_diagrams",
+      "intent": "problem_solving",
+      "keywords": [
+        "block diagram",
+        "series",
+        "parallel",
+        "feedback",
+        "closed loop"
+      ]
+    },
+    {
+      "question": "How do you find frequency response from transfer function?",
+      "answer": "Frequency response: H(i omega) (substitute s = i omega into H(s)). |H(i omega)| = gain (amplification). arg H(i omega) = phase shift. For input f(t) = cos(omega t), steady-state output: y_ss = |H(i omega)| cos(omega t + arg H(i omega)). Example: H(s) = 1/(s + 1) (low-pass filter). H(i omega) = 1/(1 + i omega) = (1 - i omega)/(1 + omega^2). |H| = 1/sqrt(1 + omega^2). arg = -arctan(omega). For omega = 0: gain 1, phase 0. For omega -> inf: gain -> 0, phase -> -pi/2. Cutoff at omega = 1 (gain 1/sqrt(2) = -3 dB). For mass-spring H(s) = 1/(s^2 + 2 s + 5), poles -1 ± 2i. Peak at omega = 2 (resonance). ✓",
+      "topic": "ch06p3_frequency_response",
+      "intent": "problem_solving",
+      "keywords": [
+        "frequency response",
+        "H(i omega)",
+        "gain",
+        "phase",
+        "Bode"
+      ]
+    },
+    {
+      "question": "How do you determine stability from transfer functions?",
+      "answer": "Stability: bounded-input bounded-output (BIBO) stable iff all poles of H(s) have Re(s) < 0. Equivalently: impulse response h(t) is absolutely integrable. For rational H = N/D: poles are roots of D. Check roots: (1) All Re < 0: stable. (2) Any Re > 0: unstable. (3) Simple poles on imaginary axis (Re = 0): marginally stable (oscillates). (4) Repeated poles on imaginary axis: unstable. Routh-Hurwitz: check without solving. Example: H = 1/(s^2 + 3s + 2) = 1/((s+1)(s+2)). Poles -1, -2. Stable. H = 1/(s^2 + 1). Poles ±i. Marginally stable (oscillates). H = 1/(s^2 - 1). Poles ±1. Unstable (one Re > 0). H = 1/(s^2(s + 1)). Double pole at 0. Unstable. ✓",
+      "topic": "ch06p3_stability_transfer",
+      "intent": "problem_solving",
+      "keywords": [
+        "stability",
+        "transfer function",
+        "poles",
+        "Re < 0",
+        "BIBO"
+      ]
+    },
+    {
+      "question": "How do you model electrical and mechanical systems with transfer functions?",
+      "answer": "Electrical (RC low-pass): V_out/V_in = (1/Cs)/(R + 1/Cs) = 1/(RCs + 1). Time constant tau = RC. Cutoff freq omega_c = 1/RC. RLC bandpass: H = (R Cs)/(L C s^2 + R C s + 1). Mechanical (mass-spring-damper): X/F = 1/(m s^2 + c s + k). Natural freq omega_n = sqrt(k/m), damping zeta = c/(2 sqrt(mk)). DC motor (transfer from voltage to angle): theta(s)/V(s) = K/((Js + b)(Ls + R) + K^2 s). Operational amplifier (inverting): V_out/V_in = -Z_f/Z_in. For integrator: Z_f = 1/Cs, Z_in = R, H = -1/(RCs). For differentiator: H = -RCs (usually avoided due to noise). ✓",
+      "topic": "ch06p3_physical_systems",
+      "intent": "problem_solving",
+      "keywords": [
+        "physical systems",
+        "RC circuit",
+        "RLC",
+        "mass-spring",
+        "DC motor"
+      ]
+    },
+    {
+      "question": "How do you solve y'' + 4 y = sin(2t), y(0) = 1, y'(0) = 0 (resonance)?",
+      "answer": "Laplace: (s^2 Y - s · 1 - 0) + 4 Y = 2/(s^2 + 4). Y (s^2 + 4) = s + 2/(s^2 + 4). Y = s/(s^2 + 4) + 2/(s^2 + 4)^2. L^(-1){s/(s^2+4)} = cos(2t). L^(-1){2/(s^2+4)^2}: use identity L{t sin kt} = 2 k s/(s^2 + k^2)^2. So 1/(s^2 + k^2)^2 = L{t sin(kt)}/(2 k s)·... wait, use identity L{sin(kt) - k t cos(kt)} = 2 k^3/(s^2 + k^2)^2. So L^(-1){2/(s^2+4)^2} = (1/4) L^(-1){8/(s^2+4)^2}·(1/4)... Let's redo: L{sin(2t) - 2t cos(2t)} = 2/(s^2+4) - 2·(s^2 - 4)/(s^2+4)^2 = [2(s^2+4) - 2(s^2-4)]/(s^2+4)^2 = 16/(s^2+4)^2. So L^(-1){2/(s^2+4)^2} = (2/16) (sin(2t) - 2t cos(2t)) = (sin(2t) - 2t cos(2t))/8. y = cos(2t) + (sin(2t) - 2t cos(2t))/8. Verify y(0) = 1 + 0 = 1 ✓. y' = -2 sin(2t) + (2 cos(2t) - 2 cos(2t) + 4t sin(2t))/8 = -2 sin(2t) + (t/2) sin(2t). y'(0) = 0 ✓. Resonance: t cos(2t) term grows. ✓",
+      "topic": "ch06p3_worked_resonance_laplace",
+      "intent": "problem_solving",
+      "keywords": [
+        "worked",
+        "resonance",
+        "Laplace",
+        "sin(2t) forcing",
+        "t cos term"
+      ]
+    },
+    {
+      "question": "How do you solve y'' + y = u(t - 1), y(0) = 0, y'(0) = 0?",
+      "answer": "Laplace: s^2 Y + Y = e^(-s)/s. Y = e^(-s)/(s(s^2 + 1)). Partial fractions: 1/(s(s^2+1)) = 1/s - s/(s^2 + 1). So Y = e^(-s)/s - e^(-s) s/(s^2 + 1). By second shifting: L^(-1){e^(-s)/s} = u(t - 1) · 1 = u(t - 1). L^(-1){e^(-s) s/(s^2 + 1)} = u(t - 1) · cos(t - 1). So y(t) = u(t - 1) [1 - cos(t - 1)]. For t < 1: y = 0. For t >= 1: y = 1 - cos(t - 1). Verify: at t = 1, y = 1 - cos(0) = 0 (continuous). y' for t > 1: sin(t - 1). At t = 1+: y' = 0 (matches y'(1-) = 0). y'' for t > 1: cos(t - 1). y'' + y = cos(t - 1) + 1 - cos(t - 1) = 1 = u(t - 1). ✓",
+      "topic": "ch06p3_worked_step_ode",
+      "intent": "problem_solving",
+      "keywords": [
+        "worked",
+        "unit step",
+        "ODE",
+        "Laplace",
+        "u(t - 1) [1 - cos(t-1)]"
+      ]
+    },
+    {
+      "question": "How do you solve y'' + 2 y' + 5 y = e^(-t) sin(t), y(0) = 0, y'(0) = 1?",
+      "answer": "Laplace: (s^2 Y - 0 - 1) + 2 (s Y - 0) + 5 Y = 1/((s + 1)^2 + 1) = 1/(s^2 + 2s + 2). Y (s^2 + 2s + 5) = 1 + 1/(s^2 + 2s + 2). Y = 1/(s^2 + 2s + 5) + 1/((s^2 + 2s + 5)(s^2 + 2s + 2)). First term: complete square s^2 + 2s + 5 = (s+1)^2 + 4. L^(-1){1/((s+1)^2 + 4)} = (1/2) e^(-t) sin(2t). Second term: partial fractions. Let u = s + 1. 1/((u^2 + 4)(u^2 + 1)) = (Au + B)/(u^2 + 4) + (Cu + D)/(u^2 + 1). 1 = (Au + B)(u^2 + 1) + (Cu + D)(u^2 + 4). u^3: A + C = 0. u^2: B + D = 0. u: A + 4 C = 0. const: B + 4 D = 1. From A = -C and A = -4C: C = 0, A = 0. From B = -D and B + 4D = 1: 3D = 1, D = 1/3, B = -1/3. So 1/((u^2+4)(u^2+1)) = (-1/3)/(u^2+4) + (1/3)/(u^2+1). L^(-1) (shifted by -1): -(1/3)(1/2) e^(-t) sin(2t) + (1/3) e^(-t) sin(t) = -(1/6) e^(-t) sin(2t) + (1/3) e^(-t) sin(t). Total: y = (1/2) e^(-t) sin(2t) - (1/6) e^(-t) sin(2t) + (1/3) e^(-t) sin(t) = (1/3) e^(-t) sin(2t) + (1/3) e^(-t) sin(t). = (1/3) e^(-t) (sin(2t) + sin(t)). ✓",
+      "topic": "ch06p3_worked_complex_forcing",
+      "intent": "problem_solving",
+      "keywords": [
+        "worked",
+        "complex forcing",
+        "sin times exp",
+        "Laplace",
+        "partial fractions"
+      ]
+    },
+    {
+      "question": "How do you solve y'' + 9 y = delta(t - pi/2), y(0) = 0, y'(0) = 0?",
+      "answer": "Laplace: s^2 Y + 9 Y = e^(-pi s/2). Y = e^(-pi s/2)/(s^2 + 9). L^(-1){1/(s^2 + 9)} = (1/3) sin(3t). By second shifting: y = u(t - pi/2) (1/3) sin(3(t - pi/2)) = u(t - pi/2) (1/3) sin(3t - 3pi/2) = u(t - pi/2) (1/3) cos(3t) (since sin(3t - 3pi/2) = sin(3t) cos(3pi/2) - cos(3t) sin(3pi/2) = 0 - cos(3t)(-1) = cos(3t)). So y(t) = (1/3) u(t - pi/2) cos(3t). For t < pi/2: y = 0. For t > pi/2: y = (1/3) cos(3t). At t = pi/2+: y = (1/3) cos(3 pi/2) = 0 (continuous). y' for t > pi/2: -sin(3t). At t = pi/2+: y' = -sin(3 pi/2) = 1. So velocity jumps from 0 to 1 at t = pi/2 (impulse). ✓ Impulse F_0 = 1 on m = 1 gives velocity jump 1. ✓",
+      "topic": "ch06p3_worked_impulse",
+      "intent": "problem_solving",
+      "keywords": [
+        "worked",
+        "impulse",
+        "delta",
+        "velocity jump",
+        "Laplace"
+      ]
+    },
+    {
+      "question": "How do you solve y' + y = integral_0^t y(tau) d tau, y(0) = 1?",
+      "answer": "Integro-differential. Laplace: (s Y - 1) + Y = Y/s. Multiply by s: s^2 Y - s + s Y = Y. Y (s^2 + s - 1) = s. Y = s/(s^2 + s - 1). Roots of s^2 + s - 1 = 0: s = (-1 ± sqrt(5))/2. Let r_1 = (-1 + sqrt 5)/2 approx 0.618, r_2 = (-1 - sqrt 5)/2 approx -1.618. Partial fractions: Y = A/(s - r_1) + B/(s - r_2). A = r_1/(r_1 - r_2) = 0.618/2.236 = 0.276. B = r_2/(r_2 - r_1) = -1.618/(-2.236) = 0.724. Wait, check: A + B = 1 (numerator s has coef 1)? A r_2 + B r_1 = 0 (constant term). A + B = 1, -1.618 A + 0.618 B = 0. From second: B = 1.618 A / 0.618 = 2.618 A. Sub first: A (1 + 2.618) = 1, A = 0.276, B = 0.724. y = 0.276 e^(0.618 t) + 0.724 e^(-1.618 t). Verify y(0) = 0.276 + 0.724 = 1 ✓. (r_1 = (sqrt(5)-1)/2 is golden ratio - 1, r_2 = -(golden ratio).) ✓",
+      "topic": "ch06p3_worked_integro",
+      "intent": "problem_solving",
+      "keywords": [
+        "worked",
+        "integro-differential",
+        "Laplace",
+        "integral",
+        "golden ratio"
+      ]
+    },
+    {
+      "question": "How do you find L^(-1){(s + 1)/(s^3 + s^2 + s + 1)}?",
+      "answer": "Factor denominator: s^3 + s^2 + s + 1 = s^2(s + 1) + (s + 1) = (s + 1)(s^2 + 1). So Y = (s + 1)/((s + 1)(s^2 + 1)) = 1/(s^2 + 1) (cancel s + 1). L^(-1){1/(s^2 + 1)} = sin(t). So y = sin(t). Verify: (s + 1) sin(t) Laplace: L{sin(t)} + L{sin(t)'} = 1/(s^2+1) + s/(s^2+1) - sin(0) = (s + 1)/(s^2 + 1). Wait, this is L{sin + cos} = 1/(s^2+1) + s/(s^2+1) = (s+1)/(s^2+1). And (s+1) Y should equal (s+1) · L{sin} = (s+1)/(s^2+1) = Y · (s+1) ✓. Hmm let me recheck: we want L^(-1){(s+1)/(s^3 + s^2 + s + 1)}. After cancellation, = L^(-1){1/(s^2 + 1)} = sin(t). ✓",
+      "topic": "ch06p3_worked_cancellation",
+      "intent": "problem_solving",
+      "keywords": [
+        "worked",
+        "inverse Laplace",
+        "factor",
+        "cancel",
+        "simplify"
+      ]
+    }
+  ]
+}
