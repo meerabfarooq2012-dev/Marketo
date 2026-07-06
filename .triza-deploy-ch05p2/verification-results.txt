@@ -1,0 +1,91 @@
+Starting verification of 83 queries...
+[s1q1] DIRECT_HIT | conf=1 | topic=math_vol9_ch05p2_vector_definition | q=What is a vector and how is it represented?
+[s1q2] DIRECT_HIT | conf=1 | topic=math_vol9_ch05p2_vector_magnitude | q=How do you find the magnitude of a vector?
+[s1q3] DIRECT_HIT | conf=1 | topic=math_vol9_ch05p2_vector_operations | q=What are the operations on vectors?
+[s1q4] DIRECT_HIT | conf=1 | topic=math_vol9_ch05p2_standard_basis | q=What are the standard basis vectors?
+[s1q5] DIRECT_HIT | conf=1 | topic=math_vol9_ch05p2_unit_vector_direction | q=How do you find a unit vector in a given direction?
+[s2q1] OTHER_VOL(math_vol4_vol4_vector_dot_product) | conf=1 | topic=math_vol4_vol4_vector_dot_product | q=What is the dot product of two vectors?
+[s2q2] DIRECT_HIT | conf=1 | topic=math_vol9_ch05p2_angle_between_vectors | q=How do you find the angle between two vectors using the dot 
+[s2q3] DIRECT_HIT | conf=1 | topic=math_vol9_ch05p2_projections | q=What are scalar and vector projections?
+[s2q4] DIRECT_HIT | conf=1 | topic=math_vol9_ch05p2_vector_decomposition | q=How do you decompose a vector into parallel and perpendicula
+[s2q5] OTHER_VOL(math_vol6_vol6_cauchy_schwarz_inequality) | conf=1 | topic=math_vol6_vol6_cauchy_schwarz_inequality | q=What is the Cauchy-Schwarz inequality?
+[s3q1] OTHER_VOL(math_vol4_vol4_vector_cross_product) | conf=1 | topic=math_vol4_vol4_vector_cross_product | q=What is the cross product of two vectors?
+[s3q2] DIRECT_HIT | conf=1 | topic=math_vol9_ch05p2_cross_product_properties | q=What are the properties of the cross product?
+[s3q3] DIRECT_HIT | conf=1 | topic=math_vol9_ch05p2_cross_product_area | q=How do you find the area of a parallelogram using the cross 
+[s3q4] DIRECT_HIT | conf=1 | topic=math_vol9_ch05p2_scalar_triple_product | q=How do you find the volume of a parallelepiped using the sca
+[s3q5] DIRECT_HIT | conf=1 | topic=math_vol9_ch05p2_torque_cross_product | q=How do you find the torque using the cross product?
+[s4q1] DIRECT_HIT | conf=1 | topic=math_vol9_ch05p2_line_equation | q=What is the vector equation of a line in 3D?
+[s4q2] DIRECT_HIT | conf=1 | topic=math_vol9_ch05p2_lines_parallel_intersecting_skew | q=How do you determine if two lines in 3D are parallel interse
+[s4q3] DIRECT_HIT | conf=1 | topic=math_vol9_ch05p2_plane_equation | q=What is the equation of a plane in 3D?
+[s4q4] DIRECT_HIT | conf=1 | topic=math_vol9_ch05p2_point_to_plane_distance | q=How do you find the distance from a point to a plane?
+[s4q5] DIRECT_HIT | conf=1 | topic=math_vol9_ch05p2_point_to_line_distance | q=How do you find the distance from a point to a line in 3D?
+[s4q6] DIRECT_HIT | conf=1 | topic=math_vol9_ch05p2_angle_between_planes | q=How do you find the angle between two planes?
+[s5q1] DIRECT_HIT | conf=1 | topic=math_vol9_ch05p2_quadric_surfaces | q=What are the standard equations of quadric surfaces?
+[s5q2] DIRECT_HIT | conf=1 | topic=math_vol9_ch05p2_ellipsoid | q=How do you identify an ellipsoid and its properties?
+[s5q3] DIRECT_HIT | conf=1 | topic=math_vol9_ch05p2_paraboloid | q=How do you identify a paraboloid?
+[s5q4] DIRECT_HIT | conf=1 | topic=math_vol9_ch05p2_cylinders | q=How do you identify cylinders?
+[s6q1] DIRECT_HIT | conf=1 | topic=math_vol9_ch05p2_vvf_definition | q=What is a vector-valued function?
+[s6q2] DIRECT_HIT | conf=1 | topic=math_vol9_ch05p2_vvf_limit_continuity | q=How do you find the limit and continuity of a vector-valued 
+[s6q3] DIRECT_HIT | conf=1 | topic=math_vol9_ch05p2_vvf_derivative | q=How do you find the derivative of a vector-valued function?
+[s6q4] DIRECT_HIT | conf=1 | topic=math_vol9_ch05p2_vvf_differentiation_rules | q=What are the differentiation rules for vector-valued functio
+[s6q5] DIRECT_HIT | conf=1 | topic=math_vol9_ch05p2_vvf_integral | q=How do you find the integral of a vector-valued function?
+[s7q1] DIRECT_HIT | conf=1 | topic=math_vol9_ch05p2_arc_length_space_curve | q=How do you find the arc length of a space curve?
+[s7q2] DIRECT_HIT | conf=1 | topic=math_vol9_ch05p2_curvature | q=What is the curvature of a curve?
+[s7q3] DIRECT_HIT | conf=1 | topic=math_vol9_ch05p2_normal_binormal | q=What are the principal unit normal and binormal vectors?
+[s7q4] DIRECT_HIT | conf=1 | topic=math_vol9_ch05p2_normal_osculating_plane | q=What are the normal and osculating planes?
+[s7q5] DIRECT_HIT | conf=1 | topic=math_vol9_ch05p2_tangential_normal_acceleration | q=What are tangential and normal components of acceleration?
+[s8q1] DIRECT_HIT | conf=1 | topic=math_vol9_ch05p2_motion_space | q=How do you describe the motion of a particle in space?
+[s8q2] DIRECT_HIT | conf=1 | topic=math_vol9_ch05p2_projectile_motion | q=How do you analyze projectile motion?
+[s8q3] DIRECT_HIT | conf=1 | topic=math_vol9_ch05p2_speed_distance | q=How do you find the speed and distance traveled by a particl
+[s8q4] DIRECT_HIT | conf=1 | topic=math_vol9_ch05p2_ivp_vector | q=How do you solve initial value problems for vector functions
+[s9q1] DIRECT_HIT | conf=1 | topic=math_vol9_ch05p2_function_several_variables | q=What is a function of several variables?
+[s9q2] DIRECT_HIT | conf=1 | topic=math_vol9_ch05p2_domain_range | q=How do you find the domain and range of a function of two va
+[s9q3] DIRECT_HIT | conf=1 | topic=math_vol9_ch05p2_level_curves | q=What are level curves and how do you sketch them?
+[s9q4] DIRECT_HIT | conf=1 | topic=math_vol9_ch05p2_limits_continuity_2var | q=What are limits and continuity for functions of two variable
+[s10q1] DIRECT_HIT | conf=1 | topic=math_vol9_ch05p2_partial_derivative | q=What is a partial derivative?
+[s10q2] DIRECT_HIT | conf=1 | topic=math_vol9_ch05p2_second_partial | q=How do you compute second-order partial derivatives?
+[s10q3] DIRECT_HIT | conf=1 | topic=math_vol9_ch05p2_chain_rule_partial | q=How do you use the Chain Rule for partial derivatives?
+[s10q4] DIRECT_HIT | conf=1 | topic=math_vol9_ch05p2_implicit_partial | q=How do you do implicit differentiation with partial derivati
+[s10q5] DIRECT_HIT | conf=1 | topic=math_vol9_ch05p2_laplacian_operators | q=What is the Laplacian and other higher partial derivative op
+[s11q1] DIRECT_HIT | conf=1 | topic=math_vol9_ch05p2_directional_derivative | q=What is the directional derivative?
+[s11q2] OTHER_VOL(math_vol5_vol5_gradient) | conf=1 | topic=math_vol5_vol5_gradient | q=What is the gradient of a function?
+[s11q3] DIRECT_HIT | conf=1 | topic=math_vol9_ch05p2_gradient_properties | q=What are the properties of the gradient?
+[s11q4] DIRECT_HIT | conf=1 | topic=math_vol9_ch05p2_tangent_plane_level_surface | q=How do you find the tangent plane to a level surface?
+[s11q5] DIRECT_HIT | conf=1 | topic=math_vol9_ch05p2_normal_line | q=How do you find the normal line to a surface?
+[s12q1] DIRECT_HIT | conf=1 | topic=math_vol9_ch05p2_linear_approximation | q=What is the linear approximation of a function of two variab
+[s12q2] DIRECT_HIT | conf=1 | topic=math_vol9_ch05p2_total_differential | q=What is the total differential of a function of two variable
+[s12q3] DIRECT_HIT | conf=1 | topic=math_vol9_ch05p2_error_estimation | q=How do you use differentials for error estimation?
+[s12q4] DIRECT_HIT | conf=1 | topic=math_vol9_ch05p2_taylor_multivariable | q=What is the multivariable Taylor polynomial?
+[s13q1] DIRECT_HIT | conf=1 | topic=math_vol9_ch05p2_critical_points | q=How do you find critical points of a function of two variabl
+[s13q2] DIRECT_HIT | conf=1 | topic=math_vol9_ch05p2_second_derivative_test | q=What is the Second Derivative Test for functions of two vari
+[s13q3] DIRECT_HIT | conf=1 | topic=math_vol9_ch05p2_saddle_point | q=What is a saddle point?
+[s13q4] DIRECT_HIT | conf=1 | topic=math_vol9_ch05p2_absolute_extrema | q=How do you find absolute extrema on a closed bounded region?
+[s13q5] DIRECT_HIT | conf=1 | topic=math_vol9_ch05p2_boundary_extrema | q=How do you find extrema on a boundary using substitution?
+[s14q1] DIRECT_HIT | conf=1 | topic=math_vol9_ch05p2_lagrange_multipliers | q=What is the method of Lagrange multipliers?
+[s14q2] DIRECT_HIT | conf=1 | topic=math_vol9_ch05p2_lagrange_3d | q=How do you use Lagrange multipliers with one constraint in 3
+[s14q3] DIRECT_HIT | conf=1 | topic=math_vol9_ch05p2_lagrange_two_constraints | q=How do you use Lagrange multipliers with two constraints?
+[s14q4] DIRECT_HIT | conf=1 | topic=math_vol9_ch05p2_lagrange_applications | q=What are applications of Lagrange multipliers?
+[s15q1] DIRECT_HIT | conf=1 | topic=math_vol9_ch05p2_double_integral | q=What is a double integral and how do you compute it?
+[s15q2] DIRECT_HIT | conf=1 | topic=math_vol9_ch05p2_fubini_theorem | q=What is Fubini Theorem?
+[s15q3] DIRECT_HIT | conf=1 | topic=math_vol9_ch05p2_double_integral_regions | q=How do you evaluate double integrals over general regions?
+[s15q4] DIRECT_HIT | conf=1 | topic=math_vol9_ch05p2_switch_order | q=How do you switch the order of integration?
+[s15q5] DIRECT_HIT | conf=1 | topic=math_vol9_ch05p2_area_volume_double | q=How do you find area and volume using double integrals?
+[s16q1] DIRECT_HIT | conf=1 | topic=math_vol9_ch05p2_polar_double_integral | q=How do you evaluate double integrals in polar coordinates?
+[s16q2] DIRECT_HIT | conf=1 | topic=math_vol9_ch05p2_polar_when_to_use | q=When should you use polar coordinates for double integrals?
+[s16q3] DIRECT_HIT | conf=1 | topic=math_vol9_ch05p2_convert_region_polar | q=How do you convert a region from Cartesian to polar?
+[s16q4] DIRECT_HIT | conf=1 | topic=math_vol9_ch05p2_polar_area_centroid | q=How do you find the area and centroid using polar double int
+[s17q1] DIRECT_HIT | conf=1 | topic=math_vol9_ch05p2_triple_integral | q=What is a triple integral and how do you compute it?
+[s17q2] DIRECT_HIT | conf=1 | topic=math_vol9_ch05p2_triple_general_solid | q=How do you set up a triple integral over a general solid?
+[s17q3] DIRECT_HIT | conf=1 | topic=math_vol9_ch05p2_cylindrical_coordinates | q=How do you evaluate triple integrals in cylindrical coordina
+[s17q4] DIRECT_HIT | conf=1 | topic=math_vol9_ch05p2_spherical_coordinates | q=How do you evaluate triple integrals in spherical coordinate
+[s18q1] DIRECT_HIT | conf=1 | topic=math_vol9_ch05p2_mass_center | q=How do you find the mass and center of mass using multiple i
+[s18q2] DIRECT_HIT | conf=1 | topic=math_vol9_ch05p2_moments_inertia | q=How do you find moments of inertia using multiple integrals?
+[s18q3] DIRECT_HIT | conf=1 | topic=math_vol9_ch05p2_surface_area_double | q=How do you find the surface area using double integrals?
+[s18q4] DIRECT_HIT | conf=1 | topic=math_vol9_ch05p2_probability_double | q=How do you find the probability using double integrals?
+
+=== SUMMARY ===
+Total queries: 83
+Direct hits: 79
+Cross/other matches: 4
+Misses: 0
+Direct hit rate: 95.2%

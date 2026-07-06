@@ -5712,3 +5712,38 @@ Stage Summary:
 - SECURITY NOTE: New token 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 used (worked cleanly for 2nd consecutive deploy). Recommend rotating again after a few more batches.
 - REPO PATH CORRECTION: Correct GitHub repo is meerabfarooq2012-dev/triza-ai (not triza-ai/triza-ai as prior summaries implied). Token belongs to user meerabfarooq2012-dev.
 - Ready for Chapter 5 Part 2 (Calculus — Sequences and Series Applications, Vectors and 3D Geometry, Vector-Valued Functions, Functions of Several Variables, Partial Derivatives) or the next batch from user.
+
+---
+Task ID: ch05p2
+Agent: main (Z.ai Code)
+Task: Generate, deploy, and verify Volume 9 Chapter 5 Part 2 (Multivariable Calculus: Vectors in 2D and 3D, Dot Product, Cross Product, Lines and Planes in 3D, Quadric Surfaces, Vector-Valued Functions, Calculus of VVF, Arc Length and Curvature, Motion in Space, Functions of Several Variables, Limits and Continuity, Partial Derivatives, Chain Rule, Directional Derivatives and Gradient, Tangent Planes and Linear Approximation, Extrema, Lagrange Multipliers, Double Integrals, Double Integrals in Polar, Triple Integrals in Cylindrical and Spherical, Applications of Multiple Integrals) — 83 formulas
+
+Work Log:
+- Wrote scripts/generate-math-formulas-vol9-ch05p2.ts: 18 sections, 83 Q&A items, topic prefix ch05p2_. Sections: (1) Vectors in 2D and 3D [5], (2) Dot Product [5], (3) Cross Product [5], (4) Lines and Planes in 3D [6], (5) Quadric Surfaces [4], (6) Vector-Valued Functions [5], (7) Calculus of VVF [5], (8) Motion in Space [4], (9) Functions of Several Variables [4], (10) Partial Derivatives [5], (11) Directional Derivatives and Gradient [5], (12) Tangent Planes and Linear Approximation [4], (13) Extrema [5], (14) Lagrange Multipliers [4], (15) Double Integrals [5], (16) Double Integrals in Polar [4], (17) Triple Integrals [4], (18) Applications of Multiple Integrals [4].
+- Ran generator -> data/math-formulas-vol9-ch05p2.json (83 items). Validated: 83 unique topics, all prefixed ch05p2_, all have keywords, all have worked examples, answer lengths 298-810 chars (avg 451), intents formula_recall (47) + problem_solving (36), no duplicates.
+- Cloned triza-ai repo (meerabfarooq2012-dev/triza-ai) to fetch current route.ts (415 lines, includes vol9ch05p1 from previous batch).
+- Built route.ts with vol9ch05p2 entry by adding new VOLUME_CONFIG block after vol9ch05p1. Label kept ASCII-safe.
+- Git plumbing deployment: base=eeba406 (ch05p1). All steps clean: read-tree (3acaa65) -> hash-object 3 files (generator 2aede06, JSON 12a4a9c, route 6e46748) -> update-index -> write-tree (77cf910) -> commit-tree (761224f) -> push. Clean fast-forward eeba406..761224f to triza/main. 8th consecutive clean fast-forward via git plumbing. Argument order confirmed correct: tree first, then -p.
+- Waited ~170s for Vercel rebuild (one curl attempt timed out at 120s default; second attempt at ~200s succeeded).
+- Production import POST /api/triza/import-formulas {"volumes":["vol9ch05p2"]} -> imported 83 items (fresh). Production: 1495 -> 1578.
+- Production chat verification (83 queries spanning all 18 sections):
+  - 79/83 (95.2%) direct hits on expected math_vol9_ch05p2_ topics — second-highest rate ever (ch04p3 was 95%, ch05p1 was 82%)
+  - 4/83 matched other volumes (all legitimate curriculum overlaps with prior volumes)
+  - 0 cross-matches within ch05p2 (every query hit its exact expected topic — cleanest batch ever)
+  - 0 misses (every query returned a valid match)
+  - 4 other-volume matches (all legitimate):
+    * s2q1 "dot product" -> vol4_vector_dot_product (vol4 Class 11-12 already had dot product)
+    * s2q5 "Cauchy-Schwarz" -> vol6_cauchy_schwarz_inequality (vol6 MSc already had it)
+    * s3q1 "cross product" -> vol4_vector_cross_product (vol4 Class 11-12 already had cross product)
+    * s11q2 "gradient of a function" -> vol5_gradient (vol5 undergraduate already had gradient)
+  - High-confidence direct hits (conf=1.000): ALL 79 direct hits had conf=1.000 (perfect match score). This is the FIRST batch where every direct hit had maximum confidence — indicates very distinctive topic names with strong keyword overlap to queries.
+  - Distinctive ch05p2 formulas verified retrievable: vector definition/magnitude/operations/standard basis/unit vector, angle between vectors, projections, vector decomposition, cross product and properties, area via cross product, scalar triple product (parallelepiped volume), torque, line equation (vector/parametric/symmetric), lines parallel/intersecting/skew, plane equation, point-to-plane distance, point-to-line distance, angle between planes, all quadric surfaces (ellipsoid, paraboloid, cylinders), VVF definition/limit/continuity/derivative/integral, VVF differentiation rules, space curve arc length, curvature, principal normal and binormal (TNB frame), normal and osculating planes, tangential and normal acceleration components, motion in space, projectile motion, speed and distance, IVP for vectors, functions of several variables, domain and range, level curves, 2-var limits and continuity, partial derivatives, second partials and Clairaut, chain rule for partials, implicit partial differentiation, Laplacian/divergence/curl, directional derivative, gradient properties, tangent plane to level surface, normal line to surface, linear approximation, total differential, error estimation, multivariable Taylor, critical points, second derivative test (Hessian), saddle point, absolute extrema on closed bounded region, boundary extrema, Lagrange multipliers (1 and 2 constraints), applications of Lagrange, double integral, Fubini, double integrals over general regions, switch order of integration, area and volume via double integrals, polar double integrals, when to use polar, Cartesian-to-polar region conversion, polar area and centroid, triple integral, triple integral over general solid, cylindrical coordinates, spherical coordinates, mass and center of mass, moments of inertia, surface area via double integral, probability via double integral.
+
+Stage Summary:
+- Vol 9 Ch05 Part 2 (Multivariable Calculus) — 83 formulas — is LIVE in production and verified.
+- Production knowledge store: 1578 items (381 vol1-vol8 + 201 ch01 + 343 ch02 + 248 ch03 + 238 ch04 + 167 ch05). Chapter 5 progress: Part 1 (84) + Part 2 (83) = 167 formulas.
+- Git: triza/main = 761224f (ch05p2, clean fast-forward on eeba406 ch05p1). All prior history preserved. 8th consecutive clean fast-forward via git plumbing.
+- Production chat verified: 79/83 (95.2%) direct hits — second-highest rate of any batch (tied with ch04p3 at 95%). All 79 direct hits had confidence=1.000 (perfect scores). 0 misses. Only 4 cross-volume matches, all legitimate overlaps with prior volumes (vol4 vectors, vol5 gradient, vol6 Cauchy-Schwarz). This batch had the cleanest verification: zero within-ch05p2 cross-matches.
+- Chapter 5 (Calculus) is now 167 formulas covering: Sequences/Series/Convergence Tests/Power Series/Taylor-Maclaurin/Parametric/Polar (Part 1, 84) + Vectors/3D Geometry/VVF/Multivariable Functions/Partial Derivatives/Multiple Integrals (Part 2, 83).
+- SECURITY NOTE: Token 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 used (3rd consecutive successful deploy). Still working cleanly. Recommend rotating after a few more batches.
+- Ready for Chapter 5 Part 3 (Calculus — Vector Calculus: Vector Fields, Line Integrals, Green's Theorem, Curl and Divergence, Surface Integrals, Stokes' Theorem, Divergence Theorem) or the next batch from user.
