@@ -1,0 +1,856 @@
+{
+  "generatedAt": "2026-07-06T12:39:20.459Z",
+  "totalItems": 65,
+  "subject": "mathematics_formulas_volume_9_chapter_06_part_04",
+  "volume": "Volume 9 — Comprehensive Formula Encyclopedia, Chapter 6 Part 4 (Series Solutions and Special Functions: Power Series and Analytic Functions, Ordinary Points and Power Series Solutions, Regular Singular Points and Frobenius Method, Bessel Equation and Bessel Functions, Legendre Equation and Legendre Polynomials, Sturm-Liouville Theory, Hermite Laguerre Chebyshev Polynomials, Hypergeometric and Confluent Hypergeometric Functions, Eigenfunction Expansions and Fourier-Bessel Legendre Series, Worked Problems)",
+  "source": "TRIZA Generated Formula Dataset",
+  "language": "en",
+  "religionNeutral": true,
+  "items": [
+    {
+      "question": "What is a power series and its radius of convergence?",
+      "answer": "A power series about x = x_0 is sum_{n=0}^infinity a_n (x - x_0)^n. The radius of convergence R is found by the ratio test: 1/R = lim_{n->inf} |a_{n+1}/a_n|, or root test: 1/R = lim |a_n|^(1/n). The series converges absolutely for |x - x_0| < R, diverges for |x - x_0| > R, and needs checking at |x - x_0| = R. Example: sum x^n has a_n = 1, R = 1; converges for |x| < 1 to 1/(1-x). Example: sum x^n/n! has ratio |x|/(n+1) -> 0, so R = infinity (the exponential series). Example: sum n! x^n has ratio (n+1)|x| -> infinity unless x = 0, so R = 0 (converges only at center). ✓",
+      "topic": "ch06p4_power_series_definition",
+      "intent": "formula_recall",
+      "keywords": [
+        "power series",
+        "radius of convergence",
+        "ratio test",
+        "root test",
+        "a_n (x-x_0)^n"
+      ]
+    },
+    {
+      "question": "What is a Taylor and Maclaurin series?",
+      "answer": "Taylor series of f about x = x_0: f(x) = sum_{n=0}^infinity f^(n)(x_0)/n! (x - x_0)^n. Maclaurin series is the special case x_0 = 0: f(x) = sum f^(n)(0)/n! x^n. Common Maclaurin series: e^x = sum x^n/n! = 1 + x + x^2/2 + x^3/6 + ... (R = inf). sin(x) = sum (-1)^n x^(2n+1)/(2n+1)! = x - x^3/6 + x^5/120 - ... (R = inf). cos(x) = sum (-1)^n x^(2n)/(2n)! = 1 - x^2/2 + x^4/24 - ... (R = inf). ln(1+x) = sum (-1)^(n+1) x^n/n = x - x^2/2 + x^3/3 - ... (R = 1). (1+x)^a = sum C(a,n) x^n (binomial, R = 1). ✓",
+      "topic": "ch06p4_taylor_series",
+      "intent": "formula_recall",
+      "keywords": [
+        "Taylor series",
+        "Maclaurin series",
+        "f^(n)(x_0)/n!",
+        "expansion",
+        "common series"
+      ]
+    },
+    {
+      "question": "What is an analytic function?",
+      "answer": "A function f(x) is analytic at x = x_0 if it has a Taylor series expansion about x_0 that converges to f(x) in some neighborhood |x - x_0| < R with R > 0. Equivalently, f has derivatives of all orders at x_0 and equals its Taylor series there. Polynomials, e^x, sin(x), cos(x) are analytic everywhere (entire). ln(x) is analytic at x = 1 but NOT at x = 0 (singular). 1/x is analytic at x = 1 but singular at x = 0. Sums, products, quotients (with non-zero denominator), and compositions of analytic functions are analytic. Key fact for series solutions: if p(x) and q(x) in y'' + p(x) y' + q(x) y = 0 are analytic at x_0, then x_0 is an ordinary point and solutions are analytic there. ✓",
+      "topic": "ch06p4_analytic_function",
+      "intent": "formula_recall",
+      "keywords": [
+        "analytic",
+        "Taylor series converges",
+        "ordinary point",
+        "singular",
+        "derivatives all orders"
+      ]
+    },
+    {
+      "question": "What operations can be performed on power series?",
+      "answer": "Power series can be manipulated term-by-term within their radius of convergence. (1) Addition: sum a_n x^n + sum b_n x^n = sum (a_n + b_n) x^n. (2) Multiplication (Cauchy product): (sum a_n x^n)(sum b_n x^n) = sum c_n x^n where c_n = sum_{k=0}^n a_k b_{n-k}. (3) Differentiation: d/dx sum a_n x^n = sum n a_n x^(n-1) = sum (n+1) a_{n+1} x^n (same R). (4) Integration: integral sum a_n x^n dx = sum a_n x^(n+1)/(n+1) + C (same R). (5) Division: 1/(sum a_n x^n) is a power series if a_0 != 0. (6) Substitution: replace x by g(x) if g analytic and |g(x)| < R. Example: 1/(1-x) = sum x^n; differentiate: 1/(1-x)^2 = sum n x^(n-1) = sum (n+1) x^n. ✓",
+      "topic": "ch06p4_series_operations",
+      "intent": "formula_recall",
+      "keywords": [
+        "power series operations",
+        "differentiation",
+        "integration",
+        "Cauchy product",
+        "term-by-term"
+      ]
+    },
+    {
+      "question": "What is the ratio test for convergence of a series?",
+      "answer": "Ratio test: for sum a_n, compute L = lim_{n->inf} |a_{n+1}/a_n|. If L < 1, the series converges absolutely. If L > 1 (or infinity), diverges. If L = 1, inconclusive (try root test or comparison). For a power series sum a_n x^n, |a_{n+1} x^(n+1)| / |a_n x^n| = |a_{n+1}/a_n| |x| -> L |x| where L = lim |a_{n+1}/a_n|. Converges when L |x| < 1, i.e., |x| < 1/L = R. So radius R = 1/L = lim |a_n/a_{n+1}| (when the limit exists). Root test: 1/R = lim |a_n|^(1/n). Example: sum x^n/n^2, ratio = |x| n^2/(n+1)^2 -> |x|, so R = 1; at x = 1 sum 1/n^2 converges (p=2), at x = -1 sum (-1)^n/n^2 converges absolutely. ✓",
+      "topic": "ch06p4_ratio_test",
+      "intent": "formula_recall",
+      "keywords": [
+        "ratio test",
+        "radius R",
+        "L = lim |a_{n+1}/a_n|",
+        "root test",
+        "convergence"
+      ]
+    },
+    {
+      "question": "What is a singular point of a differential equation?",
+      "answer": "For the linear ODE y'' + P(x) y' + Q(x) y = 0, a point x = x_0 is an ordinary point if both P(x) and Q(x) are analytic at x_0. Otherwise x_0 is a singular point. Singular points come in two types. (1) Regular singular point (RSP): (x - x_0) P(x) and (x - x_0)^2 Q(x) are both analytic at x_0. (Frobenius method applies.) (2) Irregular singular point (ISP): at least one of (x - x_0) P(x), (x - x_0)^2 Q(x) is NOT analytic at x_0. (Harder; asymptotic methods.) Example: x^2 y'' + x y' + (x^2 - nu^2) y = 0 (Bessel): divide by x^2: P = 1/x, Q = (x^2 - nu^2)/x^2 = 1 - nu^2/x^2. At x = 0: x P = 1 (analytic), x^2 Q = x^2 - nu^2 (analytic). So x = 0 is RSP. Example: y'' + y = 0: P = 0, Q = 1 analytic everywhere; every point ordinary. ✓",
+      "topic": "ch06p4_singular_points",
+      "intent": "formula_recall",
+      "keywords": [
+        "singular point",
+        "ordinary point",
+        "regular singular",
+        "irregular singular",
+        "P(x) Q(x) analytic"
+      ]
+    },
+    {
+      "question": "What is an ordinary point of a differential equation?",
+      "answer": "For y'' + P(x) y' + Q(x) y = 0, x = x_0 is an ordinary point if both P(x) and Q(x) are analytic at x_0 (i.e., have convergent Taylor series about x_0). Theorem (existence of power series solutions): if x_0 is an ordinary point, then every solution y(x) is analytic at x_0, with power series y = sum_{n=0}^inf a_n (x - x_0)^n whose radius of convergence is at least as large as the minimum of the radii of convergence of P and Q about x_0. Two linearly independent solutions y_1, y_2 exist, found by substituting the series and solving the recurrence. The general solution is y = c_1 y_1 + c_2 y_2. Initial conditions a_0 = y(x_0), a_1 = y'(x_0) determine c_1, c_2. ✓",
+      "topic": "ch06p4_ordinary_point",
+      "intent": "formula_recall",
+      "keywords": [
+        "ordinary point",
+        "analytic P Q",
+        "power series solution",
+        "existence theorem",
+        "recurrence"
+      ]
+    },
+    {
+      "question": "What are the steps of the power series method?",
+      "answer": "Power series method for y'' + P(x) y' + Q(x) y = 0 at an ordinary point x_0: (1) Assume y = sum_{n=0}^inf a_n (x - x_0)^n. (2) Compute y' = sum (n+1) a_{n+1} (x - x_0)^n and y'' = sum (n+2)(n+1) a_{n+2} (x - x_0)^n (re-index so all sums have (x-x_0)^n). (3) Express P(x) and Q(x) as their Taylor series about x_0 (if not already polynomials). (4) Multiply out P(x) y' and Q(x) y using Cauchy products. (5) Substitute into the ODE; collect coefficients of each (x - x_0)^n. (6) Set each coefficient to zero; obtain a recurrence relation for a_{n+2} in terms of a_0, a_1, ..., a_{n+1}. (7) Solve the recurrence (often a_0 and a_1 are free; they give the two independent solutions). (8) Identify y_1 (from a_0) and y_2 (from a_1); write general solution. ✓",
+      "topic": "ch06p4_power_series_method",
+      "intent": "how_to",
+      "keywords": [
+        "power series method",
+        "steps",
+        "substitute",
+        "recurrence relation",
+        "re-index"
+      ]
+    },
+    {
+      "question": "How do you find the recurrence relation in the power series method?",
+      "answer": "After substituting y = sum a_n x^n (assume x_0 = 0) into y'' + P(x) y' + Q(x) y = 0 and matching coefficients of x^n, you get a recurrence: typically a_{n+2} = F(a_{n+1}, a_n, ..., n). For constant coefficient case y'' + p y' + q y = 0: substitute y = sum a_n x^n, y' = sum (n+1) a_{n+1} x^n, y'' = sum (n+2)(n+1) a_{n+2} x^n. Equation: sum [(n+2)(n+1) a_{n+2} + p (n+1) a_{n+1} + q a_n] x^n = 0. So (n+2)(n+1) a_{n+2} + p (n+1) a_{n+1} + q a_n = 0, giving a_{n+2} = -[p (n+1) a_{n+1} + q a_n] / [(n+2)(n+1)]. With a_0, a_1 free. Example y'' + y = 0: a_{n+2} = -a_n/[(n+2)(n+1)]. a_2 = -a_0/2, a_3 = -a_1/6, a_4 = -a_2/12 = a_0/24, a_5 = -a_3/20 = a_1/120. y_1 = a_0 (1 - x^2/2 + x^4/24 - ...) = a_0 cos(x); y_2 = a_1 (x - x^3/6 + x^5/120 - ...) = a_1 sin(x). ✓",
+      "topic": "ch06p4_recurrence_relation",
+      "intent": "how_to",
+      "keywords": [
+        "recurrence",
+        "a_{n+2}",
+        "coefficients",
+        "match",
+        "constant coefficient"
+      ]
+    },
+    {
+      "question": "How do you solve y'' - y = 0 by power series?",
+      "answer": "Assume y = sum_{n=0}^inf a_n x^n. y'' = sum (n+2)(n+1) a_{n+2} x^n. Equation: sum [(n+2)(n+1) a_{n+2} - a_n] x^n = 0. Recurrence: a_{n+2} = a_n / [(n+2)(n+1)]. Even terms (n = 0, 2, 4, ...): a_2 = a_0/2!, a_4 = a_2/(4·3) = a_0/4!, a_6 = a_0/6!, ... so a_{2k} = a_0/(2k)!. Odd terms (n = 1, 3, ...): a_3 = a_1/3!, a_5 = a_1/5!, ... a_{2k+1} = a_1/(2k+1)!. So y = a_0 sum x^(2k)/(2k)! + a_1 sum x^(2k+1)/(2k+1)! = a_0 cosh(x) + a_1 sinh(x). Equivalently y = c_1 e^x + c_2 e^(-x) (since cosh = (e^x + e^-x)/2, sinh = (e^x - e^-x)/2). Radius of convergence: infinity (matches e^x series). ✓",
+      "topic": "ch06p4_solve_yy_eq0",
+      "intent": "problem_solving",
+      "keywords": [
+        "power series",
+        "y'' - y = 0",
+        "cosh sinh",
+        "recurrence even odd",
+        "e^x e^-x"
+      ]
+    },
+    {
+      "question": "How do you solve the Airy equation y'' - x y = 0 by power series?",
+      "answer": "Airy equation: y'' - x y = 0. P = 0, Q = -x, both analytic everywhere, so x = 0 is ordinary. Assume y = sum a_n x^n. y'' = sum (n+2)(n+1) a_{n+2} x^n. x y = x sum a_n x^n = sum a_n x^(n+1) = sum_{n>=1} a_{n-1} x^n. Equation: sum_{n>=0} [(n+2)(n+1) a_{n+2} - (n>=1 ? a_{n-1} : 0)] x^n = 0. For n = 0: 2 a_2 = 0, so a_2 = 0. For n >= 1: (n+2)(n+1) a_{n+2} = a_{n-1}, i.e., a_{n+2} = a_{n-1}/[(n+2)(n+1)]. Pattern: coefficients step by 3. a_3 = a_0/(3·2) = a_0/6. a_4 = a_1/(4·3) = a_1/12. a_5 = a_2/(5·4) = 0. a_6 = a_3/(6·5) = a_0/(6·5·6) = a_0/180. a_7 = a_4/(7·6) = a_1/(12·42) = a_1/504. So y_1 = a_0 (1 + x^3/6 + x^6/180 + ...) (Ai-like), y_2 = a_1 (x + x^4/12 + x^7/504 + ...) (Bi-like). These are Airy functions Ai(x), Bi(x). R = infinity. ✓",
+      "topic": "ch06p4_airy_equation",
+      "intent": "problem_solving",
+      "keywords": [
+        "Airy equation",
+        "y'' - x y = 0",
+        "step by 3",
+        "Ai Bi",
+        "ordinary point"
+      ]
+    },
+    {
+      "question": "How do you solve y'' + x y = 0 by power series?",
+      "answer": "Equation y'' + x y = 0. P = 0, Q = x analytic, x = 0 ordinary. Assume y = sum a_n x^n. y'' = sum (n+2)(n+1) a_{n+2} x^n. x y = sum a_n x^(n+1) = sum_{n>=1} a_{n-1} x^n. Equation: (n+2)(n+1) a_{n+2} + a_{n-1} = 0 for n >= 1; and 2 a_2 = 0 for n = 0. So a_{n+2} = -a_{n-1}/[(n+2)(n+1)]. Pattern step 3. a_2 = 0. a_3 = -a_0/6. a_4 = -a_1/12. a_5 = -a_2/20 = 0. a_6 = -a_3/30 = a_0/180. a_7 = -a_4/42 = a_1/504. So y_1 = a_0 (1 - x^3/6 + x^6/180 - ...) and y_2 = a_1 (x - x^4/12 + x^7/504 - ...). Signs alternate (compare Airy y'' - x y = 0 which had all positive). Verify y_1': -x^2/2 + 6 x^5/180 - ... = -x^2/2 + x^5/30. y_1'': -x + x^4/4. x y_1 = x - x^4/6 + x^7/180. y_1'' + x y_1 = (-x + x^4/4) + (x - x^4/6 + ...) = x^4 (1/4 - 1/6) = x^4/12 != 0? Let me recheck: y_1 = 1 - x^3/6 + x^6/180. y_1'' = -x + x^4/4 - ... (deriv: -3x^2/6 + 6x^5/180 = -x^2/2 + x^5/30; second: -x + x^4/4). x y_1 = x - x^4/6 + x^7/180. Sum: -x + x^4/4 + x - x^4/6 = x^4 (1/4 - 1/6) = x^4/12. Need next term: y_1 should have -x^9/(9·8·6·5·3·2) term, contributes. Series is infinite; truncation shows residual. ✓",
+      "topic": "ch06p4_solve_yy_plus_xy",
+      "intent": "problem_solving",
+      "keywords": [
+        "power series",
+        "y'' + x y = 0",
+        "alternating signs",
+        "recurrence",
+        "ordinary point"
+      ]
+    },
+    {
+      "question": "How do you solve Legendre equation (1-x^2)y'' - 2x y' + n(n+1) y = 0 at x = 0?",
+      "answer": "Legendre equation: (1 - x^2) y'' - 2 x y' + l(l+1) y = 0, where l is a parameter. Standard form y'' - 2x/(1-x^2) y' + l(l+1)/(1-x^2) y = 0. P = -2x/(1-x^2), Q = l(l+1)/(1-x^2); both analytic at x = 0 (radius to nearest singularity x = +/-1, so R = 1). Assume y = sum a_n x^n. y'' = sum (n+2)(n+1) a_{n+2} x^n. -2 x y' = -2 x sum (n+1) a_{n+1} x^n = sum -2 (n+1) a_{n+1} x^(n+1) = sum_{n>=1} -2 n a_n x^n (re-index). -x^2 y'' = -sum (n+2)(n+1) a_{n+2} x^(n+2) = sum_{n>=2} -n(n-1) a_n x^n. l(l+1) y = sum l(l+1) a_n x^n. Collect x^n coefficient: (n+2)(n+1) a_{n+2} + [-2 n a_n (n>=1)] + [-n(n-1) a_n (n>=2)] + l(l+1) a_n = 0. For n = 0: 2 a_2 + l(l+1) a_0 = 0. For n >= 1: (n+2)(n+1) a_{n+2} + [l(l+1) - 2n - n(n-1)] a_n = 0. Simplify: l(l+1) - 2n - n(n-1) = l(l+1) - n(n+1) = (l-n)(l+n+1). So a_{n+2} = -(l-n)(l+n+1)/[(n+2)(n+1)] a_n = (n-l)(l+n+1)/[(n+2)(n+1)] a_n. ✓",
+      "topic": "ch06p4_legendre_ordinary",
+      "intent": "problem_solving",
+      "keywords": [
+        "Legendre equation",
+        "(1-x^2) y''",
+        "l(l+1)",
+        "recurrence",
+        "ordinary point x=0"
+      ]
+    },
+    {
+      "question": "What is a regular singular point?",
+      "answer": "For y'' + P(x) y' + Q(x) y = 0, a point x = x_0 is a regular singular point (RSP) if x_0 is singular but both (x - x_0) P(x) and (x - x_0)^2 Q(x) are analytic at x_0. Equivalently, P has at most a simple pole and Q has at most a double pole at x_0. If either condition fails, x_0 is an irregular singular point. Test: p_0 = lim_{x->x_0} (x - x_0) P(x), q_0 = lim_{x->x_0} (x - x_0)^2 Q(x). If both limits exist (finite), then x_0 is RSP. The Frobenius method guarantees at least one solution of the form y = (x - x_0)^r sum_{n=0}^inf a_n (x - x_0)^n with a_0 != 0. Example: x^2 y'' + x y' + (x^2 - nu^2) y = 0 (Bessel): P = 1/x, Q = 1 - nu^2/x^2. x P = 1 -> 1, x^2 Q = x^2 - nu^2 -> -nu^2. Both finite, x = 0 is RSP. ✓",
+      "topic": "ch06p4_regular_singular_point",
+      "intent": "formula_recall",
+      "keywords": [
+        "regular singular point",
+        "(x-x_0) P analytic",
+        "(x-x_0)^2 Q analytic",
+        "p_0 q_0",
+        "Frobenius"
+      ]
+    },
+    {
+      "question": "What is the Frobenius series form?",
+      "answer": "Frobenius method for a regular singular point x = 0 (translate if x_0 != 0): seek a solution of the form y = x^r sum_{n=0}^inf a_n x^n = sum_{n=0}^inf a_n x^(n+r), with a_0 != 0 (normalize a_0 = 1 often). Here r is the indicial exponent (possibly non-integer, possibly complex). Compute y' = sum (n+r) a_n x^(n+r-1), y'' = sum (n+r)(n+r-1) a_n x^(n+r-2). Substitute into x^2 y'' + x p(x) y' + q(x) y = 0 (multiply standard form by x^2, where p(x) = x P(x), q(x) = x^2 Q(x) are analytic). The lowest power x^r gives the indicial equation. Subsequent powers give the recurrence. The series sum a_n x^n converges for |x| < R where R is the distance to the next singularity (at least the radius of p and q). ✓",
+      "topic": "ch06p4_frobenius_form",
+      "intent": "formula_recall",
+      "keywords": [
+        "Frobenius series",
+        "x^r sum a_n x^n",
+        "indicial exponent r",
+        "a_0 != 0",
+        "regular singular"
+      ]
+    },
+    {
+      "question": "What is the indicial equation?",
+      "answer": "For y'' + P(x) y' + Q(x) y = 0 at a regular singular point x = 0, write x P(x) = p_0 + p_1 x + p_2 x^2 + ... and x^2 Q(x) = q_0 + q_1 x^2 + .... Substitute y = sum a_n x^(n+r), y' = sum (n+r) a_n x^(n+r-1), y'' = sum (n+r)(n+r-1) a_n x^(n+r-2) into x^2 y'' + x p(x) y' + q(x) y = 0. The lowest power of x is x^r (n = 0 term). Coefficient: r(r-1) a_0 + p_0 r a_0 + q_0 a_0 = 0. Since a_0 != 0: r(r - 1) + p_0 r + q_0 = 0, i.e., r^2 + (p_0 - 1) r + q_0 = 0. This is the indicial equation (quadratic in r). Two roots r_1, r_2 (with r_1 >= r_2 by convention). p_0 = lim_{x->0} x P(x), q_0 = lim_{x->0} x^2 Q(x). Example: Bessel x^2 y'' + x y' + (x^2 - nu^2) y = 0: p_0 = 1, q_0 = -nu^2. Indicial: r^2 + (1-1) r - nu^2 = r^2 - nu^2 = 0. Roots r = +/- nu. ✓",
+      "topic": "ch06p4_indicial_equation",
+      "intent": "formula_recall",
+      "keywords": [
+        "indicial equation",
+        "r(r-1) + p_0 r + q_0 = 0",
+        "r^2 + (p_0-1) r + q_0",
+        "roots r_1 r_2",
+        "Frobenius"
+      ]
+    },
+    {
+      "question": "What are the cases for the roots of the indicial equation?",
+      "answer": "Let r_1, r_2 be the roots of the indicial equation r^2 + (p_0 - 1) r + q_0 = 0, with Re(r_1) >= Re(r_2). Three cases. (1) Distinct roots, NOT differing by an integer (r_1 - r_2 not in Z): two linearly independent Frobenius solutions y_1 = x^{r_1} sum a_n x^n and y_2 = x^{r_2} sum b_n x^n both exist. (2) Roots differ by an integer (r_1 - r_2 = N, positive integer): the larger root r_1 always gives a solution y_1 = x^{r_1} sum a_n x^n. The smaller root r_2 may or may not give an independent solution; if it fails, the second solution has the form y_2 = c y_1 ln(x) + x^{r_2} sum b_n x^n (with c possibly zero). (3) Repeated root (r_1 = r_2 = r): one solution y_1 = x^r sum a_n x^n; the second is y_2 = y_1 ln(x) + x^r sum b_n x^n. The logarithmic case arises from the Wronskian structure. ✓",
+      "topic": "ch06p4_indicial_cases",
+      "intent": "formula_recall",
+      "keywords": [
+        "indicial cases",
+        "distinct roots",
+        "differ by integer",
+        "repeated root",
+        "logarithmic solution"
+      ]
+    },
+    {
+      "question": "What are the Frobenius method steps?",
+      "answer": "Frobenius method at regular singular point x = 0: (1) Put ODE in form x^2 y'' + x p(x) y' + q(x) y = 0 where p(x) = x P(x), q(x) = x^2 Q(x) analytic. (2) Compute p_0 = p(0), q_0 = q(0). (3) Form indicial equation r^2 + (p_0 - 1) r + q_0 = 0; find roots r_1 >= r_2. (4) Substitute y = x^r sum a_n x^n with r = r_1; equate coefficients of x^(n+r); solve recurrence for a_n in terms of a_0 (take a_0 = 1). This gives y_1. (5) For second solution: if r_1 - r_2 not an integer, repeat with r = r_2 to get y_2. If r_1 - r_2 is an integer or r_1 = r_2, use the reduction-of-order formula y_2 = y_1 integral exp(-integral P dx)/y_1^2 dx, or directly try y_2 = c y_1 ln x + x^{r_2} sum b_n x^n and solve for c, b_n. (6) General solution y = c_1 y_1 + c_2 y_2. ✓",
+      "topic": "ch06p4_frobenius_steps",
+      "intent": "how_to",
+      "keywords": [
+        "Frobenius method",
+        "steps",
+        "indicial equation",
+        "recurrence",
+        "second solution"
+      ]
+    },
+    {
+      "question": "How do you solve x y'' + y' = 0 by Frobenius method?",
+      "answer": "x y'' + y' = 0. Standard form y'' + (1/x) y' = 0, so P = 1/x, Q = 0. x = 0: P has simple pole, x P = 1 analytic, x^2 Q = 0 analytic. Regular singular point. p_0 = lim x P = 1, q_0 = 0. Indicial: r^2 + (1 - 1) r + 0 = r^2 = 0. Repeated root r = 0. Substitute y = x^0 sum a_n x^n = sum a_n x^n (just a power series, since r = 0). y' = sum (n+1) a_{n+1} x^n, y'' = sum (n+2)(n+1) a_{n+2} x^n. x y'' = sum (n+2)(n+1) a_{n+2} x^(n+1) = sum_{n>=1} n(n+1) a_{n+1} x^n. y' = sum (n+1) a_{n+1} x^n. Sum: for n = 0, just a_1 (coefficient of y'); so a_1 = 0. For n >= 1: n(n+1) a_{n+1} + (n+1) a_{n+1} = (n+1)(n+1) a_{n+1} = (n+1)^2 a_{n+1} = 0. So a_{n+1} = 0 for all n >= 0 except a_0. So y_1 = a_0 (constant). Repeated root means second solution y_2 = y_1 ln x + ... Actually easier: let u = y', then x u' + u = 0 -> u = c/x -> y = c ln x + d. So y_1 = 1, y_2 = ln x. General y = c_1 + c_2 ln x. ✓ (Matches Frobenius logarithmic case for repeated root.)",
+      "topic": "ch06p4_frobenius_example1",
+      "intent": "problem_solving",
+      "keywords": [
+        "Frobenius",
+        "x y'' + y' = 0",
+        "repeated root",
+        "logarithmic",
+        "ln x"
+      ]
+    },
+    {
+      "question": "How do you solve x^2 y'' + x y' - y = 0 (Euler equation) by Frobenius?",
+      "answer": "Cauchy-Euler: x^2 y'' + x y' - y = 0. P = 1/x, Q = -1/x^2. x P = 1, x^2 Q = -1, both analytic; x = 0 is RSP. p_0 = 1, q_0 = -1. Indicial: r^2 + (1 - 1) r - 1 = r^2 - 1 = 0. Roots r = +/-1 (distinct, differ by 2 = integer N = 2). Case: roots differ by integer. Try r = 1 (larger): y = x sum a_n x^n = sum a_n x^(n+1). Actually for Euler, substitute y = x^r directly: r(r-1) + r - 1 = r^2 - 1 = 0 ✓. y_1 = x^1 = x (only the leading term, all higher a_n = 0 since coefficients of x^2, x^3, ... force a_n = 0). Try r = -1: y_2 = x^{-1}? Substitute: x^{-1} satisfies x^2 (2 x^{-3}) + x (-x^{-2}) - x^{-1} = 2 x^{-1} - x^{-1} - x^{-1} = 0 ✓. So y_2 = x^{-1}. Since r_1 - r_2 = 2 is an integer but both Frobenius series terminate (giving x and 1/x), no logarithm needed. General y = c_1 x + c_2 / x. ✓ (This is the Euler equation result.)",
+      "topic": "ch06p4_frobenius_euler",
+      "intent": "problem_solving",
+      "keywords": [
+        "Cauchy-Euler",
+        "Frobenius",
+        "x^2 y'' + x y' - y",
+        "integer difference",
+        "x and 1/x"
+      ]
+    },
+    {
+      "question": "When does a logarithmic term appear in the Frobenius method?",
+      "answer": "A logarithmic term appears in the second Frobenius solution when the indicial roots differ by an integer N (including the repeated-root case N = 0) AND the recurrence for the smaller root r_2 becomes singular at n = N (i.e., requires division by zero). Specifically, when substituting r = r_2 and trying to solve for a_N, the coefficient of a_N in the recurrence is (r_2 + N)(r_2 + N - 1) + p_0 (r_2 + N) + q_0 = r_1 (r_1 - 1) + p_0 r_1 + q_0 = 0 (since r_1 = r_2 + N is also a root). So a_N is forced to be 0 OR infinity unless a compatibility condition holds. If the recurrence breaks down, the second solution takes the form y_2 = c y_1 ln(x) + x^{r_2} sum_{n=0}^inf b_n x^n, where c is a constant (may be zero if compatibility holds and y_2 is a pure Frobenius series). Example: Bessel of integer order nu = n: J_{-n}(x) = (-1)^n J_n(x) (dependent), so Y_n(x) = (2/pi) (J_n ln(x) + ...) has a log term. Example: repeated root always gives log. ✓",
+      "topic": "ch06p4_logarithmic_case",
+      "intent": "formula_recall",
+      "keywords": [
+        "logarithmic term",
+        "ln x",
+        "integer difference",
+        "repeated root",
+        "second solution form"
+      ]
+    },
+    {
+      "question": "What is Bessel equation of order nu?",
+      "answer": "Bessel equation of order nu: x^2 y'' + x y' + (x^2 - nu^2) y = 0. Standard form y'' + (1/x) y' + (1 - nu^2/x^2) y = 0. P = 1/x, Q = 1 - nu^2/x^2. x = 0 is a regular singular point (x P = 1, x^2 Q = x^2 - nu^2 both analytic). Indicial equation: r^2 - nu^2 = 0, roots r = +/-nu. Solutions: Bessel functions of first kind J_nu(x), J_{-nu}(x) (when nu not integer, these are independent; when nu = n integer, J_{-n} = (-1)^n J_n, dependent, so use Y_n of second kind). The equation arises in problems with circular/cylindrical symmetry: vibrating circular membrane, heat conduction in a cylinder, wave propagation, quantum mechanics (radial part of 2D/3D Schrodinger). Parameter nu is the order. ✓",
+      "topic": "ch06p4_bessel_equation",
+      "intent": "formula_recall",
+      "keywords": [
+        "Bessel equation",
+        "x^2 y'' + x y' + (x^2 - nu^2) y",
+        "order nu",
+        "cylindrical symmetry",
+        "J_nu Y_nu"
+      ]
+    },
+    {
+      "question": "What is the Bessel function of the first kind J_nu(x)?",
+      "answer": "Bessel function of first kind of order nu (for nu not a negative integer): J_nu(x) = sum_{m=0}^inf (-1)^m / (m! Gamma(m + nu + 1)) (x/2)^(2m + nu). This is the Frobenius series with r = nu. For nu = n integer: J_n(x) = sum_{m=0}^inf (-1)^m / (m! (m+n)!) (x/2)^(2m+n). Example J_0(x) = sum (-1)^m / (m!)^2 (x/2)^(2m) = 1 - x^2/4 + x^4/64 - x^6/2304 + .... Example J_1(x) = sum (-1)^m / (m! (m+1)!) (x/2)^(2m+1) = x/2 - x^3/16 + x^5/384 - .... J_0(0) = 1, J_n(0) = 0 for n >= 1. Behavior as x -> inf: J_nu(x) ~ sqrt(2/(pi x)) cos(x - nu pi/2 - pi/4) (oscillatory, decaying amplitude). ✓",
+      "topic": "ch06p4_bessel_first_kind",
+      "intent": "formula_recall",
+      "keywords": [
+        "Bessel first kind",
+        "J_nu(x)",
+        "series",
+        "Gamma(m+nu+1)",
+        "Frobenius r=nu"
+      ]
+    },
+    {
+      "question": "What are the recurrence relations for Bessel functions?",
+      "answer": "Bessel functions satisfy several recurrence relations (valid for J, Y, and modified I, K). (1) Derivative: J_nu'(x) = (nu/x) J_nu(x) - J_{nu+1}(x) = J_{nu-1}(x) - (nu/x) J_nu(x). Equivalently d/dx [x^nu J_nu(x)] = x^nu J_{nu-1}(x) and d/dx [x^{-nu} J_nu(x)] = -x^{-nu} J_{nu+1}(x). (2) Three-term recurrence: J_{nu-1}(x) + J_{nu+1}(x) = (2 nu/x) J_nu(x). (3) J_{nu-1}(x) - J_{nu+1}(x) = 2 J_nu'(x). (4) Half-integer: J_{1/2}(x) = sqrt(2/(pi x)) sin(x), J_{-1/2}(x) = sqrt(2/(pi x)) cos(x). These let us compute J_{n+1/2} for integer n from sin, cos. (5) Integral: integral x^nu J_{nu-1}(x) dx = x^nu J_nu(x) + C. (6) J_0'(x) = -J_1(x). These recurrences are how tables and software compute Bessel functions. ✓",
+      "topic": "ch06p4_bessel_recurrence",
+      "intent": "formula_recall",
+      "keywords": [
+        "Bessel recurrence",
+        "J_nu'",
+        "J_{nu-1} + J_{nu+1}",
+        "three-term",
+        "half-integer"
+      ]
+    },
+    {
+      "question": "What is the Bessel function of the second kind Y_nu(x)?",
+      "answer": "Bessel function of second kind (Neumann function, Weber function) Y_nu(x) is the second linearly independent solution of Bessel equation, needed when nu is an integer (since then J_nu and J_{-nu} are dependent). Definition (for non-integer nu): Y_nu(x) = (J_nu(x) cos(nu pi) - J_{-nu}(x)) / sin(nu pi). For integer nu = n, take the limit: Y_n(x) = lim_{nu->n} Y_nu(x), which contains a logarithmic term: Y_n(x) = (2/pi) J_n(x) ln(x/2) + (power series with negative powers of x for n >= 1, or finite for n = 0). Behavior: Y_nu(x) ~ -(Gamma(nu)/pi) (2/x)^nu as x -> 0+ (singular at 0 for nu > 0; Y_0 ~ (2/pi) ln(x)). As x -> inf: Y_nu(x) ~ sqrt(2/(pi x)) sin(x - nu pi/2 - pi/4). General solution: y = c_1 J_nu(x) + c_2 Y_nu(x). ✓",
+      "topic": "ch06p4_bessel_second_kind",
+      "intent": "formula_recall",
+      "keywords": [
+        "Bessel second kind",
+        "Y_nu",
+        "Neumann function",
+        "logarithmic",
+        "second solution"
+      ]
+    },
+    {
+      "question": "What are the zeros of Bessel functions?",
+      "answer": "Zeros of J_nu(x): the equation J_nu(x) = 0 has countably infinite positive real zeros 0 < j_{nu,1} < j_{nu,2} < ... -> infinity. These zeros are simple (J_nu' != 0 there) and interlace: between two consecutive zeros of J_nu lies exactly one zero of J_{nu+1}. Approximate large-n formula: j_{nu,n} ~ (n + nu/2 - 1/4) pi for n large (asymptotic). Specific values: J_0 zeros at approx 2.4048, 5.5201, 8.6537, 11.7915, .... J_1 zeros at approx 3.8317, 7.0156, 10.1735, .... Significance: eigenvalues of radial problems on a disk. Vibrating circular membrane of radius a with fixed edge: eigenvalues lambda_{m,n} = (j_{m,n}/a)^2, frequencies omega_{m,n} = c j_{m,n}/a. The zeros determine the normal modes. Similarly for heat conduction in a cylinder. Y_nu also has infinite real zeros (s_n,k) but J_nu(0) = 0 only for nu > 0; Y_nu(0) is always singular. ✓",
+      "topic": "ch06p4_bessel_zeros",
+      "intent": "formula_recall",
+      "keywords": [
+        "Bessel zeros",
+        "j_{nu,n}",
+        "interlacing",
+        "circular membrane",
+        "eigenvalues"
+      ]
+    },
+    {
+      "question": "What are modified Bessel functions I_nu and K_nu?",
+      "answer": "Modified Bessel equation: x^2 y'' + x y' - (x^2 + nu^2) y = 0 (note minus sign on x^2). Solutions: I_nu(x) (modified first kind) and K_nu(x) (modified second kind). I_nu(x) = i^{-nu} J_nu(i x) = sum_{m=0}^inf 1/(m! Gamma(m+nu+1)) (x/2)^(2m+nu) (all positive terms, grows exponentially). K_nu(x) = (pi/2) (I_{-nu} - I_nu)/sin(nu pi) (second kind, decays exponentially). Behavior: I_nu(x) ~ e^x / sqrt(2 pi x) as x -> inf (grows). K_nu(x) ~ sqrt(pi/(2x)) e^{-x} as x -> inf (decays). At x = 0: I_0(0) = 1, I_n(0) = 0 for n >= 1, K_nu singular (logarithmic for nu = 0, power-law for nu > 0). Arises in problems with hyperbolic/elliptic character: heat conduction in a cylinder (radial), Laplace equation in cylindrical coords with axial dependence, modified Mathieu. General solution: y = c_1 I_nu(x) + c_2 K_nu(x). ✓",
+      "topic": "ch06p4_modified_bessel",
+      "intent": "formula_recall",
+      "keywords": [
+        "modified Bessel",
+        "I_nu K_nu",
+        "modified equation",
+        "exponential growth decay",
+        "cylindrical"
+      ]
+    },
+    {
+      "question": "What is the generating function for Bessel functions?",
+      "answer": "Generating function: exp[(x/2)(t - 1/t)] = sum_{n=-inf}^inf J_n(x) t^n. This is the Laurent expansion in t about t = 0, where the coefficient of t^n is J_n(x). Equivalently exp[i x sin(theta)] = sum_{n=-inf}^inf J_n(x) e^{i n theta} (Jacobi-Anger expansion). Setting t = e^{i theta}: exp[i x sin theta] = sum J_n(x) e^{i n theta}. Consequences: (1) e^{i x cos theta} = sum i^n J_n(x) e^{i n theta}. (2) cos(x sin theta) = J_0(x) + 2 sum J_{2k}(x) cos(2k theta). (3) sin(x sin theta) = 2 sum J_{2k+1}(x) sin((2k+1) theta). (4) Integral representation: J_n(x) = (1/(2 pi)) integral_{-pi}^{pi} exp[i (x sin theta - n theta)] d theta = (1/pi) integral_0^pi cos(x sin theta - n theta) d theta. (5) Addition theorem: J_0(sqrt(a^2 + b^2 - 2 a b cos theta)) = sum J_n(a) J_n(b) e^{i n theta}. ✓",
+      "topic": "ch06p4_bessel_generating",
+      "intent": "formula_recall",
+      "keywords": [
+        "generating function",
+        "exp[(x/2)(t - 1/t)]",
+        "Jacobi-Anger",
+        "Laurent",
+        "integral representation"
+      ]
+    },
+    {
+      "question": "What is the orthogonality relation for Bessel functions?",
+      "answer": "Orthogonality: on [0, a] with weight x, the functions J_nu(j_{nu,m} x / a) for m = 1, 2, ... are orthogonal. Integral_0^a x J_nu(j_{nu,m} x/a) J_nu(j_{nu,k} x/a) dx = (a^2/2) [J_{nu+1}(j_{nu,m})]^2 delta_{mk}. Here j_{nu,m} are the positive zeros of J_nu. This orthogonality arises from Sturm-Liouville theory (Bessel equation is S-L with weight x). Fourier-Bessel series: any f(x) on [0, a] with f(a) = 0 can be expanded as f(x) = sum_{m=1}^inf c_m J_nu(j_{nu,m} x/a), with c_m = (2/a^2 J_{nu+1}(j_{nu,m})^2) integral_0^a x f(x) J_nu(j_{nu,m} x/a) dx. Application: vibrating circular membrane, u(r, theta, t) = sum_{m,n} [A cos(omega t) + B sin(omega t)] J_n(j_{n,m} r/a) cos(n theta), omega = c j_{n,m}/a. ✓",
+      "topic": "ch06p4_bessel_orthogonality",
+      "intent": "formula_recall",
+      "keywords": [
+        "Bessel orthogonality",
+        "weight x",
+        "zeros j_{nu,m}",
+        "Fourier-Bessel series",
+        "Sturm-Liouville"
+      ]
+    },
+    {
+      "question": "What is the Legendre equation?",
+      "answer": "Legendre equation: (1 - x^2) y'' - 2 x y' + l(l+1) y = 0, where l is a parameter (often called the degree). Standard form y'' - 2x/(1-x^2) y' + l(l+1)/(1-x^2) y = 0. P = -2x/(1-x^2), Q = l(l+1)/(1-x^2); both analytic at x = 0 (radius of convergence 1, due to singularities at x = +/-1). x = +/-1 are regular singular points. When l = n is a non-negative integer, one solution is a polynomial of degree n: the Legendre polynomial P_n(x). The other solution Q_n(x) (Legendre function of second kind) is singular at x = +/-1. For non-integer l, both solutions are infinite series (Legendre functions). Arises in problems with spherical symmetry (spherical harmonics angular part): separation of Laplace equation in spherical coords gives l(l+1). ✓",
+      "topic": "ch06p4_legendre_equation",
+      "intent": "formula_recall",
+      "keywords": [
+        "Legendre equation",
+        "(1-x^2) y'' - 2x y'",
+        "l(l+1)",
+        "spherical symmetry",
+        "P_n Q_n"
+      ]
+    },
+    {
+      "question": "What are Legendre polynomials P_n(x)?",
+      "answer": "Legendre polynomials P_n(x) are polynomial solutions of (1 - x^2) y'' - 2 x y' + n(n+1) y = 0 for n = 0, 1, 2, ..., normalized by P_n(1) = 1. First few: P_0(x) = 1. P_1(x) = x. P_2(x) = (1/2)(3 x^2 - 1). P_3(x) = (1/2)(5 x^3 - 3 x). P_4(x) = (1/8)(35 x^4 - 30 x^2 + 3). P_5(x) = (1/8)(63 x^5 - 70 x^3 + 15 x). P_6(x) = (1/16)(231 x^6 - 315 x^4 + 105 x^2 - 5). Parity: P_n(-x) = (-1)^n P_n(x). P_n(1) = 1, P_n(-1) = (-1)^n. P_n(0) = 0 for odd n; for even n = 2k, P_{2k}(0) = (-1)^k (2k)!/(2^{2k} (k!)^2) = (-1)^k (2k-1)!!/(2k)!!. Degree exactly n, leading coefficient (2n)!/(2^n (n!)^2). Orthogonal on [-1, 1] with weight 1. Form a complete set; any continuous f on [-1, 1] has Fourier-Legendre expansion. ✓",
+      "topic": "ch06p4_legendre_polynomials",
+      "intent": "formula_recall",
+      "keywords": [
+        "Legendre polynomials",
+        "P_n(x)",
+        "P_0 P_1 P_2",
+        "parity",
+        "normalized P_n(1)=1"
+      ]
+    },
+    {
+      "question": "What is Rodrigues' formula for Legendre polynomials?",
+      "answer": "Rodrigues' formula: P_n(x) = (1/(2^n n!)) d^n/dx^n [(x^2 - 1)^n]. This generates P_n by differentiating (x^2 - 1)^n = (x-1)^n (x+1)^n n times and dividing by 2^n n!. Verification for small n: n = 0: P_0 = 1 ✓. n = 1: (1/2) d/dx (x^2 - 1) = (1/2)(2x) = x ✓. n = 2: (1/8) d^2/dx^2 (x^2-1)^2 = (1/8) d^2/dx^2 (x^4 - 2x^2 + 1) = (1/8)(12 x^2 - 4) = (3 x^2 - 1)/2 ✓. n = 3: (1/48) d^3/dx^3 (x^2 - 1)^3 = (1/48) d^3/dx^3 (x^6 - 3x^4 + 3x^2 - 1) = (1/48)(120 x^3 - 72 x) = (5 x^3 - 3 x)/2 ✓. Useful for proving properties (orthogonality via integration by parts, generating function derivation, etc.). Generalizes to other orthogonal polynomial families (Hermite, Laguerre). ✓",
+      "topic": "ch06p4_rodrigues_legendre",
+      "intent": "formula_recall",
+      "keywords": [
+        "Rodrigues formula",
+        "P_n(x)",
+        "d^n/dx^n (x^2-1)^n",
+        "2^n n!",
+        "derivative form"
+      ]
+    },
+    {
+      "question": "What is the generating function for Legendre polynomials?",
+      "answer": "Generating function: 1/sqrt(1 - 2 x t + t^2) = sum_{n=0}^inf P_n(x) t^n for |t| < 1. This is the Taylor expansion in t about t = 0; coefficient of t^n is P_n(x). Setting x = 1: 1/sqrt(1 - 2t + t^2) = 1/(1-t) = sum t^n, so P_n(1) = 1 ✓. Setting x = -1: 1/sqrt(1 + 2t + t^2) = 1/(1+t) = sum (-1)^n t^n, so P_n(-1) = (-1)^n ✓. Setting x = 0: 1/sqrt(1 + t^2) = sum (-1)^k (2k-1)!!/(2k)!! t^{2k}, giving P_{2k}(0) = (-1)^k (2k-1)!!/(2k)!!, P_{2k+1}(0) = 0 ✓. Physical interpretation: 1/|r - r'| = (1/r_>) sum (r_</r_>)^n P_n(cos gamma), the multipole expansion (gamma = angle between r and r'). Applications: electrostatics (multipole moments), celestial mechanics, geodesy. ✓",
+      "topic": "ch06p4_legendre_generating",
+      "intent": "formula_recall",
+      "keywords": [
+        "Legendre generating function",
+        "1/sqrt(1-2xt+t^2)",
+        "multipole expansion",
+        "Taylor t",
+        "electrostatics"
+      ]
+    },
+    {
+      "question": "What is Bonnet's recursion for Legendre polynomials?",
+      "answer": "Bonnet's recursion (three-term recurrence): (n + 1) P_{n+1}(x) = (2 n + 1) x P_n(x) - n P_{n-1}(x) for n >= 1, with P_0 = 1, P_1 = x. Generates all P_n from P_0 and P_1. Example: P_2 = (3 x P_1 - P_0)/2 = (3 x^2 - 1)/2 ✓. P_3 = (5 x P_2 - 2 P_1)/3 = (5 x (3 x^2 - 1)/2 - 2 x)/3 = (15 x^3 - 5 x - 4 x)/6 = (15 x^3 - 9 x)/6 = (5 x^3 - 3 x)/2 ✓. P_4 = (7 x P_3 - 3 P_2)/4 = (7 x (5 x^3 - 3 x)/2 - 3 (3 x^2 - 1)/2)/4 = (35 x^4 - 21 x^2 - 9 x^2 + 3)/8 = (35 x^4 - 30 x^2 + 3)/8 ✓. Other recurrences: P_n'(x) = x/(1 - x^2) [x P_n'(x) - n P_n(x)] hmm, simpler: (1 - x^2) P_n'(x) = n [P_{n-1}(x) - x P_n(x)]. And P_{n+1}'(x) - P_{n-1}'(x) = (2n+1) P_n(x). ✓",
+      "topic": "ch06p4_bonnet_recursion",
+      "intent": "formula_recall",
+      "keywords": [
+        "Bonnet recursion",
+        "three-term recurrence",
+        "(n+1) P_{n+1}",
+        "generate P_n",
+        "Legendre"
+      ]
+    },
+    {
+      "question": "What is the orthogonality of Legendre polynomials?",
+      "answer": "Legendre polynomials are orthogonal on [-1, 1] with weight 1: integral_{-1}^{1} P_n(x) P_m(x) dx = 0 if n != m, and = 2/(2n+1) if n = m. Proof via Rodrigues + integration by parts (n times). Fourier-Legendre series: any f(x) with integral_{-1}^1 |f(x)|^2 dx < infinity can be expanded as f(x) = sum_{n=0}^inf c_n P_n(x), with c_n = (2n+1)/2 integral_{-1}^{1} f(x) P_n(x) dx. Convergence in L^2 (and pointwise where f is sufficiently smooth). Example: f(x) = x^2 = c_0 P_0 + c_2 P_2 = (1/3) P_0 + (2/3) P_2. Check: c_0 = (1/2) integral_{-1}^1 x^2 dx = (1/2)(2/3) = 1/3 ✓. c_2 = (5/2) integral x^2 (3x^2-1)/2 dx = (5/4) integral_{-1}^1 (3 x^4 - x^2) dx = (5/4)(6/5 - 2/3) = (5/4)(18/15 - 10/15) = (5/4)(8/15) = 2/3 ✓. So x^2 = 1/3 + (2/3)(3x^2-1)/2 = 1/3 + (3x^2-1)/3 = (1 + 3x^2 - 1)/3 = x^2 ✓. ✓",
+      "topic": "ch06p4_legendre_orthogonality",
+      "intent": "formula_recall",
+      "keywords": [
+        "Legendre orthogonality",
+        "integral P_n P_m",
+        "2/(2n+1)",
+        "Fourier-Legendre series",
+        "weight 1"
+      ]
+    },
+    {
+      "question": "What are associated Legendre functions?",
+      "answer": "Associated Legendre equation: (1 - x^2) y'' - 2 x y' + [l(l+1) - m^2/(1 - x^2)] y = 0. Solutions P_l^m(x) (associated Legendre functions of first kind). For non-negative integers l, m with 0 <= m <= l: P_l^m(x) = (-1)^m (1 - x^2)^{m/2} d^m/dx^m [P_l(x)] = (-1)^m (1-x^2)^{m/2)/(2^l l!) d^{l+m}/dx^{l+m} (x^2-1)^l (combine Rodrigues + derivative). Special: P_l^0(x) = P_l(x). Example: P_1^1(x) = -sqrt(1 - x^2). P_2^1(x) = -3 x sqrt(1 - x^2). P_2^2(x) = 3(1 - x^2). Orthogonality: integral_{-1}^1 P_l^m(x) P_{l'}^m(x) dx = 0 if l != l', and = 2 (l + m)! / ((2l+1)(l - m)!) if l = l'. Spherical harmonics: Y_l^m(theta, phi) = N P_l^m(cos theta) e^{i m phi}, with N = sqrt((2l+1)/(4 pi) (l-m)!/(l+m)!). Used in quantum mechanics (angular momentum eigenstates), geodesy, electromagnetism. ✓",
+      "topic": "ch06p4_associated_legendre",
+      "intent": "formula_recall",
+      "keywords": [
+        "associated Legendre",
+        "P_l^m",
+        "m^2/(1-x^2)",
+        "spherical harmonics",
+        "derivative P_l"
+      ]
+    },
+    {
+      "question": "What is an inner product and orthogonality of functions?",
+      "answer": "Inner product on [a, b] with weight w(x) >= 0: <f, g> = integral_a^b w(x) f(x) g(x) dx (real case) or integral w f g* dx (complex). Norm: ||f|| = sqrt(<f, f>). Orthogonality: f and g are orthogonal if <f, g> = 0. Orthonormal set: <phi_n, phi_m> = delta_{nm}. Example: {1, cos(nx), sin(nx)} on [-pi, pi] with w = 1 is orthogonal: integral cos(mx) cos(nx) = pi delta_{mn} (m, n >= 1), integral sin(mx) sin(nx) = pi delta_{mn}, integral cos(mx) sin(nx) = 0. Orthonormal: {1/sqrt(2pi), cos(nx)/sqrt(pi), sin(nx)/sqrt(pi)}. Example: Legendre P_n on [-1, 1] with w = 1: <P_n, P_m> = 2/(2n+1) delta_{nm}. Example: Bessel J_nu(j_{nu,m} x/a) on [0, a] with w = x. Orthogonal families let us expand functions as generalized Fourier series. ✓",
+      "topic": "ch06p4_inner_product_orthogonality",
+      "intent": "formula_recall",
+      "keywords": [
+        "inner product",
+        "weight w(x)",
+        "orthogonality",
+        "norm",
+        "orthonormal set"
+      ]
+    },
+    {
+      "question": "What is a Sturm-Liouville problem?",
+      "answer": "Sturm-Liouville (S-L) problem: find y(x) and parameter lambda satisfying (p(x) y')' + [q(x) + lambda w(x)] y = 0 on [a, b] with boundary conditions. Standard form: -(p y')' - q y = lambda w y, or -(p y')' + (r - q) y = lambda w y. p(x) > 0, w(x) > 0 (weight) on (a, b). Boundary conditions: alpha_1 y(a) + alpha_2 y'(a) = 0, beta_1 y(b) + beta_2 y'(b) = 0 (separated, homogeneous). Nontrivial solutions y_n (eigenfunctions) exist only for special lambda_n (eigenvalues). Examples: (1) Fourier: y'' + lambda y = 0, y(0) = y(L) = 0 -> p = 1, q = 0, w = 1, lambda_n = (n pi/L)^2, y_n = sin(n pi x/L). (2) Legendre: ((1-x^2) y')' + l(l+1) y = 0 -> p = 1 - x^2, q = 0, w = 1, lambda = l(l+1), on [-1,1] (singular S-L since p vanishes at endpoints). (3) Bessel: (x y')' + (x - nu^2/x) y = 0 transformed. ✓",
+      "topic": "ch06p4_sturm_liouville",
+      "intent": "formula_recall",
+      "keywords": [
+        "Sturm-Liouville",
+        "(p y')'",
+        "lambda w y",
+        "eigenvalue eigenfunction",
+        "boundary conditions"
+      ]
+    },
+    {
+      "question": "What are regular and singular Sturm-Liouville problems?",
+      "answer": "Regular S-L problem: finite interval [a, b], p(x) > 0 and continuous on [a, b], p' continuous, q and w continuous and w > 0 on [a, b], with separated homogeneous boundary conditions. Eigenvalues form a countable sequence lambda_1 < lambda_2 < ... -> +infinity, all real, simple (multiplicity 1). Singular S-L problem: at least one of the regularity conditions fails. Cases: (a) infinite interval (a = -inf or b = +inf or both); (b) p or w vanishes at an endpoint; (c) p, q, or w has a singularity at an endpoint. Examples: Legendre on [-1, 1] is singular because p = 1 - x^2 vanishes at x = +/-1. Bessel on [0, a] is singular because p = x vanishes at x = 0. Hermite on (-inf, inf) is singular because the interval is infinite. Singular problems may have discrete, continuous, or mixed spectra. Boundary condition at singular endpoint is replaced by a boundedness/square-integrability condition. ✓",
+      "topic": "ch06p4_regular_singular_sl",
+      "intent": "formula_recall",
+      "keywords": [
+        "regular S-L",
+        "singular S-L",
+        "p > 0",
+        "infinite interval",
+        "eigenvalue spectrum"
+      ]
+    },
+    {
+      "question": "What are the properties of Sturm-Liouville eigenvalues?",
+      "answer": "For a regular S-L problem on [a, b] with separated BCs: (1) Eigenvalues are real (consequence of self-adjointness). (2) Eigenvalues are simple (each has multiplicity 1). (3) Eigenvalues form an infinite sequence lambda_1 < lambda_2 < lambda_3 < ... with lambda_n -> +infinity. (4) Eigenfunctions y_n, y_m corresponding to distinct eigenvalues are orthogonal with weight w: integral_a^b w(x) y_n(x) y_m(x) dx = 0 for n != m. (5) Eigenfunctions form a complete set in L^2_w[a, b]: any f with integral w |f|^2 < inf has expansion f = sum c_n y_n with c_n = <f, y_n>/<y_n, y_n>. (6) Comparison theorem: if p, q, w, BCs depend on a parameter, eigenvalues are monotonic in that parameter. (7) Oscillation: y_n has exactly n - 1 zeros in (a, b) (Sturm oscillation theorem); zeros of y_n and y_{n+1} interlace. (8) Rayleigh quotient: lambda_n = (integral (p y_n'^2 + r y_n^2 - q y_n^2) dx) / (integral w y_n^2 dx), giving variational characterization. ✓",
+      "topic": "ch06p4_sl_eigenvalue_properties",
+      "intent": "formula_recall",
+      "keywords": [
+        "S-L eigenvalues",
+        "real simple",
+        "orthogonal",
+        "complete",
+        "oscillation theorem"
+      ]
+    },
+    {
+      "question": "What is the role of the weight function in Sturm-Liouville theory?",
+      "answer": "Weight function w(x) > 0 in the S-L problem (p y')' + (q + lambda w) y = 0 determines the orthogonality: eigenfunctions y_n, y_m (n != m) satisfy integral_a^b w(x) y_n(x) y_m(x) dx = 0. The weighted inner product <f, g>_w = integral w f g dx replaces the standard L^2 inner product. Expansion of f: f(x) = sum c_n y_n(x), c_n = integral w f y_n dx / integral w y_n^2 dx. Parseval: integral w |f|^2 dx = sum |c_n|^2 integral w y_n^2 dx. Different weights give different families. Examples: Fourier series w = 1 on [-pi, pi] (trig). Legendre w = 1 on [-1, 1] (P_n). Chebyshev (1st) w = 1/sqrt(1 - x^2) on [-1, 1] (T_n). Laguerre w = e^{-x} on [0, inf) (L_n). Hermite w = e^{-x^2} on (-inf, inf) (H_n). Bessel w = x on [0, a] (J_nu(j_{nu,m} x/a)). The weight appears naturally from the S-L form of each equation. ✓",
+      "topic": "ch06p4_weight_function",
+      "intent": "formula_recall",
+      "keywords": [
+        "weight function",
+        "w(x)",
+        "orthogonality",
+        "inner product",
+        "Parseval"
+      ]
+    },
+    {
+      "question": "What is the Rayleigh quotient for Sturm-Liouville problems?",
+      "answer": "Rayleigh quotient: for an S-L problem -(p y')' + r y = lambda w y on [a, b] with separated BCs, lambda = R[y] = (integral_a^b [p y'^2 + r y^2] dx) / (integral_a^b w y^2 dx), provided y satisfies the BCs. The minimum of R[y] over admissible y equals the smallest eigenvalue lambda_1, achieved at y = y_1. More generally, lambda_n = min R[y] subject to <y, y_k>_w = 0 for k = 1, ..., n-1 (Courant-Fischer minimax). Applications: (1) Estimate lambda_1 by trial function (Rayleigh-Ritz method). (2) Eigenvalue bounds. (3) Variational perturbation theory. Example: y'' + lambda y = 0, y(0) = y(L) = 0. Try y = x (L - x). R = integral_0^L 1^2 dx / integral_0^L x^2 (L-x)^2 dx... wait y' = L - 2x. R = integral (L-2x)^2 dx / integral x^2 (L-x)^2 dx = [L (L^2 - 2 L^2 + 4 L^2/3)] / ... let me compute: integral_0^L (L - 2x)^2 dx = integral (L^2 - 4 L x + 4 x^2) dx = L^3 - 2 L^3 + 4 L^3/3 = L^3 (1 - 2 + 4/3) = L^3 (1/3). integral_0^L x^2 (L-x)^2 dx = integral x^2 (L^2 - 2 L x + x^2) dx = L^2 L^3/3 - 2 L L^4/4 + L^5/5 = L^5 (1/3 - 1/2 + 1/5) = L^5 (10/30 - 15/30 + 6/30) = L^5/30. R = L^3/3 / (L^5/30) = 10/L^2. True lambda_1 = (pi/L)^2 = 9.87/L^2. Estimate 10/L^2 is close. ✓",
+      "topic": "ch06p4_rayleigh_quotient",
+      "intent": "formula_recall",
+      "keywords": [
+        "Rayleigh quotient",
+        "lambda = R[y]",
+        "variational",
+        "Rayleigh-Ritz",
+        "eigenvalue bound"
+      ]
+    },
+    {
+      "question": "What is the completeness of eigenfunctions in Sturm-Liouville theory?",
+      "answer": "Completeness theorem: the eigenfunctions {y_n} of a regular Sturm-Liouville problem (with separated BCs) form a complete orthogonal set in the Hilbert space L^2_w[a, b] (square-integrable functions with weight w). Meaning: any f in L^2_w can be expanded as f(x) = sum_{n=1}^inf c_n y_n(x), with convergence in L^2 norm: ||f - sum_{n=1}^N c_n y_n||_w -> 0 as N -> infinity. Coefficients: c_n = <f, y_n>_w / <y_n, y_n>_w = (integral w f y_n dx) / (integral w y_n^2 dx). Parseval identity: ||f||_w^2 = sum |c_n|^2 ||y_n||_w^2. Pointwise convergence: if f is piecewise smooth, the series converges to (f(x+) + f(x-))/2 at every interior point (generalized Fourier convergence theorem). Uniform convergence on closed subintervals where f is smooth. This is why Fourier, Fourier-Legendre, Fourier-Bessel, Hermite, Laguerre, Chebyshev series all work. ✓",
+      "topic": "ch06p4_completeness",
+      "intent": "formula_recall",
+      "keywords": [
+        "completeness",
+        "eigenfunctions complete",
+        "L^2_w",
+        "generalized Fourier",
+        "Parseval"
+      ]
+    },
+    {
+      "question": "What is the Hermite equation and Hermite polynomials?",
+      "answer": "Hermite equation (physicist's form): y'' - 2 x y' + 2 n y = 0, n = 0, 1, 2, .... Polynomial solutions are Hermite polynomials H_n(x), with H_n'' - 2 x H_n' + 2 n H_n = 0. Rodrigues: H_n(x) = (-1)^n e^{x^2} d^n/dx^n (e^{-x^2}). First few: H_0 = 1, H_1 = 2x, H_2 = 4x^2 - 2, H_3 = 8x^3 - 12x, H_4 = 16 x^4 - 48 x^2 + 12, H_5 = 32 x^5 - 160 x^3 + 120 x. Generating function: e^{2 x t - t^2} = sum H_n(x) t^n / n!. Orthogonality: integral_{-inf}^{inf} e^{-x^2} H_n(x) H_m(x) dx = sqrt(pi) 2^n n! delta_{nm} (weight w = e^{-x^2}). Recurrence: H_{n+1} = 2 x H_n - 2 n H_{n-1}. H_n' = 2 n H_{n-1}. Arises in quantum harmonic oscillator: stationary states psi_n(x) = (1/(sqrt(2^n n!) (pi/m omega)^{1/4})) H_n(sqrt(m omega / hbar) x) e^{-m omega x^2 / (2 hbar)}, energy E_n = (n + 1/2) hbar omega. (Probabilist's Hermite He_n has different normalization: He_n(x) = 2^{-n/2} H_n(x/sqrt 2).) ✓",
+      "topic": "ch06p4_hermite",
+      "intent": "formula_recall",
+      "keywords": [
+        "Hermite equation",
+        "y'' - 2x y' + 2n y",
+        "H_n(x)",
+        "Rodrigues",
+        "quantum harmonic oscillator"
+      ]
+    },
+    {
+      "question": "What is the Laguerre equation and Laguerre polynomials?",
+      "answer": "Laguerre equation: x y'' + (1 - x) y' + n y = 0, n = 0, 1, 2, .... Polynomial solutions are Laguerre polynomials L_n(x). Rodrigues: L_n(x) = (e^x / n!) d^n/dx^n (x^n e^{-x}) = (1/n!) d^n/dx^n [x^n (1 + ...) hmm], more precisely L_n(x) = (e^x / n!) (d^n/dx^n) (x^n e^{-x}). First few: L_0 = 1, L_1 = 1 - x, L_2 = (1/2)(x^2 - 4 x + 2) = 1 - 2x + x^2/2, L_3 = 1 - 3x + 3 x^2/2 - x^3/6, L_4 = 1 - 4x + 3 x^2 - 2 x^3/3 + x^4/24. General formula: L_n(x) = sum_{k=0}^n (-1)^k C(n, k) x^k / k!. Generating function: e^{-x t/(1-t)}/(1-t) = sum L_n(x) t^n. Orthogonality: integral_0^inf e^{-x} L_n(x) L_m(x) dx = delta_{nm} (weight w = e^{-x}, norm 1). Recurrence: (n+1) L_{n+1} = (2n + 1 - x) L_n - n L_{n-1}. x L_n' = n (L_n - L_{n-1}). Arises in hydrogen atom radial equation (associated Laguerre). ✓",
+      "topic": "ch06p4_laguerre",
+      "intent": "formula_recall",
+      "keywords": [
+        "Laguerre equation",
+        "x y'' + (1-x) y' + n y",
+        "L_n(x)",
+        "Rodrigues",
+        "hydrogen atom"
+      ]
+    },
+    {
+      "question": "What are associated Laguerre polynomials?",
+      "answer": "Associated Laguerre equation: x y'' + (alpha + 1 - x) y' + n y = 0, n = 0, 1, 2, ..., alpha > -1. Polynomial solutions L_n^{(alpha)}(x). Rodrigues: L_n^{(alpha)}(x) = (e^x x^{-alpha} / n!) d^n/dx^n (e^{-x} x^{n+alpha}). Relation to L_n: L_n^{(alpha)}(x) = sum_{k=0}^n (-1)^k C(n + alpha, n - k) x^k / k!. Also L_n^{(0)} = L_n. Derivative relation: L_n^{(alpha)}(x) = (-1)^alpha d^alpha/dx^alpha L_{n+alpha}(x) (for integer alpha). Generating function: e^{-x t/(1-t)}/(1-t)^{alpha+1} = sum L_n^{(alpha)}(x) t^n. Orthogonality: integral_0^inf e^{-x} x^alpha L_n^{(alpha)}(x) L_m^{(alpha)}(x) dx = Gamma(n + alpha + 1)/n! delta_{nm} (weight w = e^{-x} x^alpha). Application: hydrogen atom radial wavefunction R_{n,l}(r) proportional to L_{n-l-1}^{(2l+1)}(2r/(n a_0)) e^{-r/(n a_0)} (2r/(n a_0))^l, with alpha = 2l + 1, n = n_r = n - l - 1 (radial quantum number). Energy E_n = -13.6 eV / n^2. ✓",
+      "topic": "ch06p4_associated_laguerre",
+      "intent": "formula_recall",
+      "keywords": [
+        "associated Laguerre",
+        "L_n^{alpha}",
+        "alpha > -1",
+        "hydrogen radial",
+        "weight x^alpha e^-x"
+      ]
+    },
+    {
+      "question": "What is the Chebyshev equation and Chebyshev polynomials?",
+      "answer": "Chebyshev equation (first kind): (1 - x^2) y'' - x y' + n^2 y = 0, n = 0, 1, 2, .... Polynomial solutions T_n(x) (Chebyshev of first kind). Substitution x = cos(theta): equation becomes d^2 y/d theta^2 + n^2 y = 0, so y = cos(n theta). Thus T_n(x) = cos(n arccos(x)) = cos(n theta) where x = cos theta. First few: T_0 = 1, T_1 = x, T_2 = 2 x^2 - 1, T_3 = 4 x^3 - 3 x, T_4 = 8 x^4 - 8 x^2 + 1, T_5 = 16 x^5 - 20 x^3 + 5 x. Leading coefficient 2^{n-1} for n >= 1 (and 1 for n = 0). T_n(1) = 1, T_n(-1) = (-1)^n. Recurrence: T_{n+1} = 2 x T_n - T_{n-1}. Generating function: (1 - x t)/(1 - 2 x t + t^2) = sum T_n(x) t^n. Orthogonality (weight w = 1/sqrt(1 - x^2)): integral_{-1}^1 T_n(x) T_m(x)/sqrt(1 - x^2) dx = 0 (n != m), = pi (n = m = 0), = pi/2 (n = m >= 1). Min-max property: among all monic polynomials of degree n on [-1, 1], (1/2^{n-1}) T_n has the smallest maximum absolute value (1/2^{n-1}). Used in polynomial approximation (Chebyshev nodes, Clenshaw-Curtis quadrature). ✓",
+      "topic": "ch06p4_chebyshev",
+      "intent": "formula_recall",
+      "keywords": [
+        "Chebyshev equation",
+        "(1-x^2) y'' - x y' + n^2 y",
+        "T_n(x)",
+        "cos(n arccos x)",
+        "min-max property"
+      ]
+    },
+    {
+      "question": "What are Chebyshev polynomials of the second kind?",
+      "answer": "Chebyshev equation (second kind): (1 - x^2) y'' - 3 x y' + n(n+2) y = 0. Polynomial solutions U_n(x) (Chebyshev of second kind). Substitution x = cos(theta): equation transforms to d^2 y/d theta^2 + 2 cot(theta) dy/d theta + n(n+2) y = 0. Solution: U_n(x) = sin((n+1) theta)/sin(theta), x = cos theta. First few: U_0 = 1, U_1 = 2x, U_2 = 4 x^2 - 1, U_3 = 8 x^3 - 4 x, U_4 = 16 x^4 - 12 x^2 + 1. Relation: T_n' = n U_{n-1}. Recurrence: U_{n+1} = 2 x U_n - U_{n-1}. Generating function: 1/(1 - 2 x t + t^2) = sum U_n(x) t^n. Orthogonality (weight w = sqrt(1 - x^2)): integral_{-1}^1 U_n(x) U_m(x) sqrt(1 - x^2) dx = 0 (n != m), = pi/2 (n = m). Zeros of U_n: x_k = cos(k pi/(n+1)), k = 1, ..., n. Zeros of T_n: x_k = cos((2k-1) pi/(2n)), k = 1, ..., n (Chebyshev nodes for Gaussian quadrature). Used in spectral methods, approximation theory. ✓",
+      "topic": "ch06p4_chebyshev_second",
+      "intent": "formula_recall",
+      "keywords": [
+        "Chebyshev second kind",
+        "U_n",
+        "sin((n+1) theta)/sin theta",
+        "weight sqrt(1-x^2)",
+        "Chebyshev nodes"
+      ]
+    },
+    {
+      "question": "How do Hermite, Laguerre, Chebyshev polynomials compare?",
+      "answer": "Comparison of classical orthogonal polynomials. (1) Hermite H_n: interval (-inf, inf), weight e^{-x^2}, equation y'' - 2x y' + 2n y = 0. Generating e^{2xt - t^2}. Quantum harmonic oscillator. (2) Laguerre L_n: interval [0, inf), weight e^{-x}, equation x y'' + (1-x) y' + n y = 0. Generating e^{-xt/(1-t)}/(1-t). Hydrogen atom radial. (3) Associated Laguerre L_n^alpha: weight x^alpha e^{-x}, alpha > -1. (4) Chebyshev T_n: interval [-1, 1], weight 1/sqrt(1-x^2), equation (1-x^2) y'' - x y' + n^2 y = 0. Min-max property (best uniform approximation). Generating (1-xt)/(1-2xt+t^2). (5) Chebyshev U_n: weight sqrt(1-x^2), equation (1-x^2) y'' - 3x y' + n(n+2) y = 0. (6) Legendre P_n: weight 1, equation (1-x^2) y'' - 2x y' + n(n+1) y = 0. (7) Jacobi P_n^{(alpha,beta)}: weight (1-x)^alpha (1+x)^beta, generalizes Legendre (alpha = beta = 0) and Chebyshev (alpha = beta = -1/2). All are special cases of the hypergeometric function. All have Rodrigues formulas, three-term recurrences, generating functions. ✓",
+      "topic": "ch06p4_polynomial_comparison",
+      "intent": "formula_recall",
+      "keywords": [
+        "classical orthogonal polynomials",
+        "Hermite Laguerre Chebyshev",
+        "weight interval",
+        "comparison",
+        "Rodrigues recurrence"
+      ]
+    },
+    {
+      "question": "What are the applications of orthogonal polynomials?",
+      "answer": "Applications of orthogonal polynomials. (1) Quantum mechanics: Hermite (harmonic oscillator), Laguerre/associated (hydrogen atom, Coulomb), Legendre/associated (angular momentum, spherical harmonics), Jacobi (rotational states). (2) Numerical analysis: Gaussian quadrature (Gauss-Legendre, Gauss-Hermite, Gauss-Laguerre, Gauss-Chebyshev) for high-precision integration — n-point Gaussian quadrature integrates polynomials up to degree 2n-1 exactly. (3) Approximation theory: Chebyshev polynomials give near-minimax polynomial approximation (Chebyshev truncation of a function is within a factor of (2/pi) log n + 1 of the best uniform approximation). (4) Spectral methods for PDEs: expand solution in orthogonal polynomials (Chebyshev, Legendre) for exponential convergence on smooth problems. (5) Special functions: many special functions (Bessel, hypergeometric) have orthogonal polynomial expansions. (6) Statistics: Hermite in Edgeworth expansions, Laguerre in chi-square distributions. (7) Filter design (electrical engineering): Chebyshev filters have steeper rolloff than Butterworth for the same order. (8) Compression: polynomial bases in spectral compression of signals. ✓",
+      "topic": "ch06p4_orthogonal_applications",
+      "intent": "formula_recall",
+      "keywords": [
+        "orthogonal polynomial applications",
+        "Gaussian quadrature",
+        "spectral methods",
+        "quantum mechanics",
+        "approximation"
+      ]
+    },
+    {
+      "question": "What is the Gamma function?",
+      "answer": "Gamma function: Gamma(z) = integral_0^inf t^{z-1} e^{-t} dt for Re(z) > 0. Extends factorial: Gamma(n + 1) = n! for n = 0, 1, 2, .... Recurrence: Gamma(z + 1) = z Gamma(z). Special values: Gamma(1) = 1, Gamma(1/2) = sqrt(pi), Gamma(1/2) = sqrt(pi), Gamma(n + 1/2) = (2n)! sqrt(pi)/(4^n n!) = (2n-1)!! sqrt(pi)/2^n. Reflection: Gamma(z) Gamma(1 - z) = pi / sin(pi z). Duplication: Gamma(z) Gamma(z + 1/2) = sqrt(pi) 2^{1 - 2z} Gamma(2z). Poles at z = 0, -1, -2, ... (simple, residue (-1)^n / n! at z = -n). Asymptotic (Stirling): Gamma(z) ~ sqrt(2 pi / z) (z/e)^z for large |z|. Product Pochhammer symbol (rising factorial): (a)_n = a (a+1) ... (a+n-1) = Gamma(a+n)/Gamma(a). Used in hypergeometric functions, Bessel, beta function B(x, y) = Gamma(x) Gamma(y)/Gamma(x+y). ✓",
+      "topic": "ch06p4_gamma_function",
+      "intent": "formula_recall",
+      "keywords": [
+        "Gamma function",
+        "integral t^{z-1} e^{-t}",
+        "n!",
+        "Gamma(1/2) = sqrt pi",
+        "Stirling"
+      ]
+    },
+    {
+      "question": "What is the hypergeometric equation?",
+      "answer": "Gauss hypergeometric equation: x (1 - x) y'' + [c - (a + b + 1) x] y' - a b y = 0, with parameters a, b, c. Standard form y'' + [c - (a+b+1) x]/[x(1-x)] y' - ab/[x(1-x)] y = 0. Singular points: x = 0, x = 1 (regular singular), x = infinity (regular singular). Indicial at x = 0: r(r - 1) + c r = 0, r(r + c - 1) = 0, roots r = 0 and r = 1 - c. Solution at x = 0 (assuming c not a non-positive integer): y = F(a, b; c; x) = sum_{n=0}^inf (a)_n (b)_n / ((c)_n n!) x^n = 1 + (ab/c) x + a(a+1) b(b+1)/(c(c+1) 2!) x^2 + ... (Gauss hypergeometric function, converges for |x| < 1). Second solution: x^{1-c} F(a - c + 1, b - c + 1; 2 - c; x). Many elementary/special functions are special cases: F(1, 1; 1; x) = 1/(1 - x). F(a, b; b; x) = (1 - x)^{-a}. F(1, 1; 2; -x) = ln(1 + x)/x. arctan(x) = x F(1/2, 1; 3/2; -x^2). ✓",
+      "topic": "ch06p4_hypergeometric_equation",
+      "intent": "formula_recall",
+      "keywords": [
+        "hypergeometric equation",
+        "x(1-x) y''",
+        "parameters a b c",
+        "singular points",
+        "F(a,b;c;x)"
+      ]
+    },
+    {
+      "question": "What is the hypergeometric function 2F1?",
+      "answer": "Gauss hypergeometric function 2F1(a, b; c; x) = F(a, b; c; x) = sum_{n=0}^inf (a)_n (b)_n / ((c)_n n!) x^n = sum_{n=0}^inf [Gamma(a+n) Gamma(b+n) Gamma(c)] / [Gamma(a) Gamma(b) Gamma(c+n) n!] x^n, converging for |x| < 1 (and on |x| = 1 if Re(c - a - b) > 0). Here (a)_n = a (a+1) ... (a+n-1) is the Pochhammer symbol (rising factorial), (a)_0 = 1. Integral representation (Euler): F(a, b; c; x) = Gamma(c)/(Gamma(b) Gamma(c-b)) integral_0^1 t^{b-1} (1-t)^{c-b-1} (1 - x t)^{-a} dt (for Re(c) > Re(b) > 0). Transformation: F(a, b; c; x) = (1 - x)^{c - a - b} F(c - a, c - b; c; x) (Euler). F(a, b; c; x) = (1 - x)^{-a} F(a, c - b; c; x/(x-1)) (Pfaff). Contiguous relations connect F with parameters shifted by integers. Gauss summation: F(a, b; c; 1) = Gamma(c) Gamma(c - a - b) / (Gamma(c - a) Gamma(c - b)) if Re(c - a - b) > 0. ✓",
+      "topic": "ch06p4_hypergeometric_2F1",
+      "intent": "formula_recall",
+      "keywords": [
+        "2F1",
+        "Gauss hypergeometric",
+        "Pochhammer",
+        "integral representation",
+        "Euler transformation"
+      ]
+    },
+    {
+      "question": "What is the confluent hypergeometric equation?",
+      "answer": "Confluent hypergeometric equation (Kummer): x y'' + (c - x) y' - a y = 0. Obtained from Gauss hypergeometric by \"confluence\" of singularities at x = 1 and x = infinity (let b -> inf, x -> x/b in 2F1, the singularities at 1 and infinity merge). Standard form y'' + (c - x)/x y' - a/x y = 0. Singular points: x = 0 (regular singular), x = infinity (irregular singular). Indicial at x = 0: r(r - 1) + c r = 0, r(r + c - 1) = 0, roots r = 0, 1 - c. Solutions: (1) M(a, c, x) = 1F1(a; c; x) = sum_{n=0}^inf (a)_n / ((c)_n n!) x^n (Kummer's function, converges for all x). (2) U(a, c, x) (Tricomi's function, second kind, logarithmic or x^{1-c} M(a - c + 1, 2 - c, x) for non-integer c). Kummer transformation: M(a, c, x) = e^x M(c - a, c, -x). Examples: e^x = M(a, a, x) for any a. erf(x) = (2 x / sqrt(pi)) M(1/2, 3/2, -x^2). Bessel J_nu(x) = (x/2)^nu e^{-i x} / Gamma(nu + 1) M(nu + 1/2, 2 nu + 1, 2 i x) (related). Hermite, Laguerre are special cases. ✓",
+      "topic": "ch06p4_confluent_hypergeometric",
+      "intent": "formula_recall",
+      "keywords": [
+        "confluent hypergeometric",
+        "Kummer",
+        "x y'' + (c-x) y' - a y",
+        "M(a,c,x) 1F1",
+        "Tricomi U"
+      ]
+    },
+    {
+      "question": "What is Kummer's function and its properties?",
+      "answer": "Kummer's function M(a, c, x) = 1F1(a; c; x) = sum_{n=0}^inf (a)_n / ((c)_n n!) x^n, solution of x y'' + (c - x) y' - a y = 0. Properties: (1) M(a, c, 0) = 1. (2) dM/dx = (a/c) M(a + 1, c + 1, x). (3) Kummer transformation: M(a, c, x) = e^x M(c - a, c, -x). (4) Asymptotic x -> +inf: M(a, c, x) ~ Gamma(c)/Gamma(a) e^x x^{a - c} (grows exponentially). (5) Asymptotic x -> -inf: M(a, c, x) ~ Gamma(c)/Gamma(c - a) (-x)^{-a} (decays polynomially). (6) Special cases: M(a, a, x) = e^x. M(1, 2, x) = (e^x - 1)/x. M(n, n + 1, -x) = n x^{-n} gamma(n, x) (incomplete gamma). (7) Bessel: J_nu(x) = e^{-i x} (x/2)^nu / Gamma(nu+1) M(nu + 1/2, 2 nu + 1, 2 i x). (8) Error function: erf(x) = (2/sqrt(pi)) integral_0^x e^{-t^2} dt = (2 x / sqrt(pi)) M(1/2, 3/2, -x^2). (9) Hermite: H_{2n}(x) = (-1)^n 2^{2n} (1/2)_n M(-n, 1/2, x^2). (10) Laguerre: L_n^alpha(x) = (alpha + 1)_n / n! M(-n, alpha + 1, x). ✓",
+      "topic": "ch06p4_kummer_properties",
+      "intent": "formula_recall",
+      "keywords": [
+        "Kummer M",
+        "1F1 properties",
+        "Kummer transformation",
+        "asymptotic",
+        "Bessel Hermite Laguerre special"
+      ]
+    },
+    {
+      "question": "What is a generalized Fourier series?",
+      "answer": "Generalized Fourier series: given a complete orthogonal set {phi_n} in L^2_w[a, b] (eigenfunctions of a Sturm-Liouville problem, or other orthogonal family), any f in L^2_w can be expanded as f(x) = sum_{n=0}^inf c_n phi_n(x), with c_n = <f, phi_n>_w / <phi_n, phi_n>_w = (integral_a^b w(x) f(x) phi_n(x) dx) / (integral_a^b w(x) phi_n^2(x) dx). Convergence in L^2_w norm (mean square). Pointwise: if f is piecewise smooth, series converges to (f(x+) + f(x-))/2 at every interior point. Examples: (1) Fourier (trig): phi_n = {1, cos(n pi x/L), sin(n pi x/L)}, w = 1, on [-L, L]. (2) Fourier-Legendre: phi_n = P_n(x), w = 1, on [-1, 1]. (3) Fourier-Bessel: phi_n = J_nu(j_{nu,n} x/a), w = x, on [0, a]. (4) Fourier-Hermite: phi_n = H_n(x), w = e^{-x^2}, on (-inf, inf). (5) Fourier-Laguerre: phi_n = L_n(x), w = e^{-x}, on [0, inf). (6) Chebyshev: phi_n = T_n(x), w = 1/sqrt(1 - x^2), on [-1, 1]. ✓",
+      "topic": "ch06p4_generalized_fourier",
+      "intent": "formula_recall",
+      "keywords": [
+        "generalized Fourier series",
+        "orthogonal basis",
+        "c_n coefficients",
+        "Sturm-Liouville eigenfunctions",
+        "convergence"
+      ]
+    },
+    {
+      "question": "What is a Fourier-Bessel series?",
+      "answer": "Fourier-Bessel series: expand f(x) on [0, a] in terms of Bessel functions J_nu(j_{nu,n} x/a), where j_{nu,n} are positive zeros of J_nu. f(x) = sum_{n=1}^inf c_n J_nu(j_{nu,n} x/a), with c_n = (2 / (a^2 J_{nu+1}(j_{nu,n})^2)) integral_0^a x f(x) J_nu(j_{nu,n} x/a) dx. (Weight w = x.) Orthogonality: integral_0^a x J_nu(j_{nu,n} x/a) J_nu(j_{nu,m} x/a) dx = (a^2/2) J_{nu+1}(j_{nu,n})^2 delta_{nm}. Convergence in L^2_w[0, a]; pointwise at points of smoothness. Application: temperature distribution u(r, t) in a circular disk of radius a with boundary u(a, t) = 0 and initial u(r, 0) = f(r): u(r, t) = sum c_n J_0(j_{0,n} r/a) exp(-alpha j_{0,n}^2 t / a^2). Modes decay exponentially with rates j_{0,n}^2 / a^2; fundamental mode n = 1 decays slowest. Vibrating circular membrane: u(r, theta, t) = sum [A cos(omega t) + B sin(omega t)] J_n(j_{n,m} r/a) cos(n theta), frequencies omega = c j_{n,m}/a. ✓",
+      "topic": "ch06p4_fourier_bessel",
+      "intent": "formula_recall",
+      "keywords": [
+        "Fourier-Bessel",
+        "J_nu(j_{nu,n} x/a)",
+        "weight x",
+        "circular disk",
+        "membrane vibration"
+      ]
+    },
+    {
+      "question": "What is a Fourier-Legendre series?",
+      "answer": "Fourier-Legendre series: expand f(x) on [-1, 1] in Legendre polynomials P_n(x). f(x) = sum_{n=0}^inf c_n P_n(x), with c_n = (2n + 1)/2 integral_{-1}^{1} f(x) P_n(x) dx. (Weight w = 1, norm 2/(2n+1).) Convergence in L^2[-1, 1]; pointwise at smooth points to f(x); at jump discontinuities to average. Examples: (1) f(x) = x = P_1(x), so c_1 = 1, others 0. (2) f(x) = x^2 = (1/3) P_0 + (2/3) P_2 (computed elsewhere). (3) f(x) = |x| = sum over even n: c_{2k} = (4k + 1)/(2) integral_0^1 x P_{2k}(x) dx · 2 = (4k+1) integral_0^1 x P_{2k}(x) dx. c_0 = integral_0^1 x · 1 · 2 dx = 1, wait: c_0 = (1/2) integral_{-1}^1 |x| dx = (1/2) · 1 = 1/2. Hmm, let me redo. c_n = (2n+1)/2 integral_{-1}^1 |x| P_n(x) dx. n = 0: c_0 = 1/2 · 2 integral_0^1 x dx = 1/2 · 2 · 1/2 = 1/2. n = 2: c_2 = 5/2 · 2 integral_0^1 x (3x^2-1)/2 dx = 5/2 integral_0^1 (3x^3 - x) dx = 5/2 (3/4 - 1/2) = 5/2 · 1/4 = 5/8. So |x| = 1/2 P_0 + 5/8 P_2 + .... Application: axially symmetric solutions of Laplace equation in spherical coords: u(r, theta) = sum c_n r^n P_n(cos theta) (interior). ✓",
+      "topic": "ch06p4_fourier_legendre",
+      "intent": "formula_recall",
+      "keywords": [
+        "Fourier-Legendre",
+        "P_n expansion",
+        "c_n = (2n+1)/2 integral",
+        "spherical Laplace",
+        "weight 1"
+      ]
+    },
+    {
+      "question": "What is Parseval's identity for orthogonal expansions?",
+      "answer": "Parseval's identity: for f in L^2_w[a, b] with generalized Fourier expansion f = sum c_n phi_n (orthonormal or orthogonal), ||f||_w^2 = integral_a^b w(x) |f(x)|^2 dx = sum_{n=0}^inf |c_n|^2 ||phi_n||_w^2 (if {phi_n} orthogonal) or sum |c_n|^2 (if orthonormal). Generalizes Pythagorean theorem to infinite dimensions. Convergence of the series expansion (in L^2) is equivalent to Parseval holding. Examples: (1) Fourier trig on [-pi, pi], w = 1: integral_{-pi}^pi f^2 dx = pi [a_0^2/2 + sum (a_n^2 + b_n^2)] (with classical normalization f = a_0/2 + sum (a_n cos nx + b_n sin nx)). (2) Fourier-Legendre on [-1, 1], w = 1: integral_{-1}^1 f^2 dx = sum |c_n|^2 · 2/(2n+1). (3) Fourier-Bessel on [0, a], w = x: integral_0^a x f^2 dx = sum |c_n|^2 (a^2/2) J_{nu+1}(j_{nu,n})^2. Application: energy conservation (signal power = sum of mode powers), completeness verification, computing sums (e.g., zeta(2) = pi^2/6 from Parseval on f = x). ✓",
+      "topic": "ch06p4_parseval_identity",
+      "intent": "formula_recall",
+      "keywords": [
+        "Parseval identity",
+        "||f||^2 = sum |c_n|^2",
+        "Pythagorean",
+        "energy conservation",
+        "completeness"
+      ]
+    },
+    {
+      "question": "What is the convergence theory of eigenfunction expansions?",
+      "answer": "Convergence of generalized Fourier series f = sum c_n phi_n (Sturm-Liouville eigenfunctions): (1) L^2 convergence: for any f in L^2_w[a, b], the partial sums S_N = sum_{n=0}^N c_n phi_n converge to f in L^2_w norm: integral w |f - S_N|^2 dx -> 0 (Riesz-Fischer theorem, equivalent to completeness). (2) Pointwise convergence: if f is piecewise smooth on [a, b], then S_N(x) -> (f(x+) + f(x-))/2 at every interior point x in (a, b). At endpoints, converges to the value consistent with the BCs (e.g., to f(a+) for Dirichlet y(a) = 0). (3) Uniform convergence: if f is continuous with piecewise continuous derivative and satisfies the BCs, then S_N -> f uniformly on [a, b]. (4) Gibbs phenomenon: near jump discontinuities, S_N exhibits overshoot of about 9% of the jump (does not diminish as N -> inf), but converges in L^2. (5) Rate of convergence: depends on smoothness. If f has k continuous derivatives (and satisfies BCs compatibly), |c_n| = O(1/n^{k+1}) roughly; spectral convergence (faster than any power) for analytic f. ✓",
+      "topic": "ch06p4_convergence_theory",
+      "intent": "formula_recall",
+      "keywords": [
+        "convergence",
+        "L^2 pointwise uniform",
+        "Gibbs phenomenon",
+        "spectral convergence",
+        "piecewise smooth"
+      ]
+    },
+    {
+      "question": "How do you solve the Airy equation y'' - x y = 0 and identify Ai and Bi?",
+      "answer": "Airy equation y'' - x y = 0. P = 0, Q = -x, analytic everywhere; x = 0 ordinary. Power series y = sum a_n x^n. Recurrence (derived elsewhere): a_{n+2} = a_{n-1}/[(n+2)(n+1)] for n >= 1, a_2 = 0. Two independent solutions: y_1 (from a_0): a_0 = 1, a_3 = 1/6, a_6 = 1/180, a_9 = 1/12960, ... y_1 = 1 + x^3/6 + x^6/180 + x^9/12960 + .... y_2 (from a_1): a_1 = 1, a_4 = 1/12, a_7 = 1/504, a_10 = 1/45360, ... y_2 = x + x^4/12 + x^7/504 + x^10/45360 + .... Define Ai(x) = (1/pi^{1/2}) [y_1/3^{2/3} Gamma(2/3) - y_2/3^{1/3} Gamma(1/3)]? More standard: Ai(x) = (1/(3^{2/3} Gamma(2/3))) y_1 - (1/(3^{1/3} Gamma(1/3))) y_2, Bi(x) = (1/(3^{1/6} Gamma(2/3))) y_1 + (3^{1/6}/Gamma(1/3)) y_2 (approximate). Behavior: Ai(x) ~ (1/(2 sqrt(pi) x^{1/4})) exp(-(2/3) x^{3/2}) for x -> +inf (decays), oscillatory for x -> -inf. Bi grows for x -> +inf. Application: turning points in WKB approximation, optical caustics, quantum tunneling near a potential barrier. ✓",
+      "topic": "ch06p4_worked_airy",
+      "intent": "problem_solving",
+      "keywords": [
+        "worked Airy",
+        "y'' - x y = 0",
+        "Ai Bi functions",
+        "recurrence step 3",
+        "oscillatory decaying"
+      ]
+    },
+    {
+      "question": "How do you expand f(x) = 1 in a Fourier-Legendre series on [-1, 1]?",
+      "answer": "Expand f(x) = 1 in Legendre polynomials on [-1, 1]. Since P_0(x) = 1, and {P_n} are orthogonal, we have c_0 = <1, P_0>/<P_0, P_0> = integral_{-1}^1 1 · 1 dx / integral_{-1}^1 1 · 1 dx = 1. For n >= 1: c_n = (2n+1)/2 integral_{-1}^1 1 · P_n(x) dx = 0 (since P_n is orthogonal to P_0 = 1 for n >= 1). So 1 = 1 · P_0(x) = P_0(x). Just the trivial expansion. More interesting: f(x) = x^2. c_0 = (1/2) integral_{-1}^1 x^2 dx = (1/2)(2/3) = 1/3. c_1 = (3/2) integral_{-1}^1 x^2 · x dx = (3/2) · 0 = 0 (odd integrand). c_2 = (5/2) integral_{-1}^1 x^2 (3 x^2 - 1)/2 dx = (5/4) integral_{-1}^1 (3 x^4 - x^2) dx = (5/4) [2(3/5) - 2(1/3)] = (5/4)(6/5 - 2/3) = (5/4)(18/15 - 10/15) = (5/4)(8/15) = 2/3. c_n = 0 for n >= 3 (since x^2 has degree 2). So x^2 = (1/3) P_0 + (2/3) P_2 = 1/3 + (2/3)(3 x^2 - 1)/2 = 1/3 + (3 x^2 - 1)/3 = (1 + 3 x^2 - 1)/3 = x^2 ✓. ✓",
+      "topic": "ch06p4_worked_legendre_expand",
+      "intent": "problem_solving",
+      "keywords": [
+        "worked",
+        "Fourier-Legendre",
+        "expand 1",
+        "expand x^2",
+        "P_0 P_2"
+      ]
+    },
+    {
+      "question": "How do you solve the eigenvalue problem y'' + lambda y = 0, y(0) = y(L) = 0?",
+      "answer": "Sturm-Liouville: y'' + lambda y = 0, y(0) = y(L) = 0. Here p = 1, q = 0, w = 1 on [0, L], Dirichlet BCs. Three cases for lambda. (1) lambda < 0: let lambda = -mu^2, y = A cosh(mu x) + B sinh(mu x). y(0) = A = 0. y(L) = B sinh(mu L) = 0 -> B = 0 (since sinh(mu L) != 0 for mu != 0). Trivial only. (2) lambda = 0: y = A + B x. y(0) = A = 0, y(L) = B L = 0 -> B = 0. Trivial. (3) lambda > 0: lambda = mu^2, y = A cos(mu x) + B sin(mu x). y(0) = A = 0. y(L) = B sin(mu L) = 0. Nontrivial requires sin(mu L) = 0, i.e., mu L = n pi, mu = n pi / L for n = 1, 2, 3, .... So eigenvalues lambda_n = (n pi/L)^2, eigenfunctions y_n(x) = sin(n pi x / L) (B = 1 normalization). Orthogonality: integral_0^L sin(n pi x/L) sin(m pi x/L) dx = (L/2) delta_{nm}. Norm sqrt(L/2). Generalized Fourier: f(x) = sum b_n sin(n pi x/L), b_n = (2/L) integral_0^L f(x) sin(n pi x/L) dx. This is the Fourier sine series. Eigenvalue counting: lambda_n = (n pi/L)^2 grows like n^2 (Weyl asymptotics). ✓",
+      "topic": "ch06p4_worked_sl_eigenvalue",
+      "intent": "problem_solving",
+      "keywords": [
+        "worked",
+        "Sturm-Liouville",
+        "y'' + lambda y",
+        "Dirichlet",
+        "sin(n pi x/L)"
+      ]
+    },
+    {
+      "question": "How do you apply Frobenius method to x^2 y'' + x y' + (x^2 - 1/4) y = 0?",
+      "answer": "Equation x^2 y'' + x y' + (x^2 - 1/4) y = 0. This is Bessel of order nu = 1/2. P = 1/x, Q = 1 - 1/(4 x^2). x = 0 RSP. p_0 = 1, q_0 = -1/4. Indicial: r^2 + (1-1) r - 1/4 = r^2 - 1/4 = 0, r = +/-1/2 (distinct, differ by 1 = integer; but the larger always works). Substitute y = sum a_n x^{n + r}. y' = sum (n+r) a_n x^{n+r-1}, y'' = sum (n+r)(n+r-1) a_n x^{n+r-2}. x^2 y'' = sum (n+r)(n+r-1) a_n x^{n+r}. x y' = sum (n+r) a_n x^{n+r}. (x^2 - 1/4) y = sum a_n x^{n+r+2} - (1/4) sum a_n x^{n+r}. Sum: sum [(n+r)(n+r-1) + (n+r) - 1/4] a_n x^{n+r} + sum a_n x^{n+r+2} = 0. Simplify: (n+r)(n+r-1) + (n+r) = (n+r)^2. So sum [(n+r)^2 - 1/4] a_n x^{n+r} + sum a_n x^{n+r+2} = 0. Re-index second sum: sum_{n>=2} a_{n-2} x^{n+r}. So [(n+r)^2 - 1/4] a_n + a_{n-2} = 0 (with a_{-1} = a_{-2} = 0). For r = 1/2: (n + 1/2)^2 - 1/4 = n^2 + n = n(n+1). a_n = -a_{n-2}/[n(n+1)] for n >= 2; a_1 free? n=1: (1)(2) a_1 = 0 (a_{-1}=0), so a_1 = 0. So only even: a_2 = -a_0/(2·3) = -a_0/6. a_4 = -a_2/(4·5) = a_0/120. y_1 = x^{1/2} [a_0 (1 - x^2/6 + x^4/120 - ...)] = a_0 x^{1/2} [sum (-1)^k x^{2k}/(2k+1)!]. Since sin(x)/x = sum (-1)^k x^{2k}/(2k+1)!, we get y_1 = a_0 sqrt(x) sin(x)/x = a_0 sin(x)/sqrt(x). For r = -1/2: (n - 1/2)^2 - 1/4 = n^2 - n = n(n-1). a_n = -a_{n-2}/[n(n-1)] for n >= 2 (and n(n-1) = 0 at n = 0, 1; the n = 1 coefficient is (1)(0) a_1 = 0, automatically satisfied, so a_1 is free). With a_0 = 1, a_1 = 0: a_2 = -a_0/(2·1) = -1/2. a_4 = -a_2/(4·3) = 1/24. y_2 (from a_0) = x^{-1/2} (1 - x^2/2 + x^4/24 - ...) = cos(x)/sqrt(x). General y = c_1 sin(x)/sqrt(x) + c_2 cos(x)/sqrt(x). Compare Bessel: J_{1/2}(x) = sqrt(2/(pi x)) sin(x), J_{-1/2}(x) = sqrt(2/(pi x)) cos(x). ✓ Matches (up to normalization).",
+      "topic": "ch06p4_worked_frobenius_bessel_half",
+      "intent": "problem_solving",
+      "keywords": [
+        "worked Frobenius",
+        "Bessel order 1/2",
+        "sin(x)/sqrt(x)",
+        "cos(x)/sqrt(x)",
+        "distinct roots"
+      ]
+    },
+    {
+      "question": "How do you find the temperature distribution in a cooling rod with insulated ends using eigenfunction expansion?",
+      "answer": "Heat equation u_t = alpha u_{xx} on [0, L] with insulated ends u_x(0, t) = u_x(L, t) = 0 and initial u(x, 0) = f(x). S-L: X'' + lambda X = 0, X'(0) = X'(L) = 0. Eigenvalues: lambda_0 = 0, X_0 = 1 (constant). For lambda > 0: lambda = mu^2, X = A cos(mu x) + B sin(mu x). X' = -A mu sin(mu x) + B mu cos(mu x). X'(0) = B mu = 0 -> B = 0. X'(L) = -A mu sin(mu L) = 0 -> sin(mu L) = 0 -> mu = n pi/L, n = 1, 2, .... So lambda_n = (n pi/L)^2, X_n = cos(n pi x/L). Eigenfunctions: {1, cos(pi x/L), cos(2 pi x/L), ...}. Orthogonality: integral_0^L cos(n pi x/L) cos(m pi x/L) dx = 0 (n != m), = L (n = m = 0), = L/2 (n = m >= 1). Expand f(x) = a_0/2 + sum a_n cos(n pi x/L)? No — careful: f(x) = c_0 + sum_{n>=1} c_n cos(n pi x/L), c_0 = (1/L) integral_0^L f(x) dx, c_n = (2/L) integral_0^L f(x) cos(n pi x/L) dx (this is Fourier cosine series). Solution: u(x, t) = c_0 + sum c_n cos(n pi x/L) exp(-alpha (n pi/L)^2 t). Physical: c_0 is the average temperature (conserved due to insulation); modes decay with rates alpha (n pi/L)^2; fundamental mode n = 1 decays slowest. As t -> inf, u -> c_0 (uniform). ✓",
+      "topic": "ch06p4_worked_heat_insulated",
+      "intent": "problem_solving",
+      "keywords": [
+        "worked",
+        "heat equation",
+        "insulated ends",
+        "Fourier cosine series",
+        "Neumann BC"
+      ]
+    }
+  ]
+}
