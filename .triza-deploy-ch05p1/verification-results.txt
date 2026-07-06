@@ -1,0 +1,92 @@
+Starting verification of 84 queries...
+[s1q1] CROSS_MATCH(ch05p1) | conf=0.5479 | topic=math_vol9_ch05p1_monotonic_sequence_theorem | q=What is a convergent sequence?
+[s1q2] DIRECT_HIT | conf=1 | topic=math_vol9_ch05p1_sequence_function_limit | q=How do you find the limit of a sequence defined by a functio
+[s1q3] DIRECT_HIT | conf=1 | topic=math_vol9_ch05p1_sequence_limit_laws | q=What are the limit laws for sequences?
+[s1q4] DIRECT_HIT | conf=1 | topic=math_vol9_ch05p1_monotonic_sequence_theorem | q=What is the Monotonic Sequence Theorem?
+[s1q5] DIRECT_HIT | conf=1 | topic=math_vol9_ch05p1_recursive_sequence_limit | q=How do you find limits of recursively defined sequences?
+[s1q6] DIRECT_HIT | conf=1 | topic=math_vol9_ch05p1_important_limits | q=What are important limits of sequences like n^(1/n)?
+[s1q7] DIRECT_HIT | conf=1 | topic=math_vol9_ch05p1_monotonic_test | q=How do you determine if a sequence is monotonic?
+[s1q8] DIRECT_HIT | conf=1 | topic=math_vol9_ch05p1_squeeze_theorem_sequences | q=What is the Squeeze Theorem for sequences?
+[s2q1] CROSS_MATCH(ch05p1) | conf=1 | topic=math_vol9_ch05p1_p_series | q=What is an infinite series and when does it converge?
+[s2q2] DIRECT_HIT | conf=0.8999 | topic=math_vol9_ch05p1_nth_term_test | q=What is the nth Term Test for divergence?
+[s2q3] DIRECT_HIT | conf=1 | topic=math_vol9_ch05p1_geometric_series | q=What is a geometric series and when does it converge?
+[s2q4] OTHER_VOL(math_vol1_vol1_decimal_to_fraction) | conf=1 | topic=math_vol1_vol1_decimal_to_fraction | q=How do you convert a repeating decimal to a fraction using s
+[s2q5] DIRECT_HIT | conf=0.5713 | topic=math_vol9_ch05p1_telescoping_series | q=What is a telescoping series?
+[s2q6] DIRECT_HIT | conf=1 | topic=math_vol9_ch05p1_series_properties | q=What are the properties of convergent series?
+[s3q1] DIRECT_HIT | conf=1 | topic=math_vol9_ch05p1_integral_test | q=What is the Integral Test for series convergence?
+[s3q2] DIRECT_HIT | conf=1 | topic=math_vol9_ch05p1_p_series | q=What is a p-series and when does it converge?
+[s3q3] CROSS_MATCH(ch05p1) | conf=0.8534 | topic=math_vol9_ch05p1_p_series | q=Why does the harmonic series diverge?
+[s3q4] DIRECT_HIT | conf=1 | topic=math_vol9_ch05p1_integral_test_remainder | q=How do you estimate the sum of a series using integral test 
+[s3q5] DIRECT_HIT | conf=0.8761 | topic=math_vol9_ch05p1_logarithmic_series_test | q=How do you test series with logarithms using the integral te
+[s4q1] DIRECT_HIT | conf=1 | topic=math_vol9_ch05p1_comparison_test | q=What is the Direct Comparison Test?
+[s4q2] DIRECT_HIT | conf=1 | topic=math_vol9_ch05p1_limit_comparison_test | q=What is the Limit Comparison Test?
+[s4q3] DIRECT_HIT | conf=1 | topic=math_vol9_ch05p1_choosing_comparison | q=How do you choose an appropriate comparison series?
+[s4q4] DIRECT_HIT | conf=1 | topic=math_vol9_ch05p1_comparison_remainder | q=How do you estimate sums using the Comparison Test?
+[s4q5] DIRECT_HIT | conf=1 | topic=math_vol9_ch05p1_factorial_exponential_comparison | q=How do you handle factorials and exponentials in comparison 
+[s5q1] DIRECT_HIT | conf=1 | topic=math_vol9_ch05p1_alternating_series | q=What is an alternating series?
+[s5q2] CROSS_MATCH(ch05p1) | conf=1 | topic=math_vol9_ch05p1_alternating_series | q=What is the Alternating Series Test?
+[s5q3] DIRECT_HIT | conf=1 | topic=math_vol9_ch05p1_alternating_estimation | q=How do you estimate the sum of an alternating series?
+[s5q4] DIRECT_HIT | conf=1 | topic=math_vol9_ch05p1_absolute_conditional | q=What is the difference between absolute and conditional conv
+[s5q5] DIRECT_HIT | conf=1 | topic=math_vol9_ch05p1_rearrangement_theorem | q=What is the Rearrangement Theorem for absolutely convergent 
+[s5q6] DIRECT_HIT | conf=1 | topic=math_vol9_ch05p1_absolute_convergence_test | q=How do you test for absolute convergence?
+[s6q1] DIRECT_HIT | conf=1 | topic=math_vol9_ch05p1_ratio_test | q=What is the Ratio Test?
+[s6q2] DIRECT_HIT | conf=1 | topic=math_vol9_ch05p1_root_test | q=What is the Root Test?
+[s6q3] DIRECT_HIT | conf=1 | topic=math_vol9_ch05p1_ratio_vs_root | q=When should you use Ratio Test vs Root Test?
+[s6q4] DIRECT_HIT | conf=1 | topic=math_vol9_ch05p1_factorial_ratio_test | q=How do you handle series with factorials in the Ratio Test?
+[s6q5] DIRECT_HIT | conf=1 | topic=math_vol9_ch05p1_mixed_terms_ratio | q=How do you test series with mixed terms powers and factorial
+[s7q1] DIRECT_HIT | conf=1 | topic=math_vol9_ch05p1_strategy | q=What is a strategy for choosing which convergence test to us
+[s7q2] DIRECT_HIT | conf=0.927 | topic=math_vol9_ch05p1_test_summary | q=What is a summary of all convergence tests?
+[s7q3] DIRECT_HIT | conf=0.9808 | topic=math_vol9_ch05p1_classification | q=How do you classify a series as absolutely conditionally or 
+[s8q1] DIRECT_HIT | conf=1 | topic=math_vol9_ch05p1_power_series | q=What is a power series?
+[s8q2] DIRECT_HIT | conf=0.9902 | topic=math_vol9_ch05p1_radius_interval | q=How do you find the radius and interval of convergence?
+[s8q3] DIRECT_HIT | conf=1 | topic=math_vol9_ch05p1_radius_formula | q=How do you find the radius of convergence using the Ratio Te
+[s8q4] DIRECT_HIT | conf=1 | topic=math_vol9_ch05p1_radius_root | q=How do you find the radius of convergence using the Root Tes
+[s8q5] DIRECT_HIT | conf=1 | topic=math_vol9_ch05p1_power_series_operations | q=What are the operations on power series?
+[s8q6] DIRECT_HIT | conf=1 | topic=math_vol9_ch05p1_function_as_power_series | q=How do you represent a function as a power series?
+[s9q1] DIRECT_HIT | conf=1 | topic=math_vol9_ch05p1_taylor_maclaurin_definition | q=What is a Taylor series and a Maclaurin series?
+[s9q2] DIRECT_HIT | conf=1 | topic=math_vol9_ch05p1_taylor_coefficients | q=What is the formula for the coefficients of a Taylor series?
+[s9q3] DIRECT_HIT | conf=1 | topic=math_vol9_ch05p1_taylor_inequality | q=What is Taylor Inequality for the remainder?
+[s9q4] DIRECT_HIT | conf=0.8672 | topic=math_vol9_ch05p1_taylor_differentiation | q=How do you find a Taylor series by differentiation?
+[s9q5] DIRECT_HIT | conf=1 | topic=math_vol9_ch05p1_taylor_substitution | q=How do you find a Taylor series using substitution?
+[s9q6] DIRECT_HIT | conf=1 | topic=math_vol9_ch05p1_taylor_multiplication | q=How do you find a Taylor series using multiplication of seri
+[s9q7] DIRECT_HIT | conf=1 | topic=math_vol9_ch05p1_taylor_limits | q=How do you use Taylor series to evaluate limits?
+[s9q8] DIRECT_HIT | conf=1 | topic=math_vol9_ch05p1_taylor_approximation | q=How do you use Taylor series to approximate function values?
+[s10q1] OTHER_VOL(math_vol9_ch01p2_exponential_series) | conf=1 | topic=math_vol9_ch01p2_exponential_series | q=What is the Maclaurin series for e^x?
+[s10q2] OTHER_VOL(math_vol9_ch04p2_maclaurin_sin_cos) | conf=1 | topic=math_vol9_ch04p2_maclaurin_sin_cos | q=What are the Maclaurin series for sin x and cos x?
+[s10q3] DIRECT_HIT | conf=1 | topic=math_vol9_ch05p1_maclaurin_ln_arctan | q=What are the Maclaurin series for ln(1+x) and arctan x?
+[s10q4] DIRECT_HIT | conf=1 | topic=math_vol9_ch05p1_binomial_series | q=What is the binomial series?
+[s10q5] DIRECT_HIT | conf=1 | topic=math_vol9_ch05p1_maclaurin_hyperbolic | q=What are the Maclaurin series for hyperbolic functions?
+[s10q6] OTHER_VOL(math_vol9_ch01p2_exponential_series) | conf=1 | topic=math_vol9_ch01p2_exponential_series | q=How do you derive a Maclaurin series by integration of a kno
+[s11q1] DIRECT_HIT | conf=1 | topic=math_vol9_ch05p1_taylor_integrals | q=How do you use Taylor series for integrals with no elementar
+[s11q2] DIRECT_HIT | conf=0.8082 | topic=math_vol9_ch05p1_taylor_definite_integrals | q=How do you approximate definite integrals using Taylor serie
+[s11q3] CROSS_MATCH(ch05p1) | conf=1 | topic=math_vol9_ch05p1_taylor_limits | q=How do you use Taylor series for indeterminate form limits?
+[s11q4] DIRECT_HIT | conf=1 | topic=math_vol9_ch05p1_taylor_physics | q=How do you use Taylor series in physics small angle approxim
+[s11q5] DIRECT_HIT | conf=1 | topic=math_vol9_ch05p1_taylor_equals_function | q=How do you determine if a Taylor series equals its function?
+[s12q1] DIRECT_HIT | conf=1 | topic=math_vol9_ch05p1_parametric_definition | q=What are parametric equations?
+[s12q2] DIRECT_HIT | conf=1 | topic=math_vol9_ch05p1_eliminate_parameter | q=How do you eliminate the parameter to find a Cartesian equat
+[s12q3] OTHER_VOL(math_vol9_ch04p1_tangent_parametric) | conf=1 | topic=math_vol9_ch04p1_tangent_parametric | q=How do you find dy/dx for a parametric curve?
+[s12q4] CROSS_MATCH(ch05p1) | conf=1 | topic=math_vol9_ch05p1_parametric_concavity | q=How do you find the second derivative for a parametric curve
+[s12q5] DIRECT_HIT | conf=1 | topic=math_vol9_ch05p1_parametric_arc_length | q=How do you find the arc length of a parametric curve?
+[s12q6] CROSS_MATCH(ch05p1) | conf=1 | topic=math_vol9_ch05p1_parametric_area | q=How do you find surface area of revolution for a parametric 
+[s13q1] DIRECT_HIT | conf=1 | topic=math_vol9_ch05p1_parametric_area | q=How do you find the area under a parametric curve?
+[s13q2] OTHER_VOL(math_vol9_ch04p1_tangent_parametric) | conf=1 | topic=math_vol9_ch04p1_tangent_parametric | q=How do you find the tangent line to a parametric curve?
+[s13q3] DIRECT_HIT | conf=1 | topic=math_vol9_ch05p1_parametric_motion | q=How do you analyze particle motion along a parametric curve?
+[s13q4] DIRECT_HIT | conf=1 | topic=math_vol9_ch05p1_parametric_horizontal_vertical | q=How do you find horizontal and vertical tangents of a parame
+[s13q5] DIRECT_HIT | conf=1 | topic=math_vol9_ch05p1_parametric_concavity | q=How do you find the concavity of a parametric curve?
+[s14q1] DIRECT_HIT | conf=1 | topic=math_vol9_ch05p1_polar_definition | q=What are polar coordinates?
+[s14q2] DIRECT_HIT | conf=1 | topic=math_vol9_ch05p1_polar_conversion | q=How do you convert between polar and Cartesian equations?
+[s14q3] DIRECT_HIT | conf=1 | topic=math_vol9_ch05p1_polar_curves | q=What are common polar curves like cardioid limacon rose?
+[s14q4] DIRECT_HIT | conf=1 | topic=math_vol9_ch05p1_polar_slope | q=How do you find the slope of a tangent line to a polar curve
+[s14q5] DIRECT_HIT | conf=1 | topic=math_vol9_ch05p1_polar_sketching | q=How do you sketch a polar curve?
+[s15q1] OTHER_VOL(math_vol9_ch04p3_area_polar) | conf=1 | topic=math_vol9_ch04p3_area_polar | q=How do you find the area enclosed by a polar curve?
+[s15q2] OTHER_VOL(math_vol9_ch04p3_area_between_polar) | conf=1 | topic=math_vol9_ch04p3_area_between_polar | q=How do you find the area between two polar curves?
+[s15q3] DIRECT_HIT | conf=1 | topic=math_vol9_ch05p1_polar_arc_length | q=How do you find the arc length of a polar curve?
+[s15q4] DIRECT_HIT | conf=1 | topic=math_vol9_ch05p1_polar_surface_area | q=How do you find the surface area of revolution for a polar c
+[s15q5] DIRECT_HIT | conf=1 | topic=math_vol9_ch05p1_polar_intersections | q=How do you find points of intersection of two polar curves?
+
+=== SUMMARY ===
+Total queries: 84
+Direct hits (ch05p1 expected): 69
+Cross/other matches: 15
+Misses: 0
+Direct hit rate: %
