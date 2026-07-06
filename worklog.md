@@ -6238,3 +6238,31 @@ Stage Summary:
 - KEY LEARNING: (1) Probability theory has an exceptionally rich vocabulary of named theorems/paradoxes/fallacies (Kolmogorov, Bayes, Bonferroni, Boole, Bertrand, Borel-Cantelli, Monty Hall, prosecutor's, base-rate, Bernstein) that are unambiguous retrieval targets. (2) Worked problems with concrete scenarios (MISSISSIPPI, lottery 6/49, balls without replacement, disease test PPV, birthday n=4, first ace) also retrieve perfectly because the scenario details are unique. (3) Expect continued high direct-hit rates for subsequent probability/statistics parts (discrete RVs, continuous RVs, joint distributions, limit theorems, estimation, hypothesis testing) as the terminology remains distinctive. (4) Re-confirmed: the verification script double-prefix bug recurs whenever a new part starts — always set expected = STORED_PREFIX (math_vol9_) + item.topic, NOT PART_PREFIX + item.topic.
 - Cumulative encyclopedia total: 2230 formulas across Volume 1-9.
 - READY FOR NEXT BATCH. Chapter 8 Part 2 would be Discrete Random Variables (Bernoulli, Binomial, Poisson, Geometric, Hypergeometric, Negative Binomial, discrete uniform, moment generating, expectation/variance, worked problems).
+
+---
+Task ID: ch08p2
+Agent: main (Z.ai Code)
+Task: Generate, deploy, and verify Volume 9 Chapter 8 Part 2 (Discrete Random Variables — Discrete RV Basics PMF CDF Expectation Variance, Bernoulli & Binomial Distributions, Poisson Distribution & Poisson Process, Geometric & Negative Binomial Distributions, Hypergeometric & Discrete Uniform Distributions, MGF PGF Sums & Convolutions, Worked Problems) — 50 formulas.
+
+Work Log:
+- Verified prior state: remote origin/main = 3d862d2 (ch08p1), production at 2230 items. Local triza-deploy7 re-synced to 3d862d2 via `git fetch && git reset --hard origin/main`.
+- Wrote scripts/generate-math-formulas-vol9-ch08p2.ts: 7 sections, 50 Q&A items, topic prefix ch08p2_. Sections: (1) Discrete RV Basics [8], (2) Bernoulli & Binomial [7], (3) Poisson & Poisson Process [7], (4) Geometric & Negative Binomial [7], (5) Hypergeometric & Discrete Uniform [6], (6) MGF/PGF/Sums & Convolutions [8], (7) Worked Problems [7].
+- Ran generator -> data/math-formulas-vol9-ch08p2.json (50 items). Validated: 50 unique topics all prefixed ch08p2_, all have keywords, answer lengths 588-1046 chars (avg 808), intents formula_recall (40) + problem_solving (10), no duplicates.
+- Copied generator + JSON into /tmp/triza-deploy7. Updated route.ts via python insertion: added vol9ch08p2 VOLUME_CONFIG block after vol9ch08p1. Route.ts: 507 -> 514 lines.
+- Git deploy: standard `git add + git commit`. Commit cb39f17 on top of 3d862d2 (ch08p1). Pushed to BOTH remotes with 300s timeout: origin main (3d862d2..cb39f17) and origin triza/main (3d862d2..cb39f17). Clean fast-forward on both.
+- Waited ~290s for Vercel rebuild. Import POST /api/triza/import-formulas {"volumes":["vol9ch08p2"]} with Origin header -> imported 50 items (fresh). Production: 2230 -> 2280.
+- Production chat verification (50 queries, all 7 sections, using item questions as queries):
+  * 50/50 (100.0%) direct hits on expected math_vol9_ch08p2_ topics — SECOND CONSECUTIVE PERFECT SCORE.
+  * 0 cross-part, 0 cross-volume, 0 misses.
+  * ALL 50 hits returned confidence = 1.000.
+  * Every section block 100% direct (S1 8/8, S2 7/7, S3 7/7, S4 7/7, S5 6/6, S6 8/8, S7 7/7 — verify script section labels inherited from ch08p1 but per-block counts confirm all 100%).
+  * Used sed to clone the ch08p1 verify script with s/ch08p1/ch08p2/g — STORED_PREFIX = "math_vol9_" correctly preserved (no double-prefix bug this time).
+
+Stage Summary:
+- Vol 9 Ch08 Part 2 (Discrete Random Variables) — 50 formulas — is LIVE in production and verified.
+- Production knowledge store: 2280 items (381 vol1-vol8 + 201 ch01 + 343 ch02 + 248 ch03 + 238 ch04 + 228 ch05 + 313 ch06 + 228 ch07 + 100 ch08).
+- Git: main = cb39f17 (ch08p2, clean fast-forward on 3d862d2 ch08p1). Also pushed to triza/main.
+- Production chat verified: 50/50 (100.0%) direct hits — SECOND CONSECUTIVE PERFECT SCORE. ALL with confidence=1.000. Discrete distribution terminology (Bernoulli, Binomial, Poisson, Geometric, Negative Binomial, Hypergeometric, discrete uniform, PMF, CDF, MGF, PGF, cumulants, factorial moments, memoryless, Poisson process, superposition, compound Poisson, Le Cam, De Moivre-Laplace, LOTUS, Jensen, continuity correction, FPC, Gamma-Poisson mixture, branching process) all retrieve perfectly. Named distribution scenarios (call center Poisson, first-6 Geometric, poker aces Hypergeometric, free-throw NegBinom, defectives Binomial) also 100%. Zero overlap with any prior volume.
+- KEY LEARNING: Probability theory continues to be the most distinctive topic domain. The combination of (1) named distribution families with unique terminology, (2) named theorems/properties (LOTUS, Jensen, Le Cam, De Moivre-Laplace), and (3) concrete worked scenarios with unique numbers (lambda=3, p=0.8, N=52) makes every query an unambiguous retrieval target. Two consecutive perfect scores (ch08p1 + ch08p2) suggest the entire Probability & Statistics chapter may maintain ~100% direct-hit rates, which would be unprecedented in the encyclopedia.
+- Cumulative encyclopedia total: 2280 formulas across Volume 1-9.
+- READY FOR NEXT BATCH. Chapter 8 Part 3 would be Continuous Random Variables (Uniform, Exponential, Normal, Gamma, Beta, Weibull, Cauchy, lognormal, joint/marginal/conditional distributions, transformations, worked problems).
