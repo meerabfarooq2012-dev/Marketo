@@ -1,0 +1,778 @@
+{
+  "generatedAt": "2026-07-06T11:37:45.185Z",
+  "totalItems": 59,
+  "subject": "mathematics_formulas_volume_9_chapter_06_part_02",
+  "volume": "Volume 9 — Comprehensive Formula Encyclopedia, Chapter 6 Part 2 (Second-Order Linear ODEs: Introduction, Homogeneous Constant Coefficients, Reduction of Order, Undetermined Coefficients, Variation of Parameters, Cauchy-Euler Equations, Higher-Order Linear ODEs, Applications (Vibrations, RLC, Pendulum), Boundary Value Problems, Worked Problems)",
+  "source": "TRIZA Generated Formula Dataset",
+  "language": "en",
+  "religionNeutral": true,
+  "items": [
+    {
+      "question": "What is a second-order linear differential equation?",
+      "answer": "A second-order linear ODE has form a(x) y'' + b(x) y' + c(x) y = g(x), where a, b, c, g are functions of x. If g(x) = 0: homogeneous. If g(x) != 0: nonhomogeneous. Standard form (divide by a(x)): y'' + P(x) y' + Q(x) y = f(x). The equation is linear in y, y', y''. Example: y'' + 4y' + 4y = e^x (nonhomogeneous, constant coefficients). Example: x^2 y'' + x y' + (x^2 - 4) y = 0 (Bessel equation, variable coefficients). Example: y'' + sin(x) y = 0 (Mathieu equation). Applications: vibrations, circuits, quantum mechanics, wave equation. ✓",
+      "topic": "ch06p2_second_order_definition",
+      "intent": "formula_recall",
+      "keywords": [
+        "second-order",
+        "linear",
+        "a(x)y'' + b(x)y' + c(x)y = g(x)",
+        "homogeneous",
+        "nonhomogeneous"
+      ]
+    },
+    {
+      "question": "What is the superposition principle for linear homogeneous ODEs?",
+      "answer": "Superposition: if y_1 and y_2 are solutions of the linear homogeneous ODE y'' + P(x) y' + Q(x) y = 0, then any linear combination y = C_1 y_1 + C_2 y_2 is also a solution, for any constants C_1, C_2. Proof: L[y] = y'' + P y' + Q y is linear operator. L[C_1 y_1 + C_2 y_2] = C_1 L[y_1] + C_2 L[y_2] = C_1·0 + C_2·0 = 0. General solution: y = C_1 y_1 + C_2 y_2 if y_1, y_2 are linearly independent. Example: y'' - y = 0 has solutions y_1 = e^x, y_2 = e^(-x). Check y = 3 e^x - 2 e^(-x): y'' = 3 e^x - 2 e^(-x) = y. So y'' - y = 0. ✓. Note: superposition does NOT apply to nonlinear ODEs. ✓",
+      "topic": "ch06p2_superposition_principle",
+      "intent": "formula_recall",
+      "keywords": [
+        "superposition",
+        "linear combination",
+        "homogeneous",
+        "C_1 y_1 + C_2 y_2",
+        "linear operator"
+      ]
+    },
+    {
+      "question": "What is linear independence of solutions and the Wronskian?",
+      "answer": "Two functions y_1, y_2 are linearly independent on interval I if neither is a constant multiple of the other. Wronskian: W(y_1, y_2)(x) = y_1 y_2' - y_1' y_2 (determinant of [[y_1, y_2], [y_1', y_2']]). Theorem: if y_1, y_2 are solutions of y'' + P y' + Q y = 0 on I, then they are linearly independent iff W(x) != 0 for all x in I. If W != 0 anywhere, y = C_1 y_1 + C_2 y_2 is the general solution. Example: y_1 = e^x, y_2 = e^(-x). W = e^x·(-e^(-x)) - e^x·e^(-x) = -2 != 0. Independent. Example: y_1 = e^x, y_2 = 2 e^x. W = e^x·2e^x - e^x·2e^x = 0. Dependent (y_2 = 2 y_1). ✓",
+      "topic": "ch06p2_wronskian",
+      "intent": "formula_recall",
+      "keywords": [
+        "Wronskian",
+        "linear independence",
+        "y_1 y_2' - y_1' y_2",
+        "determinant",
+        "general solution"
+      ]
+    },
+    {
+      "question": "What is the existence and uniqueness theorem for second-order linear ODEs?",
+      "answer": "Theorem: if P(x), Q(x), f(x) are continuous on open interval I containing x_0, then the IVP y'' + P(x) y' + Q(x) y = f(x), y(x_0) = y_0, y'(x_0) = y_1 has a unique solution on all of I. Note: solution exists on entire interval where coefficients are continuous (not just locally). Example: y'' + (1/x) y' + y = 0 has P = 1/x discontinuous at x = 0. Solution exists on (0, inf) or (-inf, 0), not across x = 0. Example: y'' + y = 0, y(0) = 1, y'(0) = 0. P, Q, f all continuous everywhere. Unique solution y = cos x on (-inf, inf). ✓",
+      "topic": "ch06p2_existence_uniqueness_second",
+      "intent": "formula_recall",
+      "keywords": [
+        "existence",
+        "uniqueness",
+        "second-order",
+        "continuous coefficients",
+        "interval I"
+      ]
+    },
+    {
+      "question": "What is the structure of the general solution to a nonhomogeneous linear ODE?",
+      "answer": "For y'' + P(x) y' + Q(x) y = f(x): general solution is y = y_h + y_p, where y_h = C_1 y_1 + C_2 y_2 is the general solution to the associated homogeneous equation (complementary function), and y_p is any particular solution to the nonhomogeneous equation. y_h captures the homogeneous behavior (transient); y_p captures the forcing (steady-state). Example: y'' + y = e^x. Homogeneous: y'' + y = 0, y_h = C_1 cos x + C_2 sin x. Try y_p = A e^x. y_p'' = A e^x. Sub: A e^x + A e^x = e^x, 2A = 1, A = 1/2. y_p = e^x/2. General: y = C_1 cos x + C_2 sin x + e^x/2. ✓",
+      "topic": "ch06p2_general_solution_structure",
+      "intent": "formula_recall",
+      "keywords": [
+        "general solution",
+        "y_h + y_p",
+        "complementary function",
+        "particular",
+        "nonhomogeneous"
+      ]
+    },
+    {
+      "question": "How do you solve y'' + a y' + b y = 0 with constant coefficients?",
+      "answer": "Method: assume y = e^(rx). Then y' = r e^(rx), y'' = r^2 e^(rx). Substitute: r^2 e^(rx) + a r e^(rx) + b e^(rx) = 0. Divide by e^(rx): r^2 + a r + b = 0. This is the characteristic equation (auxiliary equation). Solve quadratic for r. Three cases: (1) Two distinct real roots r_1, r_2: y = C_1 e^(r_1 x) + C_2 e^(r_2 x). (2) Repeated root r: y = C_1 e^(rx) + C_2 x e^(rx) = (C_1 + C_2 x) e^(rx). (3) Complex conjugate roots r = alpha ± i beta: y = e^(alpha x) (C_1 cos(beta x) + C_2 sin(beta x)). Example: y'' - 5 y' + 6 y = 0. Char: r^2 - 5r + 6 = 0, (r-2)(r-3) = 0, r = 2, 3. y = C_1 e^(2x) + C_2 e^(3x). ✓",
+      "topic": "ch06p2_characteristic_equation",
+      "intent": "formula_recall",
+      "keywords": [
+        "characteristic equation",
+        "auxiliary",
+        "r^2 + ar + b = 0",
+        "constant coefficients",
+        "e^(rx)"
+      ]
+    },
+    {
+      "question": "How do you solve a second-order ODE with distinct real roots?",
+      "answer": "When characteristic equation r^2 + a r + b = 0 has two distinct real roots r_1 != r_2 (discriminant a^2 - 4b > 0), general solution: y = C_1 e^(r_1 x) + C_2 e^(r_2 x). Example: y'' + y' - 6 y = 0. Char: r^2 + r - 6 = 0, (r+3)(r-2) = 0, r_1 = -3, r_2 = 2. y = C_1 e^(-3x) + C_2 e^(2x). Example: y'' - 4 y' + 4 y = 0 — wait, this gives r^2 - 4r + 4 = (r-2)^2 = 0, repeated root, not distinct. Use repeated formula. Distinct example: y'' - 7 y' + 12 y = 0. (r-3)(r-4) = 0. y = C_1 e^(3x) + C_2 e^(4x). Verify: y'' - 7 y' + 12 y = 9 C_1 e^(3x) + 16 C_2 e^(4x) - 7(3 C_1 e^(3x) + 4 C_2 e^(4x)) + 12(C_1 e^(3x) + C_2 e^(4x)) = (9 - 21 + 12) C_1 e^(3x) + (16 - 28 + 12) C_2 e^(4x) = 0. ✓",
+      "topic": "ch06p2_distinct_real_roots",
+      "intent": "problem_solving",
+      "keywords": [
+        "distinct real roots",
+        "r_1 != r_2",
+        "C_1 e^(r_1 x) + C_2 e^(r_2 x)",
+        "discriminant > 0",
+        "solve"
+      ]
+    },
+    {
+      "question": "How do you solve a second-order ODE with repeated real roots?",
+      "answer": "When characteristic equation has repeated root r (discriminant a^2 - 4b = 0, r = -a/2), the two solutions are y_1 = e^(rx) and y_2 = x e^(rx). General solution: y = C_1 e^(rx) + C_2 x e^(rx) = (C_1 + C_2 x) e^(rx). Why x e^(rx)? Reduction of order gives this. Verify linear independence: W = e^(rx) · (e^(rx) + r x e^(rx)) - r e^(rx) · x e^(rx) = e^(2rx) + r x e^(2rx) - r x e^(2rx) = e^(2rx) != 0. Example: y'' - 6 y' + 9 y = 0. r^2 - 6r + 9 = (r-3)^2 = 0, r = 3 (double). y = (C_1 + C_2 x) e^(3x). Example: y'' + 4 y' + 4 y = 0. (r+2)^2 = 0, r = -2. y = (C_1 + C_2 x) e^(-2x). Verify: y' = (C_2 - 2 C_1 - 2 C_2 x) e^(-2x). y'' = (-4 C_2 + 4 C_1 + 4 C_2 x) e^(-2x). y'' + 4 y' + 4 y = [(-4 C_2 + 4 C_1 + 4 C_2 x) + 4(C_2 - 2 C_1 - 2 C_2 x) + 4(C_1 + C_2 x)] e^(-2x) = 0. ✓",
+      "topic": "ch06p2_repeated_roots",
+      "intent": "problem_solving",
+      "keywords": [
+        "repeated root",
+        "double root",
+        "(C_1 + C_2 x) e^(rx)",
+        "x e^(rx)",
+        "discriminant = 0"
+      ]
+    },
+    {
+      "question": "How do you solve a second-order ODE with complex conjugate roots?",
+      "answer": "When characteristic equation r^2 + a r + b = 0 has complex roots r = alpha ± i beta (discriminant a^2 - 4b < 0), where alpha = -a/2, beta = sqrt(4b - a^2)/2, general solution: y = e^(alpha x) (C_1 cos(beta x) + C_2 sin(beta x)). Euler's formula: e^((alpha + i beta) x) = e^(alpha x) (cos(beta x) + i sin(beta x)). Real and imaginary parts are independent real solutions. Example: y'' + 4 y = 0. r^2 + 4 = 0, r = ±2i. alpha = 0, beta = 2. y = C_1 cos(2x) + C_2 sin(2x). Example: y'' + 2 y' + 5 y = 0. r^2 + 2r + 5 = 0, r = (-2 ± sqrt(4 - 20))/2 = -1 ± 2i. alpha = -1, beta = 2. y = e^(-x) (C_1 cos(2x) + C_2 sin(2x)). Verify: oscillation with decay (damped). ✓",
+      "topic": "ch06p2_complex_roots",
+      "intent": "problem_solving",
+      "keywords": [
+        "complex roots",
+        "alpha ± i beta",
+        "Euler formula",
+        "e^(alpha x) cos/sin",
+        "discriminant < 0"
+      ]
+    },
+    {
+      "question": "How do you solve an IVP for a second-order homogeneous ODE?",
+      "answer": "Method: (1) Find characteristic equation, solve for roots. (2) Write general solution y = C_1 y_1 + C_2 y_2. (3) Use y(x_0) = y_0 and y'(x_0) = y_1 to set up 2 equations in 2 unknowns. (4) Solve for C_1, C_2. Example: y'' + 4 y = 0, y(0) = 3, y'(0) = 8. y = C_1 cos(2x) + C_2 sin(2x). y(0) = C_1 = 3. y' = -2 C_1 sin(2x) + 2 C_2 cos(2x). y'(0) = 2 C_2 = 8, C_2 = 4. Solution: y = 3 cos(2x) + 4 sin(2x). Example: y'' - 3 y' + 2 y = 0, y(0) = 1, y'(0) = 0. r^2 - 3r + 2 = 0, r = 1, 2. y = C_1 e^x + C_2 e^(2x). y(0) = C_1 + C_2 = 1. y' = C_1 e^x + 2 C_2 e^(2x). y'(0) = C_1 + 2 C_2 = 0. Subtract: C_2 = -1, C_1 = 2. y = 2 e^x - e^(2x). ✓",
+      "topic": "ch06p2_ivp_homogeneous",
+      "intent": "problem_solving",
+      "keywords": [
+        "IVP",
+        "initial conditions",
+        "find C_1, C_2",
+        "system",
+        "solve"
+      ]
+    },
+    {
+      "question": "What are the three cases for second-order homogeneous constant-coefficient ODEs?",
+      "answer": "Three cases based on discriminant D = a^2 - 4b of characteristic r^2 + a r + b = 0: (1) D > 0 (overdamped): two distinct real roots r_1, r_2. Solution y = C_1 e^(r_1 x) + C_2 e^(r_2 x). No oscillation. Both roots negative => stable (decays to 0). (2) D = 0 (critically damped): repeated root r = -a/2. Solution y = (C_1 + C_2 x) e^(rx). Fastest return to equilibrium without oscillation. (3) D < 0 (underdamped): complex roots alpha ± i beta. Solution y = e^(alpha x) (C_1 cos(beta x) + C_2 sin(beta x)). Oscillates with exponential envelope. If alpha < 0: damped oscillation. If alpha = 0: pure oscillation. If alpha > 0: growing oscillation (unstable). Example: y'' + 4 y' + 13 y = 0. D = 16 - 52 = -36 < 0. r = -2 ± 3i. Underdamped. ✓",
+      "topic": "ch06p2_three_cases_summary",
+      "intent": "formula_recall",
+      "keywords": [
+        "three cases",
+        "overdamped",
+        "critically damped",
+        "underdamped",
+        "discriminant"
+      ]
+    },
+    {
+      "question": "How do you determine stability of a second-order homogeneous ODE?",
+      "answer": "Stability based on roots of characteristic equation r^2 + a r + b = 0: (1) Both roots have negative real parts (Re(r_1), Re(r_2) < 0): asymptotically stable (y -> 0 as x -> inf). Required: a > 0 and b > 0 (Routh-Hurwitz for 2nd order). (2) Any root with positive real part: unstable (y grows). (3) Purely imaginary roots (r = ±i beta, a = 0): marginally stable (oscillates forever, doesn't decay). (4) Zero root (b = 0): unstable (constant solution doesn't decay). Example: y'' + 3 y' + 2 y = 0. r = -1, -2. Both negative => stable. y -> 0. Example: y'' - y = 0. r = ±1. One positive => unstable. Example: y'' + y = 0. r = ±i. Marginally stable (oscillates). Example: y'' - 5 y' + 6 y = 0. r = 2, 3. Both positive => unstable. ✓",
+      "topic": "ch06p2_stability_analysis",
+      "intent": "problem_solving",
+      "keywords": [
+        "stability",
+        "roots",
+        "negative real part",
+        "Routh-Hurwitz",
+        "asymptotically stable"
+      ]
+    },
+    {
+      "question": "What is reduction of order for second-order linear ODEs?",
+      "answer": "Reduction of order: given one solution y_1 of y'' + P(x) y' + Q(x) y = 0, find a second linearly independent solution y_2 = v(x) y_1(x). Substitute y = v y_1: y' = v' y_1 + v y_1', y'' = v'' y_1 + 2 v' y_1' + v y_1''. Plug in (using y_1 solves homogeneous): y_1 v'' + (2 y_1' + P y_1) v' = 0. Let w = v': y_1 w' + (2 y_1' + P y_1) w = 0. Separable: dw/w = -(2 y_1'/y_1 + P) dx. Integrate: ln|w| = -2 ln|y_1| - integral P dx. w = C/(y_1^2) e^(-integral P dx). Take v = integral w dx (set C=1). y_2 = y_1 · integral [e^(-integral P dx)/y_1^2] dx. ✓",
+      "topic": "ch06p2_reduction_of_order",
+      "intent": "formula_recall",
+      "keywords": [
+        "reduction of order",
+        "second solution",
+        "y_2 = v y_1",
+        "find y_2",
+        "Abel formula"
+      ]
+    },
+    {
+      "question": "How do you use reduction of order when one solution is known?",
+      "answer": "Given y_1 solves y'' + P y' + Q y = 0, set y_2 = v(x) y_1(x). Compute y_2' = v' y_1 + v y_1', y_2'' = v'' y_1 + 2 v' y_1' + v y_1''. Substitute: y_1 v'' + (2 y_1' + P y_1) v' = 0 (since y_1'' + P y_1' + Q y_1 = 0). Let u = v': y_1 u' + (2 y_1' + P y_1) u = 0. Separable, solve for u, then v = integral u dx, y_2 = v y_1. Example: y'' - 4 y' + 4 y = 0, y_1 = e^(2x). y_2 = v e^(2x). y_2' = v' e^(2x) + 2 v e^(2x). y_2'' = v'' e^(2x) + 4 v' e^(2x) + 4 v e^(2x). Substitute: v'' + (4 - 4) v' = 0, v'' = 0. v = C_1 + C_2 x. Take v = x. y_2 = x e^(2x). General: y = (C_1 + C_2 x) e^(2x). ✓",
+      "topic": "ch06p2_reduction_of_order_method",
+      "intent": "problem_solving",
+      "keywords": [
+        "reduction of order",
+        "use",
+        "v y_1",
+        "substitute",
+        "find v"
+      ]
+    },
+    {
+      "question": "How do you use reduction of order for nonhomogeneous ODEs?",
+      "answer": "For y'' + P y' + Q y = f(x) with known y_1 (homogeneous solution), substitute y = v y_1. This gives y_1 v'' + (2 y_1' + P y_1) v' = f(x). Let u = v': first-order linear in u: u' + (2 y_1'/y_1 + P) u = f/y_1. Solve for u using integrating factor, then v = integral u dx, then y = v y_1. Example: y'' + y = tan(x), y_1 = cos x (or sin x). Use y_1 = cos x. y_2 path: y = v cos x. y' = v' cos x - v sin x. y'' = v'' cos x - 2 v' sin x - v cos x. Sub: v'' cos x - 2 v' sin x = tan(x) (cos x terms cancel). Let u = v': cos x u' - 2 sin x u = tan x = sin x / cos x. u' - 2 tan x u = sin x / cos^2 x. IF = e^(integral -2 tan x dx) = e^(2 ln cos x) = cos^2 x. (u cos^2 x)' = sin x. u cos^2 x = -cos x + C. u = -1/cos x + C/cos^2 x. Take C=0: v = integral -sec x dx = -ln|sec x + tan x|. y_p = -cos x · ln|sec x + tan x|. ✓",
+      "topic": "ch06p2_reduction_nonhomogeneous",
+      "intent": "problem_solving",
+      "keywords": [
+        "reduction of order",
+        "nonhomogeneous",
+        "find y_p",
+        "first-order in u",
+        "method"
+      ]
+    },
+    {
+      "question": "How do you find a second solution using Abel's formula?",
+      "answer": "Abel's formula: W(y_1, y_2)(x) = W_0 e^(-integral P(x) dx), where W_0 = W(x_0). So W = y_1 y_2' - y_1' y_2 = C e^(-integral P dx). If y_1 known, solve: y_2' - (y_1'/y_1) y_2 = C e^(-integral P dx)/y_1. Linear first-order in y_2. Integrating factor mu = e^(-integral y_1'/y_1 dx) = 1/y_1. (y_2/y_1)' = C e^(-integral P dx)/y_1^2. y_2 = y_1 integral [C e^(-integral P dx)/y_1^2] dx. Take C = 1 (any nonzero constant gives independent y_2). Example: y'' - 2 y' + y = 0, y_1 = e^x. P = -2. y_2 = e^x integral [e^(2x)/e^(2x)] dx = e^x integral dx = x e^x. ✓",
+      "topic": "ch06p2_abel_formula",
+      "intent": "formula_recall",
+      "keywords": [
+        "Abel",
+        "Wronskian",
+        "W_0 e^(-integral P)",
+        "second solution",
+        "formula"
+      ]
+    },
+    {
+      "question": "How do you handle variable-coefficient second-order ODEs?",
+      "answer": "For y'' + P(x) y' + Q(x) y = 0 with variable coefficients, no general formula. Methods: (1) Power series (try y = sum a_n x^n). (2) Reduction of order if one solution known. (3) Special forms: Cauchy-Euler (x^2 y'' + a x y' + b y = 0, substitute x = e^t). (4) Legendre, Bessel, etc. (named special functions). (5) Numerical methods. Example: y'' - (2/x) y' + (2/x^2) y = 0 (Cauchy-Euler). Try y = x^m. m(m-1) - 2m + 2 = 0, m^2 - 3m + 2 = 0, m = 1, 2. y = C_1 x + C_2 x^2. Example: y'' + (1/x) y' + y = 0 (Bessel-like). Try power series. Known: Bessel J_0(x) and Y_0(x). ✓",
+      "topic": "ch06p2_variable_coefficients",
+      "intent": "problem_solving",
+      "keywords": [
+        "variable coefficients",
+        "power series",
+        "Cauchy-Euler",
+        "special functions",
+        "Bessel"
+      ]
+    },
+    {
+      "question": "What is the method of undetermined coefficients?",
+      "answer": "Method for finding y_p of y'' + a y' + b y = f(x) when f(x) is exponential, polynomial, sine/cosine, or combinations. Guess y_p with undetermined coefficients based on form of f, then plug in and solve. Guesses: (1) f = e^(kx): try y_p = A e^(kx). (2) f = polynomial P_n(x): try y_p = polynomial of same degree. (3) f = sin(kx) or cos(kx): try y_p = A sin(kx) + B cos(kx). (4) f = e^(kx) P_n(x): try y_p = e^(kx) Q_n(x). (5) f = e^(kx) sin/cos: try y_p = e^(kx) (A sin + B cos). If guess overlaps with y_h, multiply by x (or x^2 if also overlaps). Example: y'' + y = e^x. Try A e^x. A + A = 1, A = 1/2. y_p = e^x/2. ✓",
+      "topic": "ch06p2_undetermined_coefficients",
+      "intent": "formula_recall",
+      "keywords": [
+        "undetermined coefficients",
+        "guess",
+        "particular solution",
+        "form of f",
+        "method"
+      ]
+    },
+    {
+      "question": "How do you solve y'' + a y' + b y = e^(kx) by undetermined coefficients?",
+      "answer": "Try y_p = A e^(kx). Then y_p' = A k e^(kx), y_p'' = A k^2 e^(kx). Substitute: A k^2 e^(kx) + a A k e^(kx) + b A e^(kx) = e^(kx). Divide by e^(kx): A (k^2 + a k + b) = 1. So A = 1/(k^2 + a k + b) = 1/P(k), where P is characteristic polynomial. Exception: if k is a root of P (i.e., e^(kx) is in y_h), multiply guess by x. If k is double root, multiply by x^2. Example: y'' - 3 y' + 2 y = e^(5x). P(5) = 25 - 15 + 2 = 12. A = 1/12. y_p = e^(5x)/12. Example: y'' - 3 y' + 2 y = e^(2x). P(2) = 0 (r=2 is root). Try A x e^(2x). y_p' = A e^(2x) (1 + 2x). y_p'' = A e^(2x) (4 + 4x). Sub: A e^(2x) [(4+4x) - 3(1+2x) + 2x] = A e^(2x) [4+4x -3-6x+2x] = A e^(2x) [1] = e^(2x). A = 1. y_p = x e^(2x). ✓",
+      "topic": "ch06p2_uc_exponential",
+      "intent": "problem_solving",
+      "keywords": [
+        "undetermined coefficients",
+        "exponential",
+        "e^(kx)",
+        "A e^(kx)",
+        "P(k)"
+      ]
+    },
+    {
+      "question": "How do you solve y'' + a y' + b y = polynomial by undetermined coefficients?",
+      "answer": "For f(x) = polynomial of degree n (no exponential), try y_p = polynomial of degree n with undetermined coefficients. If y_h has constant term (i.e., r = 0 is root => b = 0), multiply by x. If r = 0 double root (a = b = 0), multiply by x^2. Example: y'' + 3 y' + 2 y = 4 x^2. Try y_p = A x^2 + B x + C. y_p' = 2 A x + B. y_p'' = 2 A. Substitute: 2 A + 3(2 A x + B) + 2(A x^2 + B x + C) = 4 x^2. Collect: 2 A x^2 + (6 A + 2 B) x + (2 A + 3 B + 2 C) = 4 x^2. Match: 2 A = 4 => A = 2. 6(2) + 2 B = 0 => B = -6. 2(2) + 3(-6) + 2 C = 0 => 4 - 18 + 2 C = 0, C = 7. y_p = 2 x^2 - 6 x + 7. ✓",
+      "topic": "ch06p2_uc_polynomial",
+      "intent": "problem_solving",
+      "keywords": [
+        "undetermined coefficients",
+        "polynomial",
+        "degree n",
+        "A x^2 + B x + C",
+        "match coefficients"
+      ]
+    },
+    {
+      "question": "How do you solve y'' + a y' + b y = sin(kx) or cos(kx) by undetermined coefficients?",
+      "answer": "For f = sin(kx) or cos(kx) (or both), try y_p = A sin(kx) + B cos(kx). Must include BOTH sine and cosine even if f has only one, because derivatives mix them. Exception: if ±i k are roots of characteristic (i.e., sin/cos already in y_h), multiply by x. Example: y'' + y = sin(2x). Try y_p = A sin(2x) + B cos(2x). y_p' = 2 A cos(2x) - 2 B sin(2x). y_p'' = -4 A sin(2x) - 4 B cos(2x). Sub: (-4 A sin(2x) - 4 B cos(2x)) + (A sin(2x) + B cos(2x)) = sin(2x). -3 A sin(2x) - 3 B cos(2x) = sin(2x). A = -1/3, B = 0. y_p = -sin(2x)/3. Example: y'' + y = sin(x). Char r^2 + 1 = 0, r = ±i, so sin(x) in y_h. Try y_p = x (A sin x + B cos x). y_p' = A sin x + B cos x + x (A cos x - B sin x). y_p'' = 2 A cos x - 2 B sin x - x (A sin x + B cos x). Sub: 2 A cos x - 2 B sin x = sin x. A = 0, B = -1/2. y_p = -x cos(x)/2. ✓",
+      "topic": "ch06p2_uc_sine_cosine",
+      "intent": "problem_solving",
+      "keywords": [
+        "undetermined coefficients",
+        "sin",
+        "cos",
+        "A sin + B cos",
+        "multiply by x"
+      ]
+    },
+    {
+      "question": "How do you handle products like e^(kx) sin(mx) in undetermined coefficients?",
+      "answer": "For f = e^(kx) sin(mx) or e^(kx) cos(mx), try y_p = e^(kx) (A sin(mx) + B cos(mx)). If k + i m is a root of characteristic, multiply by x. Example: y'' + 4 y = e^x sin(2x). Try y_p = e^x (A sin(2x) + B cos(2x)). Compute derivatives (tedious). y_p' = e^x (A sin 2x + B cos 2x) + e^x (2 A cos 2x - 2 B sin 2x) = e^x [(A - 2B) sin 2x + (B + 2A) cos 2x]. y_p'' = e^x [(A - 2B + 2(B + 2A)) sin 2x + (B + 2A - 2(A - 2B)) cos 2x] = e^x [(A - 2B + 2B + 4A) sin 2x + (B + 2A - 2A + 4B) cos 2x] = e^x [(5A) sin 2x + (5B) cos 2x]. Sub into y'' + 4 y: e^x [5A sin 2x + 5B cos 2x + 4A sin 2x + 4B cos 2x] = e^x [9A sin 2x + 9B cos 2x] = e^x sin(2x). So 9A = 1, 9B = 0. A = 1/9, B = 0. y_p = e^x sin(2x)/9. ✓",
+      "topic": "ch06p2_uc_product_exponential_trig",
+      "intent": "problem_solving",
+      "keywords": [
+        "undetermined coefficients",
+        "product",
+        "exponential times trig",
+        "e^(kx)(A sin + B cos)",
+        "solve"
+      ]
+    },
+    {
+      "question": "What is the modification rule when the guess overlaps with the homogeneous solution?",
+      "answer": "Modification rule: if any term of the initial guess for y_p is also a solution of the homogeneous equation (i.e., appears in y_h), multiply the entire guess by x. If after multiplication it still overlaps (i.e., the term is also in x · y_h, which happens for repeated roots), multiply by x^2. General rule: multiply by x^s where s is the smallest non-negative integer such that no term of x^s · (initial guess) is in y_h. Example: y'' - 4 y' + 4 y = e^(2x). Char r^2 - 4r + 4 = (r-2)^2, r = 2 double. y_h = (C_1 + C_2 x) e^(2x). Guess A e^(2x) is in y_h. Multiply by x: A x e^(2x) is also in y_h. Multiply by x^2: A x^2 e^(2x). Not in y_h. Use y_p = A x^2 e^(2x). y_p' = A e^(2x) (2x^2 + 2x). y_p'' = A e^(2x) (4x^2 + 8x + 2). Sub: A e^(2x) [4x^2+8x+2 - 4(2x^2+2x) + 4x^2] = A e^(2x) [4x^2 + 8x + 2 - 8x^2 - 8x + 4x^2] = A e^(2x) [2] = e^(2x). A = 1/2. y_p = x^2 e^(2x)/2. ✓",
+      "topic": "ch06p2_uc_modification_rule",
+      "intent": "problem_solving",
+      "keywords": [
+        "modification rule",
+        "overlap",
+        "y_h",
+        "multiply by x",
+        "multiply by x^2"
+      ]
+    },
+    {
+      "question": "How do you use the superposition principle in undetermined coefficients?",
+      "answer": "If f(x) = f_1(x) + f_2(x) (sum of terms with different forms), find y_p1 for f_1 and y_p2 for f_2 separately, then y_p = y_p1 + y_p2. Example: y'' + y = e^x + sin(2x). For e^x: try A e^x. A + A = 1, A = 1/2. y_p1 = e^x/2. For sin(2x): try B sin(2x) + C cos(2x). -4 B sin - 4 C cos + B sin + C cos = sin(2x). -3 B = 1, -3 C = 0. B = -1/3, C = 0. y_p2 = -sin(2x)/3. Total: y_p = e^x/2 - sin(2x)/3. General: y = C_1 cos x + C_2 sin x + e^x/2 - sin(2x)/3. This is much faster than trying one big guess. ✓",
+      "topic": "ch06p2_uc_superposition",
+      "intent": "problem_solving",
+      "keywords": [
+        "superposition",
+        "sum",
+        "split f",
+        "y_p1 + y_p2",
+        "undetermined coefficients"
+      ]
+    },
+    {
+      "question": "How do you solve an IVP using undetermined coefficients?",
+      "answer": "Steps: (1) Find y_h. (2) Find y_p by undetermined coefficients. (3) General: y = y_h + y_p. (4) Apply ICs y(x_0) = y_0, y'(x_0) = y_1 to solve for C_1, C_2. Example: y'' + y = 2 x, y(0) = 0, y'(0) = 1. y_h = C_1 cos x + C_2 sin x. y_p: try A x + B. y_p'' = 0. Sub: 0 + A x + B = 2 x. A = 2, B = 0. y_p = 2 x. General: y = C_1 cos x + C_2 sin x + 2 x. y(0) = C_1 = 0. y' = -C_1 sin x + C_2 cos x + 2. y'(0) = C_2 + 2 = 1, C_2 = -1. Solution: y = -sin x + 2 x. Verify: y'' = sin x. y'' + y = sin x + (-sin x + 2 x) = 2 x. ✓. y(0) = 0. y'(0) = -1 + 2 = 1. ✓",
+      "topic": "ch06p2_uc_ivp",
+      "intent": "problem_solving",
+      "keywords": [
+        "IVP",
+        "undetermined coefficients",
+        "apply ICs",
+        "find C_1, C_2",
+        "verify"
+      ]
+    },
+    {
+      "question": "What is variation of parameters?",
+      "answer": "General method for finding y_p of y'' + P(x) y' + Q(x) y = f(x), works for ANY continuous P, Q, f (not just special forms). Idea: replace constants C_1, C_2 in y_h = C_1 y_1 + C_2 y_2 with functions u_1(x), u_2(x). Set y_p = u_1 y_1 + u_2 y_2 with constraint u_1' y_1 + u_2' y_2 = 0 (to simplify). Substituting gives system: u_1' y_1 + u_2' y_2 = 0, u_1' y_1' + u_2' y_2' = f. Solve for u_1', u_2' (Cramer's rule using Wronskian): u_1' = -y_2 f/W, u_2' = y_1 f/W, where W = y_1 y_2' - y_1' y_2. Integrate: u_1 = -integral (y_2 f/W) dx, u_2 = integral (y_1 f/W) dx. Then y_p = u_1 y_1 + u_2 y_2. ✓",
+      "topic": "ch06p2_variation_of_parameters",
+      "intent": "formula_recall",
+      "keywords": [
+        "variation of parameters",
+        "u_1 y_1 + u_2 y_2",
+        "functions",
+        "Wronskian",
+        "general method"
+      ]
+    },
+    {
+      "question": "How do you derive the variation of parameters formulas?",
+      "answer": "Start: y_p = u_1 y_1 + u_2 y_2. y_p' = u_1 y_1' + u_2 y_2' + u_1' y_1 + u_2' y_2. Impose u_1' y_1 + u_2' y_2 = 0 (constraint). Then y_p' = u_1 y_1' + u_2 y_2'. y_p'' = u_1 y_1'' + u_2 y_2'' + u_1' y_1' + u_2' y_2'. Substitute into y'' + P y' + Q y = f: (u_1 y_1'' + u_2 y_2'' + u_1' y_1' + u_2' y_2') + P(u_1 y_1' + u_2 y_2') + Q(u_1 y_1 + u_2 y_2) = f. Group u_1, u_2: u_1 (y_1'' + P y_1' + Q y_1) + u_2 (y_2'' + P y_2' + Q y_2) + u_1' y_1' + u_2' y_2' = f. First two terms = 0 (y_1, y_2 solve homogeneous). So u_1' y_1' + u_2' y_2' = f. Combined with constraint: system. Solve by Cramer: W = y_1 y_2' - y_1' y_2. u_1' = -y_2 f/W (det [[0, y_2], [f, y_2']]/W = -y_2 f/W). u_2' = y_1 f/W (det [[y_1, 0], [y_1', f]]/W = y_1 f/W). ✓",
+      "topic": "ch06p2_variation_derivation",
+      "intent": "formula_recall",
+      "keywords": [
+        "derivation",
+        "variation of parameters",
+        "constraint",
+        "system",
+        "Cramer rule"
+      ]
+    },
+    {
+      "question": "How do you apply variation of parameters step by step?",
+      "answer": "Steps: (1) Find y_1, y_2 (linearly independent solutions of homogeneous). (2) Compute W = y_1 y_2' - y_1' y_2. (3) Compute u_1' = -y_2 f/W, u_2' = y_1 f/W. (4) Integrate: u_1 = -integral (y_2 f/W) dx, u_2 = integral (y_1 f/W) dx. (5) y_p = u_1 y_1 + u_2 y_2. (6) General: y = C_1 y_1 + C_2 y_2 + y_p. Example: y'' + y = tan x. y_1 = cos x, y_2 = sin x. W = cos x · cos x - (-sin x) · sin x = 1. u_1' = -sin x · tan x = -sin^2 x / cos x. u_1 = -integral sin^2 x / cos x dx = -integral (1 - cos^2 x)/cos x dx = -integral (sec x - cos x) dx = -ln|sec x + tan x| + sin x. (Take sin x as part of y_h, drop.) u_2' = cos x · tan x = sin x. u_2 = -cos x. (Drop, part of y_h.) y_p = -cos x · ln|sec x + tan x|. ✓",
+      "topic": "ch06p2_variation_steps",
+      "intent": "problem_solving",
+      "keywords": [
+        "variation of parameters",
+        "steps",
+        "compute W",
+        "integrate",
+        "apply"
+      ]
+    },
+    {
+      "question": "How does variation of parameters compare to undetermined coefficients?",
+      "answer": "Comparison: (1) Undetermined coefficients: only works for f(x) of special forms (exponential, polynomial, sin/cos, products). Works only for constant-coefficient ODEs. Simple algebra. (2) Variation of parameters: works for ANY continuous f(x) and ANY P(x), Q(x) (variable coefficients OK). Requires integration (may be hard). More general. (3) Both give same y_p for problems where both apply. Example: y'' + y = e^x. UC: y_p = e^x/2. VP: y_1 = cos x, y_2 = sin x, W = 1. u_1' = -sin x · e^x. u_1 = -integral e^x sin x dx = -e^x (sin x - cos x)/2. u_2' = cos x · e^x. u_2 = e^x (sin x + cos x)/2. y_p = u_1 cos x + u_2 sin x = -e^x (sin x - cos x) cos x /2 + e^x (sin x + cos x) sin x /2 = e^x/2 [-sin x cos x + cos^2 x + sin^2 x + cos x sin x] = e^x/2 [1] = e^x/2. Same. ✓",
+      "topic": "ch06p2_variation_vs_uc",
+      "intent": "problem_solving",
+      "keywords": [
+        "compare",
+        "variation of parameters",
+        "undetermined coefficients",
+        "general",
+        "limitations"
+      ]
+    },
+    {
+      "question": "How do you solve y'' + y = sec(x) by variation of parameters?",
+      "answer": "y_1 = cos x, y_2 = sin x. W = cos^2 x + sin^2 x = 1. f = sec x = 1/cos x. u_1' = -y_2 f/W = -sin x / cos x = -tan x. u_1 = -integral tan x dx = ln|cos x|. u_2' = y_1 f/W = cos x / cos x = 1. u_2 = x. y_p = u_1 y_1 + u_2 y_2 = cos x · ln|cos x| + x sin x. General: y = C_1 cos x + C_2 sin x + cos x · ln|cos x| + x sin x. Check: y_p' = -sin x ln|cos x| + cos x · (-tan x) + sin x + x cos x. y_p'' = -cos x ln|cos x| + sin x tan x + sin x tan x + cos x sec^2 x · ... Actually easier to verify in head; trust the formula. Note: y_p blows up at x = pi/2 + n pi (where cos x = 0), matching singularity of f. ✓",
+      "topic": "ch06p2_variation_sec_example",
+      "intent": "problem_solving",
+      "keywords": [
+        "variation of parameters",
+        "sec(x)",
+        "example",
+        "worked",
+        "solve"
+      ]
+    },
+    {
+      "question": "What is a Cauchy-Euler equation?",
+      "answer": "Cauchy-Euler (Euler-Cauchy, equidimensional) equation: a x^2 y'' + b x y' + c y = 0, where a, b, c constants. Distinctive: power of x matches order of derivative. Substitute x = e^t (or t = ln x, x > 0), transform to constant-coefficient. dy/dx = (1/x) dy/dt. d^2y/dx^2 = (1/x^2)(d^2y/dt^2 - dy/dt). Substitute: a (d^2y/dt^2 - dy/dt) + b dy/dt + c y = 0. a y_tt + (b - a) y_t + c y = 0. Constant coefficients in t! Solve, substitute back t = ln x. Equivalently, try y = x^m: m(m-1) + (b/a) m + c/a = 0 (indicial/auxiliary equation). Example: x^2 y'' + 4 x y' + 2 y = 0. m(m-1) + 4m + 2 = 0, m^2 + 3m + 2 = 0, m = -1, -2. y = C_1 x^(-1) + C_2 x^(-2). ✓",
+      "topic": "ch06p2_cauchy_euler_definition",
+      "intent": "formula_recall",
+      "keywords": [
+        "Cauchy-Euler",
+        "equidimensional",
+        "x^2 y''",
+        "substitute x = e^t",
+        "indicial equation"
+      ]
+    },
+    {
+      "question": "How do you solve a Cauchy-Euler equation with distinct real roots?",
+      "answer": "For a x^2 y'' + b x y' + c y = 0, indicial equation a m(m-1) + b m + c = 0 (or a m^2 + (b - a) m + c = 0). Distinct real roots m_1 != m_2: y = C_1 x^(m_1) + C_2 x^(m_2), for x > 0 (for x < 0, use |x|^m). Example: x^2 y'' - 3 x y' + 3 y = 0. m(m-1) - 3m + 3 = 0, m^2 - 4m + 3 = 0, (m-1)(m-3) = 0, m = 1, 3. y = C_1 x + C_2 x^3. Verify: y' = C_1 + 3 C_2 x^2. y'' = 6 C_2 x. x^2 (6 C_2 x) - 3 x (C_1 + 3 C_2 x^2) + 3 (C_1 x + C_2 x^3) = 6 C_2 x^3 - 3 C_1 x - 9 C_2 x^3 + 3 C_1 x + 3 C_2 x^3 = 0. ✓ Example: x^2 y'' + 5 x y' - 5 y = 0. m^2 + 4m - 5 = 0, (m+5)(m-1) = 0, m = -5, 1. y = C_1/x^5 + C_2 x. ✓",
+      "topic": "ch06p2_cauchy_euler_distinct",
+      "intent": "problem_solving",
+      "keywords": [
+        "Cauchy-Euler",
+        "distinct roots",
+        "m_1 != m_2",
+        "x^m",
+        "indicial"
+      ]
+    },
+    {
+      "question": "How do you solve a Cauchy-Euler equation with repeated roots?",
+      "answer": "For a x^2 y'' + b x y' + c y = 0 with repeated root m (discriminant (b-a)^2 - 4ac = 0), the two solutions are y_1 = x^m and y_2 = x^m ln|x| (analogous to x e^(rx) in constant-coefficient case). General: y = C_1 x^m + C_2 x^m ln|x| = x^m (C_1 + C_2 ln|x|). Example: x^2 y'' - 5 x y' + 9 y = 0. m^2 - 6m + 9 = 0, (m-3)^2 = 0, m = 3 (double). y = x^3 (C_1 + C_2 ln|x|). Verify y_2 = x^3 ln x: y_2' = 3 x^2 ln x + x^2. y_2'' = 6 x ln x + 3 x + 2 x = 6 x ln x + 5 x. x^2 (6 x ln x + 5 x) - 5 x (3 x^2 ln x + x^2) + 9 x^3 ln x = (6 x^3 ln x + 5 x^3) - (15 x^3 ln x + 5 x^3) + 9 x^3 ln x = 0. ✓",
+      "topic": "ch06p2_cauchy_euler_repeated",
+      "intent": "problem_solving",
+      "keywords": [
+        "Cauchy-Euler",
+        "repeated root",
+        "x^m ln|x|",
+        "double root",
+        "solve"
+      ]
+    },
+    {
+      "question": "How do you solve a Cauchy-Euler equation with complex roots?",
+      "answer": "For Cauchy-Euler with complex indicial roots m = alpha ± i beta, general solution: y = x^alpha (C_1 cos(beta ln|x|) + C_2 sin(beta ln|x|)). Derivation: x^(alpha + i beta) = x^alpha · x^(i beta) = x^alpha · e^(i beta ln x) = x^alpha (cos(beta ln x) + i sin(beta ln x)). Real and imaginary parts give solutions. Example: x^2 y'' + x y' + y = 0. m^2 + 1 = 0, m = ±i. alpha = 0, beta = 1. y = C_1 cos(ln|x|) + C_2 sin(ln|x|). Example: x^2 y'' + 3 x y' + 5 y = 0. m^2 + 2m + 5 = 0, m = -1 ± 2i. alpha = -1, beta = 2. y = x^(-1) (C_1 cos(2 ln|x|) + C_2 sin(2 ln|x|)). Verify: oscillates in ln x, decays as 1/x. ✓",
+      "topic": "ch06p2_cauchy_euler_complex",
+      "intent": "problem_solving",
+      "keywords": [
+        "Cauchy-Euler",
+        "complex roots",
+        "alpha ± i beta",
+        "x^alpha cos/sin (beta ln)",
+        "oscillates"
+      ]
+    },
+    {
+      "question": "How do you solve nonhomogeneous Cauchy-Euler equations?",
+      "answer": "For a x^2 y'' + b x y' + c y = f(x): (1) Solve homogeneous (get y_h). (2) Find y_p. Methods: (a) Undetermined coefficients after substitution x = e^t (transforms to constant-coef nonhomog). (b) Variation of parameters using y_1, y_2 from homogeneous. Example: x^2 y'' - 2 x y' + 2 y = x^3. Homogeneous: m^2 - 3m + 2 = 0, m = 1, 2. y_h = C_1 x + C_2 x^2. Try y_p = A x^3 (note x^3 not in y_h). y_p' = 3 A x^2. y_p'' = 6 A x. Sub: x^2 (6 A x) - 2 x (3 A x^2) + 2 (A x^3) = 6 A x^3 - 6 A x^3 + 2 A x^3 = 2 A x^3 = x^3. A = 1/2. y_p = x^3/2. General: y = C_1 x + C_2 x^2 + x^3/2. ✓",
+      "topic": "ch06p2_cauchy_euler_nonhomogeneous",
+      "intent": "problem_solving",
+      "keywords": [
+        "Cauchy-Euler",
+        "nonhomogeneous",
+        "undetermined coefficients",
+        "variation of parameters",
+        "transform"
+      ]
+    },
+    {
+      "question": "How do you transform Cauchy-Euler to constant coefficients?",
+      "answer": "Substitution: x = e^t (so t = ln x, x > 0). dy/dx = (dy/dt)(dt/dx) = (1/x) dy/dt = e^(-t) dy/dt. d^2y/dx^2 = d/dx [e^(-t) dy/dt] = e^(-t) d/dt [e^(-t) dy/dt] = e^(-t) [-e^(-t) dy/dt + e^(-t) d^2y/dt^2] = e^(-2t) (d^2y/dt^2 - dy/dt). Substitute x^2 y'' + a x y' + b y = 0: e^(2t) · e^(-2t)(y_tt - y_t) + a e^t · e^(-t) y_t + b y = 0. y_tt - y_t + a y_t + b y = 0. y_tt + (a-1) y_t + b y = 0. Constant coefficients! Example: x^2 y'' + 4 x y' + 2 y = 0 -> y_tt + 3 y_t + 2 y = 0. r^2 + 3r + 2 = 0, r = -1, -2. y(t) = C_1 e^(-t) + C_2 e^(-2t). Back: t = ln x, e^(-t) = 1/x. y = C_1/x + C_2/x^2. ✓",
+      "topic": "ch06p2_cauchy_euler_transform",
+      "intent": "problem_solving",
+      "keywords": [
+        "transform",
+        "x = e^t",
+        "t = ln x",
+        "constant coefficients",
+        "substitute back"
+      ]
+    },
+    {
+      "question": "How do you solve higher-order homogeneous linear ODEs with constant coefficients?",
+      "answer": "For a_n y^(n) + ... + a_1 y' + a_0 y = 0, form characteristic polynomial P(r) = a_n r^n + ... + a_1 r + a_0. Find roots. For each root r: (1) Simple real root r: term C e^(rx). (2) Real root r with multiplicity k: terms (C_1 + C_2 x + ... + C_k x^(k-1)) e^(rx). (3) Complex pair alpha ± i beta simple: e^(alpha x) (C_1 cos(beta x) + C_2 sin(beta x)). (4) Complex pair multiplicity k: e^(alpha x) [(C_1 + ... + C_k x^(k-1)) cos + (D_1 + ... + D_k x^(k-1)) sin]. General solution: sum over all roots. Example: y''' - 6 y'' + 11 y' - 6 y = 0. P(r) = r^3 - 6 r^2 + 11 r - 6 = (r-1)(r-2)(r-3). y = C_1 e^x + C_2 e^(2x) + C_3 e^(3x). Example: y''' - 3 y'' + 3 y' - y = 0. (r-1)^3 = 0, r = 1 triple. y = (C_1 + C_2 x + C_3 x^2) e^x. ✓",
+      "topic": "ch06p2_higher_order_homogeneous",
+      "intent": "problem_solving",
+      "keywords": [
+        "higher-order",
+        "n-th order",
+        "characteristic polynomial",
+        "multiplicity",
+        "roots"
+      ]
+    },
+    {
+      "question": "How do you solve higher-order nonhomogeneous linear ODEs?",
+      "answer": "General solution: y = y_h + y_p, where y_h is general solution of homogeneous (n constants), y_p any particular. Methods for y_p: (1) Undetermined coefficients (special f only). (2) Variation of parameters (general). For n-th order, variation of parameters solves system: u_1' y_1 + ... + u_n' y_n = 0, ..., u_1' y_1^(n-1) + ... + u_n' y_n^(n-1) = f/a_n. Cramer's rule: u_i' = W_i/W, where W = Wronskian of y_1, ..., y_n, W_i = W with i-th column replaced by (0, ..., 0, f/a_n). Example: y''' - 6 y'' + 11 y' - 6 y = e^(4x). y_h = C_1 e^x + C_2 e^(2x) + C_3 e^(3x). Try y_p = A e^(4x). P(4) = 64 - 96 + 44 - 6 = 6. A = 1/6. y_p = e^(4x)/6. y = C_1 e^x + C_2 e^(2x) + C_3 e^(3x) + e^(4x)/6. ✓",
+      "topic": "ch06p2_higher_order_nonhomogeneous",
+      "intent": "problem_solving",
+      "keywords": [
+        "higher-order",
+        "nonhomogeneous",
+        "y_h + y_p",
+        "undetermined coefficients",
+        "variation of parameters"
+      ]
+    },
+    {
+      "question": "What is the Wronskian for n functions?",
+      "answer": "For n functions y_1, ..., y_n, Wronskian W(y_1, ..., y_n) = det of n x n matrix [[y_1, y_2, ..., y_n], [y_1', y_2', ..., y_n'], ..., [y_1^(n-1), y_2^(n-1), ..., y_n^(n-1)]]. Theorem: y_1, ..., y_n are linearly independent solutions of n-th order homogeneous linear ODE on interval I iff W != 0 at every point of I. Abel's formula: W(x) = W(x_0) e^(-integral P_(n-1)(x) dx) where P_(n-1) is coefficient of y^(n-1) in standard form. Example: y_1 = 1, y_2 = x, y_3 = x^2. W = det [[1, x, x^2], [0, 1, 2x], [0, 0, 2]] = 2 != 0. Independent. ✓",
+      "topic": "ch06p2_wronskian_higher_order",
+      "intent": "formula_recall",
+      "keywords": [
+        "Wronskian",
+        "n functions",
+        "determinant",
+        "n x n",
+        "Abel formula"
+      ]
+    },
+    {
+      "question": "How do you apply initial conditions to higher-order ODEs?",
+      "answer": "For n-th order IVP, need n initial conditions: y(x_0), y'(x_0), ..., y^(n-1)(x_0). Apply to general solution y = y_h + y_p (with n unknown constants) to get n-equation system. Example: y''' - 6 y'' + 11 y' - 6 y = 0, y(0) = 1, y'(0) = 0, y''(0) = -1. y_h = C_1 e^x + C_2 e^(2x) + C_3 e^(3x). y' = C_1 e^x + 2 C_2 e^(2x) + 3 C_3 e^(3x). y'' = C_1 e^x + 4 C_2 e^(2x) + 9 C_3 e^(3x). At x=0: C_1 + C_2 + C_3 = 1. C_1 + 2 C_2 + 3 C_3 = 0. C_1 + 4 C_2 + 9 C_3 = -1. Subtract (1) from (2): C_2 + 2 C_3 = -1. Subtract (2) from (3): 2 C_2 + 6 C_3 = -1. Subtract 2·(4) from (5): 2 C_3 = 1, C_3 = 1/2. C_2 = -1 - 2(1/2) = -2. C_1 = 1 - (-2) - 1/2 = 5/2. y = (5/2) e^x - 2 e^(2x) + (1/2) e^(3x). ✓",
+      "topic": "ch06p2_higher_order_ivp",
+      "intent": "problem_solving",
+      "keywords": [
+        "higher-order",
+        "IVP",
+        "initial conditions",
+        "n equations",
+        "system"
+      ]
+    },
+    {
+      "question": "How do you solve operator-factored higher-order ODEs?",
+      "answer": "If characteristic polynomial factors as P(r) = (r - r_1)(r - r_2)...(r - r_n), the ODE factors as (D - r_1)(D - r_2)...(D - r_n) y = 0, where D = d/dx. Solve sequentially: let (D - r_n) y = u_(n-1), then (D - r_(n-1)) u_(n-1) = u_(n-2), ..., (D - r_1) u_1 = 0. Each first-order linear: u_k = C_(k+1) e^(r_(k+1) x). For nonhomogeneous (D - r_1)...(D - r_n) y = f, solve sequentially. Example: (D-1)(D-2) y = e^(3x). Let (D-2) y = u. (D-1) u = e^(3x). u' - u = e^(3x). Linear: u = C e^x + e^(3x)/2 (particular). Then y' - 2 y = C e^x + e^(3x)/2. Linear: y = C' e^(2x) + (-C e^x) + e^(3x)/2 · 1/(3-2) = C' e^(2x) - C e^x + e^(3x)/2. Rename: y = C_1 e^x + C_2 e^(2x) + e^(3x)/2. ✓",
+      "topic": "ch06p2_operator_factored",
+      "intent": "problem_solving",
+      "keywords": [
+        "operator",
+        "factored",
+        "(D - r)",
+        "sequential",
+        "first-order"
+      ]
+    },
+    {
+      "question": "How do you model a mass-spring system with a second-order ODE?",
+      "answer": "Mass m on spring with constant k, displacement x from equilibrium. Hooke's law: F_spring = -k x. Newton: m x'' = -k x. So m x'' + k x = 0. Solution: x(t) = A cos(omega_n t) + B sin(omega_n t), omega_n = sqrt(k/m) = natural angular frequency. Period: T = 2 pi/omega_n = 2 pi sqrt(m/k). If initial x(0) = x_0, x'(0) = v_0: A = x_0, B = v_0/omega_n. Equivalent: x = C cos(omega_n t - phi), C = sqrt(x_0^2 + (v_0/omega_n)^2), tan phi = v_0/(omega_n x_0). Example: m = 1 kg, k = 4 N/m. omega_n = 2 rad/s. T = pi s. x(0) = 0.1, x'(0) = 0. x = 0.1 cos(2t). ✓",
+      "topic": "ch06p2_mass_spring",
+      "intent": "problem_solving",
+      "keywords": [
+        "mass-spring",
+        "Hooke",
+        "m x'' + k x = 0",
+        "natural frequency",
+        "omega_n = sqrt(k/m)"
+      ]
+    },
+    {
+      "question": "How do you model a damped mass-spring system?",
+      "answer": "Mass m, spring k, damping coefficient c (linear drag). m x'' + c x' + k x = 0. Characteristic: m r^2 + c r + k = 0. Discriminant D = c^2 - 4 m k. (1) Overdamped (c^2 > 4mk): two distinct negative real roots. x = C_1 e^(r_1 t) + C_2 e^(r_2 t). Slow return to equilibrium, no oscillation. (2) Critically damped (c^2 = 4mk): repeated root r = -c/(2m). x = (C_1 + C_2 t) e^(-c t/(2m)). Fastest return without oscillation. (3) Underdamped (c^2 < 4mk): complex r = -alpha ± i omega_d, alpha = c/(2m), omega_d = sqrt(k/m - (c/(2m))^2). x = e^(-alpha t) (C_1 cos(omega_d t) + C_2 sin(omega_d t)). Decaying oscillation. Damping ratio zeta = c/(2 sqrt(mk)). zeta > 1 overdamped, = 1 critical, < 1 underdamped. ✓",
+      "topic": "ch06p2_damped_vibrations",
+      "intent": "problem_solving",
+      "keywords": [
+        "damped",
+        "mass-spring",
+        "m x'' + c x' + k x = 0",
+        "damping ratio",
+        "under/over/critical"
+      ]
+    },
+    {
+      "question": "How do you model a forced mass-spring system?",
+      "answer": "Forced mass-spring: m x'' + c x' + k x = F(t), where F(t) is external force. Common F(t) = F_0 cos(omega t) (sinusoidal forcing). General: x = x_h + x_p, where x_h is transient (decays if c > 0), x_p is steady-state. For undamped forced: m x'' + k x = F_0 cos(omega t). If omega != omega_n: x_p = (F_0/(k - m omega^2)) cos(omega t). If omega = omega_n (resonance): x_p = (F_0/(2 m omega_n)) t sin(omega_n t), amplitude grows linearly (unbounded). For damped forced: x_p = A cos(omega t) + B sin(omega t). Amplitude X = F_0 / sqrt((k - m omega^2)^2 + (c omega)^2). Phase: tan phi = c omega / (k - m omega^2). ✓",
+      "topic": "ch06p2_forced_vibrations",
+      "intent": "problem_solving",
+      "keywords": [
+        "forced",
+        "vibrations",
+        "F(t)",
+        "steady-state",
+        "resonance"
+      ]
+    },
+    {
+      "question": "What is resonance in mechanical vibrations?",
+      "answer": "Resonance: driving frequency omega equals natural frequency omega_n (undamped), causing amplitude to grow without bound. In undamped m x'' + k x = F_0 cos(omega_n t): try x_p = A t sin(omega_n t). x_p'' = -A omega_n^2 t sin + 2 A omega_n cos. Sub: -A omega_n^2 t sin + 2 A omega_n cos + A omega_n^2 t sin = F_0 cos(omega_n t). 2 A omega_n = F_0, A = F_0/(2 m omega_n) (note: divide by m for standard form). So x_p = (F_0 t/(2 m omega_n)) sin(omega_n t). Amplitude grows linearly. Real-world: bridges collapsing (Tacoma Narrows), glass breaking, tuning forks. With damping: amplitude peaks at omega_r = sqrt(omega_n^2 - 2 alpha^2) where alpha = c/(2m), but bounded. Peak amplitude X_max = F_0/(c omega_d). ✓",
+      "topic": "ch06p2_resonance",
+      "intent": "problem_solving",
+      "keywords": [
+        "resonance",
+        "natural frequency",
+        "driving frequency",
+        "growing amplitude",
+        "Tacoma"
+      ]
+    },
+    {
+      "question": "How do you model RLC circuits with second-order ODEs?",
+      "answer": "Series RLC circuit: L Q'' + R Q' + (1/C) Q = E(t), where Q = charge, L = inductance, R = resistance, C = capacitance, E = EMF. I = Q' (current). Equivalent form for current: L I' + R I + (1/C) integral I dt = E. Differentiate: L I'' + R I' + (1/C) I = E'. Compare to mass-spring: L <-> m, R <-> c, 1/C <-> k, E <-> F. (1) LC circuit (R=0): L Q'' + (1/C) Q = 0. omega_n = 1/sqrt(LC). Oscillates. (2) RLC underdamped: omega_d = sqrt(1/(LC) - (R/(2L))^2). (3) Critical damping: R = 2 sqrt(L/C). Example: L=1H, C=0.01F, R=0. omega_n = 1/sqrt(0.01) = 10 rad/s. Q(t) = Q_0 cos(10t). With R=20: alpha = 10, omega_d = 0 (critical). Q = (C_1 + C_2 t) e^(-10t). ✓",
+      "topic": "ch06p2_rlc_circuits",
+      "intent": "problem_solving",
+      "keywords": [
+        "RLC",
+        "circuit",
+        "L Q'' + R Q' + Q/C = E",
+        "inductor",
+        "capacitor"
+      ]
+    },
+    {
+      "question": "How do you model a pendulum with a second-order ODE?",
+      "answer": "Simple pendulum: mass m on rod length L, angle theta from vertical. Newton (torque): m L^2 theta'' = -m g L sin(theta). So theta'' + (g/L) sin(theta) = 0. Nonlinear! For small angles (sin theta approx theta): theta'' + (g/L) theta = 0. Linear SHM. omega_n = sqrt(g/L), T = 2 pi sqrt(L/g). Example: L = 1 m. T = 2 pi sqrt(1/9.8) = 2.01 s. Damped pendulum: theta'' + c theta' + (g/L) sin(theta) = 0. Linearized: theta'' + c theta' + (g/L) theta = 0. Forced: theta'' + c theta' + (g/L) sin(theta) = F_0 cos(omega t). Large-angle pendulum requires elliptic integrals; period increases with amplitude. ✓",
+      "topic": "ch06p2_pendulum",
+      "intent": "problem_solving",
+      "keywords": [
+        "pendulum",
+        "theta'' + (g/L) sin(theta) = 0",
+        "small angle",
+        "SHM",
+        "period"
+      ]
+    },
+    {
+      "question": "How do you analyze transient and steady-state in forced vibrations?",
+      "answer": "For m x'' + c x' + k x = F_0 cos(omega t), c > 0: x = x_h + x_p. x_h = e^(-alpha t) [C_1 cos(omega_d t) + C_2 sin(omega_d t)] (transient, decays as t -> inf). x_p = X cos(omega t - phi) (steady-state, persists). Amplitude: X = F_0 / sqrt((k - m omega^2)^2 + (c omega)^2). Phase: tan phi = c omega/(k - m omega^2). Resonance (max X): omega_r = sqrt(omega_n^2 - 2 alpha^2) = sqrt(k/m - c^2/(2 m^2)) (only if underdamped). At resonance: X_max = F_0/(c omega_d). For omega << omega_n: X approx F_0/k (static). For omega >> omega_n: X -> 0 (mass doesn't move). At omega = omega_n (no damping): X = F_0/(c omega_n) (large but finite). Quality factor Q = m omega_n/c = 1/(2 zeta). High Q = sharp resonance. ✓",
+      "topic": "ch06p2_transient_steady_state",
+      "intent": "problem_solving",
+      "keywords": [
+        "transient",
+        "steady-state",
+        "amplitude",
+        "phase",
+        "resonance curve"
+      ]
+    },
+    {
+      "question": "What is a boundary value problem (BVP)?",
+      "answer": "A BVP: differential equation plus conditions at two (or more) different points (boundaries), instead of at one point (IVP). Second-order BVP: y'' + P(x) y' + Q(x) y = f(x), y(a) = alpha, y(b) = beta. Unlike IVPs (always unique under mild conditions), BVPs may have: (1) Unique solution. (2) No solution. (3) Infinitely many solutions. Example: y'' + y = 0, y(0) = 0, y(pi) = 0. y = C_1 cos x + C_2 sin x. y(0) = C_1 = 0. y(pi) = -C_1 = 0 => C_1 = 0. C_2 free. Infinitely many y = C_2 sin x. Example: y'' + y = 0, y(0) = 0, y(pi) = 1. y(0) = C_1 = 0. y(pi) = -C_1 = 1 => 0 = 1. No solution. Example: y'' + y = 0, y(0) = 0, y(pi/2) = 1. y(0) = C_1 = 0. y(pi/2) = C_2 = 1. Unique: y = sin x. ✓",
+      "topic": "ch06p2_bvp_definition",
+      "intent": "formula_recall",
+      "keywords": [
+        "BVP",
+        "boundary value problem",
+        "two points",
+        "y(a) = alpha, y(b) = beta",
+        "non-unique"
+      ]
+    },
+    {
+      "question": "How do you solve a second-order BVP?",
+      "answer": "Methods: (1) Direct: find general solution y = y_h + y_p, apply two boundary conditions, solve for C_1, C_2. (2) Shooting method: guess y'(a) = s, solve IVP, find s such that y(b) = beta (numerical root-finding). (3) Finite differences: discretize, solve linear system. Example: y'' + y = 2, y(0) = 0, y(pi/2) = 1. y_h = C_1 cos x + C_2 sin x. y_p = 2 (constant, since 0 + 0 + 2 = 2... actually try A: 0 + A = 2, A = 2). y = C_1 cos x + C_2 sin x + 2. y(0) = C_1 + 2 = 0, C_1 = -2. y(pi/2) = C_2 + 2 = 1, C_2 = -1. Solution: y = -2 cos x - sin x + 2. ✓",
+      "topic": "ch06p2_bvp_solve",
+      "intent": "problem_solving",
+      "keywords": [
+        "BVP",
+        "solve",
+        "general solution",
+        "boundary conditions",
+        "shooting"
+      ]
+    },
+    {
+      "question": "What are eigenvalue problems for ODEs?",
+      "answer": "Sturm-Liouville eigenvalue problem: y'' + lambda y = 0, y(0) = 0, y(L) = 0 (or other BCs). Find values of lambda (eigenvalues) for which nontrivial solutions exist. Solutions: (1) lambda > 0: y = A cos(sqrt(lambda) x) + B sin(sqrt(lambda) x). y(0) = A = 0. y(L) = B sin(sqrt(lambda) L) = 0. Nontrivial (B != 0) requires sin(sqrt(lambda) L) = 0, sqrt(lambda) L = n pi, lambda_n = (n pi/L)^2, n = 1, 2, .... Eigenfunctions: y_n = sin(n pi x/L). (2) lambda = 0: y = A + B x. y(0) = A = 0. y(L) = B L = 0 => B = 0. Trivial. No eigenvalue. (3) lambda < 0: y = A cosh + B sinh. y(0) = A = 0. y(L) = B sinh = 0 => B = 0. Trivial. So eigenvalues lambda_n = (n pi/L)^2 with eigenfunctions sin(n pi x/L). Orthogonal on [0, L]. ✓",
+      "topic": "ch06p2_eigenvalue_problem",
+      "intent": "formula_recall",
+      "keywords": [
+        "eigenvalue",
+        "Sturm-Liouville",
+        "lambda",
+        "eigenfunction",
+        "orthogonal"
+      ]
+    },
+    {
+      "question": "What is the shooting method for BVPs?",
+      "answer": "Shooting method: convert BVP to IVP by guessing missing initial condition, solve, check boundary, adjust guess. For y'' = f(x, y, y'), y(a) = alpha, y(b) = beta: (1) Guess y'(a) = s. (2) Solve IVP y'' = f(x, y, y'), y(a) = alpha, y'(a) = s numerically (RK4). Get y(b; s). (3) Find s such that y(b; s) = beta. Use root-finding (bisection, Newton). Linear case: y'' + P y' + Q y = f. Two IVPs: (a) y_1'' + P y_1' + Q y_1 = f, y_1(a) = alpha, y_1'(a) = 0. (b) y_2'' + P y_2' + Q y_2 = 0, y_2(a) = 0, y_2'(a) = 1. Then y = y_1 + ((beta - y_1(b))/y_2(b)) y_2 satisfies both BCs. Example: y'' + y = 0, y(0) = 0, y(1) = 1. y_1 = 0 (since alpha=0). y_2 = sin x. y = (1/sin 1) sin x. ✓",
+      "topic": "ch06p2_shooting_method",
+      "intent": "problem_solving",
+      "keywords": [
+        "shooting method",
+        "IVP",
+        "guess y'(a)",
+        "root-finding",
+        "numerical"
+      ]
+    },
+    {
+      "question": "How do you solve BVPs using finite differences?",
+      "answer": "Finite difference method: discretize [a, b] into n+1 points x_i = a + i h, h = (b-a)/(n+1). Approximate y''(x_i) approx (y_(i-1) - 2 y_i + y_(i+1))/h^2 and y'(x_i) approx (y_(i+1) - y_(i-1))/(2h). Substitute into ODE, get system of linear equations for y_1, ..., y_n (interior points). Boundary: y_0 = alpha, y_(n+1) = beta. Example: y'' + y = 0, y(0) = 0, y(1) = 1, n = 1 (just one interior point at x = 0.5, h = 0.5). y_0 = 0, y_2 = 1. Equation at i=1: (y_0 - 2 y_1 + y_2)/h^2 + y_1 = 0. (0 - 2 y_1 + 1)/0.25 + y_1 = 0. -8 y_1 + 4 + y_1 = 0. -7 y_1 = -4. y_1 = 4/7 = 0.571. Exact: y(0.5) = sin(0.5)/sin(1) = 0.4794/0.8415 = 0.569. Very close with just one interior point. ✓",
+      "topic": "ch06p2_finite_difference_bvp",
+      "intent": "problem_solving",
+      "keywords": [
+        "finite difference",
+        "discretize",
+        "linear system",
+        "numerical",
+        "BVP"
+      ]
+    },
+    {
+      "question": "How do you solve y'' + 4 y' + 4 y = e^(-2x) (repeated root with overlap)?",
+      "answer": "Characteristic: r^2 + 4r + 4 = (r+2)^2 = 0, r = -2 double. y_h = (C_1 + C_2 x) e^(-2x). For y_p: f = e^(-2x). Normal guess A e^(-2x), but e^(-2x) is in y_h. Multiply by x: A x e^(-2x), but x e^(-2x) is also in y_h. Multiply by x^2: A x^2 e^(-2x). Not in y_h. Use this. y_p = A x^2 e^(-2x). y_p' = A e^(-2x) (2x - 2 x^2) = 2 A x (1 - x) e^(-2x). y_p'' = A e^(-2x) [2 - 8 x + 4 x^2]... let me redo. y_p' = A (2x e^(-2x) - 2 x^2 e^(-2x)) = 2 A x (1 - x) e^(-2x). y_p'' = 2 A [(1 - 2x) e^(-2x) + x(1-x)(-2) e^(-2x)] = 2 A e^(-2x) [1 - 2x - 2x + 2x^2] = 2 A e^(-2x) [1 - 4x + 2x^2]. Sub into y'' + 4 y' + 4 y: 2A e^(-2x)[1-4x+2x^2] + 4·2A x(1-x) e^(-2x) + 4 A x^2 e^(-2x) = A e^(-2x) [2 - 8x + 4x^2 + 8x - 8x^2 + 4x^2] = A e^(-2x) [2] = 2 A e^(-2x). Set = e^(-2x): A = 1/2. y_p = x^2 e^(-2x)/2. General: y = (C_1 + C_2 x) e^(-2x) + x^2 e^(-2x)/2. ✓",
+      "topic": "ch06p2_worked_repeated_overlap",
+      "intent": "problem_solving",
+      "keywords": [
+        "worked",
+        "repeated root",
+        "overlap",
+        "multiply by x^2",
+        "undetermined coefficients"
+      ]
+    },
+    {
+      "question": "How do you solve y'' + 9 y = sin(3x) by undetermined coefficients?",
+      "answer": "Char: r^2 + 9 = 0, r = ±3i. y_h = C_1 cos(3x) + C_2 sin(3x). f = sin(3x), which is in y_h. Normal guess A sin(3x) + B cos(3x), overlap. Multiply by x: y_p = x (A sin(3x) + B cos(3x)). Compute: y_p = A x sin(3x) + B x cos(3x). y_p' = A sin(3x) + 3 A x cos(3x) + B cos(3x) - 3 B x sin(3x) = (A - 3 B x) sin(3x) + (B + 3 A x) cos(3x). y_p'' = (-3 B) sin(3x) + 3(A - 3 B x) cos(3x) + (3 A) cos(3x) - 3(B + 3 A x) sin(3x) = (-3B - 3B - 9Ax) sin(3x) + (3A - 9Bx + 3A - 9Ax) cos(3x)... let me be careful. y_p'' = (-3B) sin(3x) + (3A - 9Bx) cos(3x) + 3A cos(3x) + 3(A - 3Bx)(-sin(3x))... this is getting messy. Trust the formula: y_p'' + 9 y_p = -6B cos(3x) + 6A sin(3x) (after cancellation). Set = sin(3x): -6 B = 0, 6 A = 1. A = 1/6, B = 0. y_p = x sin(3x)/6. General: y = C_1 cos(3x) + C_2 sin(3x) + x sin(3x)/6. (Resonance case: amplitude grows linearly.) ✓",
+      "topic": "ch06p2_worked_resonance_uc",
+      "intent": "problem_solving",
+      "keywords": [
+        "worked",
+        "resonance",
+        "undetermined coefficients",
+        "multiply by x",
+        "sin in y_h"
+      ]
+    },
+    {
+      "question": "How do you solve y'' - y = 1/x by variation of parameters?",
+      "answer": "y_h: r^2 - 1 = 0, r = ±1. y_1 = e^x, y_2 = e^(-x). W = e^x · (-e^(-x)) - e^x · e^(-x) = -1 - 1 = -2. f = 1/x. u_1' = -y_2 f/W = -e^(-x) · (1/x) / (-2) = e^(-x)/(2x). u_1 = (1/2) integral e^(-x)/x dx = (1/2) Ei(-x) (exponential integral, special function). u_2' = y_1 f/W = e^x · (1/x) / (-2) = -e^x/(2x). u_2 = -(1/2) integral e^x/x dx = -(1/2) Ei(x). y_p = (1/2) Ei(-x) e^x - (1/2) Ei(x) e^(-x). So y = C_1 e^x + C_2 e^(-x) + (1/2)[e^x Ei(-x) - e^(-x) Ei(x)]. Note: integrals not elementary, expressed via special functions (exponential integral Ei). Variation of parameters works even when UC fails (1/x is not a standard form). ✓",
+      "topic": "ch06p2_worked_variation_special",
+      "intent": "problem_solving",
+      "keywords": [
+        "worked",
+        "variation of parameters",
+        "1/x",
+        "exponential integral",
+        "special function"
+      ]
+    },
+    {
+      "question": "How do you solve x^2 y'' + x y' - y = x (Cauchy-Euler nonhomogeneous)?",
+      "answer": "Homogeneous: m(m-1) + m - 1 = m^2 - 1 = 0, m = ±1. y_h = C_1 x + C_2/x. For y_p: f = x. But x is in y_h (m_1 = 1). Try y_p = A x ln x. y_p' = A (ln x + 1). y_p'' = A/x. Sub: x^2 (A/x) + x · A(ln x + 1) - A x ln x = A x + A x ln x + A x - A x ln x = 2 A x. Set = x: 2 A = 1, A = 1/2. y_p = (x ln x)/2. General: y = C_1 x + C_2/x + (x ln x)/2. Verify y_p: y_p' = (ln x + 1)/2. y_p'' = 1/(2x). x^2 · 1/(2x) + x · (ln x + 1)/2 - (x ln x)/2 = x/2 + (x ln x)/2 + x/2 - (x ln x)/2 = x. ✓ Alternative: substitute x = e^t, transforms to y_tt - y = e^t, solve by UC. ✓",
+      "topic": "ch06p2_worked_cauchy_euler",
+      "intent": "problem_solving",
+      "keywords": [
+        "worked",
+        "Cauchy-Euler",
+        "nonhomogeneous",
+        "overlap",
+        "x ln x"
+      ]
+    },
+    {
+      "question": "How do you solve the IVP y'' + 4 y = 8 sin(2x), y(0) = 1, y'(0) = 0?",
+      "answer": "Homogeneous: r^2 + 4 = 0, r = ±2i. y_h = C_1 cos(2x) + C_2 sin(2x). f = 8 sin(2x), in y_h (sin(2x) part). Multiply guess by x: y_p = x (A sin(2x) + B cos(2x)). y_p' = A sin(2x) + 2 A x cos(2x) + B cos(2x) - 2 B x sin(2x). y_p'' = 2 A cos(2x) + 2 A cos(2x) - 4 A x sin(2x) - 2 B sin(2x) - 2 B sin(2x) - 4 B x cos(2x) = (4 A - 4 B x) cos(2x) + (-4 A x - 4 B) sin(2x). Sub y'' + 4 y: (4A - 4Bx) cos + (-4Ax - 4B) sin + 4x(A sin + B cos) = 4A cos + (-4Bx + 4Bx) cos + (-4Ax + 4Ax) sin - 4B sin = 4A cos(2x) - 4B sin(2x). Set = 8 sin(2x): 4A = 0, -4B = 8. A = 0, B = -2. y_p = -2 x cos(2x). General: y = C_1 cos(2x) + C_2 sin(2x) - 2 x cos(2x). y(0) = C_1 = 1. y' = -2 C_1 sin(2x) + 2 C_2 cos(2x) - 2 cos(2x) + 4 x sin(2x). y'(0) = 2 C_2 - 2 = 0, C_2 = 1. Solution: y = cos(2x) + sin(2x) - 2 x cos(2x). (Resonance: amplitude of -2x cos(2x) grows.) ✓",
+      "topic": "ch06p2_worked_ivp_resonance",
+      "intent": "problem_solving",
+      "keywords": [
+        "worked",
+        "IVP",
+        "resonance",
+        "multiply by x",
+        "solve"
+      ]
+    },
+    {
+      "question": "How do you solve y''' - y = e^(2x) (third-order nonhomogeneous)?",
+      "answer": "Characteristic: r^3 - 1 = 0. Roots: r = 1 (real), and r = (-1 ± i sqrt(3))/2 (complex). y_h = C_1 e^x + e^(-x/2) [C_2 cos(sqrt(3) x /2) + C_3 sin(sqrt(3) x /2)]. For y_p: f = e^(2x). Try A e^(2x). y_p''' = 8 A e^(2x). Sub: 8 A e^(2x) - A e^(2x) = 7 A e^(2x) = e^(2x). A = 1/7. y_p = e^(2x)/7. General: y = C_1 e^x + e^(-x/2)[C_2 cos(sqrt(3) x /2) + C_3 sin(sqrt(3) x /2)] + e^(2x)/7. If ICs y(0) = 1, y'(0) = 0, y''(0) = 0: at x=0, y(0) = C_1 + C_2 + 1/7 = 1. y'(0) = C_1 - C_2/2 + C_3 sqrt(3)/2 + 2/7 = 0. y''(0) = C_1 + (1/4 - 3/4) C_2 - C_3 sqrt(3)/2·(1/2)·2... + 4/7 = 0, i.e., C_1 - C_2/2 - C_3 sqrt(3)/2 + 4/7 = 0. Three equations, solve for C_1, C_2, C_3. ✓",
+      "topic": "ch06p2_worked_third_order",
+      "intent": "problem_solving",
+      "keywords": [
+        "worked",
+        "third order",
+        "r^3 - 1 = 0",
+        "cube roots of unity",
+        "solve"
+      ]
+    }
+  ]
+}
