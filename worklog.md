@@ -6385,3 +6385,34 @@ Stage Summary:
 - Production state is now CLEAN and CONSISTENT: git repo, Vercel deployment, and production database all aligned. All 38 volumes (vol1-vol8 + 30 vol9 parts) present=True with proper baskets.
 - KEY LEARNING: (1) The direct-import fallback (via /api/triza/knowledge POST) is reversible — basketless items can be cleanly deleted via DELETE /api/triza/knowledge and re-imported via import-formulas once git push is restored. (2) Storing the token at a persistent path (/home/z/my-project/.github-token) prevents future session-discontinuity issues. (3) The import-formulas idempotency check is basket-based (not topic-based), so deleting basketless items + re-importing is the correct cleanup path (avoids duplicates).
 - READY FOR NEXT BATCH. Chapter 8 Part 6 (Estimation Theory) can now use the STANDARD git-push workflow: generate JSON -> commit -> git push origin main -> wait for Vercel -> POST import-formulas. No more direct-import fallback needed.
+
+---
+Task ID: ch08p6
+Agent: main (Z.ai Code)
+Task: Generate, deploy, and verify Volume 9 Chapter 8 Part 6 (Estimation Theory — Point Estimation & Properties Bias Variance MSE Consistency, Method of Moments, Maximum Likelihood Estimation, Sufficiency & Exponential Family, Cramér-Rao Bound & Efficiency, Rao-Blackwell Lehmann-Scheffé UMVUE & Bayesian Estimation, Worked Problems) — 50 formulas.
+
+Work Log:
+- Verified prior state: remote origin/main = 8a337ff (ch08p5), production at 2430 items. Clone /tmp/triza-deploy7 synced at 8a337ff, clean. Token already configured in remote URL (from previous task).
+- Wrote scripts/generate-math-formulas-vol9-ch08p6.ts: 7 sections, 50 Q&A items, topic prefix ch08p6_. Sections: (1) Point Estimation & Properties [8], (2) Method of Moments [7], (3) Maximum Likelihood Estimation [7], (4) Sufficiency & Exponential Family [7], (5) Cramér-Rao Bound & Efficiency [7], (6) Rao-Blackwell Lehmann-Scheffé UMVUE & Bayesian Estimation [7], (7) Worked Problems [7].
+- Ran generator -> data/math-formulas-vol9-ch08p6.json (50 items). Validated: 50 unique topics all prefixed ch08p6_, all have keywords, answer lengths 1352-2439 chars (avg 1838), intents formula_recall (38) + problem_solving (12), no duplicates.
+- Copied generator + JSON into /tmp/triza-deploy7. Updated route.ts via python insertion: added vol9ch08p6 VOLUME_CONFIG block after vol9ch08p5. Route.ts: 534 -> 541 lines.
+- Git deploy (STANDARD WORKFLOW, token now available): committed locally as 785e29a in /tmp/triza-deploy7 (on top of 8a337ff ch08p5). Pushed to BOTH remotes:
+  * origin main: 8a337ff..785e29a (clean fast-forward). Exit 0.
+  * origin triza/main: 8a337ff..785e29a (clean fast-forward). Exit 0.
+- Waited ~310s for Vercel rebuild (3 chunks of 110+110+90s to avoid tool timeout). Verified GET /api/triza/import-formulas: vol9ch08p6 now LISTED (present=False, itemCount=0 — not yet imported, but route.ts deployed).
+- Imported via POST /api/triza/import-formulas {volumes:["vol9ch08p6"]}: success, imported=50, skipped=false, totalItemsInStore: 2480 (2430 + 50). Proper basket created (math-formulas-vol9-ch08p6).
+- Production chat verification (50 queries, all 7 sections, using item questions as queries):
+  * 50/50 (100.0%) direct hits on expected math_vol9_ch08p6_ topics — FIFTH PERFECT SCORE in Chapter 8 (ch08p1, ch08p2, ch08p3, ch08p5, ch08p6 all 100%; ch08p4 was 92%).
+  * 0 cross-part, 0 cross-volume, 0 misses.
+  * ALL 50 hits returned confidence = 1.000 (min=max=avg=1.000).
+  * Every section block 100% direct (S1 8/8, S2 7/7, S3 7/7, S4 7/7, S5 7/7, S6 7/7, S7 7/7).
+  * Used sed to clone the ch08p4 verify script with s/ch08p4/ch08p6/g — STORED_PREFIX = "math_vol9_" correctly preserved.
+
+Stage Summary:
+- Vol 9 Ch08 Part 6 (Estimation Theory) — 50 formulas — is LIVE in production and verified via STANDARD git-push workflow (first part to use the full standard workflow end-to-end this session, now that token is available).
+- Production knowledge store: 2480 items (381 vol1-vol8 + 201 ch01 + 343 ch02 + 248 ch03 + 238 ch04 + 228 ch05 + 313 ch06 + 228 ch07 + 300 ch08).
+- Git: main = 785e29a (ch08p6, clean fast-forward on 8a337ff ch08p5). Also pushed to triza/main. All 6 ch08 parts (p1-p6) now in git + production.
+- Production chat verified: 50/50 (100.0%) direct hits — FIFTH PERFECT SCORE in Chapter 8. ALL with confidence=1.000. Estimation theory terminology (point estimator, bias, variance, MSE = Var + Bias^2, consistency, asymptotic normality, ARE, bias-variance tradeoff, estimator properties, method of moments, MoM uniform/Poisson/Gamma, MoM pros/cons, MoM asymptotic, GMM vs MoM, MLE definition, MLE normal, MLE invariance, MLE asymptotic normality, score function, likelihood ratio test/Wilks, Newton-Raphson/Fisher scoring/IRLS, sufficient statistic, factorization theorem, exponential family, minimal sufficient, complete statistic, ancillary/Basu, Rao-Blackwell, Fisher information, Cramér-Rao bound, efficient estimator, Fisher information computation, Chapman-Robbins, Bhattacharyya bound, Lehmann-Scheffé/UMVUE, Bayesian estimation, conjugate prior, Bayes squared loss/posterior mean, MAP estimator, posterior predictive, Jeffreys prior, Bayes risk/admissibility/Stein paradox) all retrieve perfectly. Worked problems (MLE uniform bias/MSE, normal CI, MLE exponential asymptotic, UMVUE normal Lehmann-Scheffé, Bayes Bernoulli Beta, CRLB normal variance, sample median asymptotic/ARE) also 100%. Zero overlap with any prior volume.
+- KEY LEARNING: (1) The standard git-push workflow (generate -> commit -> push -> wait Vercel -> POST import-formulas -> verify) works cleanly end-to-end now that the token is stored at /home/z/my-project/.github-token and configured in the clone remote URL. No more direct-import fallback needed. (2) Estimation theory is highly distinctive — named theorems (Rao-Blackwell, Lehmann-Scheffé, Cramér-Rao, Basu, Fisher-Neyman factorization, Wilks, Stein/James-Stein, Blyth, Chapman-Robbins, Bhattacharyya), named estimators (MLE, MoM, MLE, MAP, UMVUE, Bayes), and named properties (sufficient, complete, ancillary, efficient, consistent, admissible) all have unique terminology producing unambiguous retrieval. (3) Chapter 8 now has 5 perfect scores out of 6 parts (250/300 = 83% direct at the part level, with only ch08p4 at 92% due to structural overlaps). Probability & Statistics remains the highest-performing chapter.
+- Cumulative encyclopedia total: 2480 formulas across Volume 1-9.
+- READY FOR NEXT BATCH. Chapter 8 Part 7 would be Hypothesis Testing (Neyman-Pearson lemma, most powerful tests, likelihood ratio test, Wald/score/LRT, p-values, multiple testing, sequential tests, nonparametric tests, worked problems).
