@@ -1,0 +1,613 @@
+{
+  "generatedAt": "2026-07-07T09:50:59.677Z",
+  "totalItems": 50,
+  "subject": "mathematics_formulas_volume_9_chapter_08_part_05",
+  "volume": "Volume 9 — Comprehensive Formula Encyclopedia, Chapter 8 Part 5 (Limit Theorems — Law of Large Numbers Weak & Strong, Central Limit Theorem, Modes of Convergence & Slutsky's Theorem, Delta Method & Variance-Stabilizing Transformations, Concentration Inequalities, Large Deviations & Tail Bounds, Worked Problems)",
+  "source": "TRIZA Generated Formula Dataset",
+  "language": "en",
+  "religionNeutral": true,
+  "items": [
+    {
+      "question": "What is the Weak Law of Large Numbers (WLLN)?",
+      "answer": "The Weak Law of Large Numbers states that the sample mean converges IN PROBABILITY to the population mean. Formally: if X_1, X_2, ..., X_n are iid with finite mean mu = E[X], then for every epsilon > 0: lim_{n->inf} P(|Xbar_n - mu| > epsilon) = 0, where Xbar_n = (1/n) sum_{i=1}^n X_i. Notation: Xbar_n ->^P mu (\"plim Xbar_n = mu\"). Proof (Chebyshev, requires finite variance sigma^2): Var(Xbar_n) = sigma^2/n, so by Chebyshev P(|Xbar_n - mu| > epsilon) <= Var(Xbar_n)/epsilon^2 = sigma^2/(n epsilon^2) -> 0. The Khintchine WLLN weakens this to only finite first moment (no variance needed), using characteristic functions / truncation. Interpretation: for large n, the sample mean is close to mu with high probability (but not certainty). WLLN does NOT preclude occasional large deviations infinitely often. The WLLN underlies the frequentist interpretation of probability: the long-run relative frequency of an event converges in probability to its true probability. Example: roll a fair die, Xbar_n ->^P 3.5. WLLN is weaker than SLLN (convergence in probability is weaker than almost-sure convergence).",
+      "topic": "ch08p5_wlln_statement",
+      "intent": "formula_recall",
+      "keywords": [
+        "weak law of large numbers",
+        "WLLN",
+        "convergence in probability",
+        "sample mean"
+      ]
+    },
+    {
+      "question": "What is the Strong Law of Large Numbers (SLLN)?",
+      "answer": "The Strong Law of Large Numbers states that the sample mean converges ALMOST SURELY to the population mean. Formally: if X_1, ..., X_n are iid with finite mean mu, then P(lim_{n->inf} Xbar_n = mu) = 1, i.e., Xbar_n ->^AS mu (also written Xbar_n -> mu a.s.). Almost-sure convergence means: for almost every outcome omega (except a set of probability 0), the sequence Xbar_n(omega) converges to mu as a sequence of real numbers. Etemadi's SLLN requires only pairwise independence + identical distribution + finite E|X|. Kolmogorov's SLLN (the classical version) requires iid + finite E|X|. Kolmogorov's stronger criterion: if X_n are independent (not necessarily identically distributed) with sum Var(X_n)/n^2 < inf, then SLLN holds for centered variables. SLLN implies WLLN (almost-sure convergence implies convergence in probability). Interpretation: with probability 1, the sample mean eventually stays arbitrarily close to mu forever (after some random N, all subsequent Xbar_n are within epsilon). Example: casino with house edge — by SLLN, the casino's average profit per bet converges a.s. to the expected profit, guaranteeing long-run profit. The difference: WLLN says \"for any fixed large n, P(deviation is large) is small\"; SLLN says \"with probability 1, only finitely many large deviations ever occur\".",
+      "topic": "ch08p5_slln_statement",
+      "intent": "formula_recall",
+      "keywords": [
+        "strong law of large numbers",
+        "SLLN",
+        "almost sure convergence",
+        "Kolmogorov"
+      ]
+    },
+    {
+      "question": "How do you prove the WLLN using Chebyshev's inequality?",
+      "answer": "Chebyshev proof of WLLN (requires finite variance). Setup: X_1, ..., X_n iid with mean mu and finite variance sigma^2. Sample mean Xbar_n = (1/n) sum X_i. Step 1 — compute E[Xbar_n] = (1/n) sum E[X_i] = (1/n) n mu = mu (unbiased). Step 2 — compute Var(Xbar_n) = (1/n^2) sum Var(X_i) [by independence] = (1/n^2) n sigma^2 = sigma^2/n. Step 3 — apply Chebyshev: P(|Xbar_n - mu| >= epsilon) <= Var(Xbar_n)/epsilon^2 = sigma^2/(n epsilon^2). Step 4 — take limit: as n -> inf, sigma^2/(n epsilon^2) -> 0, so P(|Xbar_n - mu| >= epsilon) -> 0. This proves Xbar_n ->^P mu. Requirements: finite variance (Chebyshev needs Var finite). For variables with infinite variance (e.g., Cauchy), the WLLN may fail; Khintchine's theorem achieves the WLLN with only finite first moment by truncation (replace X_i by X_i 1{|X_i|<=M} and control the tail). Example: X_i ~ Bernoulli(p). Xbar_n = sample proportion. E[Xbar_n] = p, Var(Xbar_n) = p(1-p)/n. Chebyshev: P(|Xbar_n - p| >= eps) <= p(1-p)/(n eps^2). For p=0.5, eps=0.01, n=10000: bound = 0.25/(10000 * 0.0001) = 0.25. So with n=10000 the probability of deviating by more than 0.01 from p is at most 0.25 (actual is much smaller by CLT).",
+      "topic": "ch08p5_wlln_chebyshev_proof",
+      "intent": "formula_recall",
+      "keywords": [
+        "WLLN proof",
+        "Chebyshev inequality",
+        "sample mean variance",
+        "finite variance"
+      ]
+    },
+    {
+      "question": "What is Khintchine's Weak Law of Large Numbers?",
+      "answer": "Khintchine's theorem strengthens the WLLN by requiring only a finite first moment (no variance needed). Statement: if X_1, ..., X_n are iid with finite mean mu = E[X] (i.e., E|X| < inf), then Xbar_n ->^P mu. Proof idea (truncation): for a truncation level M > 0, define Y_i = X_i 1{|X_i| <= M}. The Y_i are iid bounded (|Y_i| <= M), so they have finite variance and the Chebyshev-based WLLN applies: Ybar_n ->^P E[Y_1] = E[X 1{|X|<=M}]. Now let M -> inf: E[X 1{|X|<=M}] -> E[X] = mu (by dominated convergence, since |X 1{|X|<=M}| <= |X| and E|X| < inf). Also control P(X_i != Y_i) = P(|X_i| > M) -> 0 as M -> inf. Combining: the truncated average is close to the full average with high probability, and the truncated average converges to E[Y] which is close to mu. Hence Xbar_n ->^P mu. Significance: Khintchine is the most general WLLN for iid variables — it covers heavy-tailed distributions (e.g., Pareto with shape alpha > 1 has finite mean but infinite variance for 1 < alpha <= 2; Khintchine applies, Chebyshev-based WLLN does not). For alpha <= 1 (infinite mean), no WLLN to a finite constant holds — the sample mean does not converge to a stable point. Khintchine's theorem is the foundation justifying \"the sample mean estimates the population mean\" under minimal assumptions.",
+      "topic": "ch08p5_khintchine_wlln",
+      "intent": "formula_recall",
+      "keywords": [
+        "Khintchine",
+        "weak law",
+        "finite first moment",
+        "truncation proof"
+      ]
+    },
+    {
+      "question": "What is the difference between convergence in probability and almost-sure convergence?",
+      "answer": "Convergence in probability (X_n ->^P X): for every epsilon > 0, lim P(|X_n - X| > epsilon) = 0. For each fixed threshold, the probability of exceeding it goes to 0. Almost-sure convergence (X_n ->^AS X): P(lim X_n = X) = 1, i.e., P({omega : X_n(omega) -> X(omega)}) = 1. For almost every outcome, the sequence converges as a sequence of real numbers. Relationship: almost-sure convergence IMPLIES convergence in probability (X_n ->^AS X => X_n ->^P X), but NOT vice versa. Counterexample showing WLLN is strictly weaker than SLLN: define X_n = 1{A_n} where A_n are independent events with P(A_n) = 1/n. Then X_n ->^P 0 (since P(|X_n| > eps) = P(A_n) = 1/n -> 0). But by Borel-Cantelli (sum P(A_n) = sum 1/n = inf), A_n occurs infinitely often a.s., so X_n does NOT converge to 0 a.s. (in fact X_n = 1 infinitely often). Intuition: convergence in probability says \"for any fixed large n, deviation is unlikely\"; almost-sure says \"eventually, deviations stop happening forever\". The two agree for monotone sequences (if X_n is monotone, X_n ->^P X iff X_n ->^AS X). Practical implication: SLLN gives a stronger guarantee — with probability 1, after some random point, the sample mean stays close to mu forever. WLLN only guarantees that at any SPECIFIC large n, deviation is unlikely (but deviations might still recur infinitely often).",
+      "topic": "ch08p5_convergence_prob_vs_as",
+      "intent": "formula_recall",
+      "keywords": [
+        "convergence in probability",
+        "almost sure convergence",
+        "difference",
+        "Borel-Cantelli"
+      ]
+    },
+    {
+      "question": "How does the Law of Large Numbers justify the frequentist interpretation of probability?",
+      "answer": "The frequentist interpretation defines P(A) as the limit of relative frequency: P(A) = lim_{n->inf} f_n(A) where f_n(A) = (number of times A occurs in n trials)/n. The LLN provides the mathematical justification. Setup: let X_i = 1{A occurs on trial i} (indicator). Then X_1, X_2, ... are iid Bernoulli(p) where p = P(A). The relative frequency f_n = (1/n) sum X_i = Xbar_n. By the SLLN: Xbar_n ->^AS E[X_1] = p with probability 1. By the WLLN: Xbar_n ->^P p. Hence the relative frequency converges (a.s. and in probability) to the true probability p. This is the bridge between the axiomatic (Kolmogorov) definition of probability and the empirical (frequentist) interpretation. Example: fair coin, P(H) = 0.5. After n flips, f_n = (#heads)/n. By SLLN, f_n -> 0.5 a.s. — so if you flip forever, the running proportion of heads converges to 0.5 with probability 1. The LLN does NOT say that \"after many tails, heads become more likely\" (gambler's fallacy is false — trials remain independent). It says the LONG-RUN proportion converges. Rate of convergence is given by CLT: deviations of f_n from p are of order 1/sqrt(n). For n = 10000 flips, typical deviation is about 1/sqrt(10000) = 0.01, so f_n is typically within 0.01 of 0.5. The LLN is foundational to statistics: it justifies using sample means/proportions as estimates of population parameters.",
+      "topic": "ch08p5_lln_frequentist",
+      "intent": "formula_recall",
+      "keywords": [
+        "frequentist probability",
+        "relative frequency",
+        "LLN justification",
+        "Bernoulli indicator"
+      ]
+    },
+    {
+      "question": "What is the general LLN for independent non-identically distributed variables?",
+      "answer": "Kolmogorov's criterion for SLLN with independent (not necessarily identically distributed) variables. Statement: if X_1, X_2, ... are independent with finite means mu_i = E[X_i] and finite variances, and if sum_{i=1}^inf Var(X_i)/i^2 < inf, then (1/n) sum_{i=1}^n (X_i - mu_i) ->^AS 0. Proof sketch: uses Kolmogorov's convergence criterion (if Y_i independent with sum Var(Y_i)/i^2 < inf then sum (Y_i - E[Y_i])/i converges a.s.) and Kronecker's lemma (if sum a_i/i converges then (1/n) sum_{i=1}^n a_i -> 0). For iid case Var(X_i) = sigma^2 constant, sum sigma^2/i^2 = sigma^2 sum 1/i^2 = sigma^2 * pi^2/6 < inf, so the criterion is satisfied (recovering the standard SLLN). Application — weighted averages: if w_i are deterministic weights with sum |w_i|/i < inf and similar conditions, weighted SLLN holds. Application — triangular arrays: in some statistical settings (e.g., regression with increasing sample size), variables are independent but not identically distributed; Kolmogorov's criterion gives conditions for the sample average to converge. Markov's WLLN (weaker, for non-iid): if X_i independent (or even just uncorrelated) with bounded variances and (1/n^2) sum Var(X_i) -> 0, then WLLN holds. These generalizations matter when homogeneity fails (e.g., measurements from instruments with different precisions).",
+      "topic": "ch08p5_kolmogorov_general_lln",
+      "intent": "formula_recall",
+      "keywords": [
+        "Kolmogorov criterion",
+        "non-identical",
+        "independent variables",
+        "Kronecker lemma"
+      ]
+    },
+    {
+      "question": "What is the Borel-Cantelli lemma and how does it relate to the SLLN?",
+      "answer": "Borel-Cantelli Lemma (two parts). First Borel-Cantelli: for ANY sequence of events A_1, A_2, ... (no independence needed), if sum_{n=1}^inf P(A_n) < inf, then P(A_n infinitely often) = 0, i.e., P(limsup A_n) = 0 where limsup A_n = intersection_n union_{k>=n} A_k = \"A_n occurs for infinitely many n\". Only finitely many A_n occur (a.s.). Second Borel-Cantelli: if A_1, A_2, ... are INDEPENDENT events and sum P(A_n) = inf, then P(A_n infinitely often) = 1 — infinitely many A_n occur a.s. (Independence is essential; without it the conclusion may fail.) Together: for independent events, P(A_n i.o.) = 0 or 1 according as sum P(A_n) < inf or = inf (0-1 law). Connection to SLLN: in proving the SLLN, one shows P(|Xbar_n - mu| > epsilon infinitely often) = 0. The first Borel-Cantelli is applied: if sum_n P(|Xbar_n - mu| > epsilon) < inf, then by Borel-Cantelli only finitely many such deviations occur (a.s.), so Xbar_n -> mu a.s. The challenge is establishing the summability — done via subsequence tricks (e.g., proving along n = 2^k and bounding intermediate terms) plus Markov/Chebyshev on the subsequence. Kolmogorov's proof uses 4th moments on subsequences to get summability. The second Borel-Cantelli shows the WLLN does NOT imply SLLN: pick independent A_n with P(A_n) = 1/n, then sum = inf so A_n occur i.o., giving a sequence X_n = 1{A_n} that converges in probability to 0 but not a.s. (since X_n = 1 infinitely often).",
+      "topic": "ch08p5_borel_cantelli",
+      "intent": "formula_recall",
+      "keywords": [
+        "Borel-Cantelli",
+        "infinitely often",
+        "limsup",
+        "SLLN proof"
+      ]
+    },
+    {
+      "question": "What is the Central Limit Theorem (CLT)?",
+      "answer": "The Central Limit Theorem states that the sample mean (properly standardized) converges in distribution to a standard normal. Formally (Lindeberg-Levy CLT): if X_1, ..., X_n are iid with finite mean mu and finite nonzero variance sigma^2, then sqrt(n) (Xbar_n - mu) / sigma ->^D N(0, 1). Equivalently, Xbar_n ~ approximately N(mu, sigma^2/n) for large n, or sum_{i=1}^n X_i ~ approximately N(n mu, n sigma^2). Convergence in distribution means the CDF of the standardized sample mean converges pointwise to the standard normal CDF Phi at all continuity points. Implications: (1) for large n, probabilities about Xbar_n can be computed using the normal approximation; (2) the normal distribution is the universal attractor for sums of iid finite-variance variables; (3) explains the ubiquity of the normal distribution in nature (aggregation of many small independent effects). Example: roll n fair dice, sum S_n. E[S_n] = 3.5n, Var(S_n) = 35n/12 (Var of one die = 35/12). For n=100: S_n ~ N(350, 291.67), so P(S_n > 360) approx = P(Z > (360-350)/sqrt(291.67)) = P(Z > 0.586) approx 0.279. The CLT rate is governed by Berry-Esseen (error O(1/sqrt(n)) if third moment finite). The CLT requires finite variance — for heavy tails (e.g., Pareto with alpha in (0,2)) the limit is a STABLE distribution, not normal (Generalized CLT). The CLT is the most important theorem in probability and statistics, underpinning confidence intervals, hypothesis tests (z-test, t-test), and the normal approximation to binomial/Poisson/gamma.",
+      "topic": "ch08p5_clt_statement",
+      "intent": "formula_recall",
+      "keywords": [
+        "central limit theorem",
+        "CLT",
+        "normal approximation",
+        "sample mean"
+      ]
+    },
+    {
+      "question": "What is the Lindeberg-Feller Central Limit Theorem for triangular arrays?",
+      "answer": "The Lindeberg-Feller CLT handles non-identically distributed independent variables arranged in a triangular array {X_{n,k} : 1 <= k <= n, n >= 1}. Setup: for each n, X_{n,1}, ..., X_{n,n} are independent with E[X_{n,k}] = 0 and finite variances sigma^2_{n,k}. Define s_n^2 = sum_{k=1}^n sigma^2_{n,k} (total variance of the row sum). Lindeberg condition: for every epsilon > 0, (1/s_n^2) sum_{k=1}^n E[X_{n,k}^2 1{|X_{n,k}| > epsilon s_n}] -> 0 as n -> inf. This says no single variable in the row dominates the sum (each contributes negligibly relative to s_n). Conclusion: if Lindeberg holds, then S_n / s_n ->^D N(0,1) where S_n = sum_{k=1}^n X_{n,k}, AND max_{k<=n} sigma^2_{n,k}/s_n^2 -> 0 (Feller condition, also called asymptotic negligibility). Conversely (Feller), if S_n/s_n ->^D N(0,1) and max sigma^2_{n,k}/s_n^2 -> 0, then Lindeberg holds (necessity). The Lindeberg-Levy CLT is the special case X_{n,k} = (X_k - mu)/sqrt(n) with iid X_k. Lindeberg condition is the natural generalization: it is the precise sense in which \"many small independent effects sum to a normal\". Application: regression with heteroskedastic errors where variances differ across observations; Lyapunov condition (a stronger but easier-to-check sufficient condition) requires sum E|X_{n,k}|^{2+delta} / s_n^{2+delta} -> 0 for some delta > 0. The Lindeberg-Feller theorem is the most general CLT for independent sums and underlies modern asymptotic statistics.",
+      "topic": "ch08p5_lindeberg_feller_clt",
+      "intent": "formula_recall",
+      "keywords": [
+        "Lindeberg-Feller",
+        "triangular array",
+        "Lindeberg condition",
+        "asymptotic negligibility"
+      ]
+    },
+    {
+      "question": "What is Lyapunov's Central Limit Theorem?",
+      "answer": "Lyapunov's CLT is a sufficient condition for the CLT with independent (not necessarily identically distributed) variables. Setup: X_1, X_2, ... independent with E[X_k] = mu_k, Var(X_k) = sigma^2_k finite. Let s_n^2 = sum_{k=1}^n sigma^2_k. Lyapunov condition: there exists delta > 0 such that (1/s_n^{2+delta}) sum_{k=1}^n E|X_k - mu_k|^{2+delta} -> 0 as n -> inf. Conclusion: (sum_{k=1}^n (X_k - mu_k))/s_n ->^D N(0, 1). The most common choice is delta = 1 (Lyapunov with third absolute moments): (1/s_n^3) sum E|X_k - mu_k|^3 -> 0. Significance: Lyapunov is easier to verify than Lindeberg because it uses a single moment condition rather than checking truncated variances. The condition requires that no single variable dominates (sum of (2+delta)-th moments grows slower than s_n^{2+delta}, i.e., the \"effective number\" of contributing variables goes to infinity). Special case — iid: if X_k iid with finite (2+delta)-th moment, then s_n^2 = n sigma^2 and sum E|X_k-mu|^{2+delta} = n E|X-mu|^{2+delta}, so ratio = n E|X-mu|^{2+delta} / (n^{(2+delta)/2} sigma^{2+delta}) = E|X-mu|^{2+delta}/sigma^{2+delta} * n^{-delta/2} -> 0. So Lyapunov recovers the Lindeberg-Levy CLT under slightly stronger moment assumptions. Application: independent Bernoulli variables with varying probabilities p_k (Poisson-binomial). If max p_k(1-p_k)/s_n^2 -> 0 and the third-moment condition holds, the sum is approximately normal.",
+      "topic": "ch08p5_lyapunov_clt",
+      "intent": "formula_recall",
+      "keywords": [
+        "Lyapunov CLT",
+        "non-identical",
+        "moment condition",
+        "sufficient condition"
+      ]
+    },
+    {
+      "question": "What is the Berry-Esseen theorem (CLT rate of convergence)?",
+      "answer": "The Berry-Esseen theorem gives a quantitative bound on the rate of convergence in the CLT. Statement: if X_1, ..., X_n are iid with mean mu, variance sigma^2 > 0, and finite third absolute central moment rho = E|X - mu|^3 < inf, then for all n and all x: |P(sqrt(n)(Xbar_n - mu)/sigma <= x) - Phi(x)| <= C * rho / (sigma^3 sqrt(n)). Here Phi is the standard normal CDF and C is a universal constant. Best known bounds: C <= 0.4748 (Tyurin 2010, Shevtsova); the optimal constant is unknown but lies in [0.4097, 0.4748]. Significance: (1) gives a UNIFORM bound over all x (sup norm on CDFs); (2) rate is 1/sqrt(n), which is the correct rate (cannot be improved for iid finite-third-moment variables); (3) the constant depends on the skewness rho/sigma^3 — more skewed distributions converge slower. Example: for Bernoulli(p), rho = E|X-p|^3 = p(1-p)[p^2 + (1-p)^2] and sigma^3 = [p(1-p)]^{3/2}, so rho/sigma^3 = [p^2+(1-p)^2]/sqrt(p(1-p)). For p=0.5: rho/sigma^3 = 0.5/sqrt(0.25) = 1. Bound: error <= 0.4748/sqrt(n). For n=100: error <= 0.0475. For n=10000: error <= 0.00475. Practical implication: the normal approximation to the binomial is good when n p(1-p) is large; the rule of thumb \"np >= 5 and n(1-p) >= 5\" comes from controlling the Berry-Esseen bound. Berry-Esseen shows CLT convergence can be slow for small n or skewed distributions — use continuity corrections or Edgeworth expansions for better accuracy.",
+      "topic": "ch08p5_berry_esseen",
+      "intent": "formula_recall",
+      "keywords": [
+        "Berry-Esseen",
+        "CLT rate",
+        "convergence rate",
+        "third moment"
+      ]
+    },
+    {
+      "question": "What is the de Moivre-Laplace theorem (CLT for binomial)?",
+      "answer": "The de Moivre-Laplace theorem is the CLT specialized to binomial random variables — historically the first CLT (1733, de Moivre; generalized by Laplace). Statement: if X_n ~ Binomial(n, p) with 0 < p < 1, then for large n: (X_n - n p)/sqrt(n p(1-p)) ->^D N(0, 1). Equivalently, X_n is approximately N(n p, n p(1-p)). Local form (point probabilities): P(X_n = k) approx (1/sqrt(2 pi n p(1-p))) exp(-(k - n p)^2/(2 n p(1-p))) (the normal density evaluated at k). Integral form (interval probabilities): P(a <= X_n <= b) approx Phi((b + 0.5 - n p)/sqrt(n p(1-p))) - Phi((a - 0.5 - n p)/sqrt(n p(1-p))), where the +/- 0.5 is the continuity correction (adjusts for approximating a discrete distribution by a continuous one). Example: n=100, p=0.5, find P(X >= 60). np=50, sqrt(np(1-p))=5. Without correction: P(Z >= (60-50)/5) = P(Z >= 2) = 0.0228. With correction (P(X >= 60) = P(X > 59.5)): P(Z >= (59.5-50)/5) = P(Z >= 1.9) = 0.0287. Exact (binomial): 0.0284. So continuity correction dramatically improves accuracy. Validity: rule of thumb np >= 5 and n(1-p) >= 5 (or stricter np(1-p) >= 10). For small p and large n with np moderate, use Poisson approximation instead. De Moivre-Laplace was historically pivotal: it introduced the normal distribution (as the limit of binomial) decades before Gauss, and motivated the general CLT.",
+      "topic": "ch08p5_de_moivre_laplace",
+      "intent": "formula_recall",
+      "keywords": [
+        "de Moivre-Laplace",
+        "binomial CLT",
+        "normal approximation",
+        "continuity correction"
+      ]
+    },
+    {
+      "question": "What is the multivariate Central Limit Theorem?",
+      "answer": "The multivariate CLT extends the univariate CLT to random vectors. Statement: if X_1, ..., X_n are iid random vectors in R^k with mean vector mu = E[X] (in R^k) and finite covariance matrix Sigma = Cov(X) (a k x k positive semidefinite matrix), then sqrt(n) (Xbar_n - mu) ->^D N_k(0, Sigma) (multivariate normal with mean 0 and covariance Sigma). Here Xbar_n = (1/n) sum X_i is the sample mean vector. Convergence in distribution for random vectors means: for every fixed vector a in R^k, a^T sqrt(n)(Xbar_n - mu) ->^D N(0, a^T Sigma a) (Cramer-Wold device — multivariate convergence is characterized by all linear combinations). Implications: (1) Xbar_n ~ approximately N_k(mu, Sigma/n) for large n; (2) the quadratic form n (Xbar_n - mu)^T Sigma^{-1} (Xbar_n - mu) ->^D chi-squared_k (this is the basis of Hotelling's T^2 test and multivariate confidence regions); (3) any linear combination a^T Xbar_n ~ approximately N(a^T mu, a^T Sigma a / n) by the univariate CLT. Proof: via Cramer-Wold device — the univariate CLT applied to a^T X_i gives a^T sqrt(n)(Xbar_n - mu) ->^D N(0, a^T Sigma a) for each a, and Cramer-Wold converts this to multivariate convergence. Applications: multivariate confidence ellipsoids, Hotelling T^2, multivariate regression asymptotics, principal component asymptotics. Requires finite second moments (entries of Sigma finite). The multivariate CLT is fundamental to multivariate statistical analysis.",
+      "topic": "ch08p5_multivariate_clt",
+      "intent": "formula_recall",
+      "keywords": [
+        "multivariate CLT",
+        "random vectors",
+        "Cramer-Wold",
+        "multivariate normal"
+      ]
+    },
+    {
+      "question": "What is the Generalized Central Limit Theorem for heavy-tailed distributions?",
+      "answer": "The Generalized CLT characterizes the limit of normalized sums when the variance is INFINITE (heavy-tailed distributions). Setup: X_1, ..., X_n iid; the question is what distributions can arise as limits of (sum X_i - a_n)/b_n for centering a_n and scaling b_n. Answer (Kolmogorov-Lévy-Khinchine): the only possible non-degenerate limits are STABLE distributions. A distribution is stable if for iid X_1, X_2 ~ F, there exist constants a > 0 and b such that a X_1 + b ~ F (sums of iid copies, after affine transformation, have the same distribution). Stable distributions are parameterized by: (1) stability index alpha in (0, 2]; (2) skewness beta in [-1, 1]; (3) scale c > 0; (4) location mu. Special cases: alpha = 2 gives the NORMAL distribution (any skewness, since 2-stable = normal); alpha = 1, beta = 0 gives the CAUCHY distribution; alpha = 1/2, beta = 1 gives the Levy distribution. Tail behavior: for alpha < 2, stable distributions have power-law tails P(|X| > x) ~ C x^{-alpha} (infinite variance for alpha < 2; infinite mean for alpha <= 1). Generalized CLT statement: if X_i iid with P(|X| > x) ~ L(x) x^{-alpha} for 0 < alpha < 2 (regularly varying tails with index -alpha) and a balance condition on positive vs negative tails, then (sum X_i)/n^{1/alpha} ->^D Stable(alpha, beta, c, 0) for appropriate beta, c. Normalization b_n = n^{1/alpha} (vs sqrt(n) = n^{1/2} for finite variance). Example: financial returns often have alpha ~ 3-4 (finite variance, CLT applies) but some commodities have alpha ~ 1.5-2 (infinite variance, Generalized CLT needed). The Generalized CLT explains why heavy-tailed phenomena (stock crashes, internet traffic, earthquake magnitudes) are modeled by stable or Pareto-like distributions rather than normals.",
+      "topic": "ch08p5_generalized_clt",
+      "intent": "formula_recall",
+      "keywords": [
+        "generalized CLT",
+        "stable distribution",
+        "heavy tails",
+        "infinite variance"
+      ]
+    },
+    {
+      "question": "What are the four main modes of convergence for random variables?",
+      "answer": "Four main modes of convergence for a sequence X_n to a limit X: (1) CONVERGENCE IN DISTRIBUTION (weak convergence, X_n ->^D X or X_n => X): lim F_{X_n}(x) = F_X(x) at all continuity points x of F_X. The weakest mode — does not require X_n and X on the same probability space. Equivalent (Portmanteau): E[g(X_n)] -> E[g(X)] for all bounded continuous g. (2) CONVERGENCE IN PROBABILITY (X_n ->^P X): for every epsilon > 0, P(|X_n - X| > epsilon) -> 0. Stronger than convergence in distribution; requires X_n and X on the same space. (3) CONVERGENCE ALMOST SURELY (X_n ->^AS X or X_n -> X a.s.): P({omega : X_n(omega) -> X(omega)}) = 1. Strongest \"pointwise\" mode. (4) CONVERGENCE IN L^p (X_n ->^L^p X, p >= 1): E|X_n - X|^p -> 0. Mean-square (p=2) and L^1 are most common. Implication chain (strict): L^p => a.s. does NOT hold in general; rather: (a) a.s. => in probability; (b) in L^p => in probability (by Markov: P(|X_n-X|>eps) <= E|X_n-X|^p/eps^p); (c) in probability => in distribution. Also: L^p does NOT imply a.s. and a.s. does NOT imply L^p (in general). Counterexample a.s. not L^1: X_n = n 1_{[0,1/n]} on [0,1] with Lebesgue measure — X_n -> 0 a.s. but E[X_n] = 1 for all n. Counterexample L^1 not a.s.: independent X_n = 1_{A_n} with P(A_n) = 1/n (sum diverges) — X_n ->^P 0 and E|X_n| = 1/n -> 0 so L^1, but X_n does not -> 0 a.s. (Borel-Cantelli: occurs i.o.). For finite measure spaces, L^p => L^q for p > q (by Holder/Jensen).",
+      "topic": "ch08p5_convergence_modes",
+      "intent": "formula_recall",
+      "keywords": [
+        "modes of convergence",
+        "in distribution",
+        "in probability",
+        "almost surely",
+        "Lp"
+      ]
+    },
+    {
+      "question": "What is Slutsky's theorem?",
+      "answer": "Slutsky's theorem gives preservation of convergence under sums, products, and ratios. Statement: if X_n ->^D X and Y_n ->^P c (a constant), then: (1) X_n + Y_n ->^D X + c; (2) X_n Y_n ->^D c X; (3) X_n / Y_n ->^D X / c, provided c != 0. The theorem is fundamental for combining CLT-derived limits with consistent estimators. Proof idea: convergence in probability to a constant is strong enough to make sums/products behave well — Y_n - c ->^P 0, and (X_n + (Y_n - c)) - X_n ->^P 0, so by a \"converging-together\" lemma X_n + Y_n has the same limit as X_n + c. Application 1 — studentized mean: suppose Xbar_n ~ approx N(mu, sigma^2/n) by CLT. If S_n^2 ->^P sigma^2 (consistent estimator), then sqrt(n)(Xbar_n - mu)/S_n ->^D N(0, 1) by Slutsky (S_n/sigma ->^P 1, so ratio of CLT limit to consistent-1 limit is N(0,1)). This is the theoretical basis of the t-test (replacing unknown sigma by sample SD). Application 2 — delta method: if sqrt(n)(T_n - theta) ->^D N(0, sigma^2) and g is differentiable, then sqrt(n)(g(T_n) - g(theta)) ->^D N(0, [g'(theta)]^2 sigma^2); Slutsky is used in the linearization step. Application 3 — ratio estimators: if Xbar_n ->^P mu_X and Ybar_n ->^P mu_Y != 0, then Xbar_n/Ybar_n ->^P mu_X/mu_Y. Slutsky is arguably the most-used asymptotic tool in statistics.",
+      "topic": "ch08p5_slutsky_theorem",
+      "intent": "formula_recall",
+      "keywords": [
+        "Slutsky theorem",
+        "sums products ratios",
+        "consistent estimator",
+        "convergence preservation"
+      ]
+    },
+    {
+      "question": "What is the Continuous Mapping Theorem?",
+      "answer": "The Continuous Mapping Theorem (CMT) states that convergence is preserved under continuous transformations. Statement: if X_n ->^D X (or ->^P X, or ->^AS X) and g is a continuous function (with appropriate measurability), then g(X_n) ->^D g(X) (respectively ->^P, ->^AS). More generally, for convergence in distribution, g need only be continuous on a set of probability 1 under the limit X (i.e., P(X in C_g) = 1 where C_g is the continuity set of g). Examples: (1) if Xbar_n ->^P mu then Xbar_n^2 ->^P mu^2 (g(x) = x^2 is continuous); (2) if Z_n ->^D N(0,1) then Z_n^2 ->^D chi-squared_1 (g(x) = x^2, and square of standard normal is chi-squared_1); (3) if Xbar_n ->^P mu > 0 then 1/Xbar_n ->^P 1/mu (g(x) = 1/x continuous on (0, inf), and P(X in (0,inf)) = 1 when mu > 0); (4) if sqrt(n)(Xbar_n - mu)/sigma ->^D N(0,1) then n(Xbar_n - mu)^2/sigma^2 ->^D chi-squared_1. Combined with Slutsky, the CMT enables most asymptotic derivations in statistics: e.g., the Wald statistic (theta_hat - theta_0)^2 / Var(theta_hat) ->^D chi-squared_1 when theta_hat is asymptotically normal. The CMT extends to multivariate g: R^k -> R^m continuous. Caution: discontinuous g requires care — e.g., g(x) = 1{x > 0}: if X_n ->^D X and P(X = 0) > 0, then g(X_n) need not converge in distribution to g(X).",
+      "topic": "ch08p5_continuous_mapping",
+      "intent": "formula_recall",
+      "keywords": [
+        "continuous mapping theorem",
+        "CMT",
+        "continuous transformation",
+        "preservation"
+      ]
+    },
+    {
+      "question": "What is the Portmanteau theorem for convergence in distribution?",
+      "answer": "The Portmanteau theorem gives several equivalent characterizations of convergence in distribution X_n ->^D X: (1) F_{X_n}(x) -> F_X(x) at all continuity points x of F_X (definition); (2) E[g(X_n)] -> E[g(X)] for all bounded continuous g : R -> R; (3) E[g(X_n)] -> E[g(X)] for all bounded Lipschitz g; (4) limsup P(X_n in F) <= P(X in F) for all CLOSED sets F; (5) liminf P(X_n in G) >= P(X in G) for all OPEN sets G; (6) P(X_n in A) -> P(X in A) for all Borel sets A with P(X in boundary(A)) = 0 (X-continuity sets). Significance: (2) is often easiest to verify (use a convenient class of test functions); (4)-(5) generalize from points to sets, useful in weak convergence theory; (6) says probabilities of \"nice\" sets (whose boundary has zero probability under the limit) converge. Application — proving CLT via characteristic functions: use g(x) = e^{itx} (bounded continuous for fixed t) — E[e^{it X_n}] -> E[e^{it X}] for all t gives convergence in distribution (this is the Levy continuity theorem). Application — proving Cramér-Wold: X_n ->^D X in R^k iff a^T X_n ->^D a^T X for all a in R^k (Portmanteau + linear g continuous). The Portmanteau theorem is the working tool of weak convergence theory; it generalizes to metric-space-valued random variables (Prokhorov, Billingsley framework).",
+      "topic": "ch08p5_portmanteau",
+      "intent": "formula_recall",
+      "keywords": [
+        "Portmanteau theorem",
+        "weak convergence",
+        "closed open sets",
+        "test functions"
+      ]
+    },
+    {
+      "question": "What is the Cramér-Wold device for multivariate convergence in distribution?",
+      "answer": "The Cramér-Wold theorem characterizes multivariate convergence in distribution via one-dimensional projections. Statement: X_n ->^D X in R^k if and only if a^T X_n ->^D a^T X in R for every fixed vector a in R^k. (Equivalently, every linear combination converges in distribution.) Significance: reduces multivariate convergence to univariate convergence, allowing use of the (simpler) univariate CLT and characteristic function machinery. Proof sketch: by the Portmanteau theorem, X_n ->^D X iff E[g(X_n)] -> E[g(X)] for all bounded continuous g. The set of trigonometric functions exp(i a^T x) (for all a) is rich enough to determine the distribution (Fourier transform / characteristic function). So convergence of all characteristic functions phi_{X_n}(a) -> phi_X(a) (equivalently a^T X_n ->^D a^T X for all a) is equivalent to X_n ->^D X. Application — multivariate CLT proof: to show sqrt(n)(Xbar_n - mu) ->^D N_k(0, Sigma), it suffices (by Cramér-Wold) to show a^T sqrt(n)(Xbar_n - mu) ->^D N(0, a^T Sigma a) for each a. But a^T sqrt(n)(Xbar_n - mu) = sqrt(n)((a^T Xbar_n) - a^T mu), and a^T X_i are iid scalar with mean a^T mu and variance a^T Sigma a — so the univariate CLT applies directly. Application — checking multivariate normality: Y is multivariate normal iff a^T Y is univariate normal for every a (Cramér-Wold + the fact that normals are characterized by their 1D projections). The Cramér-Wold device is essential in multivariate asymptotic statistics.",
+      "topic": "ch08p5_cramer_wold",
+      "intent": "formula_recall",
+      "keywords": [
+        "Cramér-Wold",
+        "multivariate convergence",
+        "linear combinations",
+        "projections"
+      ]
+    },
+    {
+      "question": "What is convergence in mean square (L^2) and how does it relate to other modes?",
+      "answer": "Convergence in mean square (L^2): X_n ->^L^2 X if E[(X_n - X)^2] -> 0. More generally L^p convergence: E|X_n - X|^p -> 0. Properties: (1) L^2 => in probability (by Markov/Chebyshev: P(|X_n - X| > eps) <= E[(X_n-X)^2]/eps^2 -> 0). (2) L^2 does NOT imply a.s. (counterexample: independent X_n = 1_{A_n} with P(A_n) = 1/n — E|X_n|^2 = 1/n -> 0, but sum P(A_n) = inf so X_n = 1 i.o. a.s.). (3) a.s. does NOT imply L^2 (counterexample: X_n = sqrt(n) 1_{[0,1/n]} — X_n -> 0 a.s. but E[X_n^2] = n * (1/n) = 1, not -> 0). (4) For UNIFORM integrability: if X_n ->^P X and {X_n^2} is uniformly integrable (sup E[X_n^2 1{|X_n| > M}] -> 0 as M -> inf), then X_n ->^L^2 X (Vitali). UI is the additional condition bridging convergence in probability and L^p. Applications in statistics: (a) sample variance S_n^2 = (1/(n-1)) sum (X_i - Xbar)^2 converges in L^2 to sigma^2 if E[X^4] < inf (since Var(S_n^2) = O(1/n) and E[S_n^2] = sigma^2, so E[(S_n^2 - sigma^2)^2] = Var(S_n^2) -> 0); (b) mean-square consistency of estimators; (c) Karhunen-Loeve expansion convergence in L^2. Chebyshev's inequality is the bridge from L^2 to probability: small mean-square error => small probability of large deviation. The WLLN proof via Chebyshev is essentially an L^2 argument: Var(Xbar_n) = sigma^2/n -> 0 means Xbar_n ->^L^2 mu, which implies Xbar_n ->^P mu.",
+      "topic": "ch08p5_mean_square_convergence",
+      "intent": "formula_recall",
+      "keywords": [
+        "mean square convergence",
+        "L2",
+        "uniform integrability",
+        "Chebyshev bridge"
+      ]
+    },
+    {
+      "question": "How do you prove the Central Limit Theorem using characteristic functions?",
+      "answer": "The classical proof of the Lindeberg-Levy CLT uses characteristic functions (Lévy continuity theorem). Setup: X_1, ..., X_n iid with mean mu, variance sigma^2. Standardize: Y_i = (X_i - mu)/sigma, so E[Y_i] = 0, Var(Y_i) = 1. Let Z_n = (1/sqrt(n)) sum_{i=1}^n Y_i = sqrt(n)(Xbar_n - mu)/sigma. Goal: Z_n ->^D N(0,1). Step 1 — characteristic function of Z_n: phi_{Z_n}(t) = E[exp(it Z_n)] = E[exp(it (1/sqrt(n)) sum Y_i)] = (phi_Y(t/sqrt(n)))^n (by independence and identical distribution). Step 2 — Taylor expansion of phi_Y around 0: phi_Y(s) = E[e^{is Y}] = E[1 + is Y - s^2 Y^2/2 + o(s^2)] (using E[Y]=0, E[Y^2]=1, and the bound |e^{ix} - (1 + ix - x^2/2)| <= |x|^3 E|Y|^3/6 if third moment finite, or just o(s^2) by dominated convergence otherwise) = 1 + is*0 - s^2/2 * 1 + o(s^2) = 1 - s^2/2 + o(s^2). Step 3 — substitute s = t/sqrt(n): phi_Y(t/sqrt(n)) = 1 - t^2/(2n) + o(1/n). Step 4 — raise to n: phi_{Z_n}(t) = (1 - t^2/(2n) + o(1/n))^n -> exp(-t^2/2) as n -> inf (using (1 + x_n/n)^n -> e^x when x_n -> x). Step 5 — recognize limit: exp(-t^2/2) is the characteristic function of N(0,1). Step 6 — apply Lévy continuity theorem: if phi_{Z_n}(t) -> phi(t) pointwise and phi is continuous at 0, then Z_n ->^D some Z with characteristic function phi. Here phi(t) = exp(-t^2/2) = phi of N(0,1), so Z_n ->^D N(0,1). QED. The Lévy continuity theorem is the key: pointwise convergence of characteristic functions to a continuous limit characterizes convergence in distribution. This proof generalizes to the Lindeberg-Feller CLT by handling the triangular array.",
+      "topic": "ch08p5_clt_characteristic_function_proof",
+      "intent": "formula_recall",
+      "keywords": [
+        "CLT proof",
+        "characteristic function",
+        "Lévy continuity",
+        "Taylor expansion"
+      ]
+    },
+    {
+      "question": "What is the delta method (first-order)?",
+      "answer": "The delta method propagates asymptotic normality through differentiable transformations. Statement: if sqrt(n)(T_n - theta) ->^D N(0, sigma^2) (T_n is asymptotically normal around theta) and g is differentiable at theta with g'(theta) != 0, then sqrt(n)(g(T_n) - g(theta)) ->^D N(0, [g'(theta)]^2 sigma^2). Variance is multiplied by the square of the derivative (Jacobian in 1D). Proof: by first-order Taylor expansion, g(T_n) = g(theta) + g'(theta)(T_n - theta) + R_n where R_n = o(|T_n - theta|). Since sqrt(n)(T_n - theta) is bounded in distribution (converges), |T_n - theta| = O_p(1/sqrt(n)), so sqrt(n) R_n = sqrt(n) o_p(1/sqrt(n)) = o_p(1) ->^P 0. Hence sqrt(n)(g(T_n) - g(theta)) = g'(theta) sqrt(n)(T_n - theta) + o_p(1). By Slutsky (the o_p(1) term ->^P 0), the limit is g'(theta) * N(0, sigma^2) = N(0, [g'(theta)]^2 sigma^2). Example 1: Xbar_n ~ approx N(mu, sigma^2/n). For g(x) = x^2, g'(x) = 2x. So sqrt(n)(Xbar_n^2 - mu^2) ->^D N(0, 4 mu^2 sigma^2). Example 2: log-odds. If phat_n ~ approx N(p, p(1-p)/n), then g(p) = log(p/(1-p)) has g'(p) = 1/(p(1-p)). So sqrt(n)(log(phat_n/(1-phat_n)) - log(p/(1-p))) ->^D N(0, 1/(p(1-p))). The delta method is fundamental for constructing confidence intervals on transformed parameters (e.g., variance-stabilizing transforms, relative risk, odds ratio).",
+      "topic": "ch08p5_delta_method_first_order",
+      "intent": "formula_recall",
+      "keywords": [
+        "delta method",
+        "first order",
+        "asymptotic normality",
+        "transformation"
+      ]
+    },
+    {
+      "question": "What is the second-order delta method?",
+      "answer": "The second-order delta method handles cases where the first derivative vanishes (g'(theta) = 0) or refines the first-order approximation. Statement: if sqrt(n)(T_n - theta) ->^D N(0, sigma^2) and g'(theta) = 0 but g''(theta) != 0, then n (g(T_n) - g(theta)) ->^D (sigma^2 / 2) g''(theta) chi-squared_1 (i.e., (1/2) g''(theta) sigma^2 Z^2 where Z ~ N(0,1)). More generally, the scaling changes from sqrt(n) to n because the first-order term vanishes. Proof: second-order Taylor expansion g(T_n) = g(theta) + g'(theta)(T_n - theta) + (1/2) g''(theta)(T_n - theta)^2 + o((T_n-theta)^2). With g'(theta) = 0: g(T_n) - g(theta) = (1/2) g''(theta)(T_n - theta)^2 + o((T_n-theta)^2). Multiply by n: n(g(T_n) - g(theta)) = (1/2) g''(theta) [sqrt(n)(T_n - theta)]^2 + o(1). Since sqrt(n)(T_n - theta) ->^D N(0, sigma^2), the square ->^D sigma^2 Z^2 = sigma^2 chi-squared_1 (by continuous mapping). Slutsky gives the limit. Example 1: g(x) = x^2 at theta = 0. If sqrt(n) T_n ->^D N(0, sigma^2) and T_n ->^P 0, then n T_n^2 ->^D sigma^2 chi-squared_1 (since g''(0) = 2). Example 2: g(x) = (x - theta_0)^2 (squared deviation from hypothesized value) — Wald statistic. n (Xbar_n - theta_0)^2 ->^D sigma^2 chi-squared_1 under H_0: theta = theta_0, giving the Wald chi-squared test. Example 3: g(x) = sin(x) at theta = 0. g'(0) = cos(0) = 1, so first-order applies: sqrt(n) sin(T_n) ->^D N(0, sigma^2). But at theta = pi/2, g'(pi/2) = 0, g''(pi/2) = -sin(pi/2) = -1, so n(sin(T_n) - 1) ->^D -(sigma^2/2) chi-squared_1.",
+      "topic": "ch08p5_delta_method_second_order",
+      "intent": "formula_recall",
+      "keywords": [
+        "second order delta method",
+        "chi-squared limit",
+        "vanishing derivative",
+        "Taylor expansion"
+      ]
+    },
+    {
+      "question": "What is a variance-stabilizing transformation?",
+      "answer": "A variance-stabilizing transformation (VST) removes the dependence of the variance of an estimator on the parameter, so that a single normal approximation works uniformly. Setup: T_n is an estimator of theta with Var(T_n) approx sigma^2(theta)/n (variance depends on theta, e.g., binomial sample proportion has Var = p(1-p)/n). Goal: find g such that Var(g(T_n)) is approximately constant (independent of theta). Derivation: by the delta method, Var(g(T_n)) approx [g'(theta)]^2 Var(T_n) = [g'(theta)]^2 sigma^2(theta)/n. Set this constant = 1/n (or any constant): [g'(theta)]^2 sigma^2(theta) = 1, so g'(theta) = 1/sigma(theta). Integrate: g(theta) = integral^theta (1/sigma(u)) du. Examples: (1) Binomial: T_n = phat, Var = p(1-p)/n, sigma(p) = sqrt(p(1-p)). g'(p) = 1/sqrt(p(1-p)). g(p) = integral dp/sqrt(p(1-p)) = 2 arcsin(sqrt(p)) (variance-stabilizing transform for binomial — Fisher's arcsine transformation). Then g(phat) ~ approx N(g(p), 1/n) uniformly in p. (2) Poisson: T_n = sample mean of Poisson(lambda), Var = lambda/n. g'(lambda) = 1/sqrt(lambda), g(lambda) = 2 sqrt(lambda). So sqrt(phat) ~ approx N(sqrt(lambda), 1/(4n)) — square-root transformation stabilizes Poisson variance. (3) Exponential / Gamma: shape k, scale theta. Sample mean has Var = theta^2/n (for k=1) or theta^2/(kn). g(theta) = log(theta): log-transform stabilizes variance for exponential-family scale parameters. (4) Correlation coefficient r: Fisher z-transform z = (1/2) log((1+r)/(1-r)) ~ approx N((1/2)log((1+rho)/(1-rho)), 1/(n-3)) — stabilizes variance of sample correlation. VSTs enable construction of confidence intervals with uniform coverage and are classical tools in biostatistics (arcsine for proportions, square root for counts).",
+      "topic": "ch08p5_variance_stabilizing_transform",
+      "intent": "formula_recall",
+      "keywords": [
+        "variance stabilizing",
+        "VST",
+        "arcsine",
+        "square root transform",
+        "Fisher z"
+      ]
+    },
+    {
+      "question": "How do you apply the delta method to a ratio of two estimators?",
+      "answer": "Ratio (or quotient) estimators arise frequently: sample correlation, relative risk, slope estimates, etc. Setup: (T_n, U_n) jointly asymptotically normal: sqrt(n)((T_n, U_n) - (theta, nu)) ->^D N_2(0, Sigma) with Sigma = [[sigma_TT, sigma_TU], [sigma_TU, sigma_UU]]. Goal: asymptotic distribution of R_n = T_n / U_n. Apply the multivariate delta method with g(t, u) = t/u. Gradient: grad g = (1/u, -t/u^2), evaluated at (theta, nu): grad = (1/nu, -theta/nu^2). Asymptotic variance: grad^T Sigma grad = (1/nu)^2 sigma_TT + 2 (1/nu)(-theta/nu^2) sigma_TU + (-theta/nu^2)^2 sigma_UU = sigma_TT/nu^2 - 2 theta sigma_TU/nu^3 + theta^2 sigma_UU/nu^4. Conclusion: sqrt(n)(T_n/U_n - theta/nu) ->^D N(0, sigma_TT/nu^2 - 2 theta sigma_TU/nu^3 + theta^2 sigma_UU/nu^4). Special cases: (a) If T_n and U_n are independent (sigma_TU = 0): variance = sigma_TT/nu^2 + theta^2 sigma_UU/nu^4. (b) If U_n ->^P nu (consistent, non-random limit) and only T_n has asymptotic variance: variance reduces to sigma_TT/nu^2 (denominator treated as known). Example — ratio of sample means: Xbar_n, Ybar_n independent, each asymptotically normal with Var = sigma_X^2/n, sigma_Y^2/n. Ratio R_n = Xbar_n/Ybar_n. Asymptotic variance: sigma_X^2/(n mu_Y^2) + mu_X^2 sigma_Y^2/(n mu_Y^4). For large n, R_n ~ approx N(mu_X/mu_Y, [sigma_X^2/mu_Y^2 + mu_X^2 sigma_Y^2/mu_Y^4]/n). This is the basis for ratio estimator confidence intervals in survey sampling and the delta-method variance for relative risk.",
+      "topic": "ch08p5_delta_method_ratio",
+      "intent": "formula_recall",
+      "keywords": [
+        "delta method ratio",
+        "quotient estimator",
+        "multivariate delta",
+        "relative risk"
+      ]
+    },
+    {
+      "question": "What is Fisher's arcsine transformation for binomial proportions?",
+      "answer": "Fisher's variance-stabilizing transformation for binomial proportions addresses the dependence of Var(phat) = p(1-p)/n on p. Setup: phat ~ approx N(p, p(1-p)/n) (CLT). Variance-stabilizing transform: g(p) = 2 arcsin(sqrt(p)) (equivalently arcsin(sqrt(p)) — the factor 2 is a convention). Derivation: sigma(p) = sqrt(p(1-p)); g'(p) = 1/sqrt(p(1-p)); integrate: integral dp/sqrt(p(1-p)). Substitute p = sin^2(theta), dp = 2 sin(theta) cos(theta) dtheta, p(1-p) = sin^2(theta) cos^2(theta). Integral = integral 2 sin(theta) cos(theta) dtheta / (sin(theta) cos(theta)) = integral 2 dtheta = 2 theta = 2 arcsin(sqrt(p)). Result: g(phat) = 2 arcsin(sqrt(phat)) ~ approx N(2 arcsin(sqrt(p)), 1/n) — variance is constant 1/n, INDEPENDENT of p. This enables uniform-coverage confidence intervals for p. Confidence interval for p: compute CI for g(p) = [g(phat) - z_{alpha/2}/sqrt(n), g(phat) + z_{alpha/2}/sqrt(n)], then transform back: p in [sin^2(g_L/2), sin^2(g_U/2)]. Accuracy: the approximation is good for moderate n (rule of thumb np, n(1-p) >= 5); better than the naive normal CI for p when p is near 0 or 1. Historical significance: used in agricultural field trials (Fisher), ecological proportion estimates, and meta-analysis of proportions (inverse-variance weighting with uniform variance). Modern alternatives: Wilson score interval, Clopper-Pearson exact interval, Agresti-Coull — but the arcsine transform remains a classical VST example. Note: arcsin(sqrt(p)) (without the 2) has variance 1/(4n); the factor 2 normalizes variance to 1/n.",
+      "topic": "ch08p5_arcsine_transform",
+      "intent": "formula_recall",
+      "keywords": [
+        "arcsine transformation",
+        "Fisher",
+        "binomial proportion",
+        "variance stabilizing"
+      ]
+    },
+    {
+      "question": "What is the multivariate delta method?",
+      "answer": "The multivariate delta method extends the univariate delta method to vector-valued functions of vector-valued estimators. Setup: T_n in R^k with sqrt(n)(T_n - theta) ->^D N_k(0, Sigma) (multivariate asymptotic normality). Let g : R^k -> R^m be differentiable at theta with Jacobian matrix J(theta) (m x k matrix of partial derivatives: J_{ij} = partial g_i / partial theta_j). Conclusion: sqrt(n)(g(T_n) - g(theta)) ->^D N_m(0, J(theta) Sigma J(theta)^T). The asymptotic covariance is J Sigma J^T (a m x m matrix). Proof: first-order Taylor expansion g(T_n) = g(theta) + J(theta)(T_n - theta) + o(|T_n - theta|). Multiply by sqrt(n): sqrt(n)(g(T_n) - g(theta)) = J(theta) sqrt(n)(T_n - theta) + o_p(1). By Slutsky (J(theta) is a fixed matrix), the limit is J(theta) N_k(0, Sigma) = N_m(0, J Sigma J^T) (linear transformation of multivariate normal is multivariate normal). Examples: (1) g(theta) = theta_1/theta_2 (ratio): J = [1/theta_2, -theta_1/theta_2^2], 1x2 matrix; J Sigma J^T is the scalar variance derived for the ratio delta method. (2) g(theta) = theta_1^2 + theta_2^2 (sum of squares): J = [2 theta_1, 2 theta_2]; variance = 4 theta_1^2 sigma_11 + 8 theta_1 theta_2 sigma_12 + 4 theta_2^2 sigma_22. (3) Maximum likelihood: theta_hat_MLE is asymptotically normal sqrt(n)(theta_hat - theta) ->^D N(0, I(theta)^{-1}) (inverse Fisher information). For any differentiable function g, sqrt(n)(g(theta_hat) - g(theta)) ->^D N(0, [grad g]^T I^{-1} [grad g]) — by the multivariate delta method. This is the theoretical basis for inference on transformed MLEs.",
+      "topic": "ch08p5_delta_method_multivariate",
+      "intent": "formula_recall",
+      "keywords": [
+        "multivariate delta method",
+        "Jacobian",
+        "asymptotic covariance",
+        "MLE transformation"
+      ]
+    },
+    {
+      "question": "How do you construct an asymptotic confidence interval using the delta method?",
+      "answer": "Recipe for asymptotic CIs using the delta method. Setup: T_n is an estimator of theta with sqrt(n)(T_n - theta) ->^D N(0, sigma^2(theta)) (note: variance may depend on theta). Goal: CI for g(theta) (a transformed parameter). Step 1 — apply delta method: sqrt(n)(g(T_n) - g(theta)) ->^D N(0, [g'(theta)]^2 sigma^2(theta)). Step 2 — estimate the asymptotic variance: plug in T_n for theta, giving variance estimate [g'(T_n)]^2 sigma^2(T_n)/n. By Slutsky, the standardized statistic sqrt(n)(g(T_n) - g(theta)) / sqrt([g'(T_n)]^2 sigma^2(T_n)) ->^D N(0, 1). Step 3 — invert: P(|Z| <= z_{alpha/2}) approx = 1 - alpha gives the CI: g(theta) in [g(T_n) - z_{alpha/2} sqrt([g'(T_n)]^2 sigma^2(T_n)/n), g(T_n) + z_{alpha/2} sqrt([g'(T_n)]^2 sigma^2(T_n)/n)]. Step 4 (optional) — back-transform: if a CI for theta itself is wanted and g is monotone, invert g on the CI endpoints to get a CI for theta. Example: Xbar_n ~ N(mu, sigma^2/n), want CI for mu^2. g(mu) = mu^2, g'(mu) = 2 mu, sigma(mu) = sigma (constant). Estimated variance: 4 Xbar_n^2 sigma^2/n (replace sigma by S_n if unknown). CI: mu^2 in [Xbar_n^2 - z * 2|Xbar_n| S_n/sqrt(n), Xbar_n^2 + z * 2|Xbar_n| S_n/sqrt(n)]. Caution: when g'(theta) is near 0 (theta near a critical point of g), the first-order delta method is inaccurate; use second-order or a different parameterization. When sigma depends on theta, an alternative is the VST (transform to remove dependence) for better coverage. Coverage accuracy: nominal 1-alpha, actual coverage converges to 1-alpha as n -> inf; for finite n, Edgeworth/Bartlett corrections improve accuracy.",
+      "topic": "ch08p5_delta_method_ci",
+      "intent": "formula_recall",
+      "keywords": [
+        "confidence interval",
+        "delta method CI",
+        "asymptotic variance",
+        "back transform"
+      ]
+    },
+    {
+      "question": "What is Markov's inequality?",
+      "answer": "Markov's inequality is the most basic tail bound for nonneg random variables. Statement: if X is a nonneg random variable (X >= 0 a.s.) with finite expectation E[X] < inf, then for every a > 0: P(X >= a) <= E[X]/a. Proof: E[X] = E[X 1{X < a}] + E[X 1{X >= a}] >= 0 + a E[1{X >= a}] = a P(X >= a). Rearranging: P(X >= a) <= E[X]/a. Variants: (1) for general X (not necessarily nonneg), P(|X| >= a) <= E|X|/a (apply Markov to |X|); (2) higher moments: P(|X| >= a) = P(|X|^k >= a^k) <= E|X|^k/a^k for k > 0 (Markov on |X|^k) — the basis of Chebyshev (k=2) and Chernoff (k chosen optimally via exponential); (3) one-sided: P(X - E[X] >= a) <= Var(X)/(Var(X) + a^2) (Cantelli, sharper one-sided Chebyshev). Examples: (a) X = number of heads in n fair coin flips, E[X] = n/2. P(X >= 100) <= n/(2*100) = n/200 (for n=100: bound 0.5, actual P(X>=100) = 1/2^100 essentially 0). Markov is loose but assumption-light. (b) X = wait time, E[X] = 5 min. P(X >= 25) <= 5/25 = 0.2 (Markov says at most 20% chance of waiting 5x the mean). Significance: Markov is the \"mother of all concentration inequalities\" — Chebyshev, Chernoff, Hoeffding all follow by applying Markov to cleverly chosen transforms (squares, exponentials) of (X - E[X]). Assumption is only finite first moment — weakest possible, hence loosest bound.",
+      "topic": "ch08p5_markov_inequality",
+      "intent": "formula_recall",
+      "keywords": [
+        "Markov inequality",
+        "tail bound",
+        "nonnegative",
+        "first moment"
+      ]
+    },
+    {
+      "question": "What is Chebyshev's inequality?",
+      "answer": "Chebyshev's inequality bounds the deviation of a random variable from its mean in terms of its variance. Statement: for any random variable X with finite mean mu = E[X] and finite variance sigma^2 = Var(X), for every epsilon > 0: P(|X - mu| >= epsilon) <= sigma^2/epsilon^2. Equivalently, P(|X - mu| < epsilon) >= 1 - sigma^2/epsilon^2. Proof: apply Markov's inequality to the nonneg random variable (X - mu)^2 with E[(X-mu)^2] = sigma^2: P(|X - mu| >= epsilon) = P((X-mu)^2 >= epsilon^2) <= sigma^2/epsilon^2. One-sided Chebyshev (Cantelli): P(X - mu >= epsilon) <= sigma^2/(sigma^2 + epsilon^2) (sharper one-sided bound). Examples: (a) X ~ N(0,1): P(|X| >= 2) <= 1/4 = 0.25 (actual: 0.0456 — Chebyshev is very loose for normals); (b) Xbar_n with Var = sigma^2/n: P(|Xbar_n - mu| >= epsilon) <= sigma^2/(n epsilon^2) — this is the WLLN proof. Applications: (1) proving WLLN under finite variance; (2) showing convergence in probability by showing variance -> 0; (3) bounding tails when distribution is unknown but mean/variance are. Tightness: Chebyshev is tight (achievable) for the discrete distribution on {-1, 0, 1} with P(X = +-epsilon) = sigma^2/(2 epsilon^2), P(X = 0) = 1 - sigma^2/epsilon^2 (when sigma^2 <= epsilon^2). Higher-order Chebyshev (using 4th moments): P(|X-mu| >= epsilon) <= E[(X-mu)^4]/epsilon^4. Chebyshev requires only finite variance — more information than Markov but less than exponential inequalities (Chernoff, Hoeffding).",
+      "topic": "ch08p5_chebyshev_inequality",
+      "intent": "formula_recall",
+      "keywords": [
+        "Chebyshev inequality",
+        "variance bound",
+        "deviation from mean",
+        "Cantelli"
+      ]
+    },
+    {
+      "question": "What is the Chernoff bound (moment generating function bound)?",
+      "answer": "The Chernoff bound gives exponentially decaying tail bounds for sums of independent random variables via the moment generating function. Setup: X = sum_{i=1}^n X_i with independent X_i (not necessarily identically distributed). For any t > 0: P(X >= a) = P(e^{tX} >= e^{ta}) <= e^{-ta} E[e^{tX}] (Markov on e^{tX}) = e^{-ta} prod_{i=1}^n E[e^{t X_i}] (independence). Optimize over t > 0: P(X >= a) <= inf_{t>0} exp(-t a + sum log E[e^{t X_i}]). Define the cumulant generating function K(t) = log E[e^{tX}] (for the sum, K_sum(t) = sum K_i(t) by independence). Bound: P(X >= a) <= exp(-sup_{t>0} (t a - K_sum(t))) = exp(-I(a)) where I(a) = sup_t (t a - K(t)) is the Legendre-Fenchel transform (Cramér rate function). Two-sided: P(|X - E[X]| >= a) <= exp(-I(E[X]+a)) + exp(-I(E[X]-a)) (symmetric). Example — sum of iid Bernoulli(p): K_i(t) = log(1-p + p e^t). For X = sum Bernoulli(p), E[X] = np. P(X >= n q) for q > p: optimize gives I(q) = q log(q/p) + (1-q) log((1-q)/(1-p)) (KL divergence D(q||p)). So P(X >= nq) <= exp(-n D(q||p)) — exponentially decaying in n. Significance: Chernoff gives EXPONENTIAL decay (vs polynomial 1/n from Chebyshev) for sums of independent variables. Used in: (1) large deviation theory; (2) randomized algorithm analysis; (3) statistical hypothesis testing (Hoeffding, Bernstein are special cases / refinements). Requirement: MGF finite in a neighborhood of 0 (excludes very heavy tails like Cauchy).",
+      "topic": "ch08p5_chernoff_bound",
+      "intent": "formula_recall",
+      "keywords": [
+        "Chernoff bound",
+        "moment generating function",
+        "exponential tail",
+        "Cramér rate"
+      ]
+    },
+    {
+      "question": "What is Hoeffding's inequality?",
+      "answer": "Hoeffding's inequality gives a sharp exponential tail bound for sums of bounded independent random variables. Statement (Hoeffding 1963): if X_1, ..., X_n are independent with X_i in [a_i, b_i] a.s. (bounded), and S_n = sum X_i, then for every t > 0: P(S_n - E[S_n] >= t) <= exp(-2 t^2 / sum_{i=1}^n (b_i - a_i)^2). Two-sided: P(|S_n - E[S_n]| >= t) <= 2 exp(-2 t^2 / sum (b_i - a_i)^2). Special case — iid X_i in [0,1] with mean mu: P(|Xbar_n - mu| >= t) <= 2 exp(-2 n t^2) (variance proxy = n/4, the maximum for [0,1]-valued). Proof: uses Hoeffding's lemma — for X in [a,b] with E[X]=0, E[e^{tX}] <= exp(t^2 (b-a)^2/8) (MGF bounded by a Gaussian with variance (b-a)^2/4); apply Markov (Chernoff method) and optimize t. Tightness: Hoeffding is tight (achieved up to constants) for Bernoulli sums; the constant 2 in the exponent is best possible for bounded variables. Comparison with Chebyshev: Chebyshev gives P(|Xbar_n - mu| >= t) <= Var/(n t^2) (polynomial); Hoeffding gives 2 exp(-2 n t^2) (exponential) — vastly better for bounded variables. Comparison with Chernoff: Hoeffding is the special case of Chernoff using only the range [a,b] (worst-case MGF bound); Chernoff can be sharper if the actual MGF is known (e.g., for Bernoulli, Chernoff gives KL-divergence bound which is tighter). Applications: (1) concentration of sample means of bounded variables; (2) empirical process theory (uniform convergence — VC dimension bounds); (3) bandit algorithms and machine learning (with high probability, sample mean is close to true mean after O(log(1/delta)/t^2) samples); (4) randomized algorithms (Las Vegas / Monte Carlo). Hoeffding is the workhorse concentration inequality in learning theory.",
+      "topic": "ch08p5_hoeffding_inequality",
+      "intent": "formula_recall",
+      "keywords": [
+        "Hoeffding inequality",
+        "bounded variables",
+        "exponential concentration",
+        "Hoeffding lemma"
+      ]
+    },
+    {
+      "question": "What is McDiarmid's inequality (bounded differences)?",
+      "answer": "McDiarmid's inequality (bounded differences inequality) extends Hoeffding to functions of independent variables (not just sums). Setup: X_1, ..., X_n independent (taking values in any spaces), and f : X_1 x ... x X_n -> R satisfies the BOUNDED DIFFERENCES condition: sup_{x_1,...,x_n, x_i'} |f(x_1, ..., x_i, ..., x_n) - f(x_1, ..., x_i', ..., x_n)| <= c_i for each i (changing the i-th input changes f by at most c_i). Conclusion: for every t > 0, P(f(X_1,...,X_n) - E[f] >= t) <= exp(-2 t^2 / sum_{i=1}^n c_i^2). Two-sided: P(|f - E[f]| >= t) <= 2 exp(-2 t^2 / sum c_i^2). Significance: generalizes Hoeffding from linear functions (sums) to arbitrary functions with bounded sensitivity to each input. Proof: martingale method — define Doob martingale D_i = E[f | X_1, ..., X_i] - E[f | X_1, ..., X_{i-1}]; then f - E[f] = sum D_i, |D_i| <= c_i a.s., and the D_i form a martingale difference sequence; apply Hoeffding's lemma to each D_i and Chernoff method. Applications: (1) empirical risk minimization — f = training error, c_i = 1/n (changing one label changes training error by 1/n); gives P(|L_emp - L_true| >= t) <= 2 exp(-2 n t^2) (uniform convergence for fixed classifier; with union bound over class gives VC bound); (2) random graph properties (e.g., chromatic number concentration); (3) order statistics: f = k-th order statistic, c_i bounded by range/(n-k+1) etc.; (4) U-statistics: f = U-statistic, c_i = 2/n (or similar); gives exponential concentration of U-statistics around their expectation. McDiarmid is the most widely used concentration inequality in statistical learning theory and combinatorial probability.",
+      "topic": "ch08p5_mcdiarmid_inequality",
+      "intent": "formula_recall",
+      "keywords": [
+        "McDiarmid",
+        "bounded differences",
+        "Doob martingale",
+        "function concentration"
+      ]
+    },
+    {
+      "question": "What is Jensen's inequality and how is it used in probability?",
+      "answer": "Jensen's inequality relates the expectation of a convex function to the function of the expectation. Statement: if X is a random variable with finite E[X] and g is a convex function (g'' >= 0 in 1D, or more generally g satisfies g(lambda x + (1-lambda) y) <= lambda g(x) + (1-lambda) g(y)), then g(E[X]) <= E[g(X)] (the function of the mean is at most the mean of the function). For CONCAVE g (g'' <= 0), the inequality reverses: g(E[X]) >= E[g(X)]. Equality iff g is affine on the support of X (or X is constant). Proof (finite discrete): by induction on the convexity definition. General proof: use subgradient inequality g(x) >= g(a) + g'(a)(x - a) for convex g (tangent line lies below the curve); take a = E[X], expectation: E[g(X)] >= g(E[X]) + g'(E[X]) E[X - E[X]] = g(E[X]). Examples and applications: (1) E[X^2] >= (E[X])^2 (g(x) = x^2 convex) — hence Var(X) = E[X^2] - (E[X])^2 >= 0; (2) E[|X|] >= |E[X]| (g = |.| convex); (3) E[1/X] >= 1/E[X] (g = 1/x convex on (0, inf)); (4) E[log X] <= log E[X] (g = log concave) — used to prove AM-GM: log(E[X]) >= E[log X] becomes E[X] >= exp(E[log X]) (geometric mean <= arithmetic mean); (5) E[e^{tX}] >= e^{t E[X]} (g = e^{tx} convex) — used in Chernoff bound (gives a lower bound on MGF); (6) information theory: D(p||q) >= 0 (relative entropy nonneg) follows from Jensen on -log; (7) EM algorithm: E-step/M-step uses Jensen's inequality on log-likelihood to construct a lower bound (the ELBO). Jensen is arguably the most-used inequality in probability, statistics, and information theory.",
+      "topic": "ch08p5_jensen_inequality",
+      "intent": "formula_recall",
+      "keywords": [
+        "Jensen inequality",
+        "convex function",
+        "AM-GM",
+        "expectation"
+      ]
+    },
+    {
+      "question": "What is Bernstein's inequality and how does it improve on Hoeffding?",
+      "answer": "Bernstein's inequality gives a sharper concentration bound than Hoeffding by incorporating the variance (not just the range). Statement (one form): if X_1, ..., X_n are independent, |X_i - E[X_i]| <= M a.s., and Var(X_i) = sigma_i^2, with V_n = sum sigma_i^2, then for every t > 0: P(|sum X_i - E[sum X_i]| >= t) <= 2 exp(-t^2 / (2 V_n + 2 M t / 3)). Special case iid with variance sigma^2 and bound M: P(|Xbar_n - mu| >= t) <= 2 exp(-n t^2 / (2 sigma^2 + 2 M t / 3)). Significance — comparison with Hoeffding: Hoeffding gives 2 exp(-2 n t^2 / (b-a)^2) using only the range (b-a) = 2M. Bernstein gives 2 exp(-n t^2 / (2 sigma^2 + 2 M t/3)). For small t (t << sigma^2/M): Bernstein ~ exp(-n t^2/(2 sigma^2)) — variance-like, SHARPER than Hoeffding (which uses max variance (b-a)^2/4 = M^2 instead of true sigma^2). For large t (t >> sigma^2/M): Bernstein ~ exp(-3 n t / (2 M)) — linear tail (Poisson-like), versus Hoeffding's quadratic tail exp(-2 n t^2 / M^2). Bernstein captures the crossover from Gaussian (small deviations) to Poisson (large deviations) behavior. Applications: (1) Poisson-binomial and binomial concentration — for small p, sigma^2 = p(1-p) << M^2 = 1, so Bernstein is much sharper than Hoeffding; (2) empirical process theory; (3) bandit algorithms — Bernstein-based UCB uses variance estimates; (4) statistical learning — variance-aware bounds are tighter than worst-case (Hoeffding) bounds. Variants: (a) Freedman's inequality (martingale version, variance process instead of fixed V_n); (b) Bennett's inequality (sharper, using the actual MGF of bounded variables rather than the worst-case Hoeffding lemma). Bernstein is the standard \"variance-aware\" concentration inequality.",
+      "topic": "ch08p5_bernstein_inequality",
+      "intent": "formula_recall",
+      "keywords": [
+        "Bernstein inequality",
+        "variance aware",
+        "sharper than Hoeffding",
+        "Poisson tail"
+      ]
+    },
+    {
+      "question": "What is Cramér's theorem (large deviations for sums)?",
+      "answer": "Cramér's theorem gives the exact exponential rate of decay for tail probabilities of sample means of iid variables. Setup: X_1, X_2, ... iid with finite logarithmic moment generating function Lambda(t) = log E[e^{tX}] (the cumulant generating function, finite in a neighborhood of 0). Sample mean Xbar_n = (1/n) sum X_i. Cramér rate function: I(x) = sup_{t in R} (t x - Lambda(t)) (Legendre-Fenchel transform of Lambda). Statement: for any closed set F, limsup (1/n) log P(Xbar_n in F) <= -inf_{x in F} I(x); for any open set G, liminf (1/n) log P(Xbar_n in G) >= -inf_{x in G} I(x). In particular, for x > E[X] (right tail): P(Xbar_n >= x) ~ exp(-n I(x)) (in logarithmic sense, lim (1/n) log P = -I(x)). Properties of I: (1) I(x) >= 0; (2) I(E[X]) = 0 (attained at t=0); (3) I is convex (as Legendre-Fenchel of convex Lambda); (4) I is increasing for x > E[X] and decreasing for x < E[X]; (5) for finite-variance variables, I(x) ~ (x-mu)^2/(2 sigma^2) near mu (Gaussian approximation, consistent with CLT). Example — Bernoulli(p): Lambda(t) = log(1-p + p e^t). I(x) = x log(x/p) + (1-x) log((1-x)/(1-p)) for x in [0,1] (KL divergence D(x||p), +inf outside [0,1]). So P(Xbar_n >= q) ~ exp(-n D(q||p)) for q > p. Example — N(mu, sigma^2): Lambda(t) = mu t + sigma^2 t^2/2. I(x) = (x-mu)^2/(2 sigma^2) (Gaussian rate). Cramér's theorem is the foundation of large deviation theory; it gives the EXACT exponential rate, refining CLT (which is local) and Chernoff (which gives an upper bound). Generalizes to Sanov (large deviations of empirical measures) and the Gärtner-Ellis theorem (non-iid settings).",
+      "topic": "ch08p5_cramer_theorem",
+      "intent": "formula_recall",
+      "keywords": [
+        "Cramér theorem",
+        "large deviations",
+        "rate function",
+        "Legendre-Fenchel"
+      ]
+    },
+    {
+      "question": "What is Sanov's theorem (large deviations for empirical measures)?",
+      "answer": "Sanov's theorem gives the large deviation principle for the empirical measure of iid samples. Setup: X_1, ..., X_n iid with common distribution mu (a probability measure on a space X). Empirical measure: L_n = (1/n) sum_{i=1}^n delta_{X_i} (a random probability measure on X; L_n(A) = fraction of samples in A). Sanov's theorem: L_n satisfies an LDP with rate n and rate function I(nu) = D(nu || mu) = integral log(dnu/dmu) dnu (the relative entropy / KL divergence of nu w.r.t. mu, +inf if nu not absolutely continuous w.r.t. mu). Statement: for any closed set F of probability measures, limsup (1/n) log P(L_n in F) <= -inf_{nu in F} D(nu||mu); for any open set G, liminf (1/n) log P(L_n in G) >= -inf_{nu in G} D(nu||mu). Interpretation: the empirical measure is exponentially likely to be close to mu (D(nu||mu) = 0 iff nu = mu), with exponential penalty D(nu||mu) per unit \"distance\" (entropy). Example — finite alphabet X = {1, ..., K} with mu = (p_1, ..., p_K). Empirical frequencies phat_n = (L_n(1), ..., L_n(K)). P(phat_n approx q) ~ exp(-n D(q||p)) where D(q||p) = sum_k q_k log(q_k/p_k). For binary alphabet, this reduces to Cramér's theorem for Bernoulli. Applications: (1) hypothesis testing — Stein's lemma: the error exponent in Neyman-Pearson testing is D(P_1 || P_0); (2) universal source coding — the probability of seeing a non-typical type is exp(-n D); (3) empirical process theory — Sanov underlies uniform convergence results; (4) robust statistics — minimum distance estimators (e.g., based on empirical measure); (5) machine learning — PAC-Bayes bounds use KL divergence (Sanov-like). Sanov's theorem is a cornerstone of information-theoretic large deviation theory.",
+      "topic": "ch08p5_sanov_theorem",
+      "intent": "formula_recall",
+      "keywords": [
+        "Sanov theorem",
+        "empirical measure",
+        "KL divergence",
+        "relative entropy"
+      ]
+    },
+    {
+      "question": "What is a sub-Gaussian random variable?",
+      "answer": "A sub-Gaussian random variable is one whose tails are dominated by a Gaussian (no heavier than Gaussian). Definition (MGF form): X with E[X] = mu is sub-Gaussian with parameter sigma (written X ~ subG(sigma^2)) if E[exp(t(X - mu))] <= exp(sigma^2 t^2 / 2) for all t in R. Equivalently, the cumulant generating function is bounded by that of a Gaussian: Lambda_X(t) <= sigma^2 t^2/2. Examples: (1) N(mu, sigma^2) is sub-Gaussian with parameter sigma (equality holds — Gaussian is the extremal case); (2) Bounded variables X in [a, b] are sub-Gaussian with parameter (b-a)/2 (Hoeffding's lemma: Var proxy = (b-a)^2/4); (3) Bernoulli(p) is subG(1/4) (since in [0,1], tighter: subG((1-2p)^2/4 log^2... but standard bound is 1/4); (4) Any Rademacher variable (±1 with prob 1/2) is subG(1); (5) Sums of independent sub-Gaussians: if X_i ~ subG(sigma_i^2) independent, then sum X_i ~ subG(sum sigma_i^2) (sub-Gaussianity is preserved under convolution, with parameters adding). Tail bound: if X ~ subG(sigma^2), then P(|X - mu| >= t) <= 2 exp(-t^2/(2 sigma^2)) (apply Chernoff method using the MGF bound — same form as Gaussian tails). Significance: sub-Gaussianity is the right notion of \"light-tailed\" for concentration inequalities. Many concentration results (Hoeffding, Bernstein in the bounded-difference setting) are essentially statements that the relevant variables are sub-Gaussian. Generalization: sub-exponential variables (tails like exp(-ct) rather than exp(-ct^2)) — these have MGF finite only for |t| < c (e.g., Exponential, Chi-square, Poisson). Sub-exponential variables satisfy Bernstein-type bounds. Sub-Gaussian and sub-exponential are the two main classes in high-dimensional probability (Vershynin, Wainwright frameworks).",
+      "topic": "ch08p5_sub_gaussian",
+      "intent": "formula_recall",
+      "keywords": [
+        "sub-Gaussian",
+        "light tails",
+        "MGF bound",
+        "Hoeffding lemma"
+      ]
+    },
+    {
+      "question": "What is the method of types for finite-alphabet large deviations?",
+      "answer": "The method of types is a combinatorial technique for computing large deviation probabilities over finite alphabets. Setup: X = {1, ..., K} finite alphabet. X_1, ..., X_n iid with P(X = k) = p_k. Type (empirical distribution): T(x_1^n) = (1/n) sum 1{x_i = k} = (n_1/n, ..., n_K/n) where n_k = # of i with x_i = k. Key facts: (1) Number of types: |P_n| = number of possible empirical distributions = C(n+K-1, K-1) (polynomial in n, at most (n+1)^{K-1}); (2) Probability of a sequence with type q: P(X_1^n = x^n) = prod p_k^{n_k} = exp(n sum q_k log p_k) = exp(-n (H(q) + D(q||p))) where H(q) = -sum q_k log q_k is the entropy; (3) Probability of a type q: P(T = q) = N(q) * exp(-n(H(q) + D(q||p))) where N(q) = number of sequences of type q; bounds: (1/((n+1)^K)) exp(n H(q)) <= N(q) <= exp(n H(q)) (so N(q) ~ exp(n H(q)) up to polynomial factor). Combining: P(T = q) ~ exp(-n D(q||p)) (up to polynomial prefactor). Consequence — Sanov for finite alphabets: P(T in set A) ~ exp(-n inf_{q in A} D(q||p)) (exponential rate governed by the closest type to p in the KL sense). Applications: (1) universal source coding — typical types have D(q||p) ~ 0; (2) hypothesis testing — Chernoff-Stein lemma: error exponent = D(P_1||P_0); (3) conditional limit theorem — given an atypical type, the conditional distribution of samples converges to the I-projection (minimum KL); (4) combinatorics — counting sequences with given frequency. The method of types gives EXACT finite-n bounds (not just asymptotic) and is the most elementary route to large deviation results for discrete distributions.",
+      "topic": "ch08p5_method_of_types",
+      "intent": "formula_recall",
+      "keywords": [
+        "method of types",
+        "finite alphabet",
+        "empirical distribution",
+        "type counting"
+      ]
+    },
+    {
+      "question": "What is the Chernoff information (distance) for hypothesis testing?",
+      "answer": "Chernoff information (Chernoff distance) is the optimal error exponent in Bayesian binary hypothesis testing. Setup: under hypothesis H_0, X ~ P_0; under H_1, X ~ P_1 (two distributions). Bayesian test: prior probabilities pi_0, pi_1, observe n iid samples X_1, ..., X_n, decide H_0 vs H_1. Optimal Bayesian error probability: P_e^{(n)} = inf over tests of (pi_0 P(decide H_1 | H_0) + pi_1 P(decide H_0 | H_1)). Asymptotic: P_e^{(n)} ~ exp(-n C(P_0, P_1)) where C(P_0, P_1) is the Chernoff information. Definition: C(P_0, P_1) = -log inf_{0 <= alpha <= 1} integral p_0^alpha(x) p_1^{1-alpha}(x) dx = -log inf_alpha E_{P_0}[(dP_1/dP_0)^{1-alpha}] = -log inf_alpha Z(alpha) where Z(alpha) = integral p_0^alpha p_1^{1-alpha} is the Chernoff coefficient. Equivalently, C = sup_{0<alpha<1} [-log Z(alpha)] = sup_alpha [alpha Lambda_0(t) + (1-alpha) Lambda_1(t)] evaluated appropriately (large deviation rate for the likelihood ratio). Special cases: (1) at alpha = 1/2: -2 log integral sqrt(p_0 p_1) dx = -log (Bhattacharyya coefficient)^2 = Bhattacharyya distance (a lower bound on Chernoff information, attained for symmetric problems); (2) KL divergences D(P_0||P_1) and D(P_1||P_0) bound C: C <= min(D(P_0||P_1), D(P_1||P_0)) (Sanov/Stein exponents are upper bounds on Chernoff). Example — N(mu_0, sigma^2) vs N(mu_1, sigma^2): C = (mu_0 - mu_1)^2 / (8 sigma^2). Example — Bernoulli(p) vs Bernoulli(q): C = -log inf_alpha [p^alpha q^{1-alpha} + (1-p)^alpha (1-q)^{1-alpha}]. Significance: Chernoff information is the symmetric optimal exponent — unlike Stein's lemma (which fixes one error type), Chernoff optimizes over the tradeoff. Used in: (1) signal detection, (2) pattern recognition (Bayes error bounds), (3) distributed detection, (4) machine learning (margin bounds relate to Chernoff-like distances).",
+      "topic": "ch08p5_chernoff_information",
+      "intent": "formula_recall",
+      "keywords": [
+        "Chernoff information",
+        "hypothesis testing",
+        "error exponent",
+        "Bayesian"
+      ]
+    },
+    {
+      "question": "What is Stein's lemma for hypothesis testing error exponents?",
+      "answer": "Stein's lemma (in hypothesis testing) gives the optimal error exponent for one type of error when the other is held at a fixed level. Setup: H_0: X ~ P_0 vs H_1: X ~ P_1, observe n iid samples. Two error types: Type I = P(reject H_0 | H_0) (false positive), Type II = P(accept H_0 | H_1) (false negative). Neyman-Pearson regime: fix Type I <= epsilon (small), minimize Type II. Stein's lemma: lim_{n -> inf, Type I <= epsilon} (-1/n) log Type II = D(P_0 || P_1) (the KL divergence of P_0 relative to P_1). Equivalently, Type II ~ exp(-n D(P_0 || P_1)) for the optimal test (Neyman-Pearson likelihood ratio test) with Type I <= epsilon. Significance: (1) the KL divergence D(P_0 || P_1) is the FUNDAMENTAL limit of asymmetric hypothesis testing — no test can achieve a faster exponential decay of Type II while keeping Type I bounded; (2) the optimal test is the Neyman-Pearson likelihood ratio test: reject H_0 if dP_1/dP_0 (X_1^n) = prod dP_1/dP_0(X_i) > threshold (threshold chosen to satisfy Type I <= epsilon). Asymptotic threshold: log threshold / n -> some constant depending on epsilon. Proof sketch: (a) achievability — use NP test with threshold exp(n r); by Cramér/Sanov, Type II = P_1(prod LR <= exp(nr)) ~ exp(-n D(P_0||P_1)) when r is tuned to give Type I ~ epsilon; (b) converse — any test with Type I <= epsilon has Type II >= exp(-n(D(P_0||P_1) + delta)) for any delta > 0 eventually (data processing / change-of-measure). Note: Stein's lemma is asymmetric — D(P_0||P_1) != D(P_1||P_0) in general. The symmetric counterpart is the Chernoff information (which optimizes over the tradeoff). Stein's lemma is foundational in information theory (it defines the operational meaning of KL divergence) and statistics (it characterizes the asymptotic detection limit).",
+      "topic": "ch08p5_stein_lemma",
+      "intent": "formula_recall",
+      "keywords": [
+        "Stein lemma",
+        "KL divergence",
+        "Neyman-Pearson",
+        "error exponent"
+      ]
+    },
+    {
+      "question": "What is the Gärtner-Ellis theorem for non-iid large deviations?",
+      "answer": "The Gärtner-Ellis theorem generalizes Cramér's theorem to dependent or non-identically distributed sequences via the limiting logarithmic moment generating function. Setup: S_n = sum_{i=1}^n X_i (not necessarily iid). Define the limiting log-MGF (scaled): Lambda(t) = lim_{n->inf} (1/n) log E[exp(t S_n)] (when this limit exists in R cup {+inf} for each t). Gärtner-Ellis rate function: I(x) = sup_{t in R} (t x - Lambda(t)) (Legendre-Fenchel transform, same form as Cramér). Statement (under suitable conditions): if Lambda is finite and differentiable in a neighborhood of 0 (essentially smooth), then S_n/n satisfies an LDP with rate n and rate function I. Specifically: lower bound (open sets): for any open G, liminf (1/n) log P(S_n/n in G) >= -inf_{x in G} I(x); upper bound (closed sets, under additional \"exposed point\" or convexity assumptions): limsup (1/n) log P(S_n/n in F) <= -inf_{x in F} I(x). When Lambda is convex and lower semicontinuous, the upper bound holds in full generality; for the full LDP, expose points (those where the supremum in I is attained uniquely) need to be dense. Applications: (1) Markov chains — for an ergodic Markov chain, S_n = sum f(X_i), the limiting MGF Lambda(t) is the log-Perron-Frobenius eigenvalue of the tilted transition matrix P_t(x, dy) = e^{t f(y)} P(x, dy); Gärtner-Ellis gives the LDP with rate I(x); (2) independent non-identical variables — if (1/n) log E[e^{t S_n}] converges, Gärtner-Ellis applies even when Lindeberg-style conditions fail; (3) statistical mechanics — partition function asymptotics Z_n = E[e^{t S_n}], free energy = (1/n) log Z_n = Lambda(t)/t; (4) heavy-tailed sums with trimming; (5) random graphs, queueing networks. Gärtner-Ellis is the main tool for large deviations beyond the iid setting; it subsumes Cramér (where Lambda(t) = log E[e^{tX}] for iid) and Sanov (via Gärtner-Ellis on empirical measures).",
+      "topic": "ch08p5_gartner_ellis",
+      "intent": "formula_recall",
+      "keywords": [
+        "Gärtner-Ellis",
+        "non-iid",
+        "limiting MGF",
+        "Markov chains"
+      ]
+    },
+    {
+      "question": "A fair die is rolled 100 times. Use the CLT to approximate the probability that the total score exceeds 380.",
+      "answer": "Worked CLT problem: die rolls. Setup: X_i = result of roll i, iid Uniform{1,2,3,4,5,6}. E[X_i] = 3.5, Var(X_i) = E[X^2] - (E[X])^2 = (1+4+9+16+25+36)/6 - 12.25 = 91/6 - 12.25 = 15.167 - 12.25 = 2.917 = 35/12. Total S_100 = sum_{i=1}^{100} X_i. E[S_100] = 100 * 3.5 = 350. Var(S_100) = 100 * 35/12 = 3500/12 approx 291.67. SD = sqrt(291.67) approx 17.08. By CLT: S_100 ~ approx N(350, 291.67). Standardize: P(S_100 > 380) = P((S_100 - 350)/17.08 > (380-350)/17.08) approx = P(Z > 1.756) = 1 - Phi(1.756). From normal tables: Phi(1.76) approx 0.9608. So P(S_100 > 380) approx 1 - 0.9608 = 0.0392 (about 3.9%). Continuity correction: since S_100 is integer-valued, P(S_100 > 380) = P(S_100 >= 381) approx P(Z > (380.5 - 350)/17.08) = P(Z > 1.785) approx 1 - 0.9630 = 0.0370 (about 3.7%). Check reasonableness: 380 is about 1.76 SDs above the mean, so the upper tail is small (~4%) — consistent. Without continuity correction the answer is ~3.9%, with correction ~3.7%. The exact binomial-style computation would require convolving 100 dice distributions (infeasible by hand); the CLT gives an excellent approximation in seconds.",
+      "topic": "ch08p5_worked_die_rolls_clt",
+      "intent": "problem_solving",
+      "keywords": [
+        "CLT worked",
+        "die rolls",
+        "total score",
+        "normal approximation"
+      ]
+    },
+    {
+      "question": "A coin with P(heads) = 0.6 is flipped 1000 times. Use the CLT to estimate P(between 580 and 620 heads inclusive).",
+      "answer": "Worked CLT for binomial. Setup: X_i ~ Bernoulli(0.6), S_n = number of heads in n = 1000 flips. E[S_n] = n p = 1000 * 0.6 = 600. Var(S_n) = n p(1-p) = 1000 * 0.6 * 0.4 = 240. SD = sqrt(240) approx 15.49. By CLT (de Moivre-Laplace): S_n ~ approx N(600, 240). Goal: P(580 <= S_n <= 620). Continuity correction: P(579.5 <= S_n <= 620.5). Standardize: P((579.5-600)/15.49 <= Z <= (620.5-600)/15.49) = P(-1.324 <= Z <= 1.324). From standard normal tables: Phi(1.32) approx 0.9066, Phi(-1.32) approx 0.0934. So P approx 0.9066 - 0.0934 = 0.8132 (about 81.3%). Without continuity correction: P((580-600)/15.49 <= Z <= (620-600)/15.49) = P(-1.291 <= Z <= 1.291), Phi(1.29) approx 0.9015, Phi(-1.29) approx 0.0985, P approx 0.803 (about 80.3%). Continuity correction improves accuracy. Check validity: n p = 600 >= 5, n(1-p) = 400 >= 5, so CLT applies. The interval [580, 620] is within about 1.3 SDs of the mean, capturing roughly 80-81% of the distribution — reasonable for a central interval. Exact binomial computation (via statistical software) gives approximately 0.8138, so the CLT with continuity correction is accurate to within 0.001 (excellent).",
+      "topic": "ch08p5_worked_coin_clt_interval",
+      "intent": "problem_solving",
+      "keywords": [
+        "CLT binomial",
+        "coin flips",
+        "continuity correction",
+        "interval probability"
+      ]
+    },
+    {
+      "question": "A sample of size 50 from a distribution with mean 10 and variance 4 has sample mean Xbar. Use Chebyshev to bound P(|Xbar - 10| >= 1) and the CLT to approximate it.",
+      "answer": "Comparison: Chebyshev bound vs CLT approximation. Setup: X_1, ..., X_50 iid with mu = 10, sigma^2 = 4 (sigma = 2). Xbar = (1/50) sum X_i. E[Xbar] = 10, Var(Xbar) = sigma^2/n = 4/50 = 0.08. SD(Xbar) = sqrt(0.08) approx 0.283. Chebyshev bound: P(|Xbar - 10| >= 1) <= Var(Xbar)/1^2 = 0.08 (so at most 8%). This is a rigorous upper bound requiring only finite variance. CLT approximation: assume Xbar ~ approx N(10, 0.08). P(|Xbar - 10| >= 1) = P(|Z| >= 1/0.283) = P(|Z| >= 3.536). From normal tables: Phi(3.54) approx 0.9998, so P(|Z| >= 3.54) approx 2 * (1 - 0.9998) = 0.0004 (about 0.04%). Comparison: Chebyshev gives an upper bound of 8% (loose but rigorous); CLT gives an approximation of ~0.04% (tight under the normal approximation but requires the distribution to be \"nice enough\" for CLT to be accurate at this deviation). The CLT estimate is 200x smaller than the Chebyshev bound. The huge gap reflects Chebyshev's looseness: it is tight only for adversarial distributions (e.g., a 3-point distribution), whereas for typical distributions the tail is much lighter. Takeaway: for small deviations (1 SD), CLT and Chebyshev can both be used; for large deviations (3+ SDs), Chebyshev is uninformative while CLT (if valid) gives a meaningful small probability. For very large deviations (beyond the CLT regime), large deviation theory (Cramér) gives the correct exponential rate. In this problem, 3.5 SDs is well within the CLT regime for n=50 if the underlying distribution is not too skewed.",
+      "topic": "ch08p5_worked_chebyshev_vs_clt",
+      "intent": "problem_solving",
+      "keywords": [
+        "Chebyshev vs CLT",
+        "sample mean",
+        "bound comparison",
+        "deviation probability"
+      ]
+    },
+    {
+      "question": "The sample mean of 36 iid exponential random variables with mean 5 is computed. Use the CLT to approximate P(Xbar > 6).",
+      "answer": "Worked CLT for exponential. Setup: X_i ~ Exp(rate = 1/5) (mean = 5, variance = 25). n = 36. Xbar = (1/36) sum X_i. E[Xbar] = 5. Var(Xbar) = sigma^2/n = 25/36. SD(Xbar) = 5/6 approx 0.833. By CLT: Xbar ~ approx N(5, 25/36). Standardize: P(Xbar > 6) = P((Xbar - 5)/0.833 > (6-5)/0.833) approx = P(Z > 1.2). From standard normal tables: Phi(1.2) approx 0.8849. So P(Xbar > 6) approx 1 - 0.8849 = 0.1151 (about 11.5%). Verification — Gamma exact: sum of 36 iid Exp(1/5) is Gamma(shape = 36, rate = 1/5), so Xbar = (sum)/36 has the distribution of Gamma(36, 1/5)/36. P(Xbar > 6) = P(Gamma(36, 1/5) > 216). For shape = 36 (large), the Gamma is well-approximated by a normal (consistent with CLT). The exact computation: in R, pgamma(216, shape=36, rate=1/5, lower.tail=FALSE) gives approximately 0.119. So CLT approximation 0.115 is accurate to within 0.004 (about 3% relative error) — excellent for n=36. Takeaway: for exponential (moderately skewed) and n=36, CLT gives a good approximation. For smaller n (n < 20) or more skewed distributions (e.g., shape < 5 in Gamma), the CLT approximation degrades; use Edgeworth correction or exact Gamma computation.",
+      "topic": "ch08p5_worked_exponential_clt",
+      "intent": "problem_solving",
+      "keywords": [
+        "CLT exponential",
+        "sample mean",
+        "Gamma sum",
+        "normal approximation"
+      ]
+    },
+    {
+      "question": "If phat is the sample proportion from n = 400 Bernoulli(p=0.5) trials, find the 95% confidence interval for p using the arcsine transformation.",
+      "answer": "Worked variance-stabilizing transform CI. Setup: X_i ~ Bernoulli(0.5), n = 400, phat = sum X_i / 400. E[phat] = 0.5, Var(phat) = p(1-p)/n = 0.25/400 = 0.000625, SD = 0.025. Naive Wald CI: phat +/- 1.96 * 0.025 = 0.5 +/- 0.049 = [0.451, 0.549]. Arcsine transform CI: g(p) = 2 arcsin(sqrt(p)). g'(p) = 1/sqrt(p(1-p)). By delta method: Var(g(phat)) approx [g'(p)]^2 Var(phat) = (1/(p(1-p))) * p(1-p)/n = 1/n = 1/400 = 0.0025. SD(g(phat)) = 0.05 (independent of p — variance stabilized!). Step 1: compute g(phat) = 2 arcsin(sqrt(phat)). For phat = 0.5: g(0.5) = 2 arcsin(sqrt(0.5)) = 2 arcsin(0.7071) = 2 * pi/4 = pi/2 approx 1.5708. Step 2: CI for g(p): [g(phat) - 1.96 * 0.05, g(phat) + 1.96 * 0.05] = [1.5708 - 0.098, 1.5708 + 0.098] = [1.4728, 1.6688]. Step 3: back-transform: p = sin^2(g/2). Lower: sin^2(1.4728/2) = sin^2(0.7364) = sin(0.7364)^2 approx (0.6717)^2 approx 0.4512. Upper: sin^2(1.6688/2) = sin^2(0.8344) approx (0.7405)^2 approx 0.5483. So 95% CI for p approx [0.451, 0.548]. Comparison: arcsine CI [0.451, 0.548] vs Wald CI [0.451, 0.549] — nearly identical for p = 0.5 (where variance is maximal and Wald is most accurate). Advantage of arcsine: uniform coverage even when p is near 0 or 1 (where Wald performs poorly). For phat near 0 or 1, arcsine CI stays in [0,1] and has better coverage.",
+      "topic": "ch08p5_worked_arcsine_ci",
+      "intent": "problem_solving",
+      "keywords": [
+        "arcsine CI",
+        "binomial proportion",
+        "confidence interval",
+        "variance stabilizing"
+      ]
+    },
+    {
+      "question": "Use the delta method to find the asymptotic distribution of the sample variance S^2 when sampling from N(mu, sigma^2).",
+      "answer": "Worked delta method for sample variance. Setup: X_1, ..., X_n iid N(mu, sigma^2). Sample variance S^2 = (1/(n-1)) sum (X_i - Xbar)^2. Known facts: (n-1) S^2 / sigma^2 ~ chi-squared_{n-1}. E[S^2] = sigma^2 (unbiased). Var(S^2) = 2 sigma^4 / (n-1) (variance of chi-squared, scaled). Asymptotic: by CLT for chi-squared (which has finite variance), (chi-squared_{n-1} - (n-1)) / sqrt(2(n-1)) ->^D N(0, 1). Equivalently: sqrt(n) (S^2 - sigma^2) / sqrt(2 sigma^4) ->^D N(0, 1), i.e., sqrt(n)(S^2 - sigma^2) ->^D N(0, 2 sigma^4). Delta method for g(S^2) where g(x) = sqrt(x) (sample standard deviation): g'(x) = 1/(2 sqrt(x)). So sqrt(n)(S - sigma) = sqrt(n)(g(S^2) - g(sigma^2)) ->^D N(0, [g'(sigma^2)]^2 * 2 sigma^4) = N(0, (1/(4 sigma^2)) * 2 sigma^4) = N(0, sigma^2/2). So sample SD S is asymptotically normal with mean sigma and variance sigma^2/(2n). Delta method for g(S^2) = log(S^2) (log-variance): g'(x) = 1/x. sqrt(n)(log S^2 - log sigma^2) ->^D N(0, (1/sigma^4) * 2 sigma^4) = N(0, 2). So log(S^2) is asymptotically N(log sigma^2, 2/n) — variance stabilized (independent of sigma). Application — CI for sigma: from S ~ N(sigma, sigma^2/(2n)), a 95% CI for sigma is S +/- 1.96 S/sqrt(2n) (replacing sigma in the SE by its estimate S). For n = 100, S = 5: CI = 5 +/- 1.96 * 5/sqrt(200) = 5 +/- 0.693 = [4.31, 5.69]. Note: for normal data, the exact CI uses the chi-squared distribution: [(n-1) S^2 / chi^2_{n-1, upper}, (n-1) S^2 / chi^2_{n-1, lower}] — preferred for small n. Delta method CI is accurate for large n.",
+      "topic": "ch08p5_worked_delta_variance",
+      "intent": "problem_solving",
+      "keywords": [
+        "delta method",
+        "sample variance",
+        "sample standard deviation",
+        "asymptotic distribution"
+      ]
+    },
+    {
+      "question": "Show that if X_n ->^P c and Y_n ->^P d (constants), then X_n Y_n ->^P c d using the definition of convergence in probability.",
+      "answer": "Worked proof: product of consistent estimators is consistent. Setup: X_n ->^P c, Y_n ->^P d (convergence in probability to constants). Goal: show X_n Y_n ->^P c d. Approach: write X_n Y_n - c d = (X_n - c)(Y_n - d) + c (Y_n - d) + d (X_n - c). We bound each term. Let epsilon > 0. Step 1 — bound d (X_n - c): P(|d (X_n - c)| > epsilon/3) = P(|X_n - c| > epsilon/(3|d|)) -> 0 if d != 0 (since X_n ->^P c). If d = 0, this term is 0. So for any epsilon > 0, this term goes to 0 in probability. Step 2 — similarly c (Y_n - d) ->^P 0. Step 3 — bound (X_n - c)(Y_n - d): use the event partition. For any delta > 0: P(|X_n - c| |Y_n - d| > epsilon/3) <= P(|X_n - c| > epsilon/(3 delta)) + P(|Y_n - d| > delta) (if |X_n - c| <= epsilon/(3 delta) and |Y_n - d| <= delta, then product <= epsilon/3). Choose delta = sqrt(epsilon/3) (or any fixed positive value). Then both probabilities -> 0 by convergence in probability. So (X_n - c)(Y_n - d) ->^P 0. Step 4 — combine via union bound: P(|X_n Y_n - c d| > epsilon) <= P(|d(X_n - c)| > epsilon/3) + P(|c(Y_n - d)| > epsilon/3) + P(|(X_n - c)(Y_n - d)| > epsilon/3) -> 0 + 0 + 0 = 0. Conclusion: X_n Y_n ->^P c d. This is a special case of Slutsky's theorem (the product part) for constants. The same technique (decompose into linear terms plus a product of deviations, bound each via convergence in probability and union bound) proves the sum and ratio parts of Slutsky. The proof uses only the definition of convergence in probability plus the union bound — no characteristic functions needed.",
+      "topic": "ch08p5_worked_product_convergence",
+      "intent": "problem_solving",
+      "keywords": [
+        "proof",
+        "product convergence",
+        "Slutsky",
+        "definition of convergence in probability"
+      ]
+    }
+  ]
+}
