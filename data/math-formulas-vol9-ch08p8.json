@@ -1,0 +1,678 @@
+{
+  "generatedAt": "2026-07-08T11:11:17.071Z",
+  "totalItems": 50,
+  "subject": "mathematics_formulas_volume_9_chapter_08_part_08",
+  "volume": "Volume 9 — Comprehensive Formula Encyclopedia, Chapter 8 Part 8 (Confidence Intervals — Exact CIs for Normal Mean & Variance z t chi-sq F, Large-Sample & Asymptotic CIs Wald Wilson Score LRT Profile Delta Method Transformations Bartlett, Bootstrap CIs Percentile Basic Studentized BCa Parametric & Dependent Data, Prediction & Tolerance Intervals Nonparametric Calibration Bayesian Predictive, Bayesian Credible Intervals HPD Equal-Tailed Conjugate Jeffreys Reference Multivariate Nuisance Marginalization, CIs for Proportions Rates & Simultaneous Intervals Wald Wilson Agresti-Coull Clopper-Pearson Odds Ratio Relative Risk Poisson Byar Rate Ratio Bonferroni Tukey Scheffe Dunnett, Worked Problems)",
+  "source": "TRIZA Generated Formula Dataset",
+  "language": "en",
+  "religionNeutral": true,
+  "items": [
+    {
+      "question": "What is a confidence interval and what does its confidence level mean?",
+      "answer": "A CONFIDENCE INTERVAL (CI) for a parameter theta is a random interval [L(X), U(X)], computed from the sample, that contains the true parameter with a specified long-run probability. Formally, a 1-alpha confidence interval satisfies P_theta(theta in [L(X), U(X)]) >= 1-alpha for ALL theta in the parameter space, where the probability is over the random sample X = (X_1,...,X_n). The quantity 1-alpha is the CONFIDENCE LEVEL (or coverage probability), commonly 0.90, 0.95, 0.99. Interpretation: if we were to repeat the sampling procedure many times, about (1-alpha)*100% of the resulting intervals would contain the true theta. CRUCIAL: the 95% probability refers to the PROCEDURE, not to any single realized interval — once the data is observed, the interval either contains theta or it does not (no randomness left in the frequentist view). Key properties: (1) COVERAGE is a pre-data property of the procedure; (2) the realized interval is just two numbers and has no probability attached to it (frequentist); (3) a CI is a set of plausible values for theta, consistent with the data at level 1-alpha; (4) narrower CI = more precise estimate; CI width depends on sample size n, variability sigma, and confidence level 1-alpha (higher confidence = wider interval). Construction methods: (a) PIVOTAL QUANTITY method — find Q(X, theta) whose distribution is free of theta (e.g., (Xbar - mu)/(sigma/sqrt(n)) ~ N(0,1)); invert P(a <= Q <= b) = 1-alpha to get a CI; (b) TEST INVERSION — collect all theta_0 not rejected by the corresponding level-alpha test (CI-test duality). Exact CIs have coverage EXACTLY 1-alpha; approximate (asymptotic) CIs have coverage tending to 1-alpha as n -> infinity. A randomized CI (for discrete distributions) can achieve exact coverage by randomizing at the boundary. One-sided CIs give a lower or upper bound only: P(L(X) <= theta) = 1-alpha or P(theta <= U(X)) = 1-alpha.",
+      "topic": "ch08p8_ci_definition_confidence_level",
+      "intent": "formula_recall",
+      "keywords": [
+        "confidence interval",
+        "confidence level",
+        "coverage probability",
+        "pivotal quantity",
+        "interpretation"
+      ]
+    },
+    {
+      "question": "What is the z-interval (exact CI) for a normal mean with known variance?",
+      "answer": "For X_1,...,X_n iid N(mu, sigma^2) with sigma KNOWN, the exact 1-alpha CI for mu is the Z-INTERVAL: Xbar +/- z_{1-alpha/2} * sigma / sqrt(n), where Xbar = (1/n) sum X_i is the sample mean and z_{1-alpha/2} is the upper alpha/2 quantile of N(0,1) (e.g., z_{0.975} = 1.96 for 95% CI). DERIVATION: the pivotal quantity Z = (Xbar - mu) / (sigma/sqrt(n)) ~ N(0,1) for any mu. So P(-z_{1-alpha/2} <= Z <= z_{1-alpha/2}) = 1-alpha. Inverting the inequality -z_{1-alpha/2} <= (Xbar - mu)/(sigma/sqrt(n)) <= z_{1-alpha/2} gives Xbar - z_{1-alpha/2} sigma/sqrt(n) <= mu <= Xbar + z_{1-alpha/2} sigma/sqrt(n). PROPERTIES: (1) EXACT coverage 1-alpha for any n (because the normal distribution is exact, no CLT needed); (2) the interval is symmetric about Xbar; (3) width = 2 z_{1-alpha/2} sigma / sqrt(n), decreasing as 1/sqrt(n) — to halve the width, quadruple the sample size; (4) the center Xbar ~ N(mu, sigma^2/n) is the minimum-variance unbiased estimator (MVUE) of mu; (5) the z-interval is the shortest possible 1-alpha CI for mu (among intervals based on Xbar) because the normal density is unimodal and symmetric. One-sided variants: lower 1-alpha bound mu >= Xbar - z_{1-alpha} sigma/sqrt(n); upper bound mu <= Xbar + z_{1-alpha} sigma/sqrt(n). WHEN TO USE: sigma known is rare in practice — usually sigma is unknown and we use the t-interval instead. The z-interval is appropriate when sigma has been calibrated from a huge amount of historical data, or when the problem explicitly states sigma. For large n, the t-interval and z-interval nearly coincide (t distribution approaches N(0,1)), so the z-interval is a good approximation regardless. Sample size planning: to achieve a CI half-width h at confidence 1-alpha, n = (z_{1-alpha/2} sigma / h)^2.",
+      "topic": "ch08p8_z_interval_known_variance",
+      "intent": "formula_recall",
+      "keywords": [
+        "z-interval",
+        "normal mean",
+        "known variance",
+        "pivotal quantity",
+        "exact CI"
+      ]
+    },
+    {
+      "question": "What is the t-interval (exact CI) for a normal mean with unknown variance?",
+      "answer": "For X_1,...,X_n iid N(mu, sigma^2) with sigma UNKNOWN, the exact 1-alpha CI for mu is the T-INTERVAL: Xbar +/- t_{n-1, 1-alpha/2} * S / sqrt(n), where S^2 = (1/(n-1)) sum (X_i - Xbar)^2 is the sample variance and t_{n-1, 1-alpha/2} is the upper alpha/2 quantile of Student's t distribution with n-1 degrees of freedom. DERIVATION: the pivotal quantity T = (Xbar - mu)/(S/sqrt(n)) ~ t_{n-1} for any mu, sigma (this follows because (Xbar-mu)/(sigma/sqrt(n)) ~ N(0,1) and (n-1)S^2/sigma^2 ~ chi^2_{n-1} are independent, and their ratio is t_{n-1}). Inverting P(-t* <= T <= t*) = 1-alpha gives the t-interval. PROPERTIES: (1) EXACT coverage 1-alpha for normal data (no approximation); (2) symmetric about Xbar; (3) WIDER than the z-interval (t-quantiles exceed z-quantiles, especially for small n) — the extra width accounts for the uncertainty in estimating sigma by S; (4) as n -> infinity, t_{n-1} -> N(0,1), so the t-interval approaches the z-interval (for n > 30 the difference is negligible); (5) for small n, the t-interval is substantially wider — e.g., n=5, 95% CI uses t_{4, 0.975} = 2.776 vs z_{0.975} = 1.96 (a 42% inflation). ROBUSTNESS: the t-interval relies on normality. For large n it is robust to non-normality (by CLT and Slutsky, T -> N(0,1)). For small n with non-normal data, the t-interval may have coverage substantially below 1-alpha; heavy tails cause undercoverage, skewness causes the interval to be off-center. Alternatives: bootstrap CIs (no normality assumption), or sign-based / Wilcoxon-based intervals (for medians). One-sided: mu >= Xbar - t_{n-1, 1-alpha} S/sqrt(n) (lower bound). Paired data: apply the t-interval to the differences D_i = X_i - Y_i. Sample size: n = (t_{n-1, 1-alpha/2} S / h)^2 — iterative because t depends on n (use z as initial guess, iterate).",
+      "topic": "ch08p8_t_interval_unknown_variance",
+      "intent": "formula_recall",
+      "keywords": [
+        "t-interval",
+        "Student t",
+        "normal mean",
+        "unknown variance",
+        "sample variance",
+        "degrees of freedom"
+      ]
+    },
+    {
+      "question": "What is the chi-squared interval (exact CI) for a normal variance?",
+      "answer": "For X_1,...,X_n iid N(mu, sigma^2), the exact 1-alpha CI for sigma^2 (the variance) is the CHI-SQUARED INTERVAL based on the pivotal quantity (n-1) S^2 / sigma^2 ~ chi^2_{n-1}. The 1-alpha CI is: [ (n-1) S^2 / chi^2_{n-1, 1-alpha/2}, (n-1) S^2 / chi^2_{n-1, alpha/2} ], where chi^2_{n-1, p} is the p-quantile of the chi-squared distribution with n-1 degrees of freedom. DERIVATION: by Cochran's theorem, (n-1) S^2 / sigma^2 = sum (X_i - Xbar)^2 / sigma^2 ~ chi^2_{n-1}, independent of Xbar. So P(chi^2_{n-1, alpha/2} <= (n-1) S^2 / sigma^2 <= chi^2_{n-1, 1-alpha/2}) = 1-alpha. Inverting (solving for sigma^2) gives the CI. PROPERTIES: (1) EXACT coverage 1-alpha for normal data; (2) the interval is ASYMMETRIC (chi-squared is skewed, especially for small df) — the upper limit is further from S^2 than the lower limit; (3) the interval is invariant under scaling (scaling all data by c scales both S^2 and the CI by c^2); (4) NOT location-invariant in the sense that it assumes mu is unknown — if mu is KNOWN, use the pivot sum (X_i - mu)^2 / sigma^2 ~ chi^2_n (n degrees of freedom, slightly narrower); (5) for large n, S^2 is approximately normal and the interval can be approximated by S^2 +/- z_{1-alpha/2} S^2 sqrt(2/(n-1)) (using Var(S^2) = 2 sigma^4 / (n-1) for normal data). CI for sigma (standard deviation): take square roots of the endpoints: [sqrt((n-1)S^2/chi^2_{1-alpha/2}), sqrt((n-1)S^2/chi^2_{alpha/2})]. ROBUSTNESS: the chi-squared interval is HIGHLY SENSITIVE to non-normality — even mild departures (kurtosis != 3) cause substantial undercoverage, because Var(S^2) = sigma^4 (kappa/2 + ... ) depends on the fourth moment. For non-normal data, use the bootstrap CI for the variance instead. The interval tends to be wide for small n because the chi-squared distribution is highly skewed at low df.",
+      "topic": "ch08p8_chi_squared_interval_variance",
+      "intent": "formula_recall",
+      "keywords": [
+        "chi-squared interval",
+        "normal variance",
+        "sample variance",
+        "Cochran",
+        "skewed CI"
+      ]
+    },
+    {
+      "question": "What is the CI for the difference of two normal means with known variances?",
+      "answer": "For two independent samples X_1,...,X_{n_X} iid N(mu_X, sigma_X^2) and Y_1,...,Y_{n_Y} iid N(mu_Y, sigma_Y^2) with sigma_X, sigma_Y KNOWN, the exact 1-alpha CI for the difference mu_X - mu_Y is: (Xbar - Ybar) +/- z_{1-alpha/2} * sqrt(sigma_X^2 / n_X + sigma_Y^2 / n_Y). DERIVATION: Xbar - Ybar ~ N(mu_X - mu_Y, sigma_X^2/n_X + sigma_Y^2/n_Y), so the pivotal Z = ((Xbar - Ybar) - (mu_X - mu_Y)) / sqrt(sigma_X^2/n_X + sigma_Y^2/n_Y) ~ N(0,1). Inverting gives the CI. PROPERTIES: (1) EXACT coverage for normal data; (2) symmetric about Xbar - Ybar; (3) width decreases as 1/sqrt(n_X + n_Y) roughly; (4) optimal allocation for fixed total n = n_X + n_Y is n_X / n_Y = sigma_X / sigma_Y (Neyman allocation — more samples where variance is higher). For the case of UNKNOWN but EQUAL variances (sigma_X = sigma_Y = sigma unknown), use the POOLED T-INTERVAL: (Xbar - Ybar) +/- t_{n_X+n_Y-2, 1-alpha/2} * S_p * sqrt(1/n_X + 1/n_Y), where S_p^2 = ((n_X-1)S_X^2 + (n_Y-1)S_Y^2)/(n_X+n_Y-2) is the pooled variance estimator with n_X + n_Y - 2 degrees of freedom. The pivotal T = ((Xbar - Ybar) - (mu_X - mu_Y)) / (S_p sqrt(1/n_X + 1/n_Y)) ~ t_{n_X+n_Y-2}. For UNKNOWN and UNEQUAL variances, use the WELCH (Satterthwaite) interval with approximated degrees of freedom (see separate item). PAIRED data (X_i, Y_i) correlated): analyze the differences D_i = X_i - Y_i as a single sample, giving the one-sample t-interval Xbar_D +/- t_{n-1, 1-alpha/2} S_D / sqrt(n) — this is more powerful than the two-independent-samples interval when the pairing is informative (large positive correlation).",
+      "topic": "ch08p8_ci_diff_two_means_known",
+      "intent": "formula_recall",
+      "keywords": [
+        "difference of means",
+        "two samples",
+        "known variance",
+        "pooled",
+        "Neyman allocation"
+      ]
+    },
+    {
+      "question": "What is the pooled t-interval for the difference of two means with equal unknown variances?",
+      "answer": "For two independent samples X_1,...,X_{n_X} iid N(mu_X, sigma^2) and Y_1,...,Y_{n_Y} iid N(mu_Y, sigma^2) with COMMON unknown variance sigma^2, the exact 1-alpha CI for mu_X - mu_Y is the POOLED T-INTERVAL: (Xbar - Ybar) +/- t_{n_X + n_Y - 2, 1-alpha/2} * S_p * sqrt(1/n_X + 1/n_Y), where S_p^2 = ((n_X - 1) S_X^2 + (n_Y - 1) S_Y^2) / (n_X + n_Y - 2) is the POOLED SAMPLE VARIANCE, combining both samples. DERIVATION: (a) Xbar - Ybar ~ N(mu_X - mu_Y, sigma^2 (1/n_X + 1/n_Y)); (b) (n_X-1) S_X^2 / sigma^2 + (n_Y-1) S_Y^2 / sigma^2 ~ chi^2_{n_X + n_Y - 2} (sum of independent chi-squared); (c) the ratio T = ((Xbar - Ybar) - (mu_X - mu_Y)) / (S_p sqrt(1/n_X + 1/n_Y)) ~ t_{n_X + n_Y - 2}. Inverting P(-t* <= T <= t*) = 1-alpha gives the CI. PROPERTIES: (1) EXACT coverage when the variances are truly equal (both populations normal with same sigma^2); (2) degrees of freedom n_X + n_Y - 2 (two means estimated, losing 2 df); (3) S_p is the MVUE of the common sigma^2 (using all data); (4) the interval is symmetric about Xbar - Ybar. WHEN TO USE: the pooled t-interval is preferred over Welch when (a) the sample sizes are equal or nearly equal AND (b) there is good reason to believe variances are equal (e.g., designed experiment with randomization). RISK: if variances are actually unequal and sample sizes are unequal, the pooled t-interval can have coverage substantially below 1-alpha (the \"Behrens-Fisher problem\" without Satterthwaite correction). DIAGNOSTIC: pre-test for equal variances (F-test or Levene's test) is NOT recommended — use Welch by default (Welch is robust to unequal variances with only a small loss of power when variances are truly equal). HISTORICAL: the pooled t-test/interval is the \"classic\" two-sample procedure taught in introductory statistics; modern practice (e.g., R default) favors Welch.",
+      "topic": "ch08p8_pooled_t_interval",
+      "intent": "formula_recall",
+      "keywords": [
+        "pooled t-interval",
+        "two samples",
+        "equal variances",
+        "pooled variance",
+        "degrees of freedom"
+      ]
+    },
+    {
+      "question": "What is the Welch-Satterthwaite interval for two means with unequal unknown variances?",
+      "answer": "For two independent normal samples X_1,...,X_{n_X} ~ N(mu_X, sigma_X^2) and Y_1,...,Y_{n_Y} ~ N(mu_Y, sigma_Y^2) with sigma_X != sigma_Y both UNKNOWN, the approximate 1-alpha CI for mu_X - mu_Y is the WELCH (Satterthwaite) INTERVAL: (Xbar - Ybar) +/- t_{nu, 1-alpha/2} * sqrt(S_X^2/n_X + S_Y^2/n_Y), where the SATTERTHWAITE APPROXIMATED degrees of freedom is nu = (S_X^2/n_X + S_Y^2/n_Y)^2 / [ (S_X^2/n_X)^2/(n_X - 1) + (S_Y^2/n_Y)^2/(n_Y - 1) ]. DERIVATION: the pivotal T = ((Xbar - Ybar) - (mu_X - mu_Y)) / sqrt(S_X^2/n_X + S_Y^2/n_Y) does not follow an exact t-distribution (this is the BEHRENS-FISHER PROBLEM). The Satterthwaite approximation matches the first two moments: the denominator sqrt(S_X^2/n_X + S_Y^2/n_Y) is approximated as (sigma_hat / sqrt(nu)) chi_{nu} where nu is chosen so the variance matches. PROPERTIES: (1) APPROXIMATE coverage — good for normal data, converges to exact as n_X, n_Y -> infinity; (2) nu is between min(n_X-1, n_Y-1) and n_X + n_Y - 2; (3) typically nu is NOT an integer — use interpolation in t-tables or compute via software; (4) ROBUST to unequal variances — the recommended default for two-sample problems. COMPARISON WITH POOLED: Welch is slightly WIDER (lower df, larger t-quantile) when variances are truly equal, but is MUCH more reliable when variances differ. Modern recommendation: ALWAYS use Welch unless there is strong prior evidence of equal variances. R defaults to Welch t.test. The loss of power from using Welch when variances are equal is small (typically < 5% relative efficiency), while the gain in validity when variances differ is large. For very small samples (n_X, n_Y < 5) the approximation may be poor; consider nonparametric alternatives (Mann-Whitney based CI for shift) or exact permutation CIs. The CI inverts the Welch two-sample t-test via the CI-test duality.",
+      "topic": "ch08p8_welch_satterthwaite_interval",
+      "intent": "formula_recall",
+      "keywords": [
+        "Welch",
+        "Satterthwaite",
+        "Behrens-Fisher",
+        "unequal variances",
+        "approximate df"
+      ]
+    },
+    {
+      "question": "What is the F-interval for the ratio of two normal variances?",
+      "answer": "For two independent normal samples X_1,...,X_{n_X} ~ N(mu_X, sigma_X^2) and Y_1,...,Y_{n_Y} ~ N(mu_Y, sigma_Y^2), the exact 1-alpha CI for the ratio sigma_X^2 / sigma_Y^2 is the F-INTERVAL: [ (S_X^2 / S_Y^2) / F_{n_X-1, n_Y-1, 1-alpha/2}, (S_X^2 / S_Y^2) / F_{n_X-1, n_Y-1, alpha/2} ], where F_{df1, df2, p} is the p-quantile of the F distribution with (df1, df2) degrees of freedom. DERIVATION: the pivotal quantity (S_X^2 / sigma_X^2) / (S_Y^2 / sigma_Y^2) ~ F_{n_X-1, n_Y-1} (ratio of two independent chi-squared variables, each divided by its df). Inverting P(F_{alpha/2} <= (S_X^2/sigma_X^2)/(S_Y^2/sigma_Y^2) <= F_{1-alpha/2}) = 1-alpha for the ratio sigma_X^2/sigma_Y^2 gives the CI. Using the reciprocal identity F_{df1, df2, alpha/2} = 1 / F_{df2, df1, 1-alpha/2} can simplify table lookups. PROPERTIES: (1) EXACT coverage for normal data; (2) ASYMMETRIC interval (F distribution is right-skewed); (3) if the CI contains 1, we fail to reject H_0: sigma_X = sigma_Y (F-test for equal variances); (4) interval for sigma_X/sigma_Y (ratio of SDs) is obtained by taking square roots of endpoints. ROBUSTNESS: the F-interval is EXTREMELY SENSITIVE to non-normality — even mild non-normality (kurtosis) causes large deviations in coverage, because the distribution of S^2 depends heavily on the fourth moment. The F-test for equal variances is therefore NOT recommended as a pre-test for choosing pooled vs Welch (use Levene's or Brown-Forsythe test instead, which are more robust). For non-normal data, use a bootstrap CI for the variance ratio. The F-interval is most reliable when both samples are large (CLT kicks in for S^2) or when normality is well-justified (e.g., measurement error studies).",
+      "topic": "ch08p8_f_interval_variance_ratio",
+      "intent": "formula_recall",
+      "keywords": [
+        "F-interval",
+        "variance ratio",
+        "two variances",
+        "F distribution",
+        "F-test"
+      ]
+    },
+    {
+      "question": "What is the Wald asymptotic CI based on the MLE and CLT?",
+      "answer": "For a parameter theta estimated by the maximum likelihood estimator theta_hat (MLE), under regularity conditions the asymptotic WALD CI for theta is: theta_hat +/- z_{1-alpha/2} * SE(theta_hat), where SE(theta_hat) = 1 / sqrt(I_n(theta_hat)) is the estimated standard error (I_n is the observed Fisher information) and z_{1-alpha/2} is the standard normal quantile. DERIVATION: by the asymptotic normality of the MLE, sqrt(n) (theta_hat - theta) -> N(0, 1/I(theta)) in distribution, where I(theta) is the Fisher information per observation. Hence (theta_hat - theta) / SE(theta_hat) -> N(0,1), and P(-z* <= (theta_hat - theta)/SE <= z*) ~ 1-alpha gives the Wald CI. PROPERTIES: (1) APPROXIMATE coverage — converges to 1-alpha as n -> infinity, with O(1/n) coverage error typically; (2) symmetric about theta_hat; (3) easy to compute — just need theta_hat and its SE; (4) requires the information / variance formula for the specific model. EXAMPLES: (a) Bernoulli p: p_hat = Xbar, SE = sqrt(p_hat(1-p_hat)/n) -> Wald interval p_hat +/- z* sqrt(p_hat(1-p_hat)/n); (b) Poisson lambda: lambda_hat = Xbar, SE = sqrt(lambda_hat/n) -> Wald interval Xbar +/- z* sqrt(Xbar/n); (c) Normal mu (sigma unknown): Xbar +/- z* S/sqrt(n) (for large n, z approximates t); (d) Exponential rate: lambda_hat = 1/Xbar, SE = lambda_hat/sqrt(n) -> 1/Xbar +/- z*(1/Xbar)/sqrt(n). LIMITATIONS: (1) Wald intervals can have POOR coverage for small n, especially when theta_hat is near the boundary of the parameter space (e.g., p near 0 or 1); (2) the Wald interval for a Bernoulli proportion is notoriously bad — the \"Wald interval\" can have coverage far below nominal even for moderate n; (3) Wald is not transformation-respecting — a Wald CI for g(theta) computed by plugging in theta_hat is NOT the same as transforming the Wald CI for theta. Use Wilson/score or likelihood-ratio CIs for better small-sample behavior.",
+      "topic": "ch08p8_wald_asymptotic_ci",
+      "intent": "formula_recall",
+      "keywords": [
+        "Wald CI",
+        "MLE",
+        "asymptotic",
+        "CLT",
+        "Fisher information",
+        "standard error"
+      ]
+    },
+    {
+      "question": "What is the Wilson score interval and why is it better than the Wald interval for proportions?",
+      "answer": "The WILSON SCORE INTERVAL for a Bernoulli proportion p (based on n trials, X successes) is the set of p values for which the score test of H_0: p = p_0 does not reject at level alpha. It is: (p_hat + z^2/(2n) +/- z sqrt(p_hat(1-p_hat)/n + z^2/(4n^2))) / (1 + z^2/n), where p_hat = X/n, z = z_{1-alpha/2}. DERIVATION: the score statistic for H_0: p = p_0 is (p_hat - p_0)/sqrt(p_0(1-p_0)/n) ~ N(0,1). Solve |p_hat - p_0|/sqrt(p_0(1-p_0)/n) = z for p_0 — this is a quadratic in p_0, yielding the two Wilson endpoints. PROPERTIES: (1) ASYMPTOTIC coverage 1-alpha with O(1/n) error, but MUCH better small-sample behavior than Wald; (2) RESPECTS the [0,1] boundary — never extends below 0 or above 1 (Wald can); (3) ASYMMETRIC about p_hat — shifted toward 0.5, especially when p_hat is near 0 or 1; (4) coverage is close to nominal even for small n and extreme p; (5) the interval is shorter than Wald near 0.5 and longer near 0/1 (where Wald underestimates uncertainty). WHY BETTER THAN WALD: the Wald interval puts the estimated SE sqrt(p_hat(1-p_hat)/n) in BOTH the numerator and denominator, treating p_hat as if it were the true p. The Wilson interval uses the NULL value p_0 in the SE, which is the correct standard error under H_0. This subtle difference dramatically improves coverage. The \"Agresti-Coull\" interval is a close approximation: add z^2 \"pseudo-observations\" (2 successes and 2 failures for 95% CI) and use the Wald formula with the adjusted p_tilde = (X + z^2/2)/(n + z^2) and adjusted n_tilde = n + z^2. The Agresti-Coull interval is nearly as good as Wilson and easier to teach. The Clopper-Pearson \"exact\" interval is conservative (coverage >= 1-alpha always, sometimes much higher); Wilson is the recommended default for binomial proportions.",
+      "topic": "ch08p8_wilson_score_interval",
+      "intent": "formula_recall",
+      "keywords": [
+        "Wilson score interval",
+        "proportion CI",
+        "score test inversion",
+        "Agresti-Coull",
+        "binomial"
+      ]
+    },
+    {
+      "question": "What is the likelihood-ratio (profile likelihood) CI based on Wilks theorem?",
+      "answer": "The PROFILE LIKELIHOOD CI (likelihood-ratio CI) for theta is the set of theta_0 values not rejected by the likelihood-ratio test (LRT) of H_0: theta = theta_0 at level alpha. Formally: { theta_0 : 2 [ l(theta_hat) - l(theta_0) ] <= chi^2_{1, 1-alpha} }, where l(theta) is the log-likelihood, theta_hat is the unconstrained MLE, and chi^2_{1, 1-alpha} is the 1-alpha quantile of the chi-squared distribution with 1 df. Equivalently, the CI is { theta_0 : -2 log Lambda(theta_0) <= chi^2_{1, 1-alpha} }, where Lambda(theta_0) = sup_{theta: theta_0 fixed} L(theta) / L(theta_hat) is the profile likelihood ratio (the supremum is over nuisance parameters). DERIVATION: by WILKS' THEOREM, under H_0 the LRT statistic -2 log Lambda -> chi^2_1 in distribution. Inverting the test gives the CI. PROPERTIES: (1) ASYMPTOTIC coverage 1-alpha with O(1/n) error — typically BETTER small-sample coverage than Wald (especially for small n or near boundaries); (2) RESPECTS transformations — the profile likelihood CI for g(theta) is obtained by reparametrizing the likelihood (no plug-in SE needed); (3) ASYMMETRIC about theta_hat — the interval reflects the skewness of the likelihood; (4) BOUNDARY-RESPECTING — if theta has a range constraint (e.g., sigma > 0, p in [0,1]), the CI never extends outside; (5) INVARIANT under reparametrization (a major advantage over Wald). COMPUTATION: requires maximizing the likelihood over nuisance parameters for each candidate theta_0 — typically done by numerical optimization (e.g., Newton-Raphson on the nuisance parameters). For one-parameter models (no nuisance), just plot the log-likelihood and find where it drops by chi^2_{1,1-alpha}/2 = 1.92 from the maximum (95% CI). EXAMPLE (exponential rate): l(lambda) = n log lambda - lambda sum X_i; the profile CI for lambda is {lambda : 2[n log(lambda_hat/lambda) + (lambda - lambda_hat) sum X_i] <= 3.84}. The profile likelihood CI is the gold standard for small-sample inference when the Wald interval is unreliable.",
+      "topic": "ch08p8_profile_likelihood_ci",
+      "intent": "formula_recall",
+      "keywords": [
+        "profile likelihood CI",
+        "likelihood ratio test inversion",
+        "Wilks theorem",
+        "nuisance parameters",
+        "transformation invariance"
+      ]
+    },
+    {
+      "question": "What is the score-test CI and how does it differ from Wald and LRT CIs?",
+      "answer": "The SCORE CI for theta is the set of theta_0 values not rejected by the SCORE TEST (Rao's test) of H_0: theta = theta_0 at level alpha. Formally: { theta_0 : U(theta_0)^2 / I(theta_0) <= chi^2_{1, 1-alpha} }, where U(theta) = d l / d theta is the score function and I(theta) is the Fisher information (both evaluated at theta_0, with nuisance parameters profiled out if present). DERIVATION: by the CLT for the score, U(theta_0) ~ N(0, I(theta_0)) under H_0, so U(theta_0)^2 / I(theta_0) -> chi^2_1. Inverting gives the CI. PROPERTIES: (1) ASYMPTOTIC coverage 1-alpha; (2) like the LRT CI, respects transformations and boundaries; (3) requires only the score and information evaluated at theta_0 (NOT at theta_hat) — this is computationally easier than the Wald (needs MLE) in some cases, and avoids estimating the SE separately; (4) for the Bernoulli proportion, the score CI is the Wilson interval — known for excellent small-sample coverage. THE WALD / SCORE / LRT TRINITY: these are the three classic asymptotic CIs, each inverting a different test. (a) WALD: inverts the Wald test (theta_hat - theta_0)/SE(theta_hat) — uses SE at MLE; symmetric; simplest but worst small-sample behavior. (b) SCORE: inverts the score test U(theta_0)/sqrt(I(theta_0)) — uses SE at theta_0; asymmetric; better small-sample. (c) LRT: inverts 2[l(theta_hat) - l(theta_0)] — uses full likelihood; asymmetric; best small-sample but most computationally intensive. ASYMPTOTIC EQUIVALENCE: all three are asymptotically equivalent (same first-order limiting distribution), but differ at O(1/n). SECOND-ORDER COMPARISON (Pierce, Barndorff-Nielsen): LRT and score tend to have smaller coverage error than Wald; LRT is typically the most accurate, score is second, Wald is worst. The Wald interval is commonly used due to simplicity, but the score (Wilson) and LRT intervals are recommended for serious inference, especially with small n or near boundaries.",
+      "topic": "ch08p8_score_test_ci",
+      "intent": "formula_recall",
+      "keywords": [
+        "score CI",
+        "Rao score test",
+        "Wald score LRT trinity",
+        "score function",
+        "asymptotic equivalence"
+      ]
+    },
+    {
+      "question": "How do you construct a CI using the delta method for a function of a parameter?",
+      "answer": "The DELTA METHOD provides an asymptotic CI for a smooth function g(theta) when a CI for theta is available. If theta_hat is asymptotically normal: sqrt(n)(theta_hat - theta) -> N(0, V(theta)), then by the first-order Taylor expansion g(theta_hat) ~ g(theta) + g'(theta)(theta_hat - theta), so sqrt(n)(g(theta_hat) - g(theta)) -> N(0, [g'(theta)]^2 V(theta)). The 1-alpha WALD CI for g(theta) is: g(theta_hat) +/- z_{1-alpha/2} * |g'(theta_hat)| * SE(theta_hat), where SE(theta_hat) = sqrt(V(theta_hat)/n). EXAMPLES: (1) g(theta) = exp(theta) (e.g., converting log-odds to odds): g'(theta) = exp(theta); CI = exp(theta_hat) +/- z * exp(theta_hat) * SE(theta_hat). BETTER: use the log-scale CI and exponentiate endpoints (transformation-respecting): exp(theta_hat +/- z SE). (2) g(theta) = log(theta) (variance-stabilizing for Poisson): g'(theta) = 1/theta; SE(g(theta_hat)) = SE(theta_hat)/theta_hat. (3) g(p) = p/(1-p) (odds): g'(p) = 1/(1-p)^2; SE = SE(p_hat)/(1-p_hat)^2. (4) g(mu, sigma) = sigma/mu (coefficient of variation): partial derivatives; SE^2 = (1/mu^2) Var(sigma_hat) + (sigma^2/mu^4) Var(mu_hat) - 2(sigma/mu^3) Cov. SECOND-ORDER DELTA METHOD: includes the second derivative term for bias correction: E[g(theta_hat)] ~ g(theta) + 0.5 g''(theta) Var(theta_hat). This can improve coverage for highly nonlinear g. WHEN TO USE THE DELTA METHOD: (a) when g is smooth (twice differentiable); (b) when theta_hat is consistent and asymptotically normal; (c) when n is large enough for the linear approximation to be accurate. ALTERNATIVES: (i) TRANSFORMATION approach — find a variance-stabilizing transformation g such that Var(g(theta_hat)) is approximately constant, build a CI for g(theta), then invert; (ii) PROFILE LIKELIHOOD CI for g(theta) — reparametrize the likelihood; this respects the transformation and is generally preferred when feasible; (iii) BOOTSTRAP CI for g(theta) — resample and compute g(theta_hat*) directly; avoids delta method entirely.",
+      "topic": "ch08p8_delta_method_ci",
+      "intent": "formula_recall",
+      "keywords": [
+        "delta method",
+        "function of parameter",
+        "Taylor expansion",
+        "variance stabilizing",
+        "transformation"
+      ]
+    },
+    {
+      "question": "How are transformations used to improve CI construction (log, logit, Fisher z)?",
+      "answer": "TRANSFORMATION-BASED CIs improve coverage by building the CI on a scale where the estimator is more normally distributed, then transforming back. The resulting CI respects the natural range of the parameter and is often asymmetric, reflecting the skewness of the sampling distribution. GENERAL PROCEDURE: (1) choose a transformation g such that g(theta_hat) is approximately normal with constant variance (variance-stabilizing if possible); (2) build a symmetric Wald CI on the g-scale: g(theta_hat) +/- z SE_g; (3) invert by applying g^{-1} to the endpoints: [g^{-1}(L), g^{-1}(U)]. COMMON TRANSFORMATIONS: (a) LOG (for positive parameters, e.g., rates, ratios, odds): g(theta) = log(theta). CI for theta: [exp(L_log), exp(U_log)]. This guarantees theta > 0 and is variance-stabilizing for Poisson rates. (b) LOGIT (for proportions in (0,1)): g(p) = log(p/(1-p)) = logit(p). CI for p: [logit^{-1}(L), logit^{-1}(U)] = [1/(1+exp(-L)), 1/(1+exp(-U))]. Guarantees p in (0,1) and stabilizes variance for binomial proportions (Var(logit(p_hat)) ~ 1/(np(1-p))). (c) FISHER Z (for correlations in (-1,1)): g(rho) = 0.5 log((1+rho)/(1-rho)) = arctanh(rho). CI for rho: [tanh(L), tanh(U)]. Fisher showed z = arctanh(r) ~ N(arctanh(rho), 1/(n-3)) exactly enough for practical use; the standard CI is arctanh(r) +/- z_{1-alpha/2}/sqrt(n-3), then tanh-transformed back. (d) SQUARE ROOT (for variances/count rates): g(lambda) = sqrt(lambda) is variance-stabilizing for Poisson. (e) BOX-COX (power transformations): g(lambda) = (theta^lambda - 1)/lambda for lambda != 0, log(theta) for lambda = 0. ADVANTAGES: (1) RANGE-RESPECTING — CIs never extend outside the parameter space; (2) ASYMMETRIC — reflect skewness; (3) OFTEN BETTER COVERAGE than direct Wald. DISADVANTAGES: (1) the SE on the transformed scale must be derived (delta method or known formula); (2) the interpretation is on the original scale but the inference was on the transformed scale. The profile likelihood CI is a more general alternative that automatically respects transformations.",
+      "topic": "ch08p8_transformation_cis",
+      "intent": "formula_recall",
+      "keywords": [
+        "transformation",
+        "log CI",
+        "logit",
+        "Fisher z",
+        "variance stabilizing",
+        "range respecting"
+      ]
+    },
+    {
+      "question": "What is the Bartlett correction and how does it improve likelihood-ratio CI coverage?",
+      "answer": "The BARTLETT CORRECTION is a multiplicative adjustment to the likelihood-ratio test (LRT) statistic that improves the chi-squared approximation, yielding CIs with coverage closer to nominal. For a parameter theta of dimension p, under H_0 the LRT statistic W = 2[l(theta_hat) - l(theta_0)] is asymptotically chi^2_p, but has coverage error of order O(1/n). Bartlett showed that E[W] = p (1 + b/n + O(1/n^2)) under H_0, where b is a constant depending on the model (computed from cumulants of the log-likelihood derivatives). The BARTLETT-CORRECTED LRT statistic is W* = W / (1 + b/n), which has a chi^2_p distribution with error of order O(1/n^2) — a substantial improvement. The Bartlett-corrected CI replaces W <= chi^2_{p, 1-alpha} by W* <= chi^2_{p, 1-alpha}, i.e., W <= (1 + b/n) chi^2_{p, 1-alpha}. EXAMPLES: (1) Normal variance, H_0: sigma^2 = sigma_0^2. The uncorrected LRT statistic W = n log(sigma_hat^2/sigma_0^2) + n(sigma_0^2/sigma_hat^2 - 1) has E[W] = 1 + 2/(3n) + ..., so b = 2/3. The Bartlett-corrected statistic is W / (1 + 2/(3n)), substantially improving coverage for small n. (2) Exponential rate, H_0: lambda = lambda_0: W = 2n log(lambda_hat/lambda_0) + 2n(lambda_0/lambda_hat - 1), b = 1/3. (3) Multivariate: Bartlett correction for testing sphericity, equality of covariance matrices, etc. PROPERTIES: (1) reduces coverage error from O(1/n) to O(1/n^2); (2) requires computing b, which can be involved for complex models but is often tabulated; (3) the correction is exact for some exponential family models. RELATED: the BARNDORFF-NIELSEN r* formula gives a higher-order accurate CI (error O(n^{-3/2})) by combining the signed root likelihood ratio with a modification term, but is more complex to compute. The Bartlett correction is a practical middle ground: easy to apply once b is known, with substantial coverage improvement. For routine use, modern software (e.g., R's `anova.glm` with `test=\"LRT\"`) sometimes includes Bartlett correction options.",
+      "topic": "ch08p8_bartlett_correction",
+      "intent": "formula_recall",
+      "keywords": [
+        "Bartlett correction",
+        "likelihood ratio",
+        "coverage error",
+        "chi-squared approximation",
+        "higher order"
+      ]
+    },
+    {
+      "question": "What is the bootstrap principle and the empirical distribution?",
+      "answer": "The BOOTSTRAP (Efron, 1979) is a resampling method for estimating the sampling distribution of a statistic by resampling from the data. CORE PRINCIPLE: the empirical distribution F_n (which puts mass 1/n on each observed X_i) is a consistent estimator of the true distribution F. So the sampling distribution of theta_hat under F can be approximated by the sampling distribution of theta_hat* under F_n, where theta_hat* is computed on a bootstrap resample X_1*,...,X_n* drawn WITH REPLACEMENT from the observed data. The PLUG-IN PRINCIPLE: replace F with F_n everywhere. Formally: the bootstrap estimate of the distribution of theta_hat is the distribution of theta_hat* = theta_hat(X_1*,...,X_n*) where (X_1*,...,X_n*) ~ iid F_n. ALGORITHM (nonparametric bootstrap): (1) compute theta_hat from the original sample; (2) for b = 1,...,B: draw a bootstrap sample X*_b of size n with replacement from {X_1,...,X_n}; compute theta_hat*_b; (3) approximate the bootstrap distribution by the empirical distribution of {theta_hat*_1,...,theta_hat*_B}. CHOICE OF B: B = 1000-2000 for CI estimation; B = 100-200 for SE estimation; B = 10000+ for tail percentiles (BCa). JUSTIFICATION: by the Glivenko-Cantelli theorem, F_n -> F uniformly almost surely, and under smoothness conditions the bootstrap distribution converges to the true sampling distribution. The bootstrap works for a wide class of statistics (smooth functions of means, M-estimators, quantiles) but fails for some (extremes like max/min, nonsmooth functions). PARAMETRIC BOOTSTRAP: instead of resampling from F_n, draw samples from F_{theta_hat} (the model with MLE plugged in). Useful when a parametric model is trusted. BLOCK BOOTSTRAP: for time series / dependent data, resample blocks of consecutive observations to preserve local dependence. The bootstrap is a powerful, computer-intensive alternative to analytical delta-method inference, especially for complex statistics with no simple SE formula.",
+      "topic": "ch08p8_bootstrap_principle",
+      "intent": "formula_recall",
+      "keywords": [
+        "bootstrap",
+        "empirical distribution",
+        "resampling",
+        "plug-in principle",
+        "Efron"
+      ]
+    },
+    {
+      "question": "What is the bootstrap standard error and the bootstrap percentile interval?",
+      "answer": "BOOTSTRAP STANDARD ERROR: estimate SE(theta_hat) by the standard deviation of the bootstrap replicates: SE_boot = sqrt( (1/(B-1)) sum_b (theta_hat*_b - theta_bar*)^2 ), where theta_bar* = (1/B) sum_b theta_hat*_b. This is a consistent estimator of the true SE for smooth statistics. BOOTSTRAP PERCENTILE INTERVAL: the simplest bootstrap CI. Let q*_alpha be the alpha-quantile of the bootstrap distribution {theta_hat*_b}. The 1-alpha percentile CI is [q*_{alpha/2}, q*_{1-alpha/2}]. ALGORITHM: (1) compute theta_hat*_1,...,theta_hat*_B; (2) sort them; (3) take the (alpha/2) and (1-alpha/2) empirical quantiles. For 95% CI with B=1000, take the 25th and 975th sorted values (using linear interpolation). PROPERTIES: (1)ASYMMETRIC about theta_hat — reflects skewness of the sampling distribution; (2) RANGE-RESPECTING for parameters with constraints (e.g., correlation in [-1,1], variance > 0) because the bootstrap replicates also respect these constraints; (3) TRANSFORMATION-RESPECTING — if we apply a monotone g to the statistic, the percentile CI for g(theta) is the image of the percentile CI for theta; (4) COVERAGE: approximately 1-alpha for large n; the percentile interval has O(1/sqrt(n)) coverage error in general (worse than the t-interval for normal data, which is exact). LIMITATIONS: (a) the percentile interval is BIASED if theta_hat is a biased estimator — the bootstrap distribution is centered at theta_hat, not theta, so the percentile CI is shifted by the bias; (b) it does not account for the variance of theta_hat* differing across the parameter space (skewness); (c) for small n, coverage can be substantially below nominal. IMPROVEMENTS: the BASIC (pivotal) and STUDENTIZED (bootstrap-t) intervals correct for bias and skewness; the BCa (bias-corrected and accelerated) interval is the most accurate of the percentile-family methods. Despite its limitations, the percentile interval is widely used due to simplicity and is often adequate for large samples and roughly symmetric statistics. The bootstrap SE is reliable even when the percentile interval is not.",
+      "topic": "ch08p8_bootstrap_percentile",
+      "intent": "formula_recall",
+      "keywords": [
+        "bootstrap percentile",
+        "bootstrap standard error",
+        "resampling",
+        "quantile",
+        "coverage"
+      ]
+    },
+    {
+      "question": "What is the bootstrap basic (pivotal) interval?",
+      "answer": "The BOOTSTRAP BASIC INTERVAL (also called the pivotal or reverse percentile interval) uses the distribution of the difference theta_hat* - theta_hat as a pivot. The idea: approximate the unknown distribution of (theta_hat - theta) by the BOOTSTRAP distribution of (theta_hat* - theta_hat). ALGORITHM: (1) compute theta_hat from original data; (2) generate B bootstrap replicates theta_hat*_b; (3) compute the differences d*_b = theta_hat*_b - theta_hat; (4) let q*_{alpha/2} and q*_{1-alpha/2} be the alpha/2 and 1-alpha/2 quantiles of the d*_b distribution. The 1-alpha basic CI is: [ theta_hat - q*_{1-alpha/2}, theta_hat - q*_{alpha/2} ] (NOTE THE REVERSAL of quantiles — this is because the pivot is theta_hat - theta, so the upper quantile of d* corresponds to the LOWER bound of theta). DERIVATION: assume theta_hat - theta ~ d* = theta_hat* - theta_hat. Then P(q*_{alpha/2} <= theta_hat - theta <= q*_{1-alpha/2}) ~ 1-alpha, which rearranges to P(theta_hat - q*_{1-alpha/2} <= theta <= theta_hat - q*_{alpha/2}) ~ 1-alpha. PROPERTIES: (1) PIVOTAL — the distribution of (theta_hat - theta) does not depend on theta (in principle), so the interval is more stable under transformations than the percentile interval; (2) ASYMMETRIC about theta_hat — the asymmetry is OPPOSITE to the percentile interval (the basic interval is reflected through theta_hat); (3) RANGE-RESPECTING may fail (can produce intervals outside the parameter space, e.g., negative variance); (4) COVERAGE is O(1/sqrt(n)) like the percentile, but the basic interval is SECOND-ORDER ACCURATE for bias (it implicitly subtracts the bias). COMPARISON WITH PERCENTILE: the percentile interval [q*_{alpha/2}, q*_{1-alpha/2}] is centered at theta_bar* (biased); the basic interval [theta_hat - q*_{1-alpha/2}, theta_hat - q*_{alpha/2}] is centered at 2 theta_hat - theta_bar* (bias-corrected). When the bootstrap distribution is symmetric and unbiased, both intervals coincide. When there is bias or skewness, the basic interval is usually preferred. LIMITATION: the basic interval can have poor coverage when the sampling distribution is highly skewed, because the variance of theta_hat* may depend on theta. The bootstrap-t (studentized) interval handles this better.",
+      "topic": "ch08p8_bootstrap_basic_pivotal",
+      "intent": "formula_recall",
+      "keywords": [
+        "bootstrap basic",
+        "pivotal interval",
+        "reverse percentile",
+        "bias correction",
+        "pivot"
+      ]
+    },
+    {
+      "question": "What is the studentized bootstrap (bootstrap-t) interval?",
+      "answer": "The STUDENTIZED BOOTSTRAP (bootstrap-t) INTERVAL is the most accurate of the simple bootstrap CIs. It uses the t-statistic T = (theta_hat - theta) / SE(theta_hat) as a pivot, approximating its distribution by the BOOTSTRAP distribution of T* = (theta_hat* - theta_hat) / SE(theta_hat*). ALGORITHM: (1) for each bootstrap sample b, compute theta_hat*_b AND its standard error SE(theta_hat*)_b (either analytically or via a NESTED bootstrap — resample from the bootstrap sample); (2) compute T*_b = (theta_hat*_b - theta_hat) / SE(theta_hat*)_b; (3) let t*_{alpha/2} and t*_{1-alpha/2} be the alpha/2 and 1-alpha/2 quantiles of the T* distribution; (4) the 1-alpha studentized bootstrap CI is: [ theta_hat - t*_{1-alpha/2} SE(theta_hat), theta_hat - t*_{alpha/2} SE(theta_hat) ]. DERIVATION: T = (theta_hat - theta)/SE(theta_hat) is asymptotically pivotal (converges to N(0,1) by Slutsky). The bootstrap mimics the distribution of T, which converges FASTER than the distribution of theta_hat itself (the variance cancels out). PROPERTIES: (1) SECOND-ORDER ACCURATE — coverage error is O(1/n), better than the O(1/sqrt(n)) of percentile and basic intervals; (2) TRANSFORMATION-RESPECTING (because T is pivotal); (3) ASYMMETRIC about theta_hat. CHALLENGE: requires SE(theta_hat*) for each bootstrap sample. OPTIONS: (a) closed-form SE (if available, e.g., SE(Xbar*) = S*/sqrt(n)); (b) NESTED (double) bootstrap — for each outer bootstrap sample, run an inner bootstrap of size B2 to estimate SE(theta_hat*); this is B * B2 total resamples, computationally expensive; (c) DELTA METHOD SE for each bootstrap sample. WHEN TO USE: the bootstrap-t is the best choice when SE(theta_hat*) is readily available (e.g., for means, smooth functions of means) and high accuracy is needed. For complex statistics where SE is hard to estimate, use BCa instead. The bootstrap-t can be UNSTABLE if SE(theta_hat*) is near 0 (e.g., for the median, where the analytical SE is tricky) — in that case, some bootstrap replicates may have tiny SE, giving huge T* values that destabilize the quantiles.",
+      "topic": "ch08p8_bootstrap_studentized_t",
+      "intent": "formula_recall",
+      "keywords": [
+        "studentized bootstrap",
+        "bootstrap-t",
+        "second order accurate",
+        "nested bootstrap",
+        "t-statistic"
+      ]
+    },
+    {
+      "question": "What is the BCa (bias-corrected and accelerated) bootstrap interval?",
+      "answer": "The BCA (BIAS-CORRECTED AND ACCELERATED) interval is the most accurate of the bootstrap percentile-family CIs. It adjusts the percentile interval's quantiles to account for (a) BIAS (the median of the bootstrap distribution is not theta_hat) and (b) SKEWNESS (the variance of theta_hat* depends on theta). FORMULA: the 1-alpha BCa interval is [ q*_{alpha_1}, q*_{alpha_2} ], where the adjusted quantiles are alpha_1 = Phi( z_0 + (z_0 + z_{alpha/2}) / (1 - a (z_0 + z_{alpha/2})) ) and alpha_2 = Phi( z_0 + (z_0 + z_{1-alpha/2}) / (1 - a (z_0 + z_{1-alpha/2})) ). Here Phi is the standard normal CDF, z_{alpha/2} = Phi^{-1}(alpha/2), z_0 (BIAS-CORRECTION) = Phi^{-1}( P(theta_hat* <= theta_hat) ) (the proportion of bootstrap replicates below the original estimate, normal-scored), and a (ACCELERATION) measures how the SE of theta_hat changes with theta. ESTIMATING a: the most common method uses JACKKNIFE: a = sum_i (theta_bar_{(.)} - theta_{(i)})^3 / [ 6 (sum_i (theta_bar_{(.)} - theta_{(i)})^2 )^{3/2} ], where theta_{(i)} is the estimate with the i-th observation removed and theta_bar_{(.)} is their mean. PROPERTIES: (1) SECOND-ORDER ACCURATE — coverage error O(1/n), same as bootstrap-t; (2) TRANSFORMATION-RESPECTING; (3) RANGE-RESPECTING (always within the parameter space); (4) does NOT require SE(theta_hat*) — useful when the studentized interval is infeasible. INTERPRETATION: z_0 = 0 means no bias (percentile and BCa coincide); a = 0 means no skewness (BCa reduces to the bias-corrected percentile). CHOICE OF B: BCa requires accurate estimation of tail quantiles (alpha_1, alpha_2 can be near 0 or 1), so B = 2000-10000 is recommended. WHEN TO USE: BCa is the recommended default for serious bootstrap CI computation, especially for skewed statistics or when the studentized interval is unstable. It is the default in R's `boot.ci`. DISADVANTAGE: the jackknife adds O(n) computation per original-sample analysis (but only once, not per bootstrap).",
+      "topic": "ch08p8_bootstrap_bca",
+      "intent": "formula_recall",
+      "keywords": [
+        "BCa",
+        "bias corrected accelerated",
+        "jackknife acceleration",
+        "second order",
+        "bootstrap CI"
+      ]
+    },
+    {
+      "question": "What is the difference between nonparametric and parametric bootstrap?",
+      "answer": "NONPARAMETRIC BOOTSTRAP: resample WITH REPLACEMENT from the observed data (i.e., from the empirical distribution F_n). No parametric model is assumed — the data itself is the best estimate of F. Pros: (a) makes NO distributional assumptions; (b) robust to model misspecification; (c) widely applicable. Cons: (a) may have poor coverage for small n where F_n is a poor approximation of F; (b) fails for statistics that depend on the tail or extremes (e.g., max, high quantiles); (c) for discrete data with few unique values, resamples are highly discrete. PARAMETRIC BOOTSTRAP: assume a parametric model F_theta; estimate theta_hat (e.g., MLE); resample X*_1,...,X*_n ~ iid F_{theta_hat}. The bootstrap distribution of theta_hat* is then the sampling distribution under the FITTED model. Pros: (a) when the model is correct, the parametric bootstrap is MORE EFFICIENT than the nonparametric (uses the model structure); (b) handles extremes and tails better (extrapolates beyond the data via the model); (c) works for small n where F_n is unreliable. Cons: (a) STRONGLY DEPENDS on the model being correct — if the model is misspecified, the parametric bootstrap gives misleading results; (b) requires choosing and fitting a model. EXAMPLES: (1) Normal data, CI for mu: nonparametric bootstrap resamples from the data; parametric bootstrap simulates from N(Xbar, S^2). (2) CI for a Poisson rate: nonparametric resamples the counts; parametric simulates from Poisson(lambda_hat). (3) Regression: nonparametric resamples (X_i, Y_i) pairs (or resamples residuals); parametric simulates Y*_i = X_i beta_hat + epsilon*_i with epsilon* ~ N(0, sigma_hat^2). RESIDUAL BOOTSTRAP (semiparametric for regression): keep X_i fixed, resample RESIDUALS e_i = Y_i - Y_hat_i (with replacement), reconstruct Y*_i = Y_hat_i + e*_i. This conditions on X and only bootstraps the error structure. SIEVE BOOTSTRAP (for time series): fit an AR(p) model, resample residuals, reconstruct the series. CHOICE: use nonparametric when you do not trust any parametric model; use parametric when you have strong model confidence; use residual/sieve bootstrap for structured data (regression, time series) where you want to condition on covariates or preserve dependence.",
+      "topic": "ch08p8_parametric_vs_nonparametric_bootstrap",
+      "intent": "formula_recall",
+      "keywords": [
+        "parametric bootstrap",
+        "nonparametric bootstrap",
+        "residual bootstrap",
+        "model based",
+        "semiparametric"
+      ]
+    },
+    {
+      "question": "How is the bootstrap adapted for dependent data (block, sieve, stationary bootstrap)?",
+      "answer": "IID resampling DESTROYS dependence structure, so for time series / spatial / clustered data, specialized bootstrap methods are needed. (1) BLOCK BOOTSTRAP (Kunsch, Liu-Singh): split the series into consecutive BLOCKS of length L, resample BLOCKS with replacement, then concatenate. Preserves within-block dependence. Variants: (a) NONOVERLAPPING blocks — partition into n/L disjoint blocks; (b) OVERLAPPING (moving) blocks — all n-L+1 blocks of length L, resample with replacement. Block length L must grow with n (L -> infinity, L/n -> 0) for consistency; typical choice L ~ n^{1/3}. Variants for specific structures: CIRCULAR block bootstrap (wrap the series around to avoid edge effects). (2) STATIONARY BOOTSTRAP (Politis-Romano): resample blocks of RANDOM length, where block lengths are iid Geometric with mean L. The resulting resample is stationary (matching the original series). Easier to analyze theoretically; default in some software. (3) SIEVE BOOTSTRAP (Buhlmann): fit an AR(p) model (the \"sieve\"), obtain residuals, resample residuals with replacement, reconstruct the series using the fitted AR coefficients. The order p grows with n. Works well for linear time series; the AR sieve approximates a wide class of stationary processes. (4) FREQUENCY-DOMAIN BOOTSTRAP: periodogram-based; resample in the frequency domain, transform back. Useful for spectral density estimation. (5) CLUSTER BOOTSTRAP: for clustered/panel data, resample CLUSTERS (not individual observations) with replacement. Preserves within-cluster correlation. (6) WILD BOOTSTRAP (for regression with heteroskedastic errors): keep X_i fixed, multiply residuals by iid random variables with mean 0 variance 1 (e.g., Rademacher +/-1). Does not resample observations — instead randomizes the sign of residuals. Works well for heteroskedastic regression. (7) DEPENDENT WILD BOOTSTRAP: multiply residuals by dependent random variables, preserving local correlation. KEY CONSIDERATIONS: (a) block length L is a TUNING parameter — too short destroys dependence, too long reduces the number of distinct blocks; (b) coverage can be sensitive to L; (c) all methods are consistent only if the dependence decays (mixing conditions). For PAIRED / CLUSTERED data without time ordering, the cluster bootstrap is the natural choice. For time series, block or sieve bootstrap are standard.",
+      "topic": "ch08p8_bootstrap_dependent_data",
+      "intent": "formula_recall",
+      "keywords": [
+        "block bootstrap",
+        "sieve bootstrap",
+        "stationary bootstrap",
+        "wild bootstrap",
+        "cluster bootstrap",
+        "time series"
+      ]
+    },
+    {
+      "question": "What is a prediction interval for a single future normal observation?",
+      "answer": "A PREDICTION INTERVAL (PI) for a single future observation Y_new (independent of the sample) is an interval [L(X), U(X)] such that P(Y_new in [L, U]) = 1-alpha. Unlike a CI (which covers a fixed parameter), a PI covers a RANDOM future observation, so it must account for TWO sources of uncertainty: (a) the uncertainty in estimating mu, sigma from the sample; (b) the natural variability of Y_new itself. For X_1,...,X_n iid N(mu, sigma^2) with both unknown, predicting a single future Y_new ~ N(mu, sigma^2): the 1-alpha PI is Xbar +/- t_{n-1, 1-alpha/2} * S * sqrt(1 + 1/n). DERIVATION: Y_new - Xbar ~ N(0, sigma^2 (1 + 1/n)) (independent of S^2). Studentize: T = (Y_new - Xbar) / (S sqrt(1 + 1/n)) ~ t_{n-1}. Inverting P(-t* <= T <= t*) = 1-alpha gives the PI. PROPERTIES: (1) EXACT coverage for normal data; (2) the \"1\" inside the sqrt accounts for Y_new's own variance, the \"1/n\" for the mean estimation — so the PI is WIDER than the CI for mu (which has only 1/n); (3) as n -> infinity, the PI approaches mu +/- z_{1-alpha/2} sigma (the population interval covering the central 1-alpha of the distribution); (4) the PI does NOT shrink to a point as n -> infinity (unlike a CI) — it always reflects the natural variability of a single observation. COMPARISON WITH CI: a 95% CI for mu shrinks to a point as n -> infinity, but a 95% PI for Y_new converges to the interval containing the central 95% of the population. For small n, the PI is much wider than the CI because of the additional \"1\" in the variance factor. ONE-SIDED PI: Y_new >= Xbar - t_{n-1, 1-alpha} S sqrt(1 + 1/n) (lower bound). USES: (a) quality control — predict the next measurement; (b) regression — predict Y at a new X; (c) forecasting — predict the next time point. The PI assumes the future observation comes from the SAME distribution as the sample — if the process has shifted, the PI may not cover.",
+      "topic": "ch08p8_prediction_interval_single",
+      "intent": "formula_recall",
+      "keywords": [
+        "prediction interval",
+        "future observation",
+        "normal",
+        "two sources of uncertainty",
+        "t distribution"
+      ]
+    },
+    {
+      "question": "What is the prediction interval for the mean of k future observations?",
+      "answer": "To predict the mean Ybar_new of k FUTURE observations Y_{new,1},...,Y_{new,k} (iid N(mu, sigma^2), independent of the original sample X_1,...,X_n), the 1-alpha PI is: Xbar +/- t_{n-1, 1-alpha/2} * S * sqrt(1/k + 1/n). DERIVATION: Ybar_new - Xbar ~ N(0, sigma^2 (1/k + 1/n)). Studentize: T = (Ybar_new - Xbar) / (S sqrt(1/k + 1/n)) ~ t_{n-1}. Inverting gives the PI. PROPERTIES: (1) as k -> infinity, the term 1/k -> 0 and the PI approaches the CI for mu (Xbar +/- t S/sqrt(n)) — predicting the mean of many future observations is essentially estimating mu; (2) as k = 1, we get the single-observation PI with sqrt(1 + 1/n); (3) for finite k, the PI width is between the single-observation PI (k=1) and the CI for mu (k=infinity); (4) the PI is WIDER than the CI for mu for any finite k. INTUITION: averaging k future observations reduces their variance by 1/k, so predicting Ybar_new is more precise than predicting a single Y_new — but still has the 1/n term from estimating mu. EXAMPLE: n=20, k=5, 95% PI: Xbar +/- t_{19, 0.975} S sqrt(1/5 + 1/20) = Xbar +/- 2.093 S sqrt(0.25) = Xbar +/- 1.047 S. Compare to the 95% CI for mu: Xbar +/- 2.093 S/sqrt(20) = Xbar +/- 0.468 S. The PI is about 2.2x wider. REGRESSION PREDICTION INTERVAL: for predicting Y_new at a new covariate x_0 in simple linear regression Y = beta_0 + beta_1 x + epsilon, the 1-alpha PI is Yhat(x_0) +/- t_{n-2, 1-alpha/2} s sqrt(1 + 1/n + (x_0 - Xbar)^2 / S_{xx}). The \"1\" is for the new observation's error, and the remaining terms are for uncertainty in beta_hat. Wider when x_0 is far from Xbar (extrapolation).",
+      "topic": "ch08p8_prediction_interval_mean_k",
+      "intent": "formula_recall",
+      "keywords": [
+        "prediction interval",
+        "mean of future observations",
+        "k future",
+        "regression prediction",
+        "averaging"
+      ]
+    },
+    {
+      "question": "What is a distribution-free (nonparametric) prediction interval?",
+      "answer": "A DISTRIBUTION-FREE PREDICTION INTERVAL makes NO distributional assumption — it uses order statistics of the observed sample to bound a future observation. For X_1,...,X_n,Y_new iid from any continuous distribution F, let X_{(1)} <= ... <= X_{(n)} be the order statistics. Then P(X_{(r)} <= Y_new <= X_{(s)}) = s/(n+1) - r/(n+1) = (s-r)/(n+1) (by symmetry of ranks: Y_new is equally likely to be in any of the n+1 \"slots\" defined by the order statistics). So the interval [X_{(r)}, X_{(s)}] has coverage (s - r)/(n + 1). EXAMPLES: (1) 95% PI with n=39: use r=1, s=39 -> coverage 38/40 = 0.95 exactly. (2) for arbitrary n, choose r and s such that (s - r)/(n+1) >= 1 - alpha. SYMMETRIC INTERVAL: take r = (n+1) alpha/2, s = (n+1) (1 - alpha/2) (rounded). If exact coverage is not achievable, use randomization or accept conservative coverage. PROPERTIES: (1) EXACT coverage for any continuous F (distribution-free); (2) DISCRETE coverage — only certain levels (multiples of 1/(n+1)) are achievable; (3) for small n, may not achieve high coverage (e.g., n=10, max coverage using [X_{(1)}, X_{(10)}] is 10/11 = 90.9%); (4) the interval is generally WIDER than the normal-based PI (which uses distributional knowledge). EXTENSIONS: (a) PREDICTING the k-th of m future observations: use the formula for coverage involving beta-binomial sums; (b) ONE-SIDED: P(Y_new >= X_{(r)}) = (n+1-r)/(n+1) — use r = (n+1) alpha for a lower 1-alpha bound. NONPARAMETRIC PI for the mean of future observations is harder — the sample mean has no distribution-free PI; use the bootstrap instead. ADVANTAGE: distribution-free PIs are ROBUST to non-normality, making them valuable when the distribution is unknown or heavy-tailed. The cost is wider intervals and discrete coverage. Use when normality cannot be assumed and the sample is moderately large.",
+      "topic": "ch08p8_nonparametric_prediction_interval",
+      "intent": "formula_recall",
+      "keywords": [
+        "distribution-free prediction interval",
+        "order statistics",
+        "nonparametric",
+        "rank",
+        "coverage"
+      ]
+    },
+    {
+      "question": "What is a tolerance interval and how does it differ from a CI or PI?",
+      "answer": "A TOLERANCE INTERVAL (TI) is an interval [L(X), U(X)] that contains at least a specified PROPORTION beta of the population with confidence level 1-alpha. Formally: P_F( F(L) <= 1 - beta/2 and F(U) >= beta/2-related ) = 1-alpha — more precisely, P_F( integral of F over [L, U] >= beta ) = 1-alpha, where the probability is over the sample X and F is the (fixed) population distribution. KEY DISTINCTIONS: (a) CI: covers a fixed PARAMETER (e.g., mu) with confidence 1-alpha; (b) PI: covers a single future OBSERVATION (random) with probability 1-alpha; (c) TI: covers a PROPORTION beta of the POPULATION with confidence 1-alpha — two parameters (beta, 1-alpha). A TI has TWO levels: content beta (what fraction of population is inside) and confidence 1-alpha (how sure we are about the content). NORMAL TOLERANCE INTERVAL: for X_1,...,X_n iid N(mu, sigma^2), the two-sided 1-alpha TI for content beta is Xbar +/- k S, where k = k(n, alpha, beta) is a tolerance factor. Approximate (Howe-Wald) formula: k ~ z_{(1+beta)/2} sqrt((n-1) (1 + 1/n) / chi^2_{n-1, alpha}) — combines the z-quantile for content with the chi-squared quantile for confidence. Exact formulas (Wald-Wolfowitz) are tabulated. EXAMPLE: n=20, 95%-confidence TI for 99% content: k ~ 3.6 (vs z_{0.995} = 2.576 for the known-parameter case). PROPERTIES: (1) the TI is WIDER than both the corresponding CI and PI — it must contain beta of the population with high confidence, accounting for both parameter uncertainty and population spread; (2) as n -> infinity, k -> z_{(1+beta)/2} and the TI approaches mu +/- z_{(1+beta)/2} sigma (the population interval containing beta of the distribution); (3) for small n, k can be much larger than z (substantial uncertainty about mu, sigma inflates the interval). USES: (a) manufacturing — \"with 95% confidence, at least 99% of items meet spec\"; (b) environmental regulation — \"with 95% confidence, at least 90% of days have pollutant below threshold\"; (c) reliability engineering. ONE-SIDED TIs: lower tolerance bound Xbar - k S (with k = z_beta sqrt((n-1)(1+1/n)/chi^2_{n-1,alpha})) covers at least beta of the population above it, with confidence 1-alpha. DISTRIBUTION-FREE TIs: based on order statistics; coverage formulas involve the beta-binomial distribution.",
+      "topic": "ch08p8_tolerance_interval",
+      "intent": "formula_recall",
+      "keywords": [
+        "tolerance interval",
+        "content",
+        "confidence",
+        "tolerance factor",
+        "normal tolerance",
+        "population coverage"
+      ]
+    },
+    {
+      "question": "What is a distribution-free tolerance interval based on order statistics?",
+      "answer": "A DISTRIBUTION-FREE (nonparametric) TOLERANCE INTERVAL uses order statistics to contain at least a proportion beta of the population with confidence 1-alpha, for any continuous F. Two-sided: the interval [X_{(r)}, X_{(s)}] (with r < s) contains at least beta of the population with confidence 1-alpha if P( F(X_{(s)}) - F(X_{(r)}) >= beta ) >= 1-alpha. The coverage probability is computed using the fact that (F(X_{(s)}) - F(X_{(r)})) has a Beta(s-r, n - (s-r) + 1) distribution. So the condition becomes P(Beta(s-r, n-s+r+1) >= beta) >= 1-alpha, which is equivalent to I_beta(s-r, n-s+r+1) >= 1-alpha (regularized incomplete beta). SOLVING: choose r, s (with d = s - r) such that the beta CDF condition holds. ONE-SIDED LOWER: X_{(r)} is a lower tolerance bound covering at least beta of the population with confidence 1-alpha if P( 1 - F(X_{(r)}) >= beta ) >= 1-alpha, i.e., P(Beta(n-r+1, r) <= 1-beta) >= 1-alpha. SYMMETRIC ONE-SIDED: r such that I_beta(n-r+1, r) >= 1-alpha. SIMPLE APPROXIMATION: for large n, the smallest r satisfying I_beta(n-r+1, r) >= 1-alpha is approximately r = ceil( (n+1) (1-beta) - z_{1-alpha} sqrt(n beta(1-beta)) ) — but the exact beta formula should be used. EXAMPLE: n=50, want 95% confidence that at least 90% of the population is above X_{(r)}. Solve I_{0.90}(50-r+1, r) >= 0.95. With r=3: I_{0.90}(48, 3) = 1 - (1-0.9)^3 ... -> approximately P(Binomial(50, 0.9) >= 48) ... Use the binomial identity: I_{0.90}(48, 3) = P(Bin(50, 0.9) <= 2) ... = small. With r=1: I_{0.90}(50, 1) = 1 - 0.9^50 ~ 0.995 >= 0.95. So X_{(1)} (the minimum) is a 95% lower tolerance bound for 90% content with n=50. PROPERTIES: (1) distribution-free (any continuous F); (2) coverage is at least 1-alpha (CONSERVATIVE); (3) requires large n for high content + high confidence — e.g., 99% content at 95% confidence requires n ~ 300+; (4) WIDER than the normal-based TI when normality holds; (5) ROBUST to non-normality, which is the main advantage. USE WHEN: the distribution is unknown or non-normal, and the sample is large enough. The normal TI is much narrower when normality holds but can be badly off when normality fails.",
+      "topic": "ch08p8_distribution_free_tolerance",
+      "intent": "formula_recall",
+      "keywords": [
+        "distribution-free tolerance interval",
+        "order statistics",
+        "beta distribution",
+        "content",
+        "nonparametric"
+      ]
+    },
+    {
+      "question": "What is a calibration (inverse regression) interval?",
+      "answer": "CALIBRATION (inverse regression) is the problem of estimating the value x_0 of an independent variable from a new observation y_0 of the dependent variable, given a fitted regression y = beta_0 + beta_1 x + epsilon. CLASSICAL (Calibration) PROBLEM: a calibration curve is built from known (x_i, y_i) pairs; then a new y_0 is observed and we want to infer the unknown x_0 that produced it. TWO APPROACHES: (1) CLASSICAL (inverse) estimator: invert the fitted regression: x_hat_0 = (y_0 - beta_hat_0) / beta_hat_1. The 1-alpha CALIBRATION INTERVAL for x_0 is found by inverting the prediction interval: solve the quadratic in x_0 given by |y_0 - (beta_hat_0 + beta_hat_1 x_0)| <= t_{n-2, 1-alpha/2} s sqrt(1 + 1/n + (x_0 - Xbar)^2 / S_{xx}}. This is a QUADRATIC INEQUALITY in x_0; solving gives the (possibly two-interval) calibration interval. (2) INVERSE REGRESSION (Krutchkoff): fit the reversed regression x = gamma_0 + gamma_1 y + error, then predict x_hat_0 = gamma_hat_0 + gamma_hat_1 y_0 with the usual PI. This is SIMPLER (linear) but has been criticized for biased estimates. PROPERTIES: (1) the classical interval can be DISCONNECTED (two intervals) when the regression slope is poorly determined (small |beta_1| relative to noise); (2) the classical interval is WIDER than the inverse-regression interval but has better frequentist properties; (3) both methods assume the calibration data covers the range of interest (interpolation, not extrapolation). WORKED EXAMPLE: simple linear regression with beta_hat_1 = 2, beta_hat_0 = 1, s = 0.5, n = 20, Xbar = 5, S_{xx} = 100. Observed y_0 = 11. Classical estimate x_hat_0 = (11 - 1)/2 = 5. The 95% calibration interval solves |11 - (1 + 2 x_0)| <= 2.101 * 0.5 * sqrt(1 + 1/20 + (x_0 - 5)^2/100). Solving the quadratic gives x_0 in approximately [4.4, 5.6]. USES: analytical chemistry (calibration curves for concentration), engineering (sensor calibration), bioassay. BAYESIAN CALIBRATION: place priors on (beta_0, beta_1, sigma^2, x_0) and compute the posterior of x_0; the Bayesian interval is a credible interval and handles the nonlinearity more naturally.",
+      "topic": "ch08p8_calibration_interval",
+      "intent": "formula_recall",
+      "keywords": [
+        "calibration",
+        "inverse regression",
+        "classical calibration",
+        "inverse estimator",
+        "chemistry"
+      ]
+    },
+    {
+      "question": "What is a Bayesian prediction interval and how does it differ from the frequentist PI?",
+      "answer": "A BAYESIAN PREDICTION INTERVAL for a future observation Y_new is an interval [L, U] such that P(Y_new in [L, U] | data) = 1-alpha, where the probability is over the POSTERIOR PREDICTIVE DISTRIBUTION p(y_new | data) = integral p(y_new | theta) p(theta | data) d theta. The posterior predictive averages the sampling distribution p(y_new | theta) over the posterior of theta, accounting for parameter uncertainty. DERIVATION: (1) compute the posterior p(theta | data) (using Bayes' rule with prior p(theta)); (2) integrate p(y_new | theta) p(theta | data) over theta to get the posterior predictive; (3) take the alpha/2 and 1-alpha/2 quantiles for a 1-alpha equal-tailed PI, or the highest-density region for an HPD PI. EXAMPLE (normal, both parameters unknown): with Jeffreys prior p(mu, sigma^2) ~ 1/sigma^2, the posterior predictive is a t-distribution: Y_new | data ~ t_{n-1} (Xbar, S sqrt(1 + 1/n)) — location Xbar, scale S sqrt(1 + 1/n), n-1 df. So the Bayesian 1-alpha PI is Xbar +/- t_{n-1, 1-alpha/2} S sqrt(1 + 1/n), which COINCIDES with the frequentist PI for the normal case (a lucky coincidence due to the Jeffreys prior). EXAMPLE (Bernoulli, Beta prior): posterior is Beta(alpha + X, beta + n - X); posterior predictive for Y_new (a single Bernoulli trial) is a Bernoulli with probability p_tilde = (alpha + X)/(alpha + beta + n). For a future sample of m trials, the predictive is Beta-Binomial. KEY DIFFERENCES FROM FREQUENTIST PI: (1) INTERPRETATION: Bayesian PI has a direct probability statement — \"the probability that Y_new is in [L,U] is 1-alpha\" (given the data); the frequentist PI has a long-run coverage interpretation; (2) PRIOR: Bayesian PI depends on the prior, but for large n the prior washes out and Bayesian and frequentist PIs coincide; (3) for small n, the Bayesian PI can be narrower (informative prior) or wider (heavy-tailed prior) than the frequentist; (4) the Bayesian PI is naturally HIGHEST-DENSITY (asymmetric if the predictive is skewed); the frequentist PI is typically equal-tailed. ADVANTAGES: (a) natural interpretation; (b) handles nuisance parameters via integration (no need for t-distribution tricks); (c) easy to incorporate prior information. The Bayesian PI is the natural output of MCMC (just take quantiles of posterior predictive samples).",
+      "topic": "ch08p8_bayesian_prediction_interval",
+      "intent": "formula_recall",
+      "keywords": [
+        "Bayesian prediction interval",
+        "posterior predictive",
+        "Bayes",
+        "prior",
+        "predictive distribution"
+      ]
+    },
+    {
+      "question": "What is a Bayesian credible interval and how does it differ from a frequentist CI?",
+      "answer": "A BAYESIAN CREDIBLE INTERVAL (CI) for a parameter theta is an interval [L, U] such that P(theta in [L, U] | data) = 1-alpha, where the probability is over the POSTERIOR DISTRIBUTION p(theta | data). This is a direct probability statement about theta, treating theta as random (Bayesian view). FUNDAMENTAL DIFFERENCE FROM FREQUENTIST CI: (1) FREQUENTIST CI: P(theta in [L(X), U(X)]) = 1-alpha — the probability is over the RANDOM INTERVAL (data-dependent), with theta FIXED but unknown. The 95% refers to the long-run coverage of the procedure; once data is observed, the interval either contains theta or it does not (no probability attached to the realized interval). (2) BAYESIAN CREDIBLE INTERVAL: P(theta in [L, U] | data) = 1-alpha — the probability is over the RANDOM theta (posterior), with the data FIXED at the observed values. The 95% is a direct subjective probability that theta is in [L, U], given the data and prior. INTERPRETATION: the Bayesian credible interval has the intuitive interpretation that non-statisticians often (incorrectly) attribute to frequentist CIs. CONSTRUCTION: (a) compute the posterior p(theta | data) (via Bayes' rule: posterior ~ likelihood * prior); (b) find L, U such that integral_L^U p(theta | data) d theta = 1-alpha. COMMON TYPES: (i) EQUAL-TAILED: L = posterior alpha/2 quantile, U = posterior 1-alpha/2 quantile (each tail has probability alpha/2); (ii) HIGHEST POSTERIOR DENSITY (HPD): the set {theta : p(theta | data) >= c} where c is chosen so the set has posterior probability 1-alpha — shortest possible interval for unimodal posteriors. RELATIONSHIP: for symmetric unimodal posteriors (e.g., normal posterior), HPD = equal-tailed. For skewed posteriors, HPD is shorter and shifted toward the mode. OBJECTIVE BAYES: with noninformative priors (Jeffreys, reference), Bayesian credible intervals often COINCIDE numerically with frequentist CIs (e.g., normal mean with flat prior gives the same interval as the t-interval), though the interpretation differs. ADVANTAGES OF BAYESIAN: (a) intuitive interpretation; (b) naturally incorporates prior information; (c) handles nuisance parameters by marginalization; (d) easy to compute via MCMC for complex models. DISADVANTAGES: (a) requires specifying a prior (subjectivity); (b) computation can be intensive (MCMC).",
+      "topic": "ch08p8_bayesian_credible_interval",
+      "intent": "formula_recall",
+      "keywords": [
+        "credible interval",
+        "Bayesian",
+        "posterior",
+        "frequentist CI",
+        "interpretation"
+      ]
+    },
+    {
+      "question": "What is a highest posterior density (HPD) interval?",
+      "answer": "The HIGHEST POSTERIOR DENSITY (HPD) INTERVAL (or region) is the Bayesian credible interval of SHORTEST LENGTH for a given posterior probability. Formally, the 1-alpha HPD region is the set R = { theta : p(theta | data) >= c }, where c is chosen so that P(theta in R | data) = integral_R p(theta | data) d theta = 1-alpha. GEOMETRIC INTERPRETATION: the HPD region consists of all theta values where the posterior density exceeds a threshold c; the threshold is set so the region has posterior mass 1-alpha. For a UNIMODAL posterior, the HPD is a single interval; for a MULTIMODAL posterior, the HPD may be a UNION of disjoint intervals (each containing a mode). PROPERTIES: (1) SHORTEST among all 1-alpha credible intervals (for a given posterior) — minimizes interval length; (2) NOT invariant under reparametrization — the HPD for g(theta) is NOT the image of the HPD for theta under g (because the density transforms); (3) for SYMMETRIC unimodal posteriors (e.g., normal), HPD = equal-tailed interval; (4) for SKEWED posteriors, HPD is shifted toward the MODE and is shorter than the equal-tailed interval; (5) the HPD may be DISCONNECTED for multimodal posteriors (e.g., a posterior with two modes separated by a low-density region). COMPUTATION: (a) analytical: for standard posteriors (normal, beta, gamma), closed-form HPD exists; (b) numerical: for a posterior sample from MCMC, use the algorithm: sort the samples theta_{(1)} <= ... <= theta_{(B)}, find the shortest interval [theta_{(i)}, theta_{(i + (1-alpha)B)}] over all i — this gives the HPD for unimodal posteriors; (c) for multimodal, use kernel density estimation and threshold. EXAMPLE: Beta(2, 5) posterior (skewed right). The 95% HPD is approximately [0.01, 0.53] (shorter and shifted left toward the mode 0.2), while the 95% equal-tailed is [0.02, 0.57] (each tail 2.5%). WHEN TO USE HPD: preferred when (a) the posterior is skewed (HPD gives tighter intervals); (b) the goal is to report the \"most probable\" values. WHEN TO USE EQUAL-TAILED: preferred when (a) the posterior is multimodal (HPD can be weird); (b) easier interpretation (each tail has equal probability); (c) invariance under monotone transformations is desired (equal-tailed quantiles ARE invariant). Most Bayesian software reports both; HPD is the default in some (e.g., `coda::HPDinterval` in R).",
+      "topic": "ch08p8_hpd_interval",
+      "intent": "formula_recall",
+      "keywords": [
+        "HPD",
+        "highest posterior density",
+        "shortest interval",
+        "unimodal",
+        "multimodal",
+        "mode"
+      ]
+    },
+    {
+      "question": "What is the credible interval for a normal mean with a conjugate normal prior?",
+      "answer": "For X_1,...,X_n iid N(mu, sigma^2) with sigma KNOWN and a conjugate NORMAL PRIOR mu ~ N(mu_0, tau_0^2), the posterior is mu | data ~ N(mu_n, tau_n^2), where the posterior parameters are: tau_n^2 = 1 / (1/tau_0^2 + n/sigma^2) (posterior variance = harmonic combination of prior and data precision), and mu_n = tau_n^2 (mu_0/tau_0^2 + n Xbar/sigma^2) (precision-weighted average of prior mean and sample mean). The 1-alpha HPD / equal-tailed credible interval (the posterior is symmetric normal) is: mu_n +/- z_{1-alpha/2} * tau_n. DERIVATION: Bayes' rule for normal prior + normal likelihood gives normal posterior (conjugacy). The precisions add: 1/tau_n^2 = 1/tau_0^2 + n/sigma^2. The posterior mean is the precision-weighted average. INTERPRETATION: (1) as n -> infinity (or tau_0 -> infinity, vague prior), tau_n^2 -> sigma^2/n and mu_n -> Xbar, so the Bayesian CI coincides with the frequentist z-interval Xbar +/- z sigma/sqrt(n); (2) for finite n, the Bayesian CI is a SHRINKAGE estimator — mu_n is pulled toward the prior mean mu_0, and the CI is NARROWER than the frequentist (because the prior adds information); (3) the prior precision 1/tau_0^2 acts like \"pseudo-observations\" at mu_0. UNKNOWN sigma CASE: if sigma is unknown, use a normal-inverse-gamma prior (joint conjugate prior for (mu, sigma^2)); the marginal posterior for mu is a t-distribution: mu | data ~ t_{nu_n} (mu_n, scale), and the credible interval is mu_n +/- t_{nu_n, 1-alpha/2} * scale. With Jeffreys prior p(mu, sigma^2) ~ 1/sigma^2 (noninformative), the posterior is t_{n-1}(Xbar, S/sqrt(n)), giving the credible interval Xbar +/- t_{n-1, 1-alpha/2} S/sqrt(n) — numerically IDENTICAL to the frequentist t-interval, but with the Bayesian interpretation. CHOICE OF PRIOR: (a) flat / Jeffreys prior -> objective Bayesian (coincides with frequentist); (b) informative normal prior -> useful when genuine prior knowledge exists (e.g., historical data, expert elicitation). The conjugate normal model is the foundation of Bayesian inference for normal data and extends naturally to hierarchical models.",
+      "topic": "ch08p8_normal_normal_credible",
+      "intent": "formula_recall",
+      "keywords": [
+        "normal normal conjugate",
+        "Bayesian CI",
+        "posterior mean",
+        "precision",
+        "shrinkage",
+        "conjugate prior"
+      ]
+    },
+    {
+      "question": "What is the credible interval for a Bernoulli proportion with a Beta prior?",
+      "answer": "For X_1,...,X_n iid Bernoulli(p), with X = sum X_i successes and a conjugate BETA PRIOR p ~ Beta(alpha, beta), the posterior is p | data ~ Beta(alpha + X, beta + n - X). The 1-alpha EQUAL-TAILED credible interval is [ Beta_quantile(alpha/2; alpha+X, beta+n-X), Beta_quantile(1-alpha/2; alpha+X, beta+n-X) ]. The 1-alpha HPD interval is shorter and is found numerically (no closed form for general Beta). DERIVATION: the Beta prior is conjugate to the Bernoulli/Binomial likelihood. The posterior parameters are alpha_post = alpha + X (prior successes + observed successes), beta_post = beta + n - X (prior failures + observed failures). The posterior mean is E[p | data] = (alpha + X) / (alpha + beta + n) — a weighted average of the prior mean alpha/(alpha+beta) and the sample mean X/n, with weights proportional to the \"prior sample size\" alpha+beta and the data sample size n. COMMON PRIORS: (1) UNIFORM (Laplace): Beta(1, 1) — posterior is Beta(1+X, 1+n-X); posterior mean (X+1)/(n+2) (Laplace's rule of succession). (2) JEFFREYS: Beta(0.5, 0.5) — invariant under reparametrization; posterior is Beta(0.5+X, 0.5+n-X). (3) Haldane (improper): Beta(0, 0) — posterior is Beta(X, n-X); posterior mean X/n (MLE); but improper if X=0 or X=n. (4) Informative: Beta(alpha, beta) with alpha, beta chosen to reflect prior knowledge (e.g., prior mean 0.3, prior sample size 10 -> alpha=3, beta=7). COMPARISON WITH FREQUENTIST: (a) with Jeffreys prior, the Bayesian credible interval is close to the Wilson score interval (both have good frequentist coverage); (b) the Bayesian interval has a direct probability interpretation; (c) the Beta-Binomial credible interval is often recommended over the Wald interval for small n or extreme p. EXAMPLE: n=20, X=3, Jeffreys prior Beta(0.5, 0.5). Posterior Beta(3.5, 17.5). 95% equal-tailed CI: [0.06, 0.31] (from Beta quantiles). The Wald interval would be [0.00, 0.30] (can include 0, poor coverage). The Bayesian interval has better coverage and respects the (0,1) boundary.",
+      "topic": "ch08p8_beta_bernoulli_credible",
+      "intent": "formula_recall",
+      "keywords": [
+        "Beta Bernoulli",
+        "conjugate prior",
+        "Bayesian proportion",
+        "posterior",
+        "Jeffreys prior"
+      ]
+    },
+    {
+      "question": "What is the Bayesian credible interval with a noninformative (Jeffreys / reference) prior?",
+      "answer": "NONINFORMATIVE (objective) priors aim to let the data dominate, minimizing the influence of prior beliefs. The resulting credible intervals are called OBJECTIVE BAYESIAN intervals and often have good frequentist properties (matching frequentist CIs asymptotically). COMMON NONINFORMATIVE PRIORS: (1) FLAT (uniform) prior p(theta) ~ 1: used for location parameters (e.g., normal mean). Proper posteriors require the likelihood to be integrable. Can be improper (not a probability density) but yield proper posteriors. (2) JEFFREYS prior p(theta) ~ sqrt(I(theta)) (square root of Fisher information): INVARIANT under reparametrization (a key property). For a parameter theta with Fisher information I(theta), the Jeffreys prior is proportional to sqrt(I(theta)). Examples: (a) Bernoulli p: Jeffreys prior = Beta(0.5, 0.5); (b) Poisson lambda: Jeffreys prior ~ 1/sqrt(lambda) (improper); (c) Normal mean mu (sigma known): flat prior p(mu) ~ 1; (d) Normal sigma^2: Jeffreys prior ~ 1/sigma^2 (improper); (e) Normal (mu, sigma^2) joint: p(mu, sigma^2) ~ 1/sigma^2 (independent Jeffreys); (f) Exponential rate lambda: Jeffreys ~ 1/lambda. (3) REFERENCE priors (Bernardo-Berger): maximize the expected Kullback-Leibler divergence between prior and posterior (maximize expected information gain). For one-parameter models, reference = Jeffreys; for multiparameter, they differ (reference handles nuisance parameters better). PROPERTIES OF OBJECTIVE BAYESIAN INTERVALS: (1) for location parameters with flat prior, the Bayesian credible interval COINCIDES with the frequentist CI (e.g., normal mean: Xbar +/- t_{n-1} S/sqrt(n) with Jeffreys prior); (2) for scale parameters, the Jeffreys-prior interval often has better frequentist coverage than the Wald interval (e.g., variance, Poisson rate); (3) the intervals are ASYMPTOTICALLY equivalent to MLE-based intervals; (4) for small samples, objective Bayesian intervals often have BETTER frequentist coverage than Wald intervals (e.g., Wilson-like coverage for Bernoulli). ADVANTAGES: (a) no subjective prior elicitation needed; (b) good frequentist properties; (c) automatic for standard models. CAUTION: (a) improper priors can yield improper posteriors (always check); (b) for multivariate or hierarchical models, the choice of noninformative prior can affect results (marginalization paradoxes); (c) for model selection, noninformative priors are problematic (Bartlett's paradox).",
+      "topic": "ch08p8_jeffreys_reference_prior",
+      "intent": "formula_recall",
+      "keywords": [
+        "Jeffreys prior",
+        "reference prior",
+        "noninformative",
+        "objective Bayes",
+        "invariance"
+      ]
+    },
+    {
+      "question": "What is the Bayesian approach to credible regions for vector parameters?",
+      "answer": "For a vector parameter theta = (theta_1,...,theta_d), a 1-alpha CREDIBLE REGION is a set R in R^d with P(theta in R | data) = 1-alpha. TYPES: (1) HIGHEST POSTERIOR DENSITY (HPD) REGION: R = { theta : p(theta | data) >= c }, c chosen for posterior mass 1-alpha. Shortest-volume region. (2) ELLIPSOIDAL REGION (for approximately normal posteriors): centered at the posterior mean, shape determined by the posterior covariance. For a multivariate normal posterior theta ~ N(mu_n, Sigma_n), the 1-alpha ellipsoid is { theta : (theta - mu_n)^T Sigma_n^{-1} (theta - mu_n) <= chi^2_{d, 1-alpha} }. This is the Bayesian analogue of the frequentist confidence ellipsoid. (3) RECTANGULAR REGION: the Cartesian product of marginal credible intervals [L_i, U_i] for each theta_i. SIMULTANEOUS coverage: P(theta_i in [L_i, U_i] for all i) >= 1-alpha. To achieve joint 1-alpha coverage, use BONFERRONI: each marginal interval at level 1 - alpha/d. PROPERTIES: (1) the HPD region has the SMALLEST VOLUME among 1-alpha credible regions; (2) the ellipsoid is HPD for multivariate normal posteriors; (3) the rectangular region is easy to report but LARGER than the ellipsoid (it contains the ellipsoid); (4) marginal intervals (each at level 1-alpha) do NOT give joint 1-alpha coverage — the joint coverage is less than 1-alpha. BONFERRONI ADJUSTMENT: to get joint 1-alpha coverage for d parameters, take each marginal interval at level 1 - alpha/d (conservative, joint coverage >= 1-alpha). MARGINAL POSTERIORS: for reporting, often use the MARGINAL posterior of each theta_i (integrate out the others) and give marginal credible intervals. This is valid for individual parameters but does not give joint coverage. EXAMPLE: bivariate normal posterior, 95% HPD = ellipse with (theta - mu_n)^T Sigma_n^{-1} (theta - mu_n) <= 5.99 (chi^2_{2, 0.95}). The 95% marginal intervals (each at 95%) give a rectangle with joint coverage ~ 0.95^2 = 0.90 (NOT 0.95). Bonferroni: each marginal at 97.5% gives joint >= 95% (rectangle slightly larger). COMPUTATION: for MCMC samples, compute HPD via convex hull algorithms, or use the ellipsoid with sample mean/covariance. Multivariate credible regions are essential for joint inference (e.g., regression coefficients, covariance matrices).",
+      "topic": "ch08p8_multivariate_credible_region",
+      "intent": "formula_recall",
+      "keywords": [
+        "credible region",
+        "vector parameter",
+        "HPD region",
+        "ellipsoid",
+        "Bonferroni",
+        "multivariate"
+      ]
+    },
+    {
+      "question": "How do Bayesian credible intervals handle nuisance parameters via marginalization?",
+      "answer": "A key advantage of Bayesian inference is the natural handling of NUISANCE PARAMETERS via MARGINALIZATION. If theta = (psi, eta) where psi is the parameter of interest and eta is a nuisance parameter, the Bayesian approach: (1) place a joint prior p(psi, eta); (2) compute the joint posterior p(psi, eta | data) ~ L(psi, eta) p(psi, eta); (3) MARGINALIZE: p(psi | data) = integral p(psi, eta | data) d eta; (4) report a credible interval from the MARGINAL posterior p(psi | data). This integration AUTOMATICALLY accounts for the uncertainty in eta — no need for profile likelihoods, conditional inference, or approximations. EXAMPLE (normal mean, unknown variance): psi = mu (interest), eta = sigma^2 (nuisance). Joint posterior (Jeffreys prior p(mu, sigma^2) ~ 1/sigma^2): p(mu, sigma^2 | data) ~ (sigma^2)^{-(n/2+1)} exp(-sum (X_i - mu)^2 / (2 sigma^2)). Marginalize over sigma^2: p(mu | data) = integral p(mu, sigma^2 | data) d sigma^2 ~ [ 1 + n (mu - Xbar)^2 / ((n-1) S^2) ]^{-n/2}, which is a t-distribution: mu | data ~ t_{n-1}(Xbar, S/sqrt(n)). The 95% credible interval is Xbar +/- t_{n-1, 0.975} S/sqrt(n), identical to the frequentist t-interval. EXAMPLE (difference of two means, Behrens-Fisher): X ~ N(mu_X, sigma_X^2), Y ~ N(mu_Y, sigma_Y^2), unknown unequal variances. The Bayesian solution (Jeffreys prior) marginalizes over (sigma_X^2, sigma_Y^2), yielding a posterior for mu_X - mu_Y that is a BEHRENS-FISHER distribution (a mixture of t-distributions). The Bayesian credible interval is the EXACT solution to the Behrens-Fisher problem — unlike the frequentist Welch interval, which is approximate. This is a case where Bayesian inference is cleaner than frequentist. EXAMPLE (regression coefficients): the marginal posterior of a single beta_j (integrating out other betas and sigma^2) is a t-distribution, giving the Bayesian credible interval for beta_j that matches the frequentist t-interval. COMPUTATION: (a) analytical for conjugate models; (b) MCMC for general models — just take the samples of psi (ignoring eta samples) and compute the credible interval from the empirical distribution. The marginalization is AUTOMATIC in MCMC: the chain samples the joint posterior, and the samples of psi alone form the marginal posterior. ADVANTAGE: no need for profile likelihoods or plug-in estimates; the full uncertainty in nuisance parameters is propagated.",
+      "topic": "ch08p8_bayesian_nuisance_marginalization",
+      "intent": "formula_recall",
+      "keywords": [
+        "nuisance parameters",
+        "marginalization",
+        "marginal posterior",
+        "Behrens-Fisher",
+        "integration"
+      ]
+    },
+    {
+      "question": "What are the Wald, Wilson, Agresti-Coull, and Clopper-Pearson intervals for a single proportion?",
+      "answer": "For a binomial proportion p (n trials, X successes, p_hat = X/n), there are several 1-alpha CIs: (1) WALD (standard): p_hat +/- z_{1-alpha/2} sqrt(p_hat (1 - p_hat) / n). Simple but POOR coverage for small n or extreme p (near 0 or 1); can extend outside [0,1]. NEVER recommended for serious use despite being the default in many introductory texts. (2) WILSON (score): (p_hat + z^2/(2n) +/- z sqrt(p_hat(1-p_hat)/n + z^2/(4n^2))) / (1 + z^2/n). Inverts the score test. Excellent coverage even for small n and extreme p; respects [0,1]; RECOMMENDED DEFAULT. (3) AGRESTI-COULL (add-2-successes): p_tilde = (X + z^2/2) / (n + z^2), then p_tilde +/- z_{1-alpha/2} sqrt(p_tilde (1 - p_tilde) / (n + z^2)). For 95% CI, z^2 ~ 4, so add 2 successes and 2 failures (n_tilde = n + 4). Nearly as good as Wilson, easier to teach and compute. Good default for introductory use. (4) CLOPPER-PEARSON (exact): based on the exact binomial distribution; the 1-alpha CI is [ Beta_quantile(alpha/2; X, n-X+1), Beta_quantile(1-alpha/2; X+1, n-X) ]. CONSERVATIVE — coverage is ALWAYS >= 1-alpha (sometimes much higher), so the interval is WIDER than necessary. \"Exact\" refers to using the exact binomial distribution, not to exact coverage. Useful when conservatism is desired (e.g., regulatory contexts). (5) JEFFREYS (Bayesian): with Jeffreys prior Beta(0.5, 0.5), the posterior is Beta(X+0.5, n-X+0.5); the equal-tailed credible interval is [ Beta_quantile(alpha/2; X+0.5, n-X+0.5), Beta_quantile(1-alpha/2; X+0.5, n-X+0.5) ]. Good frequentist coverage, similar to Wilson. RECOMMENDATIONS: (a) DEFAULT: Wilson or Agresti-Coull for general use; (b) SMALL n: Wilson, Jeffreys, or Clopper-Pearson (if conservative is acceptable); (c) LARGE n: all methods are similar (Wald is okay for large n and p near 0.5). SPECIAL CASES: (i) X = 0: rule of three — 95% CI is [0, 3/n] (approx); (ii) X = n: [1 - 3/n, 1]. For these boundary cases, use Clopper-Pearson or Jeffreys. The Wald interval is known to have erratic coverage (oscillating above and below nominal as n varies) due to the discreteness of the binomial; Wilson and Agresti-Coull smooth this out.",
+      "topic": "ch08p8_proportion_ci_methods",
+      "intent": "formula_recall",
+      "keywords": [
+        "proportion CI",
+        "Wald",
+        "Wilson",
+        "Agresti-Coull",
+        "Clopper-Pearson",
+        "binomial"
+      ]
+    },
+    {
+      "question": "What is the CI for the difference of two proportions?",
+      "answer": "For two independent binomial samples (n_1 trials, X_1 successes) and (n_2 trials, X_2 successes), with p_hat_1 = X_1/n_1, p_hat_2 = X_2/n_2, the 1-alpha CI for the difference delta = p_1 - p_2 has several forms: (1) WALD: (p_hat_1 - p_hat_2) +/- z sqrt( p_hat_1(1-p_hat_1)/n_1 + p_hat_2(1-p_hat_2)/n_2 ). Simple but POOR coverage for small samples or extreme proportions. (2) WALD WITH POOLED VARIANCE (for hypothesis testing, not recommended for CIs): uses p_pool = (X_1 + X_2)/(n_1 + n_2) in the SE — appropriate for the test of H_0: p_1 = p_2 but NOT for the CI (the CI should use unpooled SE). (3) AGRESTI-COULL (add-2): add 1 success and 1 failure to each sample (so n_i_tilde = n_i + 2, X_i_tilde = X_i + 1), then apply the Wald formula with the adjusted estimates. Improves coverage substantially. (4) WILSON (score) interval for the difference: inverts the score test for H_0: p_1 - p_2 = delta_0. The SE under H_0 uses the restricted MLE; solving the resulting quadratic (in two unknowns) is involved. Miettinen-Nurminen gives a closed-form approximation. Excellent coverage. (5) NEWCOMBE (hybrid Wilson): combine the Wilson intervals for each proportion: the CI for p_1 - p_2 is [ (p_hat_1 - p_hat_2) - delta_L, (p_hat_1 - p_hat_2) + delta_U ], where delta_L and delta_U are computed from the Wilson interval endpoints. Simple to compute, good coverage. (6) FISHER EXACT (conservative): based on the conditional distribution (hypergeometric); very conservative. RECOMMENDATION: use Agresti-Coull (add-2) for simplicity, or Newcombe/Wilson-score for best coverage. The plain Wald interval should be AVOIDED — it has poor coverage, especially when p_1 or p_2 is near 0 or 1, or when sample sizes are unequal. EXAMPLE: n_1 = 50, X_1 = 10 (p_hat_1 = 0.20); n_2 = 50, X_2 = 15 (p_hat_2 = 0.30). Difference: -0.10. 95% Agresti-Coull CI: adjusted p_tilde_1 = 11/52 = 0.2115, p_tilde_2 = 16/52 = 0.3077; SE = sqrt(0.2115*0.7885/52 + 0.3077*0.6923/52) = sqrt(0.00321 + 0.00409) = 0.0854; CI = -0.10 +/- 1.96*0.0854 = [-0.267, 0.067]. Includes 0, so the difference is not statistically significant at 0.05.",
+      "topic": "ch08p8_diff_two_proportions_ci",
+      "intent": "formula_recall",
+      "keywords": [
+        "difference of proportions",
+        "two samples",
+        "Agresti-Coull",
+        "Newcombe",
+        "score CI"
+      ]
+    },
+    {
+      "question": "What are CIs for the odds ratio and relative risk?",
+      "answer": "ODDS RATIO (OR): for a 2x2 table with cells (a, b, c, d), OR = (a/b) / (c/d) = ad/bc. The CI is typically computed on the LOG scale (OR is skewed, log(OR) is more normal). The 1-alpha CI for log(OR) is: log(OR) +/- z_{1-alpha/2} * sqrt(1/a + 1/b + 1/c + 1/d). Exponentiate to get the CI for OR: [exp(L), exp(U)]. The SE formula sqrt(1/a + 1/b + 1/c + 1/d) comes from the delta method on log(ad/bc) = log a + log d - log b - log c, with each log(cell) having variance 1/cell (Poisson approximation). HANDLING ZERO CELLS: add 0.5 to each cell (Haldane-Anscombe correction) before computing OR and SE. ALTERNATIVES: (a) exact (Fisher) CI — conditional on the marginals; conservative; (b) Bayesian with Beta(0.5, 0.5) prior on each proportion — gives a posterior for OR; (c) Cornfield exact — conservative. RELATIVE RISK (RR): RR = p_1 / p_2 = (a/(a+b)) / (c/(c+d)). CI on log scale: log(RR) +/- z_{1-alpha/2} * sqrt( (1/a - 1/(a+b)) + (1/c - 1/(c+d)) ) = log(RR) +/- z sqrt( b/(a(a+b)) + d/(c(c+d)) ). Exponentiate for the CI. INTERPRETATION: OR = 1 (or RR = 1) means no association; OR > 1 means exposure increases odds (or risk) of outcome. OR approximates RR when the outcome is rare (rare disease assumption: p_1, p_2 << 1, so OR ~ RR). EXAMPLE: smoking and lung cancer, a=100 (smokers with cancer), b=10000 (smokers without), c=10 (non-smokers with), d=10000 (non-smokers without). OR = 100*10000 / (10000*10) = 10. log(OR) = 2.303. SE(log OR) = sqrt(1/100 + 1/10000 + 1/10 + 1/10000) = sqrt(0.01 + 0.0001 + 0.1 + 0.0001) = sqrt(0.1102) = 0.332. 95% CI for log OR: 2.303 +/- 1.96*0.332 = [1.652, 2.954]. CI for OR: [5.22, 19.20]. Smokers have about 10x the odds of lung cancer (95% CI 5.2-19.2). RR = (100/10100) / (10/10010) = 0.0099 / 0.0010 = 9.9, close to OR (rare disease). USES: case-control studies (OR), cohort studies (RR), clinical trials (RR or OR), meta-analysis (often OR for combining studies).",
+      "topic": "ch08p8_odds_ratio_relative_risk_ci",
+      "intent": "formula_recall",
+      "keywords": [
+        "odds ratio",
+        "relative risk",
+        "log scale",
+        "delta method",
+        "2x2 table",
+        "rare disease"
+      ]
+    },
+    {
+      "question": "What is the CI for a Poisson rate?",
+      "answer": "For X_1,...,X_n iid Poisson(lambda) with total T = sum X_i (or for a single observation X over exposure time t, with rate lambda = E[X]/t), the CIs for lambda are: (1) WALD (asymptotic): lambda_hat = T/n (or T/t), SE = sqrt(lambda_hat / n) (or sqrt(T)/t); CI = lambda_hat +/- z sqrt(lambda_hat/n). Poor for small T (e.g., T = 0 gives CI [0, 0], which is wrong). (2) WALD ON LOG SCALE (better): log(lambda_hat) +/- z / sqrt(T); exponentiate. Respects lambda > 0; better coverage for small T. (3) EXACT (Pearson-Hartley): based on the relationship between Poisson and chi-squared. If T events are observed, the exact 1-alpha CI for the Poisson mean mu = lambda * n (or lambda * t) is: [ 0.5 * chi^2_{2T, alpha/2}, 0.5 * chi^2_{2(T+1), 1-alpha/2} ]. (Note the \"T+1\" in the upper limit, a subtle point.) Divide by n (or t) to get the CI for the rate lambda. CONSERVATIVE (coverage >= 1-alpha). (4) BYAR'S APPROXIMATION (excellent): [lambda_L, lambda_U] where lambda_L = T * (1 - 1/(9T) - z/(3 sqrt(T)))^3 / n and lambda_U = (T+1) * (1 - 1/(9(T+1)) + z/(3 sqrt(T+1)))^3 / n, where z = z_{1-alpha/2}. This is a Wilson-Hilferty approximation to the chi-squared quantiles; very accurate even for small T. SPECIAL CASES: (a) T = 0 (no events observed): the upper 95% CI for mu is 0.5 * chi^2_{2, 0.95} = 0.5 * 5.99 = 3.00 (the \"rule of three\": 95% CI upper bound is about 3/T for the mean, or 3/t for the rate). So if no events in t person-years, 95% CI for rate is [0, 3/t]. (b) T = 1: 95% CI for mu is [0.5 * chi^2_{2, 0.025}, 0.5 * chi^2_{4, 0.975}] = [0.025, 5.57]. EXAMPLE: observe T = 5 events over t = 100 person-years. Rate lambda_hat = 5/100 = 0.05/year. 95% exact CI for mu = lambda*t: [0.5 * chi^2_{10, 0.025}, 0.5 * chi^2_{12, 0.975}] = [0.5 * 3.247, 0.5 * 23.337] = [1.62, 11.67]. CI for lambda: [0.0162, 0.117] per year. Byar's approximation gives nearly identical results. USES: epidemiology (disease rates), reliability (failure rates), queuing (arrival rates).",
+      "topic": "ch08p8_poisson_rate_ci",
+      "intent": "formula_recall",
+      "keywords": [
+        "Poisson rate",
+        "exact CI",
+        "chi-squared",
+        "Byar approximation",
+        "rule of three",
+        "exposure"
+      ]
+    },
+    {
+      "question": "What is the CI for the ratio of two Poisson rates?",
+      "answer": "For two independent Poisson samples: X_1 ~ Poisson(mu_1 = lambda_1 * t_1) over exposure t_1, X_2 ~ Poisson(mu_2 = lambda_2 * t_2) over exposure t_2, the parameter of interest is the rate ratio R = lambda_1 / lambda_2. CONDITIONAL INFERENCE: conditional on the total X_1 + X_2 = T, the distribution of X_1 is Binomial(T, p) where p = mu_1 / (mu_1 + mu_2) = (lambda_1 t_1) / (lambda_1 t_1 + lambda_2 t_2). This eliminates the nuisance parameter. In terms of R: p = R t_1 / (R t_1 + t_2), so R = (p / (1-p)) * (t_2 / t_1). The CI for R is obtained by: (1) compute the CI for p (using a binomial CI method — Wilson, Clopper-Pearson, etc.) based on X_1 out of T trials; (2) transform the CI endpoints via R = (p/(1-p)) (t_2/t_1). WALD (asymptotic) CI: the MLE of R is R_hat = (X_1/t_1) / (X_2/t_2). The log-scale CI is: log(R_hat) +/- z_{1-alpha/2} * sqrt(1/X_1 + 1/X_2). Exponentiate for the CI. This uses the delta method with Var(log R_hat) = Var(log X_1) + Var(log X_2) ~ 1/X_1 + 1/X_2. EXACT CI: use the binomial exact (Clopper-Pearson) CI for p, then transform. CONSERVATIVE. EXAMPLE: two groups, X_1 = 10 events over t_1 = 100 person-years (rate 0.10/yr); X_2 = 5 events over t_2 = 100 person-years (rate 0.05/yr). R_hat = 0.10/0.05 = 2.0. Conditional: T = 15, p_hat = 10/15 = 0.667. 95% Wilson CI for p: [0.445, 0.835]. Transform: R_L = (0.445/0.555) * (100/100) = 0.802; R_U = (0.835/0.165) * 1 = 5.06. So 95% CI for R is [0.80, 5.06]. Log-Wald CI: log(2.0) +/- 1.96 sqrt(1/10 + 1/5) = 0.693 +/- 1.96 * 0.548 = 0.693 +/- 1.074 = [-0.381, 1.767]. Exponentiate: [0.683, 5.85]. The exact (binomial-transform) CI is shorter and more accurate. USES: comparing incidence rates (epidemiology), failure rates (reliability), traffic accident rates (before/after a safety intervention). The conditional binomial approach is the standard frequentist method; a Bayesian approach with Gamma priors gives a closed-form posterior.",
+      "topic": "ch08p8_rate_ratio_ci",
+      "intent": "formula_recall",
+      "keywords": [
+        "rate ratio",
+        "two Poisson",
+        "conditional binomial",
+        "rate comparison",
+        "exposure"
+      ]
+    },
+    {
+      "question": "What is the Bonferroni correction for simultaneous confidence intervals?",
+      "answer": "The BONFERRONI CORRECTION constructs simultaneous 1-alpha CIs for m parameters by using individual CIs at level 1 - alpha/m. BOUND: by the union bound (Boole's inequality), P(at least one CI misses its parameter) <= sum of individual miss probabilities = m * (alpha/m) = alpha. So the FAMILY-WISE COVERAGE is at least 1-alpha: P(all m CIs cover their parameters) >= 1-alpha. CONSTRUCTION: for parameters theta_1,...,theta_m with individual estimators theta_hat_j and SEs SE_j, the Bonferroni-simultaneous CIs are theta_hat_j +/- z_{1 - alpha/(2m)} * SE_j, for j = 1,...,m. Note the alpha is divided by 2m (not 2) because we want two-sided individual CIs at level 1 - alpha/m. EXAMPLE: m = 5 parameters, family-wise 95% confidence. Individual CIs at level 1 - 0.05/5 = 0.99 (i.e., alpha_j = 0.01). Two-sided individual z-quantile: z_{1 - 0.005} = z_{0.995} = 2.576 (vs 1.96 for a single 95% CI). Each CI is theta_hat_j +/- 2.576 SE_j — WIDER than the individual 95% CI. PROPERTIES: (1) SIMPLE to apply — no special software; works for any combination of CIs (z, t, chi-squared, etc.); (2) GENERAL — no assumption of independence or equal variances; (3) CONSERVATIVE — the actual family-wise coverage can be HIGHER than 1-alpha (especially when the CIs are correlated); the bound m*alpha/m = alpha is an upper bound on the family-wise error rate. (4) LOSS OF POWER: as m grows, the individual CIs become very wide (z_{1-alpha/(2m)} -> infinity), reducing power to detect any specific effect. IMPROVEMENTS: (a) when estimators are independent, the exact simultaneous coverage is 1 - alpha (not just >=); (b) for correlated estimators, methods like Tukey (for pairwise comparisons), Scheffe (for all linear contrasts), Dunnett (vs control), or Benjamini-Hochberg (FDR instead of FWER) are less conservative. RELATIONSHIP TO TESTING: Bonferroni CIs correspond to Bonferroni-corrected tests — the family-wise 1-alpha CI for theta_j excludes theta_0 iff the Bonferroni-corrected test of H_0: theta_j = theta_0 rejects. USE WHEN: m is small (< 10) and you need guaranteed family-wise coverage without assumptions. For larger m, consider FDR methods or specialized simultaneous procedures.",
+      "topic": "ch08p8_bonferroni_simultaneous",
+      "intent": "formula_recall",
+      "keywords": [
+        "Bonferroni",
+        "simultaneous CI",
+        "family-wise",
+        "union bound",
+        "multiple comparisons"
+      ]
+    },
+    {
+      "question": "What are Tukey, Scheffe, and Dunnett simultaneous confidence intervals?",
+      "answer": "These are specialized simultaneous CI methods for ANOVA-type settings, less conservative than Bonferroni. (1) TUKEY (HSD - Honestly Significant Difference): for ALL PAIRWISE comparisons among k group means (k(k-1)/2 comparisons). Assumes equal sample sizes per group (n per group) and equal variances. The 1-alpha simultaneous CI for mu_i - mu_j is: (Ybar_i - Ybar_j) +/- (q_{k, df_error, 1-alpha} / sqrt(2)) * sqrt(MSE * (1/n_i + 1/n_j)), where q_{k, df, 1-alpha} is the upper alpha quantile of the STUDENTIZED RANGE distribution with k groups and df_error degrees of freedom. For equal n, this simplifies to (Ybar_i - Ybar_j) +/- q * sqrt(MSE/n). EXACT for pairwise comparisons under normality and equal variances. Much less conservative than Bonferroni for all pairwise comparisons. (2) SCHEFFE: for ALL LINEAR CONTRASTS among group means (infinite family). A linear contrast is sum c_j mu_j with sum c_j = 0. The 1-alpha simultaneous CI for contrast L = sum c_j mu_j is: L_hat +/- sqrt( (k-1) F_{k-1, df_error, 1-alpha} * MSE * sum c_j^2 / n_j ). SCHEFFE is EXACT for the family of ALL contrasts (any linear combination with sum c_j = 0). More conservative than Tukey for pairwise comparisons but handles arbitrary contrasts. Also: Scheffe intervals are the same as the F-test inversion — a contrast is significant iff the overall F-test rejects. (3) DUNNETT: for comparisons of each treatment to a CONTROL (k-1 comparisons). The 1-alpha simultaneous CI for mu_treatment - mu_control is: (Ybar_t - Ybar_c) +/- d_{k, df_error, 1-alpha} * sqrt(MSE * (1/n_t + 1/n_c)), where d is the Dunnett critical value (tabulated, accounting for the correlation among comparisons sharing the control). Less conservative than Bonferroni for many-vs-control comparisons. (4) OTHERS: (a) BONFERRONI/HOLM: for any family of m comparisons, each at level alpha/m (Bonferroni) or step-down (Holm); (b) GABRIEL, REGWQ, etc. for various specialized families. COMPARISON: for ALL PAIRWISE comparisons with equal n and normality, Tukey is optimal (least conservative). For MANY-VS-CONTROL, Dunnett. For arbitrary contrasts, Scheffe. For a SMALL number of pre-specified comparisons, Bonferroni. The choice of method depends on the family of comparisons of interest; using the wrong method (e.g., Bonferroni when Tukey applies) loses power. All methods assume ANOVA-type setting (normality, equal variances); for unequal variances, use Games-Howell (Tukey-like) or Welch-based corrections.",
+      "topic": "ch08p8_tukey_scheffe_dunnett",
+      "intent": "formula_recall",
+      "keywords": [
+        "Tukey",
+        "Scheffe",
+        "Dunnett",
+        "studentized range",
+        "simultaneous CI",
+        "ANOVA",
+        "contrasts"
+      ]
+    },
+    {
+      "question": "Worked example: t-interval for a normal mean.",
+      "answer": "PROBLEM: A sample of n = 16 steel rods has sample mean Xbar = 50.2 mm and sample standard deviation S = 2.5 mm. Assuming the diameters are normally distributed, construct a 95% CI for the true mean diameter mu. SOLUTION: Since sigma is UNKNOWN and must be estimated by S, we use the t-interval. The 95% CI is Xbar +/- t_{n-1, 0.975} * S / sqrt(n). Step 1 — identify the t-critical value: degrees of freedom = n - 1 = 15. From t-tables, t_{15, 0.975} = 2.131. Step 2 — compute the standard error: SE = S / sqrt(n) = 2.5 / sqrt(16) = 2.5 / 4 = 0.625 mm. Step 3 — compute the margin of error: ME = t * SE = 2.131 * 0.625 = 1.332 mm. Step 4 — form the CI: [Xbar - ME, Xbar + ME] = [50.2 - 1.332, 50.2 + 1.332] = [48.868, 51.532]. INTERPRETATION: we are 95% confident that the true mean diameter of the steel rods is between 48.87 mm and 51.53 mm. (Frequentist interpretation: if we repeated this procedure many times, about 95% of the resulting intervals would contain mu.) COMPARISON WITH Z-INTERVAL: if we (incorrectly) used the z-interval with z_{0.975} = 1.96, we would get ME = 1.96 * 0.625 = 1.225, CI = [48.975, 51.425] — NARROWER by about 8%. The t-interval is wider because it accounts for the additional uncertainty from estimating sigma by S. For n = 16, the difference is non-trivial. SAMPLE SIZE PLANNING: if we wanted a 95% CI with half-width h = 0.5 mm, and we estimate sigma ~ 2.5 from a pilot, we need n = (t_{n-1, 0.975} S / h)^2. Initial guess with z: n = (1.96 * 2.5 / 0.5)^2 = 96.04 -> 97. Refine with t_{96, 0.975} ~ 1.985: n = (1.985 * 2.5 / 0.5)^2 = 98.5 -> 99. So about 99 rods needed for a 95% CI of half-width 0.5 mm. ROBUSTNESS CHECK: the t-interval assumes normality. For n = 16, mild non-normality is tolerable (CLT helps), but strong skewness would be a concern. A normal probability plot or Shapiro-Wilk test would verify the assumption. If normality fails, use a bootstrap CI.",
+      "topic": "ch08p8_worked_t_interval",
+      "intent": "problem_solving",
+      "keywords": [
+        "worked problem",
+        "t-interval",
+        "normal mean",
+        "steel rods",
+        "sample size"
+      ]
+    },
+    {
+      "question": "Worked example: Welch CI for the difference of two means with unequal variances.",
+      "answer": "PROBLEM: Two teaching methods are compared. Method A: n_A = 25 students, Xbar_A = 78.5, S_A = 8.0. Method B: n_B = 20 students, Xbar_B = 73.2, S_B = 12.0. Construct a 95% CI for mu_A - mu_B, assuming normal populations with UNEQUAL variances. SOLUTION: Use the Welch (Satterthwaite) interval since the sample standard deviations differ substantially (8.0 vs 12.0) and sample sizes are unequal. Step 1 — point estimate: Xbar_A - Xbar_B = 78.5 - 73.2 = 5.3. Step 2 — standard error: SE = sqrt(S_A^2/n_A + S_B^2/n_B) = sqrt(64/25 + 144/20) = sqrt(2.56 + 7.20) = sqrt(9.76) = 3.124. Step 3 — Satterthwaite degrees of freedom: nu = (S_A^2/n_A + S_B^2/n_B)^2 / [ (S_A^2/n_A)^2/(n_A - 1) + (S_B^2/n_B)^2/(n_B - 1) ] = (9.76)^2 / [ (2.56)^2/24 + (7.20)^2/19 ] = 95.26 / [ 0.273 + 2.728 ] = 95.26 / 3.001 = 31.74. Round down to nu = 31 (conservative). Step 4 — t-critical: t_{31, 0.975} = 2.040. Step 5 — margin of error: ME = 2.040 * 3.124 = 6.373. Step 6 — 95% CI: [5.3 - 6.373, 5.3 + 6.373] = [-1.073, 11.673]. INTERPRETATION: the 95% CI for mu_A - mu_B is [-1.07, 11.67]. Since the interval INCLUDES 0, the difference is not statistically significant at the 0.05 level. Method A appears better (5.3 points higher on average), but the evidence is inconclusive — the CI is wide due to the substantial variability in both samples, especially Method B (S_B = 12.0). COMPARISON WITH POOLED: if we (incorrectly) used the pooled t-interval assuming equal variances: S_p^2 = ((24)(64) + (19)(144))/(25+20-2) = (1536 + 2736)/43 = 99.16, S_p = 9.96. SE_pooled = 9.96 sqrt(1/25 + 1/20) = 9.96 * 0.30 = 2.99. df = 43, t = 2.017. CI = 5.3 +/- 2.017 * 2.99 = [-0.73, 11.33]. Similar but slightly narrower (more df). However, the pooled interval is NOT valid here because the variances are truly unequal (F-test or just the ratio 144/64 = 2.25 exceeds 2). The Welch interval is the correct choice. POWER ANALYSIS: to detect a difference of 5 points with 80% power at alpha = 0.05 (two-sided), with S ~ 10, we need n per group ~ 2 (z_{0.975} + z_{0.8})^2 S^2 / delta^2 = 2 (1.96 + 0.84)^2 (100) / 25 = 2 (7.84)(100)/25 = 62.7 -> 63 per group. The current samples (25 and 20) are underpowered.",
+      "topic": "ch08p8_worked_welch",
+      "intent": "problem_solving",
+      "keywords": [
+        "worked problem",
+        "Welch",
+        "two samples",
+        "unequal variances",
+        "Satterthwaite",
+        "teaching methods"
+      ]
+    },
+    {
+      "question": "Worked example: Chi-squared CI for a normal variance.",
+      "answer": "PROBLEM: A quality control engineer measures the fill weight of n = 25 bottles. The sample standard deviation is S = 3.0 grams. Assuming fill weights are normally distributed, construct a 95% CI for the variance sigma^2 and for the standard deviation sigma. SOLUTION: Use the chi-squared interval for the variance. Step 1 — compute the sum of squares: (n-1) S^2 = 24 * 9 = 216. Step 2 — find chi-squared critical values with df = n - 1 = 24. For a 95% CI: chi^2_{24, 0.025} = 12.401 (lower), chi^2_{24, 0.975} = 39.364 (upper). Step 3 — form the CI for sigma^2: [ (n-1) S^2 / chi^2_{24, 0.975}, (n-1) S^2 / chi^2_{24, 0.025} ] = [ 216 / 39.364, 216 / 12.401 ] = [ 5.487, 17.418 ]. So the 95% CI for sigma^2 is [5.49, 17.42] grams^2. Step 4 — CI for sigma (take square roots): [ sqrt(5.487), sqrt(17.418) ] = [ 2.34, 4.17 ] grams. INTERPRETATION: we are 95% confident that the true standard deviation of fill weights is between 2.34 g and 4.17 g. The sample SD is 3.0 g, which is inside the CI (as it must be). OBSERVATIONS: (1) the CI is ASYMMETRIC about S^2 = 9 — the upper limit (17.42) is further from 9 than the lower limit (5.49). This reflects the right-skewness of the chi-squared distribution at df = 24. (2) For larger n, the CI would be narrower and more symmetric (chi-squared approaches normal for large df). (3) The interval is quite WIDE — with n = 25, the ratio of upper to lower limit is about 3.2x. To halve this ratio, we would need roughly 4x the sample size. ROBUSTNESS WARNING: the chi-squared interval is HIGHLY SENSITIVE to non-normality. If the fill weights are even slightly non-normal (e.g., heavy tails due to occasional overfills), the actual coverage can be far below 95%. For non-normal data, use a bootstrap CI for the variance instead. If a normal probability plot shows substantial deviation from linearity, do not trust the chi-squared interval. SPECIFICATION CHECK: if the specification requires sigma < 2.0 g, the CI upper limit (4.17) exceeds 2.0, so the process does NOT meet the spec with 95% confidence. The process needs improvement (reduce variability) or more data to narrow the CI.",
+      "topic": "ch08p8_worked_chi_squared_variance",
+      "intent": "problem_solving",
+      "keywords": [
+        "worked problem",
+        "chi-squared interval",
+        "variance",
+        "bottle fill",
+        "quality control"
+      ]
+    },
+    {
+      "question": "Worked example: Wilson score interval for a proportion.",
+      "answer": "PROBLEM: In a survey of n = 200 voters, X = 30 say they will vote for candidate A. Construct a 95% CI for the true proportion p of voters supporting A. Compare the Wald, Wilson, Agresti-Coull, and Clopper-Pearson intervals. SOLUTION: p_hat = 30/200 = 0.15. (1) WALD: p_hat +/- z sqrt(p_hat (1-p_hat)/n) = 0.15 +/- 1.96 sqrt(0.15*0.85/200) = 0.15 +/- 1.96 * 0.02525 = 0.15 +/- 0.0495. CI = [0.1005, 0.1995]. (2) WILSON: z = 1.96, z^2 = 3.8416. Center = (p_hat + z^2/(2n)) / (1 + z^2/n) = (0.15 + 3.8416/400) / (1 + 3.8416/200) = (0.15 + 0.0096) / (1 + 0.0192) = 0.1596 / 1.0192 = 0.1566. Half-width = z sqrt(p_hat(1-p_hat)/n + z^2/(4n^2)) / (1 + z^2/n) = 1.96 sqrt(0.15*0.85/200 + 3.8416/160000) / 1.0192 = 1.96 sqrt(0.000638 + 0.0000240) / 1.0192 = 1.96 * 0.02571 / 1.0192 = 0.0494. CI = [0.1566 - 0.0494, 0.1566 + 0.0494] = [0.1072, 0.2060]. (3) AGRESTI-COULL: add 2 successes and 2 failures. p_tilde = (30+2)/(200+4) = 32/204 = 0.1569. n_tilde = 204. CI = p_tilde +/- z sqrt(p_tilde(1-p_tilde)/n_tilde) = 0.1569 +/- 1.96 sqrt(0.1569*0.8431/204) = 0.1569 +/- 1.96 * 0.02548 = 0.1569 +/- 0.0499. CI = [0.1070, 0.2068]. (4) CLOPPER-PEARSON (exact): from Beta quantiles. Lower = Beta_quantile(0.025; 30, 171) = 0.1056. Upper = Beta_quantile(0.975; 31, 170) = 0.2085. CI = [0.1056, 0.2085]. COMPARISON: Wald [0.1005, 0.1995] (narrowest, but known to have poor coverage); Wilson [0.1072, 0.2060]; Agresti-Coull [0.1070, 0.2068] (nearly identical to Wilson); Clopper-Pearson [0.1056, 0.2085] (slightly wider, conservative). All four intervals agree to two decimal places (~[0.10, 0.21]), which is reassuring. The Wald interval is slightly shifted left (centered at p_hat = 0.15) while the others are shifted slightly toward 0.5 (centered around 0.157). RECOMMENDATION: report the Wilson or Agresti-Coull interval: 95% CI for p is approximately [0.107, 0.206]. We are 95% confident that between 10.7% and 20.6% of voters support candidate A. NOTE: with n = 200 and p_hat = 0.15 (not extreme), the Wald interval is acceptable here. The differences between methods become more pronounced for smaller n or more extreme p.",
+      "topic": "ch08p8_worked_wilson_proportion",
+      "intent": "problem_solving",
+      "keywords": [
+        "worked problem",
+        "Wilson score",
+        "proportion",
+        "survey",
+        "comparison of methods"
+      ]
+    },
+    {
+      "question": "Worked example: Bootstrap CI for the median.",
+      "answer": "PROBLEM: A dataset of n = 50 household incomes (in $1000s) has sample median = 62.5. We want a 95% CI for the population median, without assuming a specific distribution. Use the nonparametric bootstrap with B = 2000 resamples. SOLUTION: Step 1 — compute the sample median on the original data: med_hat = 62.5. Step 2 — for b = 1,...,2000: draw a bootstrap sample of size 50 with replacement from the data; compute the bootstrap median med_hat*_b. After 2000 resamples, we have med_hat*_1, ..., med_hat*_2000. Suppose the sorted bootstrap medians have: 2.5th percentile = 56.8, 97.5th percentile = 69.2. (These are the empirical 50th and 1950th order statistics of the 2000 bootstrap medians.) Step 3 — PERCENTILE CI: [56.8, 69.2]. This is the simplest bootstrap CI. Step 4 — BASIC (pivotal) CI: [2*med_hat - q*_{0.975}, 2*med_hat - q*_{0.025}] = [2*62.5 - 69.2, 2*62.5 - 56.8] = [55.8, 68.2]. Slightly different from the percentile CI. Step 5 — BCa CI: requires computing z_0 (bias correction) and a (acceleration). Suppose z_0 = 0.05 (slight positive bias) and a = 0.02 (slight acceleration). The adjusted alpha levels: alpha_1 = Phi(0.05 + (0.05 + (-1.96))/(1 - 0.02*(0.05 + (-1.96)))) = Phi(0.05 + (-1.91)/(1 + 0.0372)) = Phi(0.05 + (-1.91)/1.0372) = Phi(0.05 - 1.842) = Phi(-1.792) = 0.0366. alpha_2 = Phi(0.05 + (0.05 + 1.96)/(1 - 0.02*(0.05 + 1.96))) = Phi(0.05 + 2.01/(1 - 0.0402)) = Phi(0.05 + 2.01/0.9598) = Phi(0.05 + 2.094) = Phi(2.144) = 0.9840. So the BCa CI uses the 3.66th and 98.40th percentiles of the bootstrap medians (instead of 2.5th and 97.5th). Suppose these are 57.3 and 70.1. BCa CI: [57.3, 70.1]. INTERPRETATION: we are 95% confident that the population median household income is between $57,300 and $70,100 (BCa). The three bootstrap CIs (percentile, basic, BCa) are close, differing by about $1-2k at the endpoints. The BCa is preferred for its second-order accuracy. WHY BOOTSTRAP (NOT t-INTERVAL): the median has no simple SE formula (the asymptotic SE is 1/(2 f(m) sqrt(n)) where f is the density at the median, which is unknown). The bootstrap avoids estimating f. The bootstrap also respects the skewness of the income distribution (incomes are right-skewed, so the CI is asymmetric, shifted slightly right). VALIDATION: check the bootstrap distribution for normality (QQ-plot); if highly non-normal, the percentile CI may have poor coverage, and BCa is essential.",
+      "topic": "ch08p8_worked_bootstrap_median",
+      "intent": "problem_solving",
+      "keywords": [
+        "worked problem",
+        "bootstrap",
+        "median",
+        "income",
+        "BCa",
+        "nonparametric"
+      ]
+    },
+    {
+      "question": "Worked example: Bayesian credible interval with Beta-Binomial.",
+      "answer": "PROBLEM: A clinical trial tests a new drug on n = 20 patients; X = 15 respond positively. Use a Jeffreys prior Beta(0.5, 0.5) for the response rate p. Compute the 95% Bayesian credible interval and compare to the frequentist Wilson interval. SOLUTION: Step 1 — posterior: with Jeffreys prior Beta(0.5, 0.5) and Binomial likelihood (20 trials, 15 successes), the posterior is Beta(alpha_post, beta_post) = Beta(0.5 + 15, 0.5 + 20 - 15) = Beta(15.5, 5.5). Step 2 — posterior summary: posterior mean = 15.5 / (15.5 + 5.5) = 15.5/21 = 0.738. Posterior mode = (15.5 - 1)/(15.5 + 5.5 - 2) = 14.5/19 = 0.763. Posterior SD = sqrt(15.5 * 5.5 / (21^2 * 22)) = sqrt(85.25 / 9702) = sqrt(0.00879) = 0.0938. Step 3 — equal-tailed 95% credible interval: the 2.5th and 97.5th percentiles of Beta(15.5, 5.5). From software or tables: lower = 0.549, upper = 0.885. So 95% credible CI = [0.549, 0.885]. INTERPRETATION (Bayesian): given the data and the Jeffreys prior, the probability that the true response rate p is between 0.549 and 0.885 is 0.95. This is a DIRECT probability statement about p (unlike the frequentist interpretation). Step 4 — HPD interval: since the Beta(15.5, 5.5) posterior is slightly skewed left (mode 0.763 > mean 0.738), the HPD is slightly shorter and shifted toward the mode. Numerically: HPD ~ [0.558, 0.892] (shorter by about 0.01). Step 5 — comparison with frequentist Wilson interval: the 95% Wilson score CI for p with X = 15, n = 20 is approximately [0.547, 0.882]. This is nearly identical to the Bayesian equal-tailed credible interval [0.549, 0.885]. The close agreement is expected: (a) Jeffreys prior is noninformative, so the Bayesian interval is dominated by the data; (b) for binomial proportions, the Jeffreys-prior Bayesian interval and the Wilson score interval have similar frequentist coverage. Step 6 — sensitivity to prior: with a uniform prior Beta(1, 1), the posterior is Beta(16, 6), 95% CI ~ [0.548, 0.890] (very similar). With an informative prior Beta(5, 5) (prior mean 0.5, prior sample size 10), the posterior is Beta(20, 10), 95% CI ~ [0.587, 0.864] — narrower and shifted toward 0.5 (the prior pulls toward 0.5). CONCLUSION: the Bayesian credible interval with Jeffreys prior is [0.549, 0.885], practically identical to the frequentist Wilson interval [0.547, 0.882]. The drug has an estimated response rate of 73.8% (posterior mean), with 95% credible interval 54.9% to 88.5%.",
+      "topic": "ch08p8_worked_bayesian_beta_binomial",
+      "intent": "problem_solving",
+      "keywords": [
+        "worked problem",
+        "Bayesian",
+        "Beta Binomial",
+        "Jeffreys prior",
+        "credible interval",
+        "clinical trial"
+      ]
+    },
+    {
+      "question": "Worked example: Tukey HSD simultaneous CIs for pairwise comparisons.",
+      "answer": "PROBLEM: An ANOVA compares 4 diets (A, B, C, D) on weight loss, with n = 10 subjects per diet (total N = 40). Group means: Ybar_A = 5.2, Ybar_B = 7.8, Ybar_C = 6.5, Ybar_D = 4.1. MSE = 4.0 (df_error = 36). Construct 95% family-wise simultaneous CIs for all 6 pairwise differences using Tukey HSD, and determine which pairs differ significantly. SOLUTION: Step 1 — there are k = 4 groups, df_error = 36. The studentized range critical value q_{4, 36, 0.95} ~ 3.81 (from tables). Step 2 — for equal sample sizes (n = 10 per group), the Tukey HSD simultaneous CI for mu_i - mu_j is: (Ybar_i - Ybar_j) +/- (q / sqrt(2)) * sqrt(MSE * (1/n_i + 1/n_j)) = (Ybar_i - Ybar_j) +/- (3.81/sqrt(2)) * sqrt(4.0 * (2/10)) = (Ybar_i - Ybar_j) +/- 2.694 * sqrt(0.8) = (Ybar_i - Ybar_j) +/- 2.694 * 0.894 = (Ybar_i - Ybar_j) +/- 2.409. Step 3 — compute all 6 pairwise differences and CIs: (a) B - A = 7.8 - 5.2 = 2.6, CI = [0.191, 5.009] (excludes 0, significant); (b) C - A = 6.5 - 5.2 = 1.3, CI = [-1.109, 3.709] (includes 0, not significant); (c) D - A = 4.1 - 5.2 = -1.1, CI = [-3.509, 1.309] (includes 0, not significant); (d) C - B = 6.5 - 7.8 = -1.3, CI = [-3.709, 1.109] (includes 0, not significant); (e) D - B = 4.1 - 7.8 = -3.7, CI = [-6.109, -1.291] (excludes 0, significant); (f) D - C = 4.1 - 6.5 = -2.4, CI = [-4.809, 0.009] (barely includes 0, not significant at 0.05). Step 4 — significant pairs (at family-wise 0.05): B vs A (B higher by 2.6, CI [0.19, 5.01]) and B vs D (B higher by 3.7, CI [1.29, 6.11]). Diet B produces significantly more weight loss than both A and D. The other pairs (C-A, D-A, C-B, D-C) are not significantly different after Tukey correction. Step 5 — comparison with Bonferroni: Bonferroni for m = 6 comparisons at family-wise 0.05 uses alpha/6 = 0.00833 per comparison, z ~ 2.638 (t with df 36 ~ 2.79). ME = 2.79 * sqrt(4*2/10) = 2.79 * 0.894 = 2.495 — WIDER than Tukey (2.409). So Tukey is less conservative (shorter intervals, more power) for all pairwise comparisons. INTERPRETATION: with 95% family-wise confidence, Diet B (mean 7.8) produces significantly greater weight loss than Diet A (5.2) by an estimated 2.6 units (95% CI [0.19, 5.01]) and than Diet D (4.1) by an estimated 3.7 units (95% CI [1.29, 6.11]). No other pairwise differences are statistically significant. NOTE: the overall F-test would reject (since at least one pair differs); the Tukey CIs identify WHICH pairs differ.",
+      "topic": "ch08p8_worked_tukey_hsd",
+      "intent": "problem_solving",
+      "keywords": [
+        "worked problem",
+        "Tukey HSD",
+        "simultaneous CI",
+        "pairwise comparison",
+        "ANOVA",
+        "diets"
+      ]
+    }
+  ]
+}
