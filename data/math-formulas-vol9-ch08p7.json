@@ -1,0 +1,668 @@
+{
+  "generatedAt": "2026-07-08T10:47:17.650Z",
+  "totalItems": 50,
+  "subject": "mathematics_formulas_volume_9_chapter_08_part_07",
+  "volume": "Volume 9 — Comprehensive Formula Encyclopedia, Chapter 8 Part 7 (Hypothesis Testing — Fundamentals Type I II Errors Power p-value, Neyman-Pearson Lemma & Most Powerful UMP Tests, Likelihood Ratio Test & Wilks Theorem, Wald Score & LRT Trinity, Specific Tests z t chi-sq F & Multiple Testing Bonferroni BH FDR, Sequential SPRT & Nonparametric Sign Wilcoxon Mann-Whitney KS Permutation Bootstrap, Worked Problems)",
+  "source": "TRIZA Generated Formula Dataset",
+  "language": "en",
+  "religionNeutral": true,
+  "items": [
+    {
+      "question": "What are the null and alternative hypotheses in hypothesis testing?",
+      "answer": "A statistical hypothesis is a statement about the parameters of a probability distribution. The NULL HYPOTHESIS (H_0) is the default or status-quo claim, typically representing \"no effect\", \"no difference\", or a specific value of the parameter. The ALTERNATIVE HYPOTHESIS (H_1 or H_a) is the claim the researcher wants to gather evidence for. Formally, for a parameter theta: H_0: theta in Theta_0 vs H_1: theta in Theta_1 = Theta \\ Theta_0. The two hypotheses partition the parameter space. Examples: (1) one-sided test H_0: mu <= mu_0 vs H_1: mu > mu_0; (2) two-sided test H_0: mu = mu_0 vs H_1: mu != mu_0; (3) goodness-of-fit H_0: data follows distribution F vs H_1: data does not. KEY PRINCIPLES: (a) H_0 always contains an equality (=, <=, >=) so that the distribution of the test statistic under H_0 is well-defined; (b) the alternative is what we hope to find evidence FOR — if we reject H_0, we conclude H_1; (c) failure to reject H_0 does NOT prove H_0 is true, only that there is insufficient evidence against it; (d) the burden of proof is on H_1 — we require strong evidence (small p-value) to reject H_0. Hypothesis testing is asymmetric: we control the Type I error rate (false positive, rejecting true H_0) at level alpha, but do not directly control the Type II error rate. The choice of H_0 vs H_1 is driven by the scientific question and the cost of errors — H_0 should be the \"safe\" default (innocent until proven guilty). One-sided alternatives (>, <) are used when only one direction of deviation is meaningful; two-sided (!=) when either direction matters. Composite hypotheses (e.g., mu <= mu_0) require the test to have size <= alpha for ALL theta in Theta_0 (supremum over the null space).",
+      "topic": "ch08p7_null_alternative_hypotheses",
+      "intent": "formula_recall",
+      "keywords": [
+        "null hypothesis",
+        "alternative hypothesis",
+        "H_0",
+        "H_1",
+        "parameter space"
+      ]
+    },
+    {
+      "question": "What are Type I and Type II errors in hypothesis testing?",
+      "answer": "In hypothesis testing there are two possible decisions (reject H_0 or fail to reject H_0) and two possible truths (H_0 true or H_0 false), giving a 2x2 table of outcomes: (1) TYPE I ERROR (false positive): reject H_0 when H_0 is TRUE. Probability = alpha = P(reject H_0 | H_0 true) = P(Type I). Also called the significance level or size of the test. (2) TYPE II ERROR (false negative): fail to reject H_0 when H_0 is FALSE. Probability = beta = P(fail to reject H_0 | H_1 true) = P(Type II). (3) CORRECT REJECTION (true positive): reject H_0 when H_0 is false; probability = 1 - beta = POWER of the test. (4) CORRECT NON-REJECTION (true negative): fail to reject when H_0 is true; probability = 1 - alpha. The two error types are in tension: decreasing alpha (stricter rejection threshold) generally increases beta (harder to detect true effects). Classical Neyman-Pearson framework FIXES alpha at a desired level (0.05, 0.01) and then seeks the test that minimizes beta (= maximizes power) among all tests of size alpha. The asymmetry reflects the scientific philosophy: a false positive (claiming an effect that does not exist) is considered more costly than a false negative (missing a real effect), because false positives propagate into the literature while false negatives can be corrected by larger studies. Example: testing a new drug, H_0: drug ineffective. Type I = approving a useless/harmful drug (bad). Type II = failing to approve an effective drug (also bad, but the drug can be re-tested). In medical screening the cost calculus may flip: Type I (false alarm, extra biopsy) may be cheaper than Type II (missed cancer). Trade-off curves: power = 1 - beta increases with (a) sample size n, (b) effect size |theta_1 - theta_0|, (c) alpha (higher significance level = easier to reject).",
+      "topic": "ch08p7_type1_type2_errors",
+      "intent": "formula_recall",
+      "keywords": [
+        "Type I error",
+        "Type II error",
+        "false positive",
+        "false negative",
+        "alpha",
+        "beta"
+      ]
+    },
+    {
+      "question": "What is the significance level alpha of a test?",
+      "answer": "The significance level alpha (also called the SIZE of the test) is the maximum probability of committing a Type I error (rejecting a true null hypothesis): alpha = sup_{theta in Theta_0} P_theta(reject H_0). For a simple null H_0: theta = theta_0, this is just P_{theta_0}(reject H_0). Common choices: alpha = 0.05 (most common, \"5% level\"), 0.01 (1%, \"highly significant\"), 0.10 (10%, exploratory). The test is said to have EXACT size alpha if the supremum equals alpha, and LEVEL alpha if it is at most alpha. Interpretation: if we were to repeat the experiment many times when H_0 is true, we would falsely reject H_0 in a fraction alpha of the replications. The choice of alpha reflects the cost of a false positive — lower alpha means stronger evidence required to reject. The CRITICAL VALUE c_alpha is the threshold such that P_{H_0}(test statistic > c_alpha) = alpha; we reject when the observed statistic exceeds c_alpha. For a two-sided z-test, c_{alpha/2} = z_{1-alpha/2} (the upper alpha/2 quantile of the standard normal). Relationship to p-value: we reject H_0 iff p-value <= alpha. The 0.05 convention (Fisher) is somewhat arbitrary — it became standard through Fisher's tables and force of habit; in practice alpha should depend on context (physics uses 5-sigma ~ 3x10^-7 for discoveries; social science often uses 0.05). Multiple testing inflates the family-wise error rate: with m independent tests at level alpha, FWER = 1 - (1-alpha)^m; Bonferroni correction tests each at alpha/m to keep FWER <= alpha. Note: alpha is set BEFORE seeing data; choosing alpha after seeing the p-value is p-hacking. The p-value is a continuous measure of evidence; the binary reject/fail-to-reject at level alpha is a decision-theoretic summary.",
+      "topic": "ch08p7_significance_level",
+      "intent": "formula_recall",
+      "keywords": [
+        "significance level",
+        "alpha",
+        "size of test",
+        "critical value",
+        "Type I error rate"
+      ]
+    },
+    {
+      "question": "What is the power of a hypothesis test?",
+      "answer": "The POWER of a test is the probability of correctly rejecting a false null hypothesis: power(theta) = P_theta(reject H_0) for theta in Theta_1 (the alternative space). Power = 1 - beta(theta) where beta is the Type II error probability at theta. Power is a FUNCTION of the true parameter theta (not a single number): it varies across the alternative. At theta = theta_0 (boundary), power = alpha (the test's size). As theta moves deeper into the alternative (further from H_0), power increases toward 1. Properties: (1) power is monotone increasing in |theta - theta_0| for one-sided tests; (2) power increases with sample size n (more data = easier to detect); (3) power increases with alpha (looser rejection threshold = easier to reject, but more Type I errors); (4) power increases with effect size (larger true deviation from H_0 is easier to detect); (5) power decreases with noise variance sigma^2. Power analysis for sample-size planning: for a one-sample z-test of H_0: mu = mu_0 vs mu > mu_0, with true mu = mu_1 > mu_0, desired power 1 - beta at level alpha, the required sample size is n = ((z_{1-alpha} + z_{1-beta}) sigma / (mu_1 - mu_0))^2. Example: detect a shift of 0.5 sigma with 80% power at alpha=0.05 one-sided: n = ((1.645 + 0.842) / 0.5)^2 = (4.974)^2 = 24.7 -> 25 observations. Power curves plot power(theta) vs theta and are used to compare tests (a uniformly more powerful test is preferred). The MOST POWERFUL test at a specific theta_1 is the test with highest power at theta_1 among all level-alpha tests; a UNIFORMLY MOST POWERFUL (UMP) test is most powerful at every theta in Theta_1. UMP tests exist only in special cases (monotone likelihood ratio families for one-sided alternatives). Power is the key metric for experimental design — an underpowered study (low power) is unlikely to detect real effects and wastes resources.",
+      "topic": "ch08p7_power_of_test",
+      "intent": "formula_recall",
+      "keywords": [
+        "power",
+        "1 minus beta",
+        "Type II error",
+        "power curve",
+        "sample size planning"
+      ]
+    },
+    {
+      "question": "What is a test statistic and how is the critical region determined?",
+      "answer": "A TEST STATISTIC T(X_1,...,X_n) is a function of the sample used to decide between H_0 and H_1. It summarizes the evidence in the data relevant to the hypotheses. A test is specified by a CRITICAL REGION (rejection region) C: reject H_0 if (X_1,...,X_n) in C. The critical region is chosen so that P_{H_0}(C) = alpha (size constraint) and P_{H_1}(C) is as large as possible (maximize power). The critical region is often expressed via the test statistic: reject if T > c_alpha (upper-tail), T < c_alpha (lower-tail), or |T| > c_{alpha/2} (two-tailed), where c_alpha is the critical value satisfying P_{H_0}(T > c_alpha) = alpha. Constructing a good test statistic: (1) likelihood ratio T = L(theta_1)/L(theta_0) (Neyman-Pearson); (2) Wald statistic T = (theta_hat - theta_0)/SE(theta_hat); (3) score statistic T = U(theta_0)/sqrt(I(theta_0)); (4) intuitive / method-of-moments statistics like Xbar for mu. The distribution of T under H_0 must be known (exactly or asymptotically) to compute the critical value. Exact null distributions: t-distribution (for t-test), chi-squared (for goodness-of-fit), F (for variance ratio). Asymptotic null distributions (large n): N(0,1) for Wald/Score/LRT by CLT and Wilks' theorem. The critical region is determined by the alternative: for H_1: theta > theta_0, reject for LARGE T (upper tail); for H_1: theta < theta_0, reject for SMALL T (lower tail); for H_1: theta != theta_0, reject for |T| LARGE (two tails, splitting alpha/2 each side). The choice of test statistic is not unique — different statistics yield different tests with different power properties. The OPTIMAL test statistic (maximizing power at a fixed theta_1) is given by the Neyman-Pearson lemma as the likelihood ratio.",
+      "topic": "ch08p7_test_statistic_critical_region",
+      "intent": "formula_recall",
+      "keywords": [
+        "test statistic",
+        "critical region",
+        "rejection region",
+        "critical value",
+        "null distribution"
+      ]
+    },
+    {
+      "question": "What is a p-value and how is it interpreted?",
+      "answer": "The p-value is the probability, under the null hypothesis, of observing a test statistic at least as extreme as the one actually observed, in the direction of the alternative. Formally, for observed test statistic t_obs: p-value = P_{H_0}(T >= t_obs) for an upper-tail test, P_{H_0}(T <= t_obs) for lower-tail, or 2 * min(P(T >= |t_obs|), P(T <= -|t_obs|)) for two-sided. The p-value is a RANDOM VARIABLE (function of the random sample) with Uniform(0,1) distribution under H_0 (continuous case). Interpretation: (a) SMALL p-value = observed data is UNLIKELY under H_0 = evidence AGAINST H_0; (b) we reject H_0 at level alpha iff p-value <= alpha; (c) the p-value is NOT the probability that H_0 is true (a common misconception) — it is the probability of the data (or more extreme) given H_0; (d) the p-value is NOT the probability that the result is due to chance. Common misuses: (1) treating p = 0.051 as \"no effect\" and p = 0.049 as \"significant\" — the dichotomy loses information; (2) p-hacking — running many analyses and reporting only significant p-values; (3) conflating statistical significance (small p) with practical significance (large effect size). The p-value depends on: sample size (large n -> tiny p-values even for trivial effects), effect size, and the choice of test. Reporting: APA style recommends reporting exact p-values (p = 0.023, not p < 0.05) along with effect sizes and confidence intervals. ASA Statement on p-values (2016) emphasized: p-values measure incompatibility with H_0 but do not measure effect size, importance, or the probability that H_0 is true; scientific conclusions should not be based solely on a p-value threshold. The p-value is a continuous measure of evidence against H_0, with smaller values indicating stronger evidence.",
+      "topic": "ch08p7_p_value_definition",
+      "intent": "formula_recall",
+      "keywords": [
+        "p-value",
+        "significance",
+        "evidence against null",
+        " ASA statement",
+        "p-hacking"
+      ]
+    },
+    {
+      "question": "What is the difference between one-sided and two-sided tests?",
+      "answer": "A ONE-SIDED (directional) test has an alternative hypothesis specifying a single direction: H_1: theta > theta_0 (upper-tail) or H_1: theta < theta_0 (lower-tail). We reject H_0 for large (or small) values of the test statistic. Critical region: T > c_alpha (upper) or T < -c_alpha (lower), where c_alpha = z_{1-alpha} for the z-test. A TWO-SIDED (non-directional) test has H_1: theta != theta_0 (either direction). We reject H_0 for extreme values in EITHER tail: |T| > c_{alpha/2}, i.e., T > z_{1-alpha/2} or T < -z_{1-alpha/2}. Comparison: (a) for the same alpha, the one-sided test has MORE POWER in its specified direction (uses the full alpha in one tail instead of splitting alpha/2 each side); (b) but the one-sided test has ZERO power in the opposite direction (cannot detect effects in the \"wrong\" way); (c) the two-sided test is more conservative but detects effects in both directions. When to use which: use ONE-SIDED when (i) only one direction of deviation is scientifically meaningful (e.g., a drug can only help, not hurt), (ii) you have a strong a priori directional prediction. Use TWO-SIDED when (i) either direction would be interesting, (ii) there is no strong prior directional prediction — the default in most scientific research. Common pitfall: choosing a one-sided test AFTER seeing the data direction is p-hacking (inflates Type I error). Example: z-test for mu, alpha = 0.05. One-sided upper: reject if z_obs > 1.645. Two-sided: reject if |z_obs| > 1.96. For an observed z = 1.8: one-sided p = 0.036 (reject at 0.05), two-sided p = 0.072 (fail to reject). The two-sided p-value is (almost always) twice the one-sided p-value in the observed direction. Reporting: pre-register the sidedness; justify one-sided tests explicitly.",
+      "topic": "ch08p7_one_sided_two_sided",
+      "intent": "formula_recall",
+      "keywords": [
+        "one-sided test",
+        "two-sided test",
+        "directional test",
+        "critical region",
+        "alternative hypothesis"
+      ]
+    },
+    {
+      "question": "What is the duality between confidence intervals and hypothesis tests?",
+      "answer": "There is a fundamental DUALITY between confidence intervals (CIs) and two-sided hypothesis tests: a 1-alpha confidence interval for theta consists of exactly those values theta_0 for which the two-sided test of H_0: theta = theta_0 (at level alpha) would FAIL to reject. Equivalently: the 1-alpha CI excludes theta_0 iff the two-sided level-alpha test of H_0: theta = theta_0 REJECTS. Formal statement: Let C(X) be a 1-alpha confidence set and let A(theta_0) be the acceptance region of the level-alpha test of H_0: theta = theta_0. Duality: theta_0 in C(X) iff X in A(theta_0). Proof: both are defined by the same event |T(X) - theta_0| <= c. Construction: invert the test — collect all theta_0 not rejected by the test. Example (z-test): the two-sided level-alpha z-test of H_0: mu = mu_0 rejects iff |Xbar - mu_0| / (sigma/sqrt(n)) > z_{1-alpha/2}, i.e., mu_0 not in (Xbar - z_{1-alpha/2} sigma/sqrt(n), Xbar + z_{1-alpha/2} sigma/sqrt(n)). This interval is exactly the 1-alpha CI for mu. For ONE-SIDED tests the duality gives one-sided CIs: the level-alpha upper-tail test of H_0: mu <= mu_0 (reject for Xbar large) inverts to the lower 1-alpha confidence bound mu > Xbar - z_{1-alpha} sigma/sqrt(n). Implications: (1) if the 95% CI contains the null value, the two-sided test at alpha=0.05 fails to reject; (2) if the 95% CI excludes the null value, the test rejects; (3) the p-value can be read off from the CI: it is the smallest alpha for which the 1-alpha CI just barely excludes theta_0. Advantages of CI over test: the CI gives a RANGE of plausible values (effect size + precision), while the test only gives a binary decision. Modern statistical practice favors reporting CIs (and effect sizes) over bare p-values. Note: the duality is exact for two-sided tests; for one-sided tests use one-sided CIs. Also, the duality holds for ANY invertible test, not just z-tests (t-test, chi-squared, F-test all have corresponding CIs).",
+      "topic": "ch08p7_ci_test_duality",
+      "intent": "formula_recall",
+      "keywords": [
+        "confidence interval",
+        "hypothesis test",
+        "duality",
+        "inverting a test",
+        "acceptance region"
+      ]
+    },
+    {
+      "question": "What is the Neyman-Pearson fundamental lemma?",
+      "answer": "The NEYMAN-PEARSON (NP) LEMMA is the foundational result of hypothesis testing. It characterizes the MOST POWERFUL (MP) test for a SIMPLE null H_0: theta = theta_0 vs a SIMPLE alternative H_1: theta = theta_1, at significance level alpha. Statement: The most powerful level-alpha test has the form: reject H_0 if L(theta_1 | X) / L(theta_0 | X) > k, where k > 0 is chosen so that P_{theta_0}(L(theta_1)/L(theta_0) > k) = alpha. (With randomization at the boundary to achieve exactly alpha if the statistic is discrete.) Here L(theta | X) = f(X | theta) is the likelihood. Intuitively: reject H_0 when the data is much more likely under H_1 than under H_0. The likelihood ratio Lambda = L(theta_1)/L(theta_0) is the optimal test statistic. PROOF SKETCH: Let phi(X) be the indicator of the rejection region (phi=1 means reject). We want to maximize E_{theta_1}[phi] subject to E_{theta_0}[phi] = alpha. For any level-alpha test phi' (with E_{theta_0}[phi'] <= alpha), consider the NP test phi*. The difference in power: E_{theta_1}[phi*] - E_{theta_1}[phi'] = integral (phi* - phi') f_{theta_1} = integral (phi* - phi') (f_{theta_1}/f_{theta_0}) f_{theta_0}. On the region where phi*=1, phi'<=1, and f_{theta_1}/f_{theta_0} > k, so (phi* - phi') >= 0 weighted by >k. On the region where phi*=0, phi'>=0 and f_{theta_1}/f_{theta_0} <= k, so (phi* - phi') <= 0 weighted by <=k. Combining, the integral is >= k (E_{theta_0}[phi*] - E_{theta_0}[phi']) >= k(alpha - alpha) = 0. Hence phi* is most powerful. KEY POINTS: (1) the MP test at theta_1 may not be MP at a different theta_1' (no UMP for simple-vs-simple in general); (2) the test is unique up to sets of probability zero; (3) for discrete distributions, randomization at the boundary L(theta_1)/L(theta_0) = k may be needed to hit alpha exactly; (4) the lemma extends to composite alternatives via the monotone likelihood ratio (giving UMP one-sided tests). The NP lemma is the theoretical justification for likelihood-ratio-based testing.",
+      "topic": "ch08p7_neyman_pearson_lemma",
+      "intent": "formula_recall",
+      "keywords": [
+        "Neyman-Pearson lemma",
+        "most powerful test",
+        "likelihood ratio",
+        "simple hypothesis",
+        "optimality"
+      ]
+    },
+    {
+      "question": "What is the most powerful test for a simple vs simple hypothesis?",
+      "answer": "Given H_0: theta = theta_0 vs H_1: theta = theta_1 (both simple), the Neyman-Pearson lemma gives the most powerful (MP) level-alpha test: reject H_0 when the likelihood ratio LR = L(theta_1 | X) / L(theta_0 | X) > k, where k is chosen so P_{theta_0}(LR > k) = alpha. WORKED EXAMPLE — normal mean, known variance: X_1,...,X_n iid N(mu, sigma^2), sigma known. H_0: mu = mu_0 vs H_1: mu = mu_1 (mu_1 > mu_0). The likelihood ratio: LR = exp[-sum(X_i - mu_1)^2/(2 sigma^2) + sum(X_i - mu_0)^2/(2 sigma^2)] = exp[(mu_1 - mu_0) sum X_i / sigma^2 - n(mu_1^2 - mu_0^2)/(2 sigma^2)]. Since mu_1 > mu_0, LR is an increasing function of sum X_i (equivalently of Xbar). So reject when Xbar > c, where c = mu_0 + z_{1-alpha} sigma/sqrt(n). This is the upper-tailed z-test. WORKED EXAMPLE — Bernoulli: X_1,...,X_n iid Bernoulli(p). H_0: p = p_0 vs H_1: p = p_1 (p_1 > p_0). LR = (p_1/p_0)^{sum X_i} ((1-p_1)/(1-p_0))^{n - sum X_i}, which is increasing in sum X_i (since p_1 > p_0). Reject when sum X_i >= k, with k the smallest integer such that P_{p_0}(Binomial(n, p_0) >= k) <= alpha. May need randomization at the boundary to hit alpha exactly. WORKED EXAMPLE — exponential rate: X_1,...,X_n iid Exp(lambda). H_0: lambda = lambda_0 vs H_1: lambda = lambda_1 (lambda_1 > lambda_0). LR = (lambda_1/lambda_0)^n exp(-(lambda_1 - lambda_0) sum X_i), decreasing in sum X_i (since lambda_1 > lambda_0). Reject when sum X_i < c. The MP test for simple vs simple is always a likelihood-ratio test; the threshold k is determined by the null distribution of the LR statistic. Note: the MP test at theta_1 generally depends on theta_1 (different theta_1 -> different threshold), so there is no single UMP test against a composite alternative unless the family has a monotone likelihood ratio.",
+      "topic": "ch08p7_mp_test_simple",
+      "intent": "formula_recall",
+      "keywords": [
+        "most powerful test",
+        "simple vs simple",
+        "likelihood ratio",
+        "normal mean test",
+        "Bernoulli test"
+      ]
+    },
+    {
+      "question": "What is a monotone likelihood ratio and when do UMP one-sided tests exist?",
+      "answer": "A family of distributions {f(x | theta) : theta in Theta} (theta real-valued) has a MONOTONE LIKELIHOOD RATIO (MLR) in statistic T(X) if, for any theta_1 > theta_0, the likelihood ratio f(x | theta_1)/f(x | theta_0) is a NONDECREASING function of T(x) (independent of theta_0, theta_1 as long as theta_1 > theta_0). Intuitively: as theta increases, the distribution of T shifts to the right. Examples: (1) N(mu, sigma^2) with sigma known has MLR in T = Xbar; (2) Bernoulli(p) has MLR in T = sum X_i; (3) Poisson(lambda) has MLR in T = sum X_i; (4) Exponential(lambda) has MLR in T = -sum X_i (or decreasing in sum X_i); (5) Gamma(alpha, beta) with alpha known has MLR in T = sum X_i; (6) Binomial(n, p) has MLR in T = sum X_i; (7) Uniform(0, theta) has MLR in T = max X_i. THEOREM (Karlin-Rubin): If the family has MLR in T(X), then for testing H_0: theta <= theta_0 vs H_1: theta > theta_0, the test that rejects for T > c (where P_{theta_0}(T > c) = alpha) is UNIFORMLY MOST POWERFUL (UMP) at level alpha. Similarly, for H_0: theta >= theta_0 vs H_1: theta < theta_0, reject for T < c. The UMP property: for EVERY theta_1 > theta_0, this test has the highest power among all level-alpha tests. PROOF IDEA: by MLR, for any theta_1 > theta_0, the NP most powerful test against the simple theta_1 rejects for T > c(theta_1) — but MLR makes c(theta_1) = c independent of theta_1 (the same threshold works for all theta_1). Hence the same test is MP for every theta_1 > theta_0, i.e., UMP. LIMITATION: UMP tests generally do NOT exist for TWO-SIDED alternatives H_1: theta != theta_0 (the test that is MP for theta > theta_0 is different from the one MP for theta < theta_0). For two-sided tests we instead seek UMP UNBIASED (UMPU) tests. MLR is a strong structural property — it holds for one-parameter exponential families (where T is the natural sufficient statistic) but not for arbitrary families.",
+      "topic": "ch08p7_mlr_ump_one_sided",
+      "intent": "formula_recall",
+      "keywords": [
+        "monotone likelihood ratio",
+        "MLR",
+        "Karlin-Rubin theorem",
+        "UMP one-sided test",
+        "exponential family"
+      ]
+    },
+    {
+      "question": "What is the Karlin-Rubin theorem?",
+      "answer": "The KARLIN-RUBIN THEOREM provides sufficient conditions for the existence of a UNIFORMLY MOST POWERFUL (UMP) test for one-sided hypotheses. Statement: Let X_1,...,X_n have joint density f(x | theta) (theta real). Suppose the family has a MONOTONE LIKELIHOOD RATIO (MLR) in a statistic T(X): for theta_1 > theta_0, the ratio f(x | theta_1)/f(x | theta_0) is nondecreasing in T(x). Then for testing H_0: theta <= theta_0 vs H_1: theta > theta_0, the test phi(X) = 1{T(X) > c} (reject for T > c) with P_{theta_0}(T > c) = alpha is UMP level alpha. Symmetrically, for H_0: theta >= theta_0 vs H_1: theta < theta_0, the test rejecting for T < c is UMP. SIGNIFICANCE: (1) The test does NOT depend on the specific theta_1 in the alternative — the same threshold c works for all theta_1 > theta_0, hence \"uniformly\" most powerful. (2) The MLR condition is satisfied by all one-parameter exponential families f(x|theta) = h(x) exp{eta(theta) T(x) - A(theta)} with eta increasing — so for these families, UMP one-sided tests always exist. (3) The theorem gives a clean, optimal test for the common one-sided testing problem. EXAMPLES: (a) Normal N(mu, sigma^2) with sigma known, MLR in Xbar: UMP test of H_0: mu <= mu_0 vs mu > mu_0 rejects for Xbar > mu_0 + z_{1-alpha} sigma/sqrt(n). (b) Bernoulli(p): MLR in sum X_i; UMP test rejects for sum X_i > k. (c) Poisson(lambda): UMP test rejects for sum X_i > k. (d) Exponential(lambda): MLR in -sum X_i (so decreasing in sum X_i); for H_0: lambda >= lambda_0 vs H_1: lambda < lambda_0, UMP test rejects for sum X_i > c. CAVEAT: Karlin-Rubin does NOT apply to two-sided alternatives H_1: theta != theta_0 — for those, UMP tests generally do not exist, and we seek UMP UNBIASED (UMPU) tests instead. The theorem is one of the cornerstones of classical testing theory; it characterizes when the \"obvious\" one-sided test (reject for large T) is provably optimal.",
+      "topic": "ch08p7_karlin_rubin_theorem",
+      "intent": "formula_recall",
+      "keywords": [
+        "Karlin-Rubin theorem",
+        "UMP test",
+        "monotone likelihood ratio",
+        "one-sided test",
+        "exponential family"
+      ]
+    },
+    {
+      "question": "What is a UMP unbiased (UMPU) test?",
+      "answer": "A test phi is UNBIASED at level alpha if its power is at least alpha everywhere in the alternative: power(theta) = E_theta[phi] >= alpha for all theta in Theta_1. Equivalently, the test detects false nulls at least as well as pure chance (alpha). A UNIFORMLY MOST POWERFUL UNBIASED (UMPU) test is the most powerful among all UNBIASED level-alpha tests: for every theta in Theta_1, it has power >= that of any other unbiased level-alpha test. Why unbiasedness? For TWO-SIDED alternatives H_1: theta != theta_0, UMP tests generally DO NOT EXIST — the test most powerful for theta > theta_0 (reject for large T) is different from the one most powerful for theta < theta_0 (reject for small T), and no single test is best for both directions. Restricting to unbiased tests excludes tests that sacrifice power in one direction to gain it in the other, yielding a well-defined optimum. EXAMPLE: Normal mean, known variance. H_0: mu = mu_0 vs H_1: mu != mu_0. The UMPU test rejects for |Xbar - mu_0| / (sigma/sqrt(n)) > z_{1-alpha/2}, i.e., the standard two-sided z-test. It is UMP among unbiased tests: any unbiased test must have power >= alpha at mu = mu_0, and the two-sided z-test maximizes power at each mu != mu_0 subject to this constraint. UMPU tests exist for: (1) one-parameter exponential families, two-sided alternatives (use the two-tailed test based on the natural sufficient statistic); (2) multi-parameter exponential families with nuisance parameters (use conditional / similar tests); (3) linear models (F-tests are UMPU among invariant tests). UMPU tests may not exist for arbitrary problems — then we fall back to LRT, Wald, Score, or Bayesian methods. The concept extends to UMP INVARIANT tests (restrict to tests invariant under a group of transformations) and UMP SIMILAR tests (tests with power exactly alpha on the boundary of H_0). Unbiasedness is a mild and natural restriction — an unbiased test is \"sensible\" in that it does better than chance at detecting real effects.",
+      "topic": "ch08p7_umpu_test",
+      "intent": "formula_recall",
+      "keywords": [
+        "UMPU",
+        "UMP unbiased",
+        "unbiased test",
+        "two-sided test",
+        "nuisance parameter"
+      ]
+    },
+    {
+      "question": "What is the UMP test for the normal mean with known variance?",
+      "answer": "Setup: X_1,...,X_n iid N(mu, sigma^2), sigma^2 KNOWN. Test H_0: mu = mu_0 vs H_1: mu != mu_0 (two-sided) or vs H_1: mu > mu_0 (one-sided). The sufficient statistic Xbar ~ N(mu, sigma^2/n). The family has MLR in Xbar. ONE-SIDED (UMP by Karlin-Rubin): H_0: mu <= mu_0 vs H_1: mu > mu_0. Reject for Xbar > c, where P_{mu_0}(Xbar > c) = alpha -> c = mu_0 + z_{1-alpha} sigma/sqrt(n). Equivalently, reject for Z = (Xbar - mu_0)/(sigma/sqrt(n)) > z_{1-alpha}. This is UMP level alpha — for every mu_1 > mu_0, this test has the highest power among all level-alpha tests. Power at mu_1: power(mu_1) = P_{mu_1}(Z > z_{1-alpha}) = P(N(0,1) > z_{1-alpha} - (mu_1 - mu_0) sqrt(n)/sigma) = 1 - Phi(z_{1-alpha} - (mu_1 - mu_0) sqrt(n)/sigma). For the lower-tail H_0: mu >= mu_0 vs H_1: mu < mu_0, reject for Z < -z_{1-alpha}. TWO-SIDED (UMPU, NOT UMP): H_0: mu = mu_0 vs H_1: mu != mu_0. The UMPU test rejects for |Z| > z_{1-alpha/2}. It is UMP among UNBIASED tests but not UMP overall (no UMP exists for two-sided). Power at mu_1 != mu_0: power(mu_1) = P(|Z| > z_{1-alpha/2}) = P(Z > z_{1-alpha/2}) + P(Z < -z_{1-alpha/2}) = 1 - Phi(z_{1-alpha/2} - delta) + Phi(-z_{1-alpha/2} - delta), where delta = (mu_1 - mu_0) sqrt(n)/sigma. SAMPLE SIZE for desired power: one-sided, n = ((z_{1-alpha} + z_{1-beta}) sigma / (mu_1 - mu_0))^2. KNOWN VS UNKNOWN VARIANCE: if sigma^2 is unknown, replace with sample variance S^2 and use the t-test (t_{n-1} distribution) — the t-test is UMPU among unbiased tests for the unknown-variance normal mean. The z-test with known variance is the canonical example of an optimal test and the foundation for understanding power, sample size, and the Neyman-Pearson framework.",
+      "topic": "ch08p7_ump_normal_mean",
+      "intent": "formula_recall",
+      "keywords": [
+        "UMP test",
+        "normal mean",
+        "z-test",
+        "known variance",
+        "power function"
+      ]
+    },
+    {
+      "question": "When do UMP tests exist and when do they fail to exist?",
+      "answer": "UMP (Uniformly Most Powerful) tests exist in RESTRICTED settings but FAIL in the most common practical scenarios. EXISTENCE: (1) ONE-SIDED tests in MLR families (Karlin-Rubin): if f(x|theta) has MLR in T, then H_0: theta <= theta_0 vs H_1: theta > theta_0 has a UMP test (reject for T large). Covers one-parameter exponential families: normal mean (known var), Bernoulli p, Poisson lambda, exponential rate, gamma with known shape. (2) Simple vs simple (Neyman-Pearson): always has a MP test (not \"uniform\" since alternative is a single point). (3) Some special composite cases via invariance arguments. NON-EXISTENCE: (1) TWO-SIDED tests H_1: theta != theta_0 — the MP test for theta > theta_0 (upper-tail) differs from the MP test for theta < theta_0 (lower-tail); no single test dominates both. Solution: restrict to UNBIASED tests -> UMPU exists (e.g., two-sided z-test, t-test, chi-squared). (2) MULTI-PARAMETER problems with NUISANCE PARAMETERS — e.g., testing H_0: mu = mu_0 when sigma^2 is unknown (both parameters of normal). Solution: conditional/similar tests, or UMPU among invariant tests (t-test is UMPU invariant). (3) BEHAVIORAL / nonparametric settings — no parametric family to exploit. Solution: distribution-free tests (sign, rank), asymptotic tests (Wald, Score, LRT). WHY IT MATTERS: when no UMP exists, we must choose among reasonable but non-optimal tests. Criteria: unbiasedness (UMPU), invariance (UMPI), asymptotic efficiency (Wald/Score/LRT all efficient), robustness, simplicity. The LRT (Wilks) is a popular default because it is broadly applicable, asymptotically optimal, and has good finite-sample properties in exponential families. PRACTICAL TAKEAWAY: for one-sided tests in standard one-parameter families, use the UMP test (Karlin-Rubin). For two-sided tests, use the UMPU two-tailed version. For multi-parameter or nuisance-parameter problems, use LRT / Wald / Score (asymptotically equivalent and efficient). For nonparametric settings, use rank/sign/permutation tests or bootstrap.",
+      "topic": "ch08p7_ump_existence",
+      "intent": "formula_recall",
+      "keywords": [
+        "UMP existence",
+        "UMP unbiased",
+        "nuisance parameter",
+        "two-sided test",
+        "Karlin-Rubin"
+      ]
+    },
+    {
+      "question": "What is the generalized likelihood ratio test (LRT)?",
+      "answer": "The GENERALIZED LIKELIHOOD RATIO TEST (LRT) extends the Neyman-Pearson likelihood-ratio idea to COMPOSITE hypotheses (where one or both of H_0, H_1 contain multiple parameter values). Setup: H_0: theta in Theta_0 vs H_1: theta in Theta_1 = Theta \\ Theta_0. The LRT statistic is Lambda(X) = sup_{theta in Theta_0} L(theta | X) / sup_{theta in Theta} L(theta | X) = L(theta_hat_0 | X) / L(theta_hat | X), where theta_hat_0 is the MLE restricted to Theta_0 and theta_hat is the unrestricted MLE. Note 0 <= Lambda <= 1 (the numerator is a constrained supremum, the denominator unconstrained). The LRT REJECTS H_0 when Lambda is SMALL: Lambda <= c, where c is chosen so P_{H_0}(Lambda <= c) = alpha. Intuition: if H_0 is true, the constrained MLE should be nearly as good as the unrestricted MLE (Lambda close to 1); if H_0 is false, the unrestricted MLE fits substantially better (Lambda much smaller than 1). RATIONALE: (1) for simple vs simple, LRT reduces to the NP most-powerful test; (2) for composite H_0, taking the supremum over Theta_0 handles the nuisance — we use the best-fitting H_0 parameter; (3) LRT is invariant under reparameterization; (4) Wilks' theorem gives the asymptotic null distribution: -2 log Lambda ->^D chi-squared_p, where p = dim(Theta) - dim(Theta_0) is the number of restrictions being tested. EXAMPLE: H_0: mu = mu_0 vs H_1: mu != mu_0 in N(mu, sigma^2) with sigma unknown. theta_hat_0 = (mu_0, sigma_hat_0^2) where sigma_hat_0^2 = (1/n) sum(X_i - mu_0)^2; theta_hat = (Xbar, S_MLE^2) where S_MLE^2 = (1/n) sum(X_i - Xbar)^2. Lambda = (S_MLE^2 / sigma_hat_0^2)^{n/2} = (1 + t^2/(n-1))^{-n/2}, where t = sqrt(n)(Xbar - mu_0)/S. So LRT rejects for large |t| — equivalent to the two-sided t-test. The LRT is a general-purpose testing framework applicable whenever MLEs can be computed; it is the most widely used test in modern statistics.",
+      "topic": "ch08p7_lrt_definition",
+      "intent": "formula_recall",
+      "keywords": [
+        "likelihood ratio test",
+        "LRT",
+        "composite hypothesis",
+        "constrained MLE",
+        "Wilks theorem"
+      ]
+    },
+    {
+      "question": "What is Wilks' theorem on the asymptotic distribution of the LRT?",
+      "answer": "WILKS' THEOREM (1938): Under regularity conditions, if H_0: theta in Theta_0 (dim = d_0) is true and theta is identifiable, then as n -> infinity, -2 log Lambda_n ->^D chi-squared_{p}, where p = d - d_0 = (dimension of full parameter space) - (dimension of Theta_0) is the number of independent restrictions imposed by H_0. Here Lambda_n = L(theta_hat_0)/L(theta_hat) is the generalized LRT statistic. The test rejects H_0 when -2 log Lambda_n > chi-squared_{p, 1-alpha} (the upper alpha quantile of chi-squared_p). REGULARITY CONDITIONS (sketch): (1) the true theta_0 is an interior point of Theta; (2) the model is identifiable and the log-likelihood is smooth (3x differentiable); (3) the Fisher information is finite and nonsingular; (4) H_0 is a smooth submanifold (can be expressed as g(theta) = 0 with g of full rank); (5) the MLE is consistent and asymptotically normal. INTUITION: under H_0, the constrained and unconstrained MLEs are both consistent for the true theta, so their log-likelihood difference is small (O_p(1)); scaled by -2, this difference converges to a chi-squared. Under H_1 (fixed alternative), the unconstrained MLE fits substantially better, and -2 log Lambda grows linearly in n, so the test has power -> 1. EXAMPLES: (a) testing p independent restrictions, chi-squared_p reference; (b) testing H_0: mu = mu_0 in N(mu, sigma^2) (p=1 since sigma is free, mu restricted to a point -> 2 - 1 = 1), chi-squared_1; (c) testing H_0: mu_1 = mu_2 in two-sample normals (p=1), chi-squared_1; (d) testing H_0: all coefficients zero in a linear regression with k regressors (p = k), chi-squared_k. CAVEATS: (1) the chi-squared approximation can be poor for small n or when the MLE is near the boundary of Theta (boundary cases: Self-Liang, mixtures); (2) Bartlett correction improves accuracy by rescaling -2 log Lambda by a factor (1 + b/n); (3) for non-nested models, Wilks does not apply directly — use Vuong's test. Wilks' theorem makes the LRT computationally attractive: no need to derive exact finite-sample null distributions; just compute -2 log Lambda and compare to chi-squared.",
+      "topic": "ch08p7_wilks_theorem",
+      "intent": "formula_recall",
+      "keywords": [
+        "Wilks theorem",
+        "asymptotic distribution",
+        "chi-squared",
+        "LRT",
+        "regularity conditions"
+      ]
+    },
+    {
+      "question": "What is the LRT for the normal mean with unknown variance?",
+      "answer": "Setup: X_1,...,X_n iid N(mu, sigma^2), both mu and sigma^2 unknown. Test H_0: mu = mu_0 vs H_1: mu != mu_0. Full parameter space Theta = R x R_+, dim = 2. Null space Theta_0 = {mu_0} x R_+, dim = 1. So p = 2 - 1 = 1 restriction. UNRESTRICTED MLE: theta_hat = (Xbar, S_MLE^2) where S_MLE^2 = (1/n) sum(X_i - Xbar)^2. CONSTRAINED MLE (under H_0): theta_hat_0 = (mu_0, sigma_hat_0^2) where sigma_hat_0^2 = (1/n) sum(X_i - mu_0)^2. LRT STATISTIC: Lambda = L(theta_hat_0)/L(theta_hat) = (S_MLE^2 / sigma_hat_0^2)^{n/2} (the ratio of maximized likelihoods; only the sigma terms differ since the mu term integrates out the same way). Note sigma_hat_0^2 = S_MLE^2 + (Xbar - mu_0)^2 (expand sum(X_i - mu_0)^2 = sum(X_i - Xbar + Xbar - mu_0)^2 = sum(X_i - Xbar)^2 + n(Xbar - mu_0)^2). So sigma_hat_0^2 / S_MLE^2 = 1 + n(Xbar - mu_0)^2 / sum(X_i - Xbar)^2 = 1 + t^2/(n-1), where t = sqrt(n)(Xbar - mu_0)/S (S = sqrt(sum(X_i - Xbar)^2/(n-1)) is the unbiased SD). Hence Lambda = (1 + t^2/(n-1))^{-n/2}, a decreasing function of |t|. The LRT rejects for large |t|: |t| > t_{n-1, 1-alpha/2}, which is EXACTLY THE TWO-SIDED T-TEST. This shows the LRT coincides with the t-test for the normal mean. FINITE-SAMPLE null distribution: t ~ t_{n-1} under H_0 (exact). ASYMPTOTIC (Wilks): -2 log Lambda = n log(1 + t^2/(n-1)) ->^D chi-squared_1 (since for large n, log(1+x) approx x and t^2 -> chi-squared_1). The exact t-test is preferred for small samples; the Wilks chi-squared approximation is used for large n or in more complex settings where exact distributions are unavailable. This example illustrates how LRT derives the t-test from first principles and connects finite-sample (t) and asymptotic (chi-squared) testing.",
+      "topic": "ch08p7_lrt_normal_mean",
+      "intent": "formula_recall",
+      "keywords": [
+        "LRT normal mean",
+        "t-test",
+        "unknown variance",
+        "constrained MLE",
+        "likelihood ratio"
+      ]
+    },
+    {
+      "question": "What is the LRT for the normal variance?",
+      "answer": "Setup: X_1,...,X_n iid N(mu, sigma^2). Two common variants. VARIANT A — known mu: Test H_0: sigma^2 = sigma_0^2 vs H_1: sigma^2 != sigma_0^2, with mu known (= mu_0). The sufficient statistic is T = sum(X_i - mu_0)^2 / sigma_0^2 ~ chi-squared_n under H_0. LRT statistic: Lambda = (T/n)^{n/2} exp(n/2 - T/2) (ratio of maximized normal likelihoods). Lambda is maximized (value 1) at T = n, and decreases for T < n or T > n. So the LRT rejects for T < c_1 OR T > c_2 where c_1, c_2 are chosen so P_{H_0}(T < c_1) + P_{H_0}(T > c_2) = alpha (typically c_1 = chi-squared_{n, alpha/2}, c_2 = chi-squared_{n, 1-alpha/2}, the equal-tail chi-squared test). VARIANT B — unknown mu: Test H_0: sigma^2 = sigma_0^2 vs H_1: sigma^2 != sigma_0^2, with mu unknown. The sufficient statistic is V = sum(X_i - Xbar)^2 / sigma_0^2 = (n-1) S^2 / sigma_0^2 ~ chi-squared_{n-1} under H_0. LRT rejects for V < c_1 or V > c_2, the equal-tail chi-squared test on n-1 df. ONE-SIDED variants: H_0: sigma^2 <= sigma_0^2 vs H_1: sigma^2 > sigma_0^2 (test for increased variance) rejects for V > chi-squared_{n-1, 1-alpha}; H_0: sigma^2 >= sigma_0^2 vs H_1: sigma^2 < sigma_0^2 rejects for V < chi-squared_{n-1, alpha}. EXACTNESS: the chi-squared test is exact (not asymptotic) because (n-1)S^2/sigma^2 is EXACTLY chi-squared_{n-1} under normality. POWER: power at sigma_1^2 != sigma_0^2 is P(chi-squared_{n-1} * sigma_1^2/sigma_0^2 in rejection region), computable from noncentral chi-squared or direct integration. APPLICATIONS: quality control (monitoring process variability), testing equality of variances before a pooled t-test, ANOVA assumption checks. The chi-squared variance test is sensitive to non-normality (the statistic is based on the 4th moment), so robust alternatives (Levene's test, Brown-Forsythe) are preferred when normality is questionable.",
+      "topic": "ch08p7_lrt_normal_variance",
+      "intent": "formula_recall",
+      "keywords": [
+        "LRT variance",
+        "chi-squared test",
+        "normal variance",
+        "S^2",
+        "degrees of freedom"
+      ]
+    },
+    {
+      "question": "What is the LRT for comparing two nested models?",
+      "answer": "NESTED MODELS: model M_0 is nested in M_1 if M_0 is a SPECIAL CASE of M_1 (M_0 = M_1 with some parameters restricted, usually set to zero). Example: M_0 is y = beta_0 + beta_1 x (linear), M_1 is y = beta_0 + beta_1 x + beta_2 x^2 + beta_3 x^3 (cubic); M_0 nests by setting beta_2 = beta_3 = 0. The LRT compares the fit of the two models. Setup: H_0: the restrictions hold (M_0 is adequate) vs H_1: M_1 (more general). LRT statistic: Lambda = L(M_0 fitted) / L(M_1 fitted) = exp(logL(M_0) - logL(M_1)). Test statistic: D = -2 log Lambda = 2 (logL(M_1) - logL(M_0)) = DEVIANCE DIFFERENCE. Under Wilks, D ->^D chi-squared_p under H_0, where p = (number of params in M_1) - (number of params in M_0) = number of restrictions. Reject H_0 (prefer M_1) when D > chi-squared_{p, 1-alpha}. EXAMPLE — linear regression: M_0 has k_0 predictors, M_1 has k_1 > k_0 predictors (adding k_1 - k_0 new predictors). D = 2(logL_1 - logL_0). For Gaussian errors, D = n log(SSE_0/SSE_1), and this is monotone in the F-statistic F = ((SSE_0 - SSE_1)/(k_1-k_0)) / (SSE_1/(n-k_1)); the LRT and F-test are equivalent for Gaussian linear models (the F-test is exact, LRT is asymptotic; they agree for large n). EXAMPLE — logistic regression: testing whether to include a set of covariates. D = 2(logL_full - logL_reduced) ~ chi-squared_{p} under H_0. This is the standard \"model comparison\" test in GLMs. INTERPRETATION: a large D means M_1 fits substantially better than M_0 (the extra parameters are \"worth it\"); a small D means M_0 is adequate (Occam's razor: prefer the simpler model). INFORMATION CRITERIA (AIC, BIC) provide an alternative that penalizes model complexity: AIC = -2 logL + 2k, BIC = -2 logL + k log n. Unlike LRT, AIC/BIC can compare NON-NESTED models. LRT is the workhorse for nested model comparison in regression, GLMs, mixed models, and structural equation modeling.",
+      "topic": "ch08p7_lrt_nested_models",
+      "intent": "formula_recall",
+      "keywords": [
+        "nested models",
+        "deviance",
+        "model comparison",
+        "LRT regression",
+        "AIC BIC"
+      ]
+    },
+    {
+      "question": "What is the Bartlett correction for the likelihood ratio test?",
+      "answer": "The BARTLETT CORRECTION is a finite-sample adjustment to the LRT that improves the accuracy of the chi-squared approximation from Wilks' theorem. PROBLEM: Wilks says -2 log Lambda ->^D chi-squared_p, but for finite n the actual mean of -2 log Lambda under H_0 is p + O(1/n) (slightly larger than p), causing the uncorrected LRT to have size slightly LARGER than nominal alpha (rejects too often). CORRECTION: define the Bartlett factor B_n = E_{H_0}[-2 log Lambda] / p (a ratio computable from the model). Then the BARTLETT-CORRECTED statistic is W_B = (-2 log Lambda) / B_n, which has E[W_B] = p exactly to O(1/n). Under H_0, W_B ->^D chi-squared_p with improved accuracy: P(W_B <= x) = P(chi-squared_p <= x) + O(1/n^2) instead of O(1/n). To apply: reject H_0 when W_B > chi-squared_{p, 1-alpha}. COMPUTING B_n: for exponential families, B_n has a closed form in terms of cumulants of the log-likelihood derivatives; for general models, B_n can be computed via symbolic algebra or estimated by parametric bootstrap. EXAMPLE — normal variance test: testing H_0: sigma^2 = sigma_0^2 in N(mu, sigma^2) with mu unknown. The uncorrected LRT is the chi-squared test, which is already exact (no correction needed). But for the LRT comparing covariance matrices (Box's M test), the Bartlett correction is substantial. EXAMPLE — multinomial goodness-of-fit: the standard Pearson chi-squared statistic X^2 = sum (O_i - E_i)^2 / E_i is itself an approximation; the Bartlett-corrected LRT (= the deviance G^2 = 2 sum O_i log(O_i/E_i)) divided by its Bartlett factor matches the chi-squared distribution more accurately. WHEN TO USE: Bartlett correction is most valuable when (1) n is small or moderate; (2) the model has many parameters; (3) the uncorrected LRT is known to over-reject. For large n, the correction is negligible. The correction is specific to the model and must be derived case-by-case (or bootstrapped). It is one of several higher-order asymptotic refinements (others: saddlepoint approximations, Edgeworth expansions).",
+      "topic": "ch08p7_bartlett_correction",
+      "intent": "formula_recall",
+      "keywords": [
+        "Bartlett correction",
+        "finite sample adjustment",
+        "chi-squared approximation",
+        "higher order asymptotics",
+        "LRT"
+      ]
+    },
+    {
+      "question": "How do the Wald, Score, and Likelihood Ratio tests compare?",
+      "answer": "The Wald, Score (Rao), and Likelihood Ratio tests form the \"HOLY TRINITY\" of asymptotic tests for H_0: theta = theta_0 in parametric models. All three are asymptotically equivalent (each ->^D chi-squared_p under H_0, and they agree to first order) but differ in finite samples and practical implementation. LIKELIHOOD RATIO (LRT): statistic = 2(logL(theta_hat) - logL(theta_hat_0)). Requires fitting BOTH the full and restricted models. Most directly compares model fit. InvARIANT under reparameterization. Generally regarded as most accurate in moderate samples. WALD: statistic = (theta_hat - theta_0)^T I(theta_hat) (theta_hat - theta_0). Requires only the UNRESTRICTED MLE. Computationally simplest (no refit). NOT invariant under reparameterization (different parametrizations give different answers). Can be unreliable when MLE is near the boundary or when the log-likelihood is highly non-quadratic. SCORE (Rao): statistic = U(theta_0)^T I(theta_0)^{-1} U(theta_0), where U is the score function. Requires only the NULL fit (theta = theta_0). Useful when the full MLE is hard to compute or does not exist under H_0. Invariant under reparameterization in the sense of testing within the null model. Often used in survey sampling and GLMs. COMPARISON of FINITE-SAMPLE behavior: typically LRT is most conservative (slightly under-rejects), Wald is most anti-conservative (slightly over-rejects), Score is intermediate — but the ordering depends on the curvature of the log-likelihood. When the log-likelihood is roughly quadratic (near-Gaussian), all three agree closely. GEOMETRIC PICTURE (three distances on the log-likelihood curve): Wald = horizontal distance from theta_hat to theta_0 (squared, scaled by curvature at theta_hat); Score = slope at theta_0 (squared, scaled by curvature at theta_0); LRT = vertical distance from logL(theta_hat) to logL(theta_0) (twice). All three agree when logL is quadratic. PRACTICAL CHOICE: (1) if both fits are easy, use LRT (most reliable); (2) if only the full fit is easy, use Wald; (3) if only the null fit is easy (or H_0 is on the boundary), use Score; (4) for non-nested model comparison, none apply — use AIC/BIC or Vuong's test. In GLMs and mixed models, all three are commonly reported; Wald is default for individual coefficient tests (z-values in regression output), LRT for comparing nested models (anova() in R).",
+      "topic": "ch08p7_wald_score_lrt_comparison",
+      "intent": "formula_recall",
+      "keywords": [
+        "Wald test",
+        "Score test",
+        "LRT",
+        "holy trinity",
+        "asymptotic equivalence"
+      ]
+    },
+    {
+      "question": "What is the Wald test statistic?",
+      "answer": "The WALD TEST, introduced by Abraham Wald, tests H_0: theta = theta_0 (or more generally g(theta) = 0 for a vector-valued restriction) using the distance between the unrestricted MLE theta_hat and the hypothesized value theta_0. STATISTIC (scalar case): W = (theta_hat - theta_0)^2 / Var(theta_hat) = (theta_hat - theta_0)^2 * I(theta_hat), where I(theta_hat) is the observed Fisher information (or expected Fisher information) evaluated at the MLE. Equivalently, W = ((theta_hat - theta_0) / SE(theta_hat))^2, the squared Z-statistic. Under H_0, W ->^D chi-squared_1 (by the asymptotic normality of the MLE: sqrt(n)(theta_hat - theta_0) ->^D N(0, I^{-1})). VECTOR case: H_0: theta = theta_0 (theta in R^p). W = (theta_hat - theta_0)^T [I(theta_hat)] (theta_hat - theta_0) ->^D chi-squared_p. For linear restrictions H_0: R theta = r (R is q x p, rank q): W = (R theta_hat - r)^T [R I^{-1} R^T]^{-1} (R theta_hat - r) ->^D chi-squared_q. REJECT H_0 when W > chi-squared_{p, 1-alpha}. INTERPRETATION: W measures the standardized squared distance from the MLE to the null value, with standardization given by the inverse Fisher information (the \"natural\" metric on parameter space). If theta_hat is far from theta_0 relative to its standard error, we reject. ADVANTAGES: (1) requires only the UNRESTRICTED MLE (no refit under H_0); (2) computationally simplest of the trinity; (3) directly gives a confidence interval (invert the test); (4) default for individual coefficients in regression output (the \"z-values\" and \"t-values\" are Wald statistics). DISADVANTAGES: (1) NOT invariant under reparameterization — testing H_0: mu = mu_0 gives a different W than testing H_0: log(mu) = log(mu_0), even though the hypotheses are equivalent; (2) unreliable when the MLE is near the boundary of the parameter space (the asymptotic normality breaks down); (3) can be anti-conservative (over-reject) when the log-likelihood is far from quadratic. EXAMPLE: logistic regression, testing H_0: beta_j = 0. W = (beta_hat_j / SE(beta_hat_j))^2, reported as the \"Wald chi-squared\" in most software. The Wald test is the workhorse for individual coefficient testing in GLMs, GEEs, and mixed models.",
+      "topic": "ch08p7_wald_test",
+      "intent": "formula_recall",
+      "keywords": [
+        "Wald test",
+        "MLE",
+        "Fisher information",
+        "chi-squared",
+        "standard error"
+      ]
+    },
+    {
+      "question": "What is the Rao score test statistic?",
+      "answer": "The SCORE TEST (also called the RAO SCORE TEST or Lagrange Multiplier test) tests H_0: theta = theta_0 using the SCORE FUNCTION (gradient of the log-likelihood) evaluated at the NULL estimate. STATISTIC (scalar): S = U(theta_0)^2 / I(theta_0), where U(theta) = d logL/d theta is the score function and I(theta_0) is the Fisher information at theta_0. Equivalently, S = U(theta_0)^2 / Var_{theta_0}(U(theta_0)) (since Var(U) = I under H_0). Under H_0, S ->^D chi-squared_1. VECTOR case: H_0: theta = theta_0 (theta in R^p), S = U(theta_0)^T [I(theta_0)]^{-1} U(theta_0) ->^D chi-squared_p. For composite H_0 with nuisance parameters: evaluate the score and information at the CONSTRAINED MLE (nuisance parameters estimated under H_0). REJECT H_0 when S > chi-squared_{p, 1-alpha}. INTUITION: the score U(theta_0) is the gradient of the log-likelihood at the null value. Under H_0, the score has mean 0 (the MLE is where the score vanishes; if theta_0 is true, the score at theta_0 should be near 0). A LARGE score means the log-likelihood is increasing steeply at theta_0 — i.e., the data \"wants\" theta to move away from theta_0, providing evidence against H_0. Standardizing by the information gives the chi-squared reference. ADVANTAGES: (1) requires only the NULL fit (theta = theta_0); (2) useful when the FULL MLE is hard to compute or does not exist (e.g., boundary issues); (3) INVARIANT under reparameterization (the score test is invariant in a certain sense); (4) commonly used in survey sampling, GLMs, and goodness-of-fit testing; (5) historically used in econometrics as the Lagrange Multiplier (LM) test. DISADVANTAGES: (1) requires fitting under H_0 (can be a constrained optimization); (2) sometimes less powerful than Wald/LRT in moderate samples. EXAMPLE: testing H_0: beta_j = 0 in logistic regression, the score test uses the slope of the log-likelihood at beta_j = 0 (with other betas at their constrained MLEs). The score test underlies the Hosmer-Lemeshow goodness-of-fit test, the Pearson chi-squared in GLMs, and many specification tests (Hausman, White's heteroscedasticity test).",
+      "topic": "ch08p7_score_test",
+      "intent": "formula_recall",
+      "keywords": [
+        "score test",
+        "Rao test",
+        "Lagrange multiplier",
+        "score function",
+        "Fisher information"
+      ]
+    },
+    {
+      "question": "What is the geometric picture relating the Wald, Score, and LRT statistics?",
+      "answer": "The three tests of the trinity (Wald, Score, LRT) can be visualized as three different ways to measure the distance between the unrestricted MLE theta_hat and the null value theta_0 on the LOG-LIKELIHOOD CURVE logL(theta). Picture logL as a concave function of theta (approximately a downward parabola for normal-like likelihoods). The MLE theta_hat is at the peak; theta_0 is some point to the left or right. The three statistics: (1) WALD = HORIZONTAL distance (theta_hat - theta_0)^2, scaled by the curvature at theta_hat (the Fisher information I(theta_hat)). The Wald test asks: \"how far is theta_hat from theta_0 in parameter space?\" (2) SCORE = SLOPE (derivative) of logL at theta_0, squared, scaled by the curvature at theta_0 (I(theta_0)). The score test asks: \"how steep is the log-likelihood at theta_0?\" (a steep slope means the data wants theta to move away from theta_0). (3) LRT = VERTICAL distance 2(logL(theta_hat) - logL(theta_0)), the drop in log-likelihood from the peak to the null value. The LRT asks: \"how much better does theta_hat fit than theta_0?\" EQUIVALENCE when logL is QUADRATIC: if logL(theta) = a + b(theta - theta_hat) - (c/2)(theta - theta_hat)^2 (a parabola), then all three statistics are equal: W = S = LRT = c (theta_hat - theta_0)^2. The curvature c is the same everywhere (constant I), so the three distances agree. DIFFERENCE when logL is NON-QUADRATIC: (a) asymmetric likelihood (skewed) — Wald measures horizontal distance at the MLE, Score measures slope at the null, LRT measures vertical drop; these can differ substantially. (b) bounded parameter space (e.g., theta in [0,1]) — Wald can give impossible values, Score and LRT behave better. (c) multiple modes — Wald and Score may point to a local feature, LRT captures the global fit. FINITE-SAMPLE ordering: typically LRT <= Wald (Wald over-rejects when logL is flatter at theta_hat than at theta_0), and Score is intermediate or smaller. The geometric picture explains why the three tests are asymptotically equivalent (the log-likelihood becomes approximately quadratic as n -> infinity by CLT) but can differ in finite samples. The LRT (vertical distance) is generally preferred because it is invariant and most directly measures the evidence in the data.",
+      "topic": "ch08p7_trinity_geometry",
+      "intent": "formula_recall",
+      "keywords": [
+        "Wald",
+        "Score",
+        "LRT",
+        "geometric picture",
+        "log-likelihood",
+        "trinity"
+      ]
+    },
+    {
+      "question": "When are the Wald, Score, and LRT asymptotically equivalent?",
+      "answer": "The Wald, Score (Rao), and Likelihood Ratio tests are ASYMPTOTICALLY EQUIVALENT under H_0 and local alternatives, meaning they all converge to the same chi-squared distribution and have the same local power to first order. FORMAL STATEMENT: under H_0: theta = theta_0 (with regularity), as n -> infinity, (1) Wald W = (theta_hat - theta_0)^T I(theta_hat) (theta_hat - theta_0) ->^D chi-squared_p; (2) Score S = U(theta_0)^T I(theta_0)^{-1} U(theta_0) ->^D chi-squared_p; (3) LRT D = -2 log Lambda = 2(logL(theta_hat) - logL(theta_hat_0)) ->^D chi-squared_p. Furthermore, the DIFFERENCES W - S, W - D, S - D all converge to 0 in probability (W = S = D + o_p(1)). INTUITION (Taylor expansion): expand logL around theta_hat: logL(theta_0) = logL(theta_hat) - (1/2)(theta_hat - theta_0)^T I(theta_hat) (theta_hat - theta_0) + higher order. So -2 log Lambda = 2(logL(theta_hat) - logL(theta_0)) = (theta_hat - theta_0)^T I(theta_hat)(theta_hat - theta_0) + o_p(1) = W + o_p(1). Similarly, the score U(theta_0) = I(theta_hat)(theta_hat - theta_0) + o_p(1) (first-order condition at MLE), so S = U(theta_0)^T I(theta_0)^{-1} U(theta_0) = (theta_hat - theta_0)^T I(theta_hat) (theta_hat - theta_0) + o_p(1) = W + o_p(1). All three agree to first order. UNDER LOCAL ALTERNATIVES (theta_n = theta_0 + h/sqrt(n), fixed h), all three converge to the same NONCENTRAL chi-squared distribution with noncentrality parameter h^T I(theta_0) h, so they have identical local power. DIFFERENCES in FINITE samples: although asymptotically equivalent, the three tests can differ substantially for moderate n. The ordering depends on the SHAPE of the log-likelihood: (1) for roughly quadratic logL (Gaussian-like), all three agree closely; (2) for skewed or bounded-parameter likelihoods, they can disagree; Wald tends to be most anti-conservative (over-reject), LRT most reliable. PRACTICAL IMPLICATION: for large n, choose based on computational convenience (Wald if only full MLE available, Score if only null MLE, LRT if both). For moderate n or non-standard models, prefer LRT (or use higher-order corrections). The asymptotic equivalence is the theoretical foundation justifying the trinity as a coherent framework.",
+      "topic": "ch08p7_trinity_asymptotic_equivalence",
+      "intent": "formula_recall",
+      "keywords": [
+        "asymptotic equivalence",
+        "Wald",
+        "Score",
+        "LRT",
+        "Taylor expansion",
+        "local alternatives"
+      ]
+    },
+    {
+      "question": "When is each of the Wald, Score, and LRT tests preferred in practice?",
+      "answer": "PRACTICAL PREFERENCES among the trinity depend on computational considerations, model structure, and finite-sample behavior. (1) LRT (Likelihood Ratio Test) — PREFERRED WHEN: (a) both full and null models are easy to fit (e.g., GLMs, mixed models via ML); (b) the log-likelihood is far from quadratic (small samples, skewed likelihoods); (c) invariance under reparameterization is important; (d) comparing nested models (standard \"anova\" tests in R use LRT for ML fits). Generally regarded as the most reliable of the three for moderate samples. USE CASES: model selection in regression/GLMs, mixed-effects model comparison, structural equation modeling. (2) WALD — PREFERRED WHEN: (a) only the full-model fit is available or computationally cheap (default for individual coefficient tests in regression output); (b) testing simple linear restrictions (e.g., H_0: beta_j = 0); (c) constructing confidence intervals by test inversion (the standard CI theta_hat +/- z SE is a Wald CI). AVOID WHEN: (a) parameter near boundary (e.g., variance component = 0); (b) likelihood is highly non-quadratic; (c) reparameterization matters (Wald gives different answers for theta vs log theta). USE CASES: z-values and p-values for individual coefficients in lm, glm, coxph output; confidence intervals for parameters. (3) SCORE (Rao) — PREFERRED WHEN: (a) only the null-model fit is available (e.g., testing whether to add a covariate when the full model is expensive); (b) the null lies on the boundary of the parameter space (where the full MLE may not be asymptotically normal — score test avoids this); (c) in survey sampling where the null-weighted estimator is natural; (d) goodness-of-fit testing (Pearson chi-squared is a score test). USE CASES: Hosmer-Lemeshow goodness-of-fit, White's heteroscedasticity test, Hausman specification test, adding terms to a model. SUMMARY: Wald = use when only full MLE is convenient (most common for coefficient tests); Score = use when only null MLE is convenient or when avoiding boundary issues; LRT = use when both fits are easy and reliability matters most. In large samples all three agree; in small samples prefer LRT. Modern software often reports Wald by default (cheapest) but offers LRT via anova() or lrtest().",
+      "topic": "ch08p7_trinity_preferences",
+      "intent": "formula_recall",
+      "keywords": [
+        "Wald",
+        "Score",
+        "LRT",
+        "practical choice",
+        "boundary",
+        "computational"
+      ]
+    },
+    {
+      "question": "How do the Wald, Score, and LRT compare for testing a binomial proportion?",
+      "answer": "TESTING H_0: p = p_0 vs H_1: p != p_0 based on X ~ Binomial(n, p_0), observed X = x, phat = x/n. The three tests give DIFFERENT statistics and can give DIFFERENT conclusions for the same data, especially for small n or extreme p. WALD: W = (phat - p_0)^2 / (phat(1-phat)/n) = n(phat - p_0)^2 / (phat(1-phat)). Uses the MLE phat in the denominator (estimated SE). Simple but POOR finite-sample properties (anti-conservative, especially for phat near 0 or 1). The standard \"Wald CI\" phat +/- z sqrt(phat(1-phat)/n) has coverage often far below nominal. SCORE (Rao): S = (phat - p_0)^2 / (p_0(1-p_0)/n) = n(phat - p_0)^2 / (p_0(1-p_0)). Uses the NULL p_0 in the denominator (null SE). Better finite-sample behavior than Wald. The corresponding \"Wilson score interval\" has excellent coverage even for small n. Recommended in most intro stats textbooks. LRT: D = 2[x log(phat/p_0) + (n-x) log((1-phat)/(1-p_0))]. Asymptotic chi-squared_1. Generally intermediate between Wald and Score in finite samples. EXAMPLE: n = 20, x = 3, p_0 = 0.5. phat = 0.15. Wald W = 20(0.15-0.5)^2/(0.15*0.85) = 20*0.1225/0.1275 = 1.92 (p = 0.166, fail to reject at 0.05). Score S = 20(0.15-0.5)^2/(0.5*0.5) = 9.8 (p = 0.002, reject). LRT D = 2[3 log(0.3) + 17 log(0.7)] = 2[-3.612 - 6.073] = 9.37? Wait recompute: D = 2[3 log(0.15/0.5) + 17 log(0.85/0.5)] = 2[3 log(0.3) + 17 log(1.7)] = 2[-3.612 + 9.391] = 2*5.779 = 11.56 (p < 0.001, reject). HUGE disagreement: Wald fails to reject, Score and LRT strongly reject. WHY: Wald uses phat = 0.15 in the SE (which is near 0, inflating SE); Score uses p_0 = 0.5 (smaller SE, more power). The Wald test is known to be unreliable for binomial proportions when phat is near 0 or 1 or when n is small. RECOMMENDATION: use the Score test (Wilson interval) for binomial proportion testing and CI construction; the LRT is also acceptable; AVOID the Wald test for proportions in small samples. This example is a canonical illustration of the trinity's finite-sample differences.",
+      "topic": "ch08p7_binomial_trinity",
+      "intent": "problem_solving",
+      "keywords": [
+        "binomial proportion",
+        "Wald",
+        "Score",
+        "LRT",
+        "Wilson interval",
+        "finite sample"
+      ]
+    },
+    {
+      "question": "What is the small-sample behavior of the Wald, Score, and LRT tests?",
+      "answer": "SMALL-SAMPLE BEHAVIOR of the trinity differs significantly, with the LRT and Score generally preferred over Wald for moderate n. The chi-squared approximation (from Wilks / asymptotic normality of MLE) is a LARGE-sample result; for small n the actual size of the test can deviate substantially from nominal alpha. WALD: tends to be ANTI-CONSERVATIVE (actual size > nominal alpha, over-rejects H_0). Reasons: (1) uses the MLE in the standard error, which is biased for small n; (2) the asymptotic normality of the MLE is poor for small n, especially for skewed likelihoods or near boundaries. Example: binomial proportion with phat near 0 or 1 — Wald CIs have coverage far below nominal. SCORE: tends to be more CONSERVATIVE (actual size <= nominal) and has better small-sample properties. Reasons: (1) uses the null value in the standard error (known to be correct under H_0); (2) the score statistic has better higher-order properties. Example: the Wilson score interval for a binomial proportion has excellent coverage even for n = 10. LRT: intermediate, generally reliable but can over-reject slightly. Reasons: (1) Wilks' theorem is first-order; the chi-squared approximation improves with n; (2) Bartlett correction can fix the leading 1/n term. EMPIRICAL FINDINGS (simulation studies): for logistic regression with small n (e.g., n = 30, k = 3 predictors), Wald coefficient tests can have actual size 0.08-0.10 at nominal alpha = 0.05; LRT and Score are closer to 0.05. For variance components in mixed models (boundary issues), Wald fails badly; LRT must use a mixture of chi-squareds (Self-Liang); Score is preferred. IMPROVEMENTS: (1) Bartlett correction (rescale LRT by factor 1 + b/n); (2) higher-order asymptotics (Barndorff-Nielsen's r*, Brazzale-Davison); (3) parametric bootstrap (compute empirical null distribution by simulation); (4) exact tests (permutation, randomization) when available. PRACTICAL ADVICE: for small n or non-standard models, prefer LRT (with Bartlett correction if available) or use bootstrap; avoid Wald for borderline significance decisions. For routine large-sample analyses (n > 100, well-behaved likelihoods), all three agree and Wald is fine (cheapest to compute).",
+      "topic": "ch08p7_trinity_small_sample",
+      "intent": "formula_recall",
+      "keywords": [
+        "small sample",
+        "Wald",
+        "Score",
+        "LRT",
+        "anti-conservative",
+        "Bartlett correction"
+      ]
+    },
+    {
+      "question": "What is the z-test for a normal mean with known variance?",
+      "answer": "The Z-TEST tests H_0: mu = mu_0 about the mean of a normal distribution with KNOWN variance sigma^2, based on a random sample X_1,...,X_n iid N(mu, sigma^2). TEST STATISTIC: Z = (Xbar - mu_0) / (sigma / sqrt(n)), where Xbar = (1/n) sum X_i is the sample mean. Under H_0, Z ~ N(0, 1) EXACTLY (no asymptotics needed — Xbar is exactly normal since it is a sum of normals). REJECTION REGIONS: (1) two-sided H_1: mu != mu_0: reject if |Z| > z_{1-alpha/2} (e.g., z_{0.975} = 1.96 for alpha=0.05); (2) upper one-sided H_1: mu > mu_0: reject if Z > z_{1-alpha} (e.g., 1.645 for alpha=0.05); (3) lower one-sided H_1: mu < mu_0: reject if Z < -z_{1-alpha}. p-VALUE: two-sided p = 2(1 - Phi(|Z_obs|)); one-sided p = 1 - Phi(Z_obs) (upper) or Phi(Z_obs) (lower). CONFIDENCE INTERVAL (dual): 1-alpha CI for mu is Xbar +/- z_{1-alpha/2} sigma/sqrt(n). POWER at mu = mu_1 (one-sided upper): power = 1 - Phi(z_{1-alpha} - (mu_1 - mu_0) sqrt(n)/sigma). SAMPLE SIZE for power 1-beta at mu_1: n = ((z_{1-alpha} + z_{1-beta}) sigma / (mu_1 - mu_0))^2. ASSUMPTIONS: (1) normality (or large n so CLT applies — then Z is approximately N(0,1)); (2) sigma known (rarely true in practice — if sigma unknown, use the t-test). EXAMPLE: a machine fills bottles with claimed mean 500ml, sigma = 5ml. Sample n=25, Xbar = 498ml. H_0: mu=500 vs H_1: mu != 500, alpha=0.05. Z = (498-500)/(5/5) = -2. |Z|=2 > 1.96, reject H_0. p = 2(1-Phi(2)) = 2*0.0228 = 0.0456. CI: 498 +/- 1.96 = (496.04, 499.96) — excludes 500. The z-test is the foundational parametric test; the t-test generalizes it to unknown sigma.",
+      "topic": "ch08p7_z_test",
+      "intent": "formula_recall",
+      "keywords": [
+        "z-test",
+        "normal mean",
+        "known variance",
+        "standard normal",
+        "critical value"
+      ]
+    },
+    {
+      "question": "What is the one-sample t-test for a normal mean with unknown variance?",
+      "answer": "The ONE-SAMPLE T-TEST tests H_0: mu = mu_0 about the mean of a normal distribution with UNKNOWN variance sigma^2, based on X_1,...,X_n iid N(mu, sigma^2). TEST STATISTIC: T = (Xbar - mu_0) / (S / sqrt(n)), where S^2 = (1/(n-1)) sum(X_i - Xbar)^2 is the unbiased sample variance. Under H_0, T ~ t_{n-1} (Student's t with n-1 degrees of freedom) EXACTLY. This follows because (n-1)S^2/sigma^2 ~ chi-squared_{n-1} independent of Xbar, so T = (Xbar - mu_0)/(sigma/sqrt(n)) / sqrt(S^2/sigma^2) = Z / sqrt(V/(n-1)) where Z ~ N(0,1), V ~ chi-squared_{n-1} independent -> t_{n-1}. REJECTION REGIONS: (1) two-sided H_1: mu != mu_0: reject if |T| > t_{n-1, 1-alpha/2}; (2) upper H_1: mu > mu_0: reject if T > t_{n-1, 1-alpha}; (3) lower H_1: mu < mu_0: reject if T < -t_{n-1, 1-alpha}. p-VALUE: two-sided p = 2 P(T_{n-1} > |T_obs|). CONFIDENCE INTERVAL: 1-alpha CI for mu is Xbar +/- t_{n-1, 1-alpha/2} S/sqrt(n). RELATIONSHIP to z-test: as n -> infinity, t_{n-1} -> N(0,1), so the t-test and z-test agree for large n. For small n, t has heavier tails (higher critical values), giving wider CIs and more conservative tests — accounting for the extra uncertainty from estimating sigma. EXAMPLE: n=10, Xbar=5.2, S=1.5, mu_0=5.0. T = (5.2-5.0)/(1.5/sqrt(10)) = 0.2/0.474 = 0.422. Two-sided critical t_{9,0.975} = 2.262. |T|=0.422 < 2.262, fail to reject. p = 2 P(t_9 > 0.422) approx 0.68. CI: 5.2 +/- 2.262*0.474 = 5.2 +/- 1.07 = (4.13, 6.27). ASSUMPTIONS: (1) normality (robust to mild deviations for moderate n; for non-normal data use bootstrap or nonparametric tests for large n); (2) independence (violation can severely affect Type I error). ROBUSTNESS: the t-test is robust to non-normality for large n (CLT), but sensitive to outliers and skewness for small n. The t-test is the most widely used test in applied statistics.",
+      "topic": "ch08p7_t_test_one_sample",
+      "intent": "formula_recall",
+      "keywords": [
+        "t-test",
+        "one-sample",
+        "unknown variance",
+        "Student t",
+        "degrees of freedom"
+      ]
+    },
+    {
+      "question": "What is the two-sample t-test (pooled and Welch)?",
+      "answer": "The TWO-SAMPLE T-TEST compares the means of two independent normal populations. Setup: X_1,...,X_{n_1} iid N(mu_1, sigma_1^2), Y_1,...,Y_{n_2} iid N(mu_2, sigma_2^2), independent samples. Test H_0: mu_1 = mu_2 vs H_1: mu_1 != mu_2 (or one-sided). POOLED T-TEST (assumes EQUAL variances sigma_1^2 = sigma_2^2 = sigma^2): T = (Xbar - Ybar) / (S_p sqrt(1/n_1 + 1/n_2)), where S_p^2 = ((n_1-1)S_X^2 + (n_2-1)S_Y^2)/(n_1+n_2-2) is the POOLED variance estimator. Under H_0, T ~ t_{n_1+n_2-2} exactly. df = n_1 + n_2 - 2. WELCH'S T-TEST (UNEQUAL variances, more general): T = (Xbar - Ybar) / sqrt(S_X^2/n_1 + S_Y^2/n_2). The denominator uses separate variance estimates. The degrees of freedom are given by the WELCH-SATTERTHWAITE approximation: df = (S_X^2/n_1 + S_Y^2/n_2)^2 / [(S_X^2/n_1)^2/(n_1-1) + (S_Y^2/n_2)^2/(n_2-1)], a non-integer between min(n_1-1, n_2-1) and n_1+n_2-2. Under H_0, T ~ t_df approximately (exact only if sigma_1^2 = sigma_2^2). WHICH TO USE: (1) if n_1 = n_2, pooled and Welch give nearly identical results; (2) if n_1 != n_2 and variances are unequal, the pooled test has INCORRECT Type I error (can be too liberal or conservative); Welch is robust. RULE OF THUMB: always use Welch unless there is strong reason to assume equal variances (e.g., prior evidence, balanced design). Modern software (R's t.test default) uses Welch. EXAMPLE: n_1=10, Xbar=5.2, S_X=1.5; n_2=12, Ybar=4.8, S_Y=1.2. Welch: SE = sqrt(1.5^2/10 + 1.2^2/12) = sqrt(0.225+0.12) = sqrt(0.345) = 0.587. T = (5.2-4.8)/0.587 = 0.681. df = (0.345)^2/[(0.225)^2/9 + (0.12)^2/11] = 0.119/(0.00563+0.00131) = 0.119/0.00694 = 17.14. t_{17, 0.975} approx 2.11. |T|=0.681 < 2.11, fail to reject. TESTING EQUAL VARIANCES: use Levene's test or F-test (if normal) BEFORE choosing pooled vs Welch; or just default to Welch. PAIRED t-test: for paired data (X_i, Y_i) on same subjects, test H_0: mu_D = 0 where D_i = X_i - Y_i; use one-sample t-test on D_i, df = n-1.",
+      "topic": "ch08p7_t_test_two_sample",
+      "intent": "formula_recall",
+      "keywords": [
+        "two-sample t-test",
+        "pooled",
+        "Welch",
+        "Satterthwaite",
+        "unequal variance"
+      ]
+    },
+    {
+      "question": "What is the chi-squared goodness-of-fit test?",
+      "answer": "The CHI-SQUARED GOODNESS-OF-FIT TEST (Karl Pearson, 1900) tests whether observed categorical data fits a hypothesized probability distribution. Setup: n observations classified into k categories; observed counts O_1,...,O_k (sum O_i = n). Hypothesized probabilities p_1,...,p_k (sum p_i = 1) under H_0. Expected counts E_i = n p_i. TEST STATISTIC: X^2 = sum_{i=1}^k (O_i - E_i)^2 / E_i. Under H_0, X^2 ->^D chi-squared_{k-1-m} (as n -> infinity), where m = number of parameters estimated from the data (m=0 if probabilities fully specified; m>0 if parameters estimated by MLE before computing E_i). REJECT H_0 if X^2 > chi-squared_{k-1-m, 1-alpha}. EXAMPLE — die fairness: roll a die 120 times, observe counts [25, 17, 15, 23, 19, 21]. H_0: p_i = 1/6 for all i. E_i = 120/6 = 20 for all i. X^2 = (25-20)^2/20 + (17-20)^2/20 + (15-20)^2/20 + (23-20)^2/20 + (19-20)^2/20 + (21-20)^2/20 = (25+9+25+9+1+1)/20 = 70/20 = 3.5. df = 6-1 = 5. Critical chi-squared_{5, 0.95} = 11.07. 3.5 < 11.07, fail to reject — die appears fair. EXAMPLE — Poisson fit: test if counts follow Poisson(lambda). Estimate lambda_hat = Xbar, compute expected E_i = n * P(Poisson(lambda_hat) = i), X^2 = sum (O_i - E_i)^2/E_i, df = k - 1 - 1 (one parameter estimated). RULES OF THUMB: (1) all E_i >= 5 (or at least 80% of E_i >= 5 and all >= 1) for the chi-squared approximation to be valid; (2) if some E_i < 5, combine adjacent categories. EQUIVALENCE to LRT: the deviance G^2 = 2 sum O_i log(O_i/E_i) is asymptotically equivalent to X^2 (both ->^D chi-squared); X^2 is the Score test, G^2 is the LRT for the multinomial. APPLICATIONS: testing distributional assumptions (normality via bins, Poisson for counts), genetics (Hardy-Weinberg equilibrium), market research (preference distributions). LIMITATIONS: (1) requires categorical data (or binning continuous data, which loses information — prefer Kolmogorov-Smirnov or Anderson-Darling for continuous distributions); (2) low power against specific alternatives (e.g., ordering); (3) sensitive to bin choice.",
+      "topic": "ch08p7_chi_squared_gof",
+      "intent": "formula_recall",
+      "keywords": [
+        "chi-squared goodness of fit",
+        "Pearson",
+        "categorical data",
+        "expected counts",
+        "multinomial"
+      ]
+    },
+    {
+      "question": "What is the chi-squared test of independence for contingency tables?",
+      "answer": "The CHI-SQUARED TEST OF INDEPENDENCE tests whether two categorical variables are independent, based on a two-way contingency table. Setup: n observations cross-classified into a r x c table with observed counts O_{ij} (i=1,...,r rows, j=1,...,c columns). H_0: row and column variables are INDEPENDENT vs H_1: they are DEPENDENT (associated). Under independence, expected counts E_{ij} = (row total_i * col total_j) / n = (R_i C_j)/n. TEST STATISTIC: X^2 = sum_{i,j} (O_{ij} - E_{ij})^2 / E_{ij}. Under H_0, X^2 ->^D chi-squared_{(r-1)(c-1)}. REJECT H_0 if X^2 > chi-squared_{(r-1)(c-1), 1-alpha}. EXAMPLE: 2x2 table testing smoking (yes/no) vs lung cancer (yes/no). Observed: [[60, 40], [30, 70]], n=200. Row totals R=[100,100], col totals C=[90,110]. E_11 = 100*90/200 = 45, E_12 = 100*110/200 = 55, E_21 = 100*90/200 = 45, E_22 = 100*110/200 = 55. X^2 = (60-45)^2/45 + (40-55)^2/55 + (30-45)^2/45 + (70-55)^2/55 = 225/45 + 225/55 + 225/45 + 225/55 = 5 + 4.09 + 5 + 4.09 = 18.18. df = (2-1)(2-1) = 1. Critical chi-squared_{1, 0.95} = 3.84. 18.18 >> 3.84, strongly reject H_0 — smoking and lung cancer are associated. EQUIVALENT to LRT: the deviance G^2 = 2 sum O_{ij} log(O_{ij}/E_{ij}) is asymptotically equivalent. YATES' CORRECTION (2x2 tables): subtract 0.5 from each |O_{ij} - E_{ij}| before squaring, giving X^2_Yates = sum (|O_{ij} - E_{ij}| - 0.5)^2 / E_{ij}. Improves the chi-squared approximation for small samples. Alternatively, use FISHER'S EXACT TEST for small samples (computes the exact hypergeometric probability of the observed or more extreme table). MEASURES OF ASSOCIATION: (1) Cramer's V = sqrt(X^2 / (n * min(r-1, c-1))) — normalized to [0,1]; (2) Phi coefficient (2x2 only) = sqrt(X^2/n); (3) contingency coefficient. ASSUMPTIONS: (1) all E_{ij} >= 5 (or 80% rule); (2) independent observations; (3) random sampling. APPLICATIONS: survey analysis (demographics vs preferences), genetics (linkage), medicine (treatment vs outcome), social science (education vs income).",
+      "topic": "ch08p7_chi_squared_independence",
+      "intent": "formula_recall",
+      "keywords": [
+        "chi-squared independence",
+        "contingency table",
+        "Yates correction",
+        "Fisher exact",
+        "Cramer V"
+      ]
+    },
+    {
+      "question": "What is the F-test for equality of two variances?",
+      "answer": "The F-TEST compares the variances of two independent normal populations. Setup: X_1,...,X_{n_1} iid N(mu_1, sigma_1^2), Y_1,...,Y_{n_2} iid N(mu_2, sigma_2^2). Test H_0: sigma_1^2 = sigma_2^2 vs H_1: sigma_1^2 != sigma_2^2 (or one-sided). TEST STATISTIC: F = S_X^2 / S_Y^2 (the ratio of sample variances, with the larger variance in the numerator for a two-sided test). Under H_0, F ~ F_{n_1-1, n_2-1} (the F distribution with (n_1-1, n_2-1) degrees of freedom). This follows because (n_1-1)S_X^2/sigma_1^2 ~ chi-squared_{n_1-1} and (n_2-1)S_Y^2/sigma_2^2 ~ chi-squared_{n_2-1} independent, so their ratio scaled by df is F. REJECTION REGIONS: (1) two-sided: reject if F > F_{n_1-1, n_2-1, 1-alpha/2} or F < F_{n_1-1, n_2-1, alpha/2} (equivalently, put the larger S^2 in the numerator and reject if F > F_{n_1-1, n_2-1, 1-alpha/2} doubling alpha); (2) upper one-sided H_1: sigma_1^2 > sigma_2^2: reject if F > F_{n_1-1, n_2-1, 1-alpha}. EXAMPLE: n_1=10, S_X=2.5; n_2=12, S_Y=1.8. F = 2.5^2/1.8^2 = 6.25/3.24 = 1.929. df = (9, 11). F_{9,11,0.975} approx 3.59. 1.929 < 3.59, fail to reject H_0 of equal variances. CONFIDENCE INTERVAL: 1-alpha CI for sigma_1^2/sigma_2^2 is (F / F_{n_1-1,n_2-1,1-alpha/2}, F / F_{n_1-1,n_2-1,alpha/2}). SENSITIVITY: the F-test for variances is EXTREMELY SENSITIVE to non-normality (much more than the t-test for means). Even mild departures from normality (especially heavy tails) can cause the Type I error to be far from nominal. For this reason, the F-test is NOT recommended as a pre-test for choosing pooled vs Welch t-test. ROBUST ALTERNATIVES: (1) Levene's test (uses absolute deviations from group means, less sensitive to non-normality); (2) Brown-Forsythe test (uses absolute deviations from group medians, even more robust); (3) Bartlett's test (for k > 2 groups, also sensitive to non-normality); (4) Fligner-Killeen test (rank-based, robust). The F-test is still used in ANOVA (where the F-statistic compares between-group to within-group variance) but rarely for the standalone purpose of testing equality of two variances.",
+      "topic": "ch08p7_f_test_variance",
+      "intent": "formula_recall",
+      "keywords": [
+        "F-test",
+        "variance ratio",
+        "F distribution",
+        "Levene test",
+        "equality of variance"
+      ]
+    },
+    {
+      "question": "What is the Bonferroni correction and what is the family-wise error rate?",
+      "answer": "MULTIPLE TESTING PROBLEM: when conducting m hypothesis tests simultaneously, each at level alpha, the probability of at least one Type I error (FAMILY-WISE ERROR RATE, FWER) inflates: FWER = 1 - (1-alpha)^m for independent tests. For m=10, alpha=0.05: FWER = 0.40 (40% chance of at least one false positive); for m=100: FWER = 0.994. BONFERRONI CORRECTION: to control FWER at level alpha, test each individual hypothesis at level alpha/m. By the union bound, FWER = P(any Type I error) <= sum P(Type I error in test i) <= m * (alpha/m) = alpha. PROCEDURE: (1) compute m p-values p_1,...,p_m; (2) reject H_0^i iff p_i <= alpha/m. VARIANTS: (1) Bonferroni-adjusted p-value: p_i^{Bonf} = min(m * p_i, 1); reject if p_i^{Bonf} <= alpha; (2) DUNN-SIDAK correction (exact for independent tests): test each at level 1 - (1-alpha)^{1/m}, slightly less conservative than Bonferroni. PROS: (1) simple, no assumptions about dependence among tests; (2) controls FWER for ANY dependence structure (robust); (3) widely applicable. CONS: (1) VERY CONSERVATIVE when m is large — many true effects are missed (low power); (2) does not use the joint distribution of test statistics (wastes information); (3) controls a strict criterion (any false positive). HOLM-BONFERRONI (step-down, less conservative): (1) order p-values p_{(1)} <= p_{(2)} <= ... <= p_{(m)}; (2) find smallest k such that p_{(k)} > alpha/(m-k+1); (3) reject H_0^{(1)},...,H_0^{(k-1)} (all before k). Always at least as powerful as Bonferroni, still controls FWER. HOCHBERG (step-up): similar but slightly more powerful under independence. ALTERNATIVES to FWER control: (1) FALSE DISCOVERY RATE (FDR) — Benjamini-Hochberg controls the EXPECTED PROPORTION of false positives among rejections, less conservative, preferred in genomics/imaging with thousands of tests; (2) q-values (Storey) — FDR-adjusted p-values. WHEN TO USE: Bonferroni/Holm for few tests (m < 20) where any false positive is costly (clinical trials, confirmatory research); FDR for many tests (m > 100) where some false positives are tolerable (exploratory research, omics). The Bonferroni correction is the simplest and most conservative multiple-testing adjustment.",
+      "topic": "ch08p7_bonferroni_fwer",
+      "intent": "formula_recall",
+      "keywords": [
+        "Bonferroni",
+        "family-wise error rate",
+        "FWER",
+        "multiple testing",
+        "Holm",
+        "union bound"
+      ]
+    },
+    {
+      "question": "What is the Sequential Probability Ratio Test (SPRT) of Wald?",
+      "answer": "The SEQUENTIAL PROBABILITY RATIO TEST (SPRT), introduced by Abraham Wald (1945), is a hypothesis test in which the sample size is NOT fixed in advance — observations are collected one at a time, and after each observation a decision is made: accept H_0, accept H_1, or continue sampling. Setup: H_0: theta = theta_0 vs H_1: theta = theta_1 (simple vs simple). After n observations, compute the cumulative log-likelihood ratio: L_n = sum_{i=1}^n log[f(X_i | theta_1)/f(X_i | theta_0)] = log(prod LR_i). DECISION RULE: at each step n, (a) if L_n <= a (lower boundary), STOP and ACCEPT H_0; (b) if L_n >= b (upper boundary), STOP and ACCEPT H_1 (reject H_0); (c) if a < L_n < b, CONTINUE sampling (collect one more observation). The boundaries a < 0 < b are chosen to control error probabilities: a approx log(beta/(1-alpha)) and b approx log((1-beta)/alpha), where alpha = P(reject H_0 | H_0 true) and beta = P(accept H_0 | H_1 true) are the desired Type I and Type II error rates. PROOF (Wald approximation): the boundaries are derived from the identities alpha = P_{H_0}(L_n >= b) and 1 - beta = P_{H_1}(L_n >= b); approximating the likelihood ratio at the stopping time gives the log-boundary formulas. PROPERTIES: (1) the SPRT is OPTIMAL in the sense of minimizing the EXPECTED SAMPLE SIZE under both H_0 and H_1 among all tests with error rates <= alpha, beta (Wald-Wolfowitz theorem); (2) the SPRT stops with probability 1 (under mild conditions); (3) AVERAGE SAMPLE NUMBER (ASN): E_{H_0}[N] approx (1-alpha) a + alpha b) / E_{H_0}[log LR], E_{H_1}[N] approx (beta a + (1-beta) b) / E_{H_1}[log LR]; typically much smaller than the fixed-sample size required for the same error rates. APPLICATIONS: (1) quality control (acceptance sampling — Wald's original motivation); (2) clinical trials (sequential trials, group sequential designs); (3) signal detection (radar, communications); (4) psychophysics (staircase procedures). EXTENSIONS: (1) GROUP SEQUENTIAL TESTS — check after groups of observations (O'Brien-Fleming, Pocock boundaries); (2) SPRT for composite hypotheses (using MLR or mixture likelihoods); (3) repeated significance tests with adjusted boundaries (to control overall alpha). The SPRT is the foundation of sequential analysis and a forerunner of modern adaptive clinical trial designs.",
+      "topic": "ch08p7_sprt",
+      "intent": "formula_recall",
+      "keywords": [
+        "SPRT",
+        "sequential probability ratio test",
+        "Wald",
+        "sequential analysis",
+        "average sample number"
+      ]
+    },
+    {
+      "question": "What is the sign test for a median or matched pair?",
+      "answer": "The SIGN TEST is a simple NONPARAMETRIC test for the median of a distribution or for paired differences. It uses only the SIGNS (positive/negative) of the observations relative to a hypothesized median, ignoring magnitudes. ONE-SAMPLE VERSION (test median m_0): H_0: median = m_0 vs H_1: median != m_0. Procedure: (1) count S+ = number of X_i > m_0 and S- = number of X_i < m_0 (discard ties); (2) under H_0, S+ ~ Binomial(n', 0.5) where n' = S+ + S- is the number of non-tied observations; (3) reject H_0 if S+ is too large or too small (two-sided) or extreme in one direction (one-sided). p-value: two-sided p = 2 * min[P(Bin(n',0.5) >= S+), P(Bin(n',0.5) <= S+)]. For large n', use the normal approximation S+ approx N(n'/2, n'/4), giving Z = (S+ - n'/2)/sqrt(n'/4) ~ N(0,1). PAIRED VERSION (matched pairs): for pairs (X_i, Y_i), compute D_i = X_i - Y_i, count S+ = #{D_i > 0} and S- = #{D_i < 0}. Under H_0 (no difference), S+ ~ Bin(n', 0.5). Same test as one-sample on D_i relative to 0. EXAMPLE: 10 patients, measure before and after treatment. Differences: [+2, +5, -1, +3, +4, +6, -2, +1, +3, +2]. S+ = 8, S- = 2, n'=10. Two-sided p = 2 * P(Bin(10,0.5) >= 8) = 2 * (C(10,8)+C(10,9)+C(10,10))/2^10 = 2 * (45+10+1)/1024 = 2*0.0547 = 0.109. Fail to reject at alpha=0.05. ADVANTAGES: (1) distribution-FREE (no normality assumption); (2) robust to outliers (uses only signs); (3) simple to compute; (4) works for ordinal data. DISADVANTAGES: (1) LOW POWER — discards magnitudes, throwing away information; (2) the Wilcoxon signed-rank test (which uses ranks of magnitudes) is more powerful while still nonparametric. EFFICIENCY: the asymptotic relative efficiency (ARE) of the sign test vs the t-test for normal data is 2/pi approx 0.637 — the sign test needs about 1.57x as many observations for the same power on normal data. The sign test is the simplest nonparametric test and a building block for more sophisticated rank-based methods.",
+      "topic": "ch08p7_sign_test",
+      "intent": "formula_recall",
+      "keywords": [
+        "sign test",
+        "nonparametric",
+        "median",
+        "binomial",
+        "paired data"
+      ]
+    },
+    {
+      "question": "What is the Wilcoxon signed-rank test?",
+      "answer": "The WILCOXON SIGNED-RANK TEST is a nonparametric test for the median of a symmetric distribution or for paired differences. It uses both the SIGNS and the RANKS of magnitudes, making it more powerful than the sign test while still distribution-free. PAIRED / ONE-SAMPLE SETUP: test H_0: median of D = 0 (where D_i = X_i - Y_i for paired, or D_i = X_i - m_0 for one-sample). Procedure: (1) compute |D_i| for all i; (2) discard any D_i = 0 (ties); (3) RANK the |D_i| from smallest (rank 1) to largest (rank n'); (4) sum the ranks of POSITIVE D_i, call it W+ = sum R_i * 1{D_i > 0}; (5) under H_0, W+ has a known distribution (symmetric around n'(n'+1)/4). REJECTION: large or small W+ indicates D tends to be positive or negative. EXACT null distribution: the ranks 1,...,n' are randomly assigned to +/- with equal probability under H_0, giving W+ = sum of a random subset of {1,...,n'}. Mean E[W+] = n'(n'+1)/4, Var(W+) = n'(n'+1)(2n'+1)/24. For n' >= 20, use the normal approximation Z = (W+ - n'(n'+1)/4) / sqrt(n'(n'+1)(2n'+1)/24) ~ N(0,1) (with tie correction if needed). EXAMPLE: n=8 paired differences: [+3, -1, +4, -2, +5, +1, -6, +2]. |D| = [3,1,4,2,5,1,6,2]. Sorted |D| with original signs: rank 1: +1 and -1 (tie, average rank 1.5 each), rank 3: -2 and +2 (avg 3.5), rank 5: +3, rank 6: +4, rank 7: +5, rank 8: -6. W+ = 1.5 + 3.5 + 5 + 6 + 7 = 23. Mean = 8*9/4 = 18, Var = 8*9*17/24 = 51, SD = 7.14. Z = (23-18)/7.14 = 0.70. Two-sided p approx 0.48, fail to reject. ADVANTAGES: (1) nonparametric (no normality); (2) more powerful than sign test (uses magnitudes via ranks); (3) ARE vs t-test for normal data = 3/pi approx 0.955 (nearly as efficient as t-test on normal data, more efficient for heavy-tailed distributions). ASSUMPTION: the distribution of D is SYMMETRIC about its median (the sign test does not need this). The Wilcoxon signed-rank test is the standard nonparametric alternative to the paired/one-sample t-test.",
+      "topic": "ch08p7_wilcoxon_signed_rank",
+      "intent": "formula_recall",
+      "keywords": [
+        "Wilcoxon signed-rank",
+        "nonparametric",
+        "paired test",
+        "ranks",
+        "symmetric distribution"
+      ]
+    },
+    {
+      "question": "What is the Mann-Whitney U test (Wilcoxon rank-sum test)?",
+      "answer": "The MANN-WHITNEY U TEST (also called WILCOXON RANK-SUM TEST) is a nonparametric test for comparing the distributions of two independent samples. It tests whether one distribution tends to have larger values than the other (a shift in location, more generally stochastic dominance). Setup: X_1,...,X_{n_1} from distribution F, Y_1,...,Y_{n_2} from distribution G, independent. H_0: F = G (equal distributions) vs H_1: F != G (or one-sided: X tends smaller/larger than Y). PROCEDURE (rank-sum form): (1) POOL all n_1 + n_2 observations; (2) rank them from 1 (smallest) to n_1+n_2 (largest), using average ranks for ties; (3) compute R_X = sum of ranks of the X observations; (4) the test statistic is W = R_X (Wilcoxon form) or equivalently U = R_X - n_1(n_1+1)/2 (Mann-Whitney form). U counts the number of (X_i, Y_j) pairs with X_i > Y_j (plus 1/2 for ties). RELATIONSHIP: U = #{(i,j): X_i > Y_j} + (1/2) #{(i,j): X_i = Y_j}. Under H_0, E[U] = n_1 n_2 / 2, Var(U) = n_1 n_2 (n_1+n_2+1)/12 (with tie correction). EXACT null distribution: available from tables for small samples. NORMAL APPROXIMATION (n_1, n_2 >= 10): Z = (U - n_1 n_2/2) / sqrt(n_1 n_2 (n_1+n_2+1)/12) ~ N(0,1). Reject for large |Z|. EXAMPLE: n_1=5, n_2=6. X ranks (out of 11): [2, 4, 6, 8, 10], R_X = 30. U = 30 - 5*6/2 = 30 - 15 = 15. E[U] = 5*6/2 = 15, Var = 5*6*12/12 = 30, SD = 5.48. Z = 0. Two-sided p = 1.0 (no evidence of difference). INTERPRETATION: rejecting H_0 means the distributions differ in location (one tends to have larger values). ADVANTAGES: (1) nonparametric (no normality, no equal-variance assumption); (2) tests a more general hypothesis than the t-test (stochastic dominance vs just mean equality); (3) ARE vs t-test for normal data = 3/pi approx 0.955 (nearly as efficient; MORE efficient for heavy-tailed distributions like logistic or double-exponential). EQUIVALENCE: the Mann-Whitney U and Wilcoxon rank-sum are algebraically equivalent (U = W - n_1(n_1+1)/2). The Mann-Whitney U test is the standard nonparametric alternative to the two-sample t-test.",
+      "topic": "ch08p7_mann_whitney",
+      "intent": "formula_recall",
+      "keywords": [
+        "Mann-Whitney",
+        "Wilcoxon rank-sum",
+        "nonparametric",
+        "two-sample",
+        "stochastic dominance"
+      ]
+    },
+    {
+      "question": "What is the Kolmogorov-Smirnov test?",
+      "answer": "The KOLMOGOROV-SMIRNOV (KS) TEST is a nonparametric test comparing a sample distribution to a reference distribution (one-sample) or comparing two sample distributions (two-sample). It is based on the MAXIMUM vertical distance between empirical and theoretical CDFs. ONE-SAMPLE KS: test H_0: sample comes from distribution F_0. Test statistic D = sup_x |F_n(x) - F_0(x)|, where F_n is the empirical CDF. Under H_0, sqrt(n) D ->^D K (the Kolmogorov distribution), with P(sqrt(n) D <= x) -> 1 - 2 sum_{k=1}^inf (-1)^{k-1} exp(-2 k^2 x^2). Critical values: D_{n, alpha} approx c_alpha / sqrt(n), where c_{0.05} = 1.358, c_{0.01} = 1.628. Reject if D > D_{n, alpha}. TWO-SAMPLE KS: test H_0: F_X = F_Y for two independent samples. Test statistic D = sup_x |F_{n_1}(x) - G_{n_2}(x)|. Under H_0, sqrt(n_1 n_2/(n_1+n_2)) D ->^D K. EXAMPLE (one-sample): test if 20 observations are N(0,1). Compute F_n at each data point, compare to Phi, find max difference D = 0.31. Critical D_{20, 0.05} = 1.358/sqrt(20) = 0.304. 0.31 > 0.304, reject H_0. ADVANTAGES: (1) nonparametric, distribution-free (under H_0 the null distribution of D does not depend on F_0 if F_0 is continuous); (2) tests the ENTIRE distribution (not just location or variance); (3) no binning required (unlike chi-squared GOF). DISADVANTAGES: (1) more sensitive near the CENTER of the distribution than the tails (since F_n changes fastest there); (2) the null distribution changes if parameters are estimated (Lilliefors correction for testing normality with estimated mu, sigma); (3) generally LOWER POWER than specialized tests (Anderson-Darling for distributional fit, Shapiro-Wilk for normality). VARIANTS: (1) ANDERSON-DARLING — weighted integral of (F_n - F_0)^2 / [F_0(1-F_0)], more sensitive to tails; (2) CRAMER-VON MISES — unweighted integral of (F_n - F_0)^2; (3) KUIPER'S TEST — variant for circular data, D+ + D-. The KS test is widely used for distributional goodness-of-fit and two-sample comparison, especially in physics and finance.",
+      "topic": "ch08p7_kolmogorov_smirnov",
+      "intent": "formula_recall",
+      "keywords": [
+        "Kolmogorov-Smirnov",
+        "KS test",
+        "empirical CDF",
+        "goodness of fit",
+        "nonparametric"
+      ]
+    },
+    {
+      "question": "What is a permutation test (randomization test)?",
+      "answer": "A PERMUTATION TEST (also called RANDOMIZATION TEST) is a nonparametric test that computes the null distribution of a test statistic by RANDOMLY REPERMUTING the labels of the observations. It is EXACT (no asymptotic approximation) under the assumption of EXCHANGEABILITY under H_0. SETUP (two-sample): X_1,...,X_{n_1} (group A) and Y_1,...,Y_{n_2} (group B), test H_0: the two groups have the same distribution vs H_1: they differ. Procedure: (1) choose a test statistic T (e.g., |Xbar - Ybar|, or difference in medians, or any statistic); (2) POOL all n = n_1 + n_2 observations; (3) under H_0 (exchangeability), all C(n, n_1) ways of choosing n_1 observations to be \"group A\" are equally likely; (4) compute T for all (or many random) permutations; (5) the p-value = (number of permutations with T_perm >= T_observed) / (total number of permutations). EXACT PERMUTATION TEST: enumerate all C(n, n_1) permutations (feasible only for small n; e.g., C(20,10) = 184,756). MONTE CARLO PERMUTATION TEST: for large n, randomly sample B permutations (e.g., B=10000) and compute p = (1 + #{T_perm >= T_obs}) / (B + 1). EXAMPLE: n_1=n_2=5, test difference in means. Observed Xbar - Ybar = 2.3. All C(10,5) = 252 permutations computed; 6 permutations give |diff| >= 2.3. p = 6/252 = 0.024. Reject at alpha=0.05. PROPERTIES: (1) EXACT level alpha under H_0 (no large-sample approximation); (2) the test is VALID for any test statistic (mean, median, trimmed mean, t-statistic) — the permutation distribution is exact; (3) POWER depends on the choice of statistic — using the t-statistic gives a test asymptotically equivalent to the t-test; (4) the test is DISTRIBUTION-FREE under exchangeability. ADVANTAGES: (1) no parametric assumptions (normality, equal variance); (2) exact p-values; (3) flexible choice of test statistic; (4) naturally handles complex data structures (e.g., stratified, clustered — use restricted permutations). DISADVANTAGES: (1) computationally expensive for large n (Monte Carlo helps); (2) tests a slightly different null (exchangeability) than the t-test (equality of means); (3) can have lower power than parametric tests when parametric assumptions hold. APPLICATIONS: (1) A/B testing with non-normal data; (2) genomic data analysis (gene set enrichment); (3) causal inference (Fisher's exact test for randomization in experiments). The permutation test is the gold standard for nonparametric hypothesis testing and underlies the randomization inference framework.",
+      "topic": "ch08p7_permutation_test",
+      "intent": "formula_recall",
+      "keywords": [
+        "permutation test",
+        "randomization test",
+        "exchangeability",
+        "exact test",
+        "Monte Carlo"
+      ]
+    },
+    {
+      "question": "What is bootstrap hypothesis testing?",
+      "answer": "BOOTSTRAP HYPOTHESIS TESTING uses the bootstrap (resampling with replacement) to approximate the null distribution of a test statistic, especially when no parametric null distribution is available. Unlike the permutation test (which requires exchangeability under H_0), the bootstrap can handle settings where the null imposes a specific constraint (e.g., a specific parameter value) that is not naturally a permutation. SETUP: test H_0: theta = theta_0 vs H_1: theta != theta_0 using statistic T = T(X_1,...,X_n) (e.g., T = theta_hat - theta_0). Procedure (PARAMETRIC bootstrap): (1) estimate theta under H_0 (theta = theta_0); (2) generate B bootstrap samples from the model with theta = theta_0; (3) for each, compute T*_b = T(bootstrap sample) - theta_0; (4) the bootstrap null distribution of T is approximated by {T*_1,...,T*_B}; (5) p-value = (#{|T*_b| >= |T_obs|}) / B. Procedure (NONPARAMETRIC bootstrap): (1) resample with replacement from the OBSERVED data, but TRANSFORM to enforce H_0 (e.g., resample X_i and shift by theta_hat - theta_0 so that the resampled data has mean theta_0); (2) compute T*_b; (3) same p-value. EXAMPLE: test H_0: median = 5 using a sample of n=50. Observed median = 5.7. Nonparametric bootstrap: shift data so median = 5 (subtract 0.7), resample B=10000 times, compute median of each. Suppose 200 bootstrap medians have |median - 5| >= 0.7. p = 200/10000 = 0.02. Reject at alpha=0.05. ADVANTAGES: (1) works for any test statistic (median, trimmed mean, quantile, complex functional); (2) does not require normality or large-sample theory; (3) can handle nuisance parameters (resample under H_0 estimate). DISADVANTAGES: (1) computationally expensive (B = 1000-10000 resamples); (2) the bootstrap null distribution is only asymptotically correct (small-sample accuracy depends on the method); (3) requires careful construction to enforce H_0 (just resampling the data does not test H_0 — must resample under H_0). VARIANTS: (1) BOOTSTRAP T (studentized bootstrap) — resample a studentized statistic T/SE, more accurate; (2) BCA bootstrap (bias-corrected and accelerated) — for confidence intervals; (3) PERMUTATION vs BOOTSTRAP: permutation is exact for exchangeability nulls; bootstrap is more flexible but only asymptotic. APPLICATIONS: testing on complex statistics (medians, ratios, correlations), small-sample inference where parametric tests are unreliable, causal inference (bootstrap standard errors for treatment effect estimates). Bootstrap testing is a general-purpose computational method for nonparametric inference.",
+      "topic": "ch08p7_bootstrap_testing",
+      "intent": "formula_recall",
+      "keywords": [
+        "bootstrap test",
+        "resampling",
+        "null distribution",
+        "nonparametric",
+        "studentized bootstrap"
+      ]
+    },
+    {
+      "question": "Worked example: find the Neyman-Pearson most powerful test for a simple normal mean.",
+      "answer": "PROBLEM: X_1,...,X_n iid N(mu, 1) (known variance sigma^2=1). Test H_0: mu = 0 vs H_1: mu = 1 (simple vs simple) at level alpha = 0.05. Find the most powerful test. SOLUTION: By the Neyman-Pearson lemma, the MP test rejects H_0 when the likelihood ratio LR = L(mu=1)/L(mu=0) > k. Compute LR: L(mu) = (2pi)^{-n/2} exp[-(1/2) sum(X_i - mu)^2]. So LR = exp[-(1/2) sum(X_i - 1)^2 + (1/2) sum(X_i - 0)^2] = exp[-(1/2)(sum X_i^2 - 2 sum X_i + n) + (1/2) sum X_i^2] = exp[sum X_i - n/2] = exp[n Xbar - n/2]. LR is an increasing function of Xbar (since the exponent n Xbar - n/2 increases with Xbar). So reject H_0 when Xbar > c, where c is chosen so P_{mu=0}(Xbar > c) = 0.05. Under H_0, Xbar ~ N(0, 1/n), so sqrt(n) Xbar ~ N(0,1). P(Xbar > c) = P(Z > sqrt(n) c) = 0.05 -> sqrt(n) c = z_{0.95} = 1.645 -> c = 1.645/sqrt(n). So the MP test rejects when Xbar > 1.645/sqrt(n), equivalently when sum X_i > 1.645 sqrt(n). For n = 10: reject when Xbar > 1.645/sqrt(10) = 0.520, i.e., sum X_i > 5.20. POWER at mu = 1: power = P_{mu=1}(Xbar > 0.520) = P(N(1, 1/10) > 0.520) = P(Z > (0.520 - 1)/sqrt(0.1)) = P(Z > -0.480/0.316) = P(Z > -1.518) = Phi(1.518) = 0.936. So the MP test at level 0.05 has power 93.6% to detect mu=1 with n=10. CHECK: this is also the UMP test for H_0: mu <= 0 vs H_1: mu > 0 (by Karlin-Rubin, since the normal family has MLR in Xbar). The key steps: (1) write down the likelihood ratio; (2) simplify to identify the monotone function of the sufficient statistic; (3) determine the threshold from the null distribution; (4) compute power from the alternative distribution.",
+      "topic": "ch08p7_worked_np_normal",
+      "intent": "problem_solving",
+      "keywords": [
+        "Neyman-Pearson",
+        "worked problem",
+        "normal mean",
+        "most powerful",
+        "likelihood ratio"
+      ]
+    },
+    {
+      "question": "Worked example: find the UMP test for the exponential rate parameter.",
+      "answer": "PROBLEM: X_1,...,X_n iid Exp(lambda) (density f(x|lambda) = lambda exp(-lambda x), x > 0). Test H_0: lambda >= lambda_0 vs H_1: lambda < lambda_0 (lower-tail) at level alpha. Find the UMP test. SOLUTION: The exponential family has density f(x|lambda) = lambda exp(-lambda x) = h(x) exp{-lambda x + log lambda}. This is a one-parameter exponential family with natural parameter eta = -lambda (decreasing in lambda) and sufficient statistic T = sum X_i. MLR: for lambda_1 < lambda_0 (alternative), f(x|lambda_1)/f(x|lambda_0) = (lambda_1/lambda_0)^n exp((lambda_0 - lambda_1) sum X_i), which is INCREASING in sum X_i (since lambda_0 - lambda_1 > 0). So the family has MLR in T = sum X_i (increasing). By Karlin-Rubin, for H_0: lambda >= lambda_0 vs H_1: lambda < lambda_0, we want to reject for LARGE values of the MLR statistic, but since smaller lambda means larger sum X_i (expensive tails), the rejection is for LARGE sum X_i. Wait — let me re-examine. For H_0: lambda >= lambda_0 vs H_1: lambda < lambda_0: lambda is smaller in the alternative, meaning the mean 1/lambda is LARGER, so we expect sum X_i to be larger under H_1. Reject for sum X_i > c. NULL DISTRIBUTION: under lambda_0, sum X_i ~ Gamma(n, lambda_0) (shape n, rate lambda_0). Equivalently 2 lambda_0 sum X_i ~ chi-squared_{2n}. Choose c so P_{lambda_0}(sum X_i > c) = alpha: c = (1/(2 lambda_0)) chi-squared_{2n, 1-alpha}. TEST: reject H_0 when sum X_i > chi-squared_{2n, 1-alpha} / (2 lambda_0). NUMERICAL EXAMPLE: n=10, lambda_0=2, alpha=0.05. chi-squared_{20, 0.95} = 31.41. c = 31.41 / (2*2) = 7.85. Reject if sum X_i > 7.85. Under H_0 (lambda=2), E[sum X_i] = n/lambda_0 = 10/2 = 5, so the threshold 7.85 is in the right tail. POWER at lambda_1 = 1 (smaller rate, larger mean): power = P_{lambda=1}(sum X_i > 7.85) = P(Gamma(10,1) > 7.85) = P(chi-squared_{20} > 2*1*7.85) = P(chi-squared_{20} > 15.7) = 1 - F_{chi^2_{20}}(15.7) approx 0.73. This is a UMP test (by Karlin-Rubin) because the exponential family has MLR in sum X_i.",
+      "topic": "ch08p7_worked_ump_exponential",
+      "intent": "problem_solving",
+      "keywords": [
+        "UMP test",
+        "exponential",
+        "Karlin-Rubin",
+        "worked problem",
+        "gamma distribution"
+      ]
+    },
+    {
+      "question": "Worked example: likelihood ratio test for normal variance — find the critical region.",
+      "answer": "PROBLEM: X_1,...,X_n iid N(0, sigma^2) (mean KNOWN = 0). Test H_0: sigma^2 = 1 vs H_1: sigma^2 != 1 at level alpha. Derive the LRT and identify the critical region. SOLUTION: The log-likelihood: logL(sigma^2) = -(n/2) log(2 pi sigma^2) - (1/(2 sigma^2)) sum X_i^2. UNRESTRICTED MLE: d logL / d sigma^2 = -n/(2 sigma^2) + sum X_i^2 / (2 sigma^4) = 0 -> sigma_hat^2 = (1/n) sum X_i^2 = T/n, where T = sum X_i^2. RESTRICTED MLE (under H_0: sigma^2=1): sigma_hat_0^2 = 1 (no optimization needed — it is fixed at the null value). LRT STATISTIC: Lambda = L(sigma_hat_0^2) / L(sigma_hat^2) = L(1) / L(T/n). Compute: L(1) = (2pi)^{-n/2} exp(-T/2). L(T/n) = (2pi T/n)^{-n/2} exp(-n/2). So Lambda = (2pi)^{-n/2} exp(-T/2) / [(2pi T/n)^{-n/2} exp(-n/2)] = (T/n)^{n/2} exp(-T/2 + n/2) = (T/n)^{n/2} exp((n-T)/2). REJECT for SMALL Lambda. Analyze Lambda as a function of T: log Lambda = (n/2) log(T/n) + (n-T)/2 = (n/2)(log T - log n) + (n-T)/2. Take derivative: d log Lambda / dT = (n/2)(1/T) - 1/2 = (n/T - 1)/2 = (n - T)/(2T). So Lambda is maximized at T = n (where d log Lambda / dT = 0) and decreases as T moves away from n in EITHER direction (Lambda -> 0 as T -> 0 or T -> infinity). CRITICAL REGION: reject when T < c_1 OR T > c_2, where T = sum X_i^2. Under H_0 (sigma^2=1), T = sum X_i^2 ~ chi-squared_n. Choose c_1, c_2 so P(chi-squared_n < c_1) = alpha/2 and P(chi-squared_n > c_2) = alpha/2: c_1 = chi-squared_{n, alpha/2}, c_2 = chi-squared_{n, 1-alpha/2}. This is the equal-tail chi-squared test. NUMERICAL EXAMPLE: n=20, alpha=0.05. chi-squared_{20, 0.025} = 9.59, chi-squared_{20, 0.975} = 34.17. Reject H_0: sigma^2 = 1 if sum X_i^2 < 9.59 or sum X_i^2 > 34.17.",
+      "topic": "ch08p7_worked_lrt_variance",
+      "intent": "problem_solving",
+      "keywords": [
+        "LRT",
+        "normal variance",
+        "worked problem",
+        "critical region",
+        "chi-squared"
+      ]
+    },
+    {
+      "question": "Worked example: two-sample pooled t-test with numbers.",
+      "answer": "PROBLEM: Two independent samples from normal populations. Sample A: n_1=8, values {4.2, 5.1, 4.8, 5.3, 4.9, 5.0, 4.7, 5.2}. Sample B: n_2=8, values {4.0, 4.3, 4.1, 4.5, 4.2, 3.9, 4.4, 4.6}. Test H_0: mu_1 = mu_2 vs H_1: mu_1 != mu_2 at alpha = 0.05, assuming equal variances. SOLUTION: Step 1 — compute sample means: Xbar_A = (4.2+5.1+4.8+5.3+4.9+5.0+4.7+5.2)/8 = 39.2/8 = 4.90. Xbar_B = (4.0+4.3+4.1+4.5+4.2+3.9+4.4+4.6)/8 = 34.0/8 = 4.25. Step 2 — compute sample variances: S_A^2 = (1/7) sum (X_i - 4.90)^2 = (1/7)[(4.2-4.9)^2 + ... ] = (1/7)[0.49 + 0.04 + 0.01 + 0.16 + 0 + 0.01 + 0.04 + 0.09] = (1/7)(0.84) = 0.12. S_B^2 = (1/7) sum (Y_i - 4.25)^2 = (1/7)[0.0625 + 0.0025 + 0.0225 + 0.0625 + 0.0025 + 0.1225 + 0.0225 + 0.1225] = (1/7)(0.42) = 0.06. Step 3 — pooled variance: S_p^2 = ((n_1-1)S_A^2 + (n_2-1)S_B^2)/(n_1+n_2-2) = (7*0.12 + 7*0.06)/14 = (0.84+0.42)/14 = 1.26/14 = 0.09. S_p = 0.30. Step 4 — t-statistic: T = (Xbar_A - Xbar_B) / (S_p sqrt(1/n_1 + 1/n_2)) = (4.90 - 4.25) / (0.30 sqrt(1/8 + 1/8)) = 0.65 / (0.30 * 0.5) = 0.65/0.15 = 4.33. Step 5 — degrees of freedom: df = n_1+n_2-2 = 14. Critical value t_{14, 0.975} = 2.145. Step 6 — decision: |T| = 4.33 > 2.145, REJECT H_0. The means differ significantly. p-value: 2 P(t_{14} > 4.33) approx 2 * 0.00035 = 0.0007 (very small). 95% CI for mu_1 - mu_2: (Xbar_A - Xbar_B) +/- t_{14,0.975} * S_p sqrt(1/8+1/8) = 0.65 +/- 2.145 * 0.15 = 0.65 +/- 0.322 = (0.328, 0.972). The CI excludes 0, confirming the rejection.",
+      "topic": "ch08p7_worked_two_sample_t",
+      "intent": "problem_solving",
+      "keywords": [
+        "two-sample t-test",
+        "pooled",
+        "worked problem",
+        "numbers",
+        "confidence interval"
+      ]
+    },
+    {
+      "question": "Worked example: chi-squared goodness-of-fit test for die fairness.",
+      "answer": "PROBLEM: A die is rolled 120 times. Observed counts: [25, 17, 15, 23, 19, 21] for faces 1-6. Test H_0: the die is fair (p_i = 1/6) at alpha = 0.05. SOLUTION: Step 1 — expected counts under H_0: E_i = n * p_i = 120 * (1/6) = 20 for each face. Step 2 — chi-squared statistic: X^2 = sum (O_i - E_i)^2 / E_i = (25-20)^2/20 + (17-20)^2/20 + (15-20)^2/20 + (23-20)^2/20 + (19-20)^2/20 + (21-20)^2/20 = (25 + 9 + 25 + 9 + 1 + 1)/20 = 70/20 = 3.5. Step 3 — degrees of freedom: k - 1 - m = 6 - 1 - 0 = 5 (no parameters estimated). Step 4 — critical value: chi-squared_{5, 0.95} = 11.07. Step 5 — decision: 3.5 < 11.07, FAIL TO REJECT H_0. The die appears fair. p-value: P(chi-squared_5 > 3.5) approx 0.62 (no evidence against fairness). Step 6 — check assumptions: all E_i = 20 >= 5, so the chi-squared approximation is valid. INTERPRETATION: although the observed counts deviate from 20 (e.g., face 1 appears 25 times, face 3 only 15 times), these deviations are within the range expected by chance for 120 rolls of a fair die. If we had observed [30, 12, 14, 22, 18, 24] instead, X^2 = (100 + 64 + 36 + 4 + 4 + 16)/20 = 224/20 = 11.2 > 11.07, which WOULD reject H_0. EXTENSION — if H_0 was \"die follows probabilities p = [0.1, 0.15, 0.2, 0.2, 0.15, 0.2]\" (not uniform), the expected counts would be E_i = 120 p_i, same X^2 formula, df = 5 (no estimated parameters). If we estimated a parameter (e.g., tested fit to Poisson with estimated lambda), df = k - 1 - m where m is the number of estimated parameters.",
+      "topic": "ch08p7_worked_chi_sq_die",
+      "intent": "problem_solving",
+      "keywords": [
+        "chi-squared goodness of fit",
+        "die fairness",
+        "worked problem",
+        "expected counts",
+        "df"
+      ]
+    },
+    {
+      "question": "Worked example: Wilcoxon signed-rank test small sample.",
+      "answer": "PROBLEM: 8 patients measure blood pressure before and after a drug. Differences (after - before): [-3, +5, +2, -1, +6, +4, -2, +3]. Test H_0: median difference = 0 vs H_1: median difference != 0 at alpha = 0.05 (two-sided). SOLUTION: Step 1 — compute |D_i|: [3, 5, 2, 1, 6, 4, 2, 3]. Step 2 — rank the |D_i| from smallest to largest. Sorted: [1, 2, 2, 3, 3, 4, 5, 6]. Assign ranks (with ties averaged): rank 1 -> value 1; ranks 2 and 3 (avg 2.5) -> the two values of 2; ranks 4 and 5 (avg 4.5) -> the two values of 3; rank 6 -> value 4; rank 7 -> value 5; rank 8 -> value 6. So ranks: D=-3 (|D|=3, rank 4.5), D=+5 (rank 7), D=+2 (|D|=2, rank 2.5), D=-1 (rank 1), D=+6 (rank 8), D=+4 (rank 6), D=-2 (|D|=2, rank 2.5), D=+3 (|D|=3, rank 4.5). Step 3 — compute W+ = sum of ranks where D > 0: D=+5 (rank 7), D=+2 (rank 2.5), D=+6 (rank 8), D=+4 (rank 6), D=+3 (rank 4.5). W+ = 7 + 2.5 + 8 + 6 + 4.5 = 28. Step 4 — null distribution: under H_0, E[W+] = n(n+1)/4 = 8*9/4 = 18, Var(W+) = n(n+1)(2n+1)/24 = 8*9*17/24 = 51 (with tie adjustment slightly less). SD = sqrt(51) = 7.14. Step 5 — normal approximation: Z = (W+ - 18)/7.14 = (28 - 18)/7.14 = 10/7.14 = 1.40. Step 6 — decision (two-sided, alpha=0.05): critical z = 1.96. |Z| = 1.40 < 1.96, FAIL TO REJECT H_0. p-value = 2(1 - Phi(1.40)) = 2 * 0.0808 = 0.162. INTERPRETATION: although 5 of 8 differences are positive (and W+ = 28 > E[W+] = 18), the evidence is not strong enough at alpha=0.05 to conclude a systematic shift. With only n=8, the test has low power. EXACT p-value (from tables): for n=8, two-sided exact p for W+ = 28 is approximately 0.16, consistent with the normal approximation. If we had observed more extreme W+ (e.g., W+ = 33), the exact p would be approximately 0.04, rejecting H_0. The Wilcoxon signed-rank test is more powerful than the sign test here because it uses magnitudes (the large positive differences +5, +6 contribute more to W+ than the small negative differences -1, -2).",
+      "topic": "ch08p7_worked_wilcoxon",
+      "intent": "problem_solving",
+      "keywords": [
+        "Wilcoxon signed-rank",
+        "worked problem",
+        "small sample",
+        "blood pressure",
+        "ranks"
+      ]
+    },
+    {
+      "question": "Worked example: Benjamini-Hochberg FDR control on a list of p-values.",
+      "answer": "PROBLEM: A genomic study tests 10 hypotheses (genes), producing p-values: [0.001, 0.008, 0.039, 0.041, 0.042, 0.060, 0.074, 0.205, 0.212, 0.216]. Apply the Benjamini-Hochberg (BH) procedure to control the False Discovery Rate at q = 0.05. Which hypotheses are rejected? SOLUTION: The BH procedure controls FDR (expected proportion of false positives among rejections). Step 1 — sort p-values in ascending order: already sorted p_{(1)}=0.001, p_{(2)}=0.008, p_{(3)}=0.039, p_{(4)}=0.041, p_{(5)}=0.042, p_{(6)}=0.060, p_{(7)}=0.074, p_{(8)}=0.205, p_{(9)}=0.212, p_{(10)}=0.216. Step 2 — compute BH thresholds: for rank k (k=1,...,m), threshold = k * q / m = k * 0.05 / 10 = 0.005 k. Thresholds: k=1: 0.005, k=2: 0.010, k=3: 0.015, k=4: 0.020, k=5: 0.025, k=6: 0.030, k=7: 0.035, k=8: 0.040, k=9: 0.045, k=10: 0.050. Step 3 — find the LARGEST k such that p_{(k)} <= k * q / m. Compare: k=1: 0.001 <= 0.005 (yes). k=2: 0.008 <= 0.010 (yes). k=3: 0.039 <= 0.015 (no). k=4: 0.041 <= 0.020 (no). k=5: 0.042 <= 0.025 (no). k=6: 0.060 <= 0.030 (no). k=7: 0.074 <= 0.035 (no). k=8: 0.205 <= 0.040 (no). k=9: 0.212 <= 0.045 (no). k=10: 0.216 <= 0.050 (no). The largest k satisfying the condition is k = 2. Step 4 — reject all hypotheses with rank <= k_max, i.e., reject H_{(1)} and H_{(2)} (p-values 0.001 and 0.008). Step 5 — report: 2 out of 10 hypotheses rejected, with FDR controlled at 5%. INTERPRETATION: even though several p-values are < 0.05 (0.039, 0.041, 0.042), the BH procedure does NOT reject them, because they fail the rank-adjusted threshold (they would be the 3rd, 4th, 5th smallest, and the corresponding thresholds 0.015, 0.020, 0.025 are stricter). The BH procedure is LESS CONSERVATIVE than Bonferroni (which would reject only p <= 0.05/10 = 0.005, i.e., only p=0.001) but MORE CONSERVATIVE than unadjusted (which would reject all p <= 0.05, i.e., 5 hypotheses). BH ADJUSTED p-VALUES (BH q-values): p_{(k)}^{adj} = min_{j>=k} [m p_{(j)} / j]. For k=10: 10*0.216/10 = 0.216. k=9: min(0.216, 10*0.212/9) = min(0.216, 0.236) = 0.216. ... k=2: min(..., 10*0.008/2) = 0.04. k=1: min(0.04, 10*0.001/1) = 0.01. So adjusted p-values: [0.01, 0.04, 0.13, 0.13, 0.13, 0.10, ...]. Rejecting at adjusted p <= 0.05 gives the same 2 hypotheses.",
+      "topic": "ch08p7_worked_bh_fdr",
+      "intent": "problem_solving",
+      "keywords": [
+        "Benjamini-Hochberg",
+        "FDR",
+        "worked problem",
+        "multiple testing",
+        "genomics"
+      ]
+    }
+  ]
+}
