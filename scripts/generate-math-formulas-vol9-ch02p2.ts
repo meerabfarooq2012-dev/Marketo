@@ -1,0 +1,558 @@
+/**
+ * ============================================================
+ *  Mathematics Formula Encyclopedia — Volume 9
+ *  Comprehensive Formula Reference
+ *  Chapter 2 — Part 2 (Coordinate / Analytic Geometry)
+ *  Cartesian Coordinate System;
+ *  Distance & Midpoint Formulas; Slope;
+ *  Equations of Lines (Slope-Intercept, Point-Slope,
+ *    Two-Point, Intercept, General Form);
+ *  Parallel/Perpendicular Slopes & Angle Between Lines;
+ *  Area of Triangle/Polygon via Coordinates (Shoelace);
+ *  Section Formula (Internal/External Division);
+ *  Centroid/Incenter Coordinates;
+ *  Conic Sections — Circle, Parabola, Ellipse, Hyperbola
+ *    (Standard Forms, Tangents, Eccentricity);
+ *  General Second-Degree Equation & Identification;
+ *  Polar Coordinates (Conversion, Curves);
+ *  Parametric Equations;
+ *  Rotation of Axes
+ *  Generator for TRIZA
+ * ============================================================
+ *
+ *  Output: data/math-formulas-vol9-ch02p2.json
+ * ============================================================
+ */
+import { writeFileSync, mkdirSync } from 'fs'
+
+interface MathItem {
+  question: string
+  answer: string
+  topic: string
+  intent: 'factual_question' | 'how_to' | 'formula_recall' | 'problem_solving'
+  keywords: string[]
+}
+
+const items: MathItem[] = []
+
+function add(
+  question: string,
+  answer: string,
+  topic: string,
+  intent: MathItem['intent'] = 'formula_recall',
+  keywords: string[] = []
+) {
+  items.push({ question, answer, topic, intent, keywords })
+}
+
+// ============================================================
+// SECTION 1 — CARTESIAN COORDINATE SYSTEM (3 items)
+// ============================================================
+add(
+  'What is the Cartesian (rectangular) coordinate system?',
+  'The **Cartesian coordinate system** in 2D consists of two perpendicular number lines — the **x-axis** (horizontal) and **y-axis** (vertical) — intersecting at the **origin** O = (0, 0). The plane is divided into **four quadrants** (I: x>0, y>0; II: x<0, y>0; III: x<0, y<0; IV: x>0, y<0). Every point P is uniquely identified by an **ordered pair (x, y)** — its coordinates. **3D extension**: three mutually perpendicular axes x, y, z through origin O; point (x, y, z). **3D octants** (8 regions). **Sign conventions**: counterclockwise angles positive; right-handed system in 3D (x cross y = z). **Example**: point (−3, 4) lies in Quadrant II, at distance 5 from origin (3-4-5 triangle). ✓',
+  'ch02p2_cartesian_system',
+  'formula_recall',
+  ['Cartesian', 'coordinate', 'axes', 'quadrant', 'origin', 'ordered pair']
+)
+
+add(
+  'How do you plot points and identify their quadrant?',
+  'To plot (x, y): from origin, move x units along x-axis (right if positive, left if negative), then y units along y-axis (up if positive, down if negative). **Quadrant identification**: Quadrant I (+,+); II (−,+); III (−,−); IV (+,−). Points on axes are not in any quadrant. **Example**: (5, −2) — move 5 right, 2 down; Quadrant IV. (−4, 7) — Quadrant II. (0, 3) — on y-axis, no quadrant. (−6, 0) — on x-axis, no quadrant. **Reflections**: across x-axis (x, y)→(x,−y); across y-axis (x,y)→(−x,y); across origin (x,y)→(−x,−y); across y=x line (x,y)→(y,x). **Example**: Reflect (3, −5) across y-axis ⇒ (−3, −5); across origin ⇒ (−3, 5); across line y = x ⇒ (−5, 3). ✓',
+  'ch02p2_plotting_quadrants',
+  'how_to',
+  ['plot', 'quadrant', 'reflection', 'axes', 'coordinates']
+)
+
+add(
+  'How do you find the distance and midpoint of two points?',
+  '**Distance formula**: For P_1 = (x_1, y_1) and P_2 = (x_2, y_2), the distance is **d = sqrt((x_2 − x_1)² + (y_2 − y_1)²)** — derived from the Pythagorean Theorem applied to the right triangle formed by the horizontal and vertical legs. **Midpoint formula**: **M = ((x_1 + x_2)/2, (y_1 + y_2)/2)**. **Example (distance)**: P_1 = (1, 2), P_2 = (4, 6). d = sqrt((4−1)² + (6−2)²) = sqrt(9 + 16) = sqrt(25) = 5. **Example (midpoint)**: M = ((1+4)/2, (2+6)/2) = (2.5, 4). **3D extension**: distance = sqrt((Δx)² + (Δy)² + (Δz)²); midpoint = ((x_1+x_2+x_3)/3, ...). Wait — midpoint in 3D is still ((x_1+x_2)/2, (y_1+y_2)/2, (z_1+z_2)/2) (only 2 points). The "/3" applies to the centroid of 3 points. ✓',
+  'ch02p2_distance_midpoint',
+  'formula_recall',
+  ['distance formula', 'midpoint formula', 'Pythagorean', 'coordinates']
+)
+
+// ============================================================
+// SECTION 2 — DISTANCE & MIDPOINT APPLICATIONS (3 items)
+// ============================================================
+add(
+  'How do you classify a triangle using coordinate distances?',
+  'Compute the three side lengths using the distance formula and classify. **Equilateral** ⇒ all three equal; **isosceles** ⇒ at least two equal; **scalene** ⇒ all different. **Right** ⇒ satisfies a² + b² = c² (longest as hypotenuse). **Example**: Triangle with A(0,0), B(4,0), C(0,3). AB = 4, AC = 3, BC = sqrt(16+9) = 5. Check 3² + 4² = 9 + 16 = 25 = 5² ⇒ right triangle (and scalene). **Example 2**: A(−1,1), B(2,4), C(5,1). AB = sqrt(9+9) = 3·sqrt(2). BC = sqrt(9+9) = 3·sqrt(2). AC = sqrt(36+0) = 6. Isosceles (AB = BC). Right? (3·sqrt(2))² + (3·sqrt(2))² = 18 + 18 = 36 = 6² ⇒ right isosceles. ✓',
+  'ch02p2_triangle_classification_coords',
+  'problem_solving',
+  ['triangle classification', 'distance formula', 'isosceles', 'right triangle', 'Pythagorean']
+)
+
+add(
+  'How do you determine if three points are collinear using distance?',
+  'Three points are **collinear** iff one of the distances equals the sum of the other two (i.e., the triangle is degenerate with area 0). Equivalently, check that AB + BC = AC (with B between A and C), or use the slope test (slope of AB = slope of AC), or compute the determinant: |x_1 y_1 1; x_2 y_2 1; x_3 y_3 1| = 0 (shoelace / area = 0). **Example**: A(1, 2), B(3, 5), C(5, 8). AB = sqrt(4 + 9) = sqrt(13). BC = sqrt(4 + 9) = sqrt(13). AC = sqrt(16 + 36) = sqrt(52) = 2·sqrt(13). Check AB + BC = 2·sqrt(13) = AC ✓ ⇒ collinear. (Slope test: (5−2)/(3−1) = 3/2; (8−2)/(5−1) = 6/4 = 3/2 ✓.) ✓',
+  'ch02p2_collinear_distance',
+  'problem_solving',
+  ['collinear', 'distance', 'degenerate triangle', 'slope test', 'determinant']
+)
+
+add(
+  'How do you find the perpendicular bisector of a segment in coordinates?',
+  'Steps: (1) Find the midpoint M of AB. (2) Find the slope of AB. (3) The perpendicular bisector has slope = negative reciprocal of AB\'s slope. (4) Write the equation in point-slope form through M. **Example**: A(−2, 1), B(4, 9). Midpoint M = (1, 5). Slope of AB = (9−1)/(4−(−2)) = 8/6 = 4/3. Perpendicular slope = −3/4. Equation: y − 5 = (−3/4)(x − 1) ⇒ 4(y − 5) = −3(x − 1) ⇒ 4y − 20 = −3x + 3 ⇒ 3x + 4y − 23 = 0. ✓ Check: M satisfies: 3(1) + 4(5) − 23 = 3 + 20 − 23 = 0 ✓. Slope check: from general form y = (−3x + 23)/4 ⇒ slope = −3/4 ✓.',
+  'ch02p2_perp_bisector_coords',
+  'problem_solving',
+  ['perpendicular bisector', 'midpoint', 'negative reciprocal', 'coordinate', 'line equation']
+)
+
+// ============================================================
+// SECTION 3 — SLOPE (3 items)
+// ============================================================
+add(
+  'What is the slope of a line and how is it interpreted?',
+  '**Slope** m of a line through (x_1, y_1) and (x_2, y_2): **m = (y_2 − y_1) / (x_2 − x_1) = Δy/Δx = rise/run**. **Interpretation**: rise = vertical change; run = horizontal change. **Sign**: positive slope ⇒ line rises left-to-right; negative ⇒ falls; zero (m = 0) ⇒ horizontal line; undefined ⇒ vertical line (x_2 = x_1). **Steepness**: |m| larger ⇒ steeper. **Example**: Line through (2, 3) and (5, 9). m = (9 − 3)/(5 − 2) = 6/3 = 2 (rises 2 units for each 1 unit right). **Example 2**: Through (1, 4) and (3, 1). m = (1−4)/(3−1) = −3/2 (falls 3 for every 2 right). **Angle of inclination**: m = tan(θ) where θ is the angle the line makes with the positive x-axis (0° ≤ θ < 180°). m = 2 ⇒ θ = arctan(2) ≈ 63.43°. ✓',
+  'ch02p2_slope_definition',
+  'formula_recall',
+  ['slope', 'rise run', 'inclination', 'positive negative', 'undefined', 'tan theta']
+)
+
+add(
+  'How are parallel and perpendicular slopes related?',
+  '**Parallel lines**: same slope, different y-intercepts. **m_1 = m_2**. **Perpendicular lines** (non-vertical, non-horizontal): slopes are **negative reciprocals**: **m_1 · m_2 = −1**, i.e., m_2 = −1/m_1. Special cases: a horizontal line (m = 0) is perpendicular to a vertical line (slope undefined). **Example (parallel)**: y = 2x + 3 and y = 2x − 5 are parallel (both slope 2). **Example (perpendicular)**: y = 3x + 1 and y = −(1/3)x + 4 are perpendicular (3·(−1/3) = −1 ✓). **Example 3**: Find slope perpendicular to line through (1, 2) and (4, 8). Original slope m_1 = (8−2)/(4−1) = 2; perp slope m_2 = −1/2. ✓',
+  'ch02p2_parallel_perp_slope',
+  'formula_recall',
+  ['parallel', 'perpendicular', 'slope', 'negative reciprocal', 'product negative one']
+)
+
+add(
+  'How do you find the angle between two lines?',
+  'For two lines with slopes m_1 and m_2 (neither vertical), the angle θ between them satisfies: **tan(θ) = |(m_2 − m_1) / (1 + m_1·m_2)|**, with θ being the **acute** angle (0° ≤ θ ≤ 90°). If 1 + m_1·m_2 = 0, the lines are perpendicular (θ = 90°). If m_1 = m_2, the lines are parallel (θ = 0°). **For vertical lines**: if one line is vertical (slope undefined) and the other has slope m, then tan(θ) = |1/m| (i.e., θ = |90° − arctan(m)|). **Example**: Lines y = 2x + 1 and y = −x + 3. m_1 = 2, m_2 = −1. tan(θ) = |(−1 − 2)/(1 + (2)(−1))| = |(−3)/(−1)| = 3 ⇒ θ = arctan(3) ≈ 71.57°. ✓',
+  'ch02p2_angle_between_lines',
+  'formula_recall',
+  ['angle between lines', 'tan', 'slope formula', 'acute angle', 'perpendicular check']
+)
+
+// ============================================================
+// SECTION 4 — EQUATIONS OF LINES (5 items)
+// ============================================================
+add(
+  'What is the slope-intercept form of a line?',
+  '**Slope-intercept form**: **y = m·x + b**, where m is the slope and b is the y-intercept (the y-coordinate where the line crosses the y-axis; the point (0, b)). **Most useful** for graphing (read slope and intercept directly) and for writing an equation given slope and y-intercept. **Example**: y = −2x + 5 ⇒ slope −2, y-intercept (0, 5). To graph: start at (0,5), go down 2 right 1 repeatedly. **Example 2**: Line through (0, 3) with slope 4 ⇒ y = 4x + 3. **Conversion**: from any other form, solve for y to put in slope-intercept form. From 3x + 2y = 6: 2y = −3x + 6 ⇒ y = −(3/2)x + 3 (slope −3/2, y-int (0, 3)). ✓',
+  'ch02p2_slope_intercept_form',
+  'formula_recall',
+  ['slope intercept', 'y = mx + b', 'slope', 'y-intercept', 'line equation']
+)
+
+add(
+  'What is the point-slope form of a line?',
+  '**Point-slope form**: **y − y_1 = m(x − x_1)**, where (x_1, y_1) is a known point on the line and m is the slope. **Most useful** when given a point and slope (or two points, after computing slope). **Example**: Line through (3, 5) with slope −2: y − 5 = −2(x − 3) ⇒ y = −2x + 6 + 5 = −2x + 11. **Example 2**: Through (1, 2) and (4, 8): slope = (8−2)/(4−1) = 2; point-slope y − 2 = 2(x − 1) ⇒ y = 2x. (Check: passes through (1,2): 2 = 2(1) ✓; through (4,8): 8 = 2(4) ✓.) **Conversion to slope-intercept**: solve for y. **Conversion to general**: rearrange to Ax + By + C = 0. ✓',
+  'ch02p2_point_slope_form',
+  'formula_recall',
+  ['point slope', 'y - y1 = m(x - x1)', 'known point', 'slope', 'line equation']
+)
+
+add(
+  'What is the two-point form of a line?',
+  '**Two-point form**: For line through (x_1, y_1) and (x_2, y_2) (with x_1 ≠ x_2): **(y − y_1) / (x − x_1) = (y_2 − y_1) / (x_2 − x_1)**. (Equivalent to point-slope after computing the slope.) If x_1 = x_2, the line is vertical: **x = x_1**. **Example**: Through (2, 3) and (5, 9). (y − 3)/(x − 2) = (9 − 3)/(5 − 2) = 6/3 = 2 ⇒ y − 3 = 2(x − 2) ⇒ y = 2x − 1. **Example 2 (vertical)**: Through (3, 1) and (3, 7) (same x) ⇒ x = 3 (vertical line, slope undefined). **Example 3 (horizontal)**: Through (4, 5) and (9, 5) (same y) ⇒ y = 5 (horizontal, slope 0). ✓',
+  'ch02p2_two_point_form',
+  'formula_recall',
+  ['two point', 'line equation', 'slope ratio', 'vertical horizontal', 'through two points']
+)
+
+add(
+  'What is the intercept form of a line?',
+  '**Intercept form**: **x/a + y/b = 1**, where **a** is the x-intercept (line crosses x-axis at (a, 0)) and **b** is the y-intercept (crosses y-axis at (0, b)). Requires both intercepts nonzero (not valid for lines through origin or horizontal/vertical lines). **Derivation**: line through (a, 0) and (0, b); two-point form gives (y − 0)/(x − a) = (b − 0)/(0 − a) = −b/a ⇒ y = (−b/a)(x − a) = −(b/a)x + b ⇒ (b/a)x + y = b ⇒ x/a + y/b = 1 (divide by b). **Example**: Line with x-intercept 4 and y-intercept −3: x/4 + y/(−3) = 1 ⇒ x/4 − y/3 = 1 ⇒ 3x − 4y = 12. **Conversion from general**: Ax + By + C = 0 ⇒ x/(−C/A) + y/(−C/B) = 1, so a = −C/A, b = −C/B. ✓',
+  'ch02p2_intercept_form',
+  'formula_recall',
+  ['intercept form', 'x-intercept', 'y-intercept', 'x/a + y/b = 1', 'line equation']
+)
+
+add(
+  'What is the general form of a line and how do you convert between forms?',
+  '**General form**: **Ax + By + C = 0**, where A, B are not both zero. **Slope** (if B ≠ 0): m = −A/B. **y-intercept**: b = −C/B (when B ≠ 0). **x-intercept**: a = −C/A (when A ≠ 0). **All linear equations** can be written in this form. **Conversions**: (1) General → slope-intercept: solve for y: y = −(A/B)x − C/B. (2) Slope-intercept → general: −mx + y − b = 0 (or mx − y + b = 0, multiply by −1). (3) Point-slope → general: y − y_1 = m(x − x_1) ⇒ mx − y + (y_1 − m·x_1) = 0. **Example**: Convert y = (2/3)x − 4 to general: 2x − 3y − 12 = 0 (multiply by 3 and rearrange). Slope m = 2/3; y-int (0, −4); x-int (6, 0). ✓',
+  'ch02p2_general_form',
+  'formula_recall',
+  ['general form', 'Ax + By + C = 0', 'slope from general', 'conversion', 'line equation']
+)
+
+// ============================================================
+// SECTION 5 — LINE APPLICATIONS (3 items)
+// ============================================================
+add(
+  'How do you find the equation of a line parallel or perpendicular to a given line through a given point?',
+  '**Parallel**: slope = same as given line; use point-slope. **Perpendicular**: slope = negative reciprocal; use point-slope. **Example (parallel)**: Find line through (2, 5) parallel to 3x − 4y = 12. Given line slope: m = −A/B = −3/(−4) = 3/4. New line: y − 5 = (3/4)(x − 2) ⇒ 4y − 20 = 3x − 6 ⇒ 3x − 4y + 14 = 0. **Example (perpendicular)**: Same point, perpendicular to 3x − 4y = 12. Perp slope = −4/3. New line: y − 5 = (−4/3)(x − 2) ⇒ 3y − 15 = −4x + 8 ⇒ 4x + 3y − 23 = 0. ✓ Check: (3)(4) + (−4)(3) = 12 − 12 = 0 ⇒ perpendicular ✓.',
+  'ch02p2_parallel_perp_through_point',
+  'problem_solving',
+  ['parallel through point', 'perpendicular through point', 'negative reciprocal', 'point slope']
+)
+
+add(
+  'How do you find the distance from a point to a line?',
+  '**Distance from point (x_0, y_0) to line Ax + By + C = 0**: **d = |A·x_0 + B·y_0 + C| / sqrt(A² + B²)**. (Absolute value ensures nonnegativity.) **Derivation**: project the vector from any point on line to (x_0, y_0) onto the normal (A, B). **Example**: Point (3, 4) to line 3x + 4y − 5 = 0. d = |3·3 + 4·4 − 5|/sqrt(9 + 16) = |9 + 16 − 5|/5 = 20/5 = 4. **Special cases**: (1) Distance from (x_0, y_0) to horizontal line y = k is |y_0 − k|. (2) To vertical line x = h is |x_0 − h|. (3) To a line through two points P_1, P_2: use cross-product form d = |(P_2 − P_1) × (P_0 − P_1)| / |P_2 − P_1|. **Example 2**: Point (1, 2) to line y = 5: d = |2 − 5| = 3. ✓',
+  'ch02p2_point_line_distance',
+  'formula_recall',
+  ['distance point to line', 'normal vector', 'Ax + By + C', 'absolute value', 'projection']
+)
+
+add(
+  'How do you find the distance between two parallel lines?',
+  'Two parallel lines have the same slope (i.e., proportional A, B coefficients). **Steps**: (1) Put both lines in form Ax + By + C_1 = 0 and Ax + By + C_2 = 0 (same A, B; if not, multiply one equation to match). (2) Distance: **d = |C_2 − C_1| / sqrt(A² + B²)**. **Equivalently**: pick a point on line 1, compute distance to line 2 using the point-to-line formula. **Example**: Distance between 3x + 4y − 5 = 0 and 3x + 4y + 10 = 0. d = |10 − (−5)| / sqrt(9 + 16) = 15/5 = 3. **Example 2**: Between y = 2x + 1 and y = 2x − 5. Rewrite as 2x − y + 1 = 0 and 2x − y − 5 = 0. d = |−5 − 1| / sqrt(4 + 1) = 6/sqrt(5) ≈ 2.683. ✓ Note: parallel lines must be distinct (if C_1 = C_2, they coincide, d = 0).',
+  'ch02p2_parallel_lines_distance',
+  'problem_solving',
+  ['distance parallel lines', 'same slope', 'normal', 'coefficient', 'distinct lines']
+)
+
+// ============================================================
+// SECTION 6 — AREA VIA COORDINATES / SHOELACE (3 items)
+// ============================================================
+add(
+  'How do you find the area of a triangle given its three vertices?',
+  'Three methods. **Method 1 (Shoelace)**: For A(x_1,y_1), B(x_2,y_2), C(x_3,y_3): **Area = (1/2)|x_1(y_2 − y_3) + x_2(y_3 − y_1) + x_3(y_1 − y_2)|**. **Method 2 (determinant)**: Area = (1/2)|det([x_1 y_1 1; x_2 y_2 1; x_3 y_3 1])|. **Method 3 (base × height)**: compute one side length (base) and the perpendicular distance from the opposite vertex to the line through the base (height), then A = (1/2)·b·h. **Example (shoelace)**: A(0,0), B(4,0), C(0,3). A = (1/2)|0·(0−3) + 4·(3−0) + 0·(0−0)| = (1/2)|0 + 12 + 0| = 6. ✓ (Right triangle, base 4, height 3, area = (1/2)(4)(3) = 6 ✓.) **Example 2**: A(1,2), B(4,6), C(7,3). A = (1/2)|1·(6−3) + 4·(3−2) + 7·(2−6)| = (1/2)|3 + 4 − 28| = (1/2)(21) = 10.5. ✓',
+  'ch02p2_triangle_area_coords',
+  'formula_recall',
+  ['shoelace', 'triangle area', 'vertices', 'determinant', 'coordinates']
+)
+
+add(
+  'What is the Shoelace Formula for the area of a polygon?',
+  '**Shoelace Formula**: For a polygon with vertices (x_1, y_1), (x_2, y_2), ..., (x_n, y_n) listed in order (either CW or CCW), the area is **A = (1/2)|Σ_{i=1}^{n} (x_i · y_{i+1} − x_{i+1} · y_i)|**, where (x_{n+1}, y_{n+1}) = (x_1, y_1) (wrap around). **Algorithm** (the "shoelace" pattern): write coordinates in two columns; sum the "down-right" diagonal products, subtract the "up-right" diagonal products, divide by 2, take absolute value. **Sign**: positive for CCW ordering, negative for CW (the absolute value gives area). **Example (square)**: (0,0), (4,0), (4,4), (0,4). Sum = (0·0 − 4·0) + (4·4 − 4·0) + (4·4 − 0·4) + (0·0 − 0·4) = 0 + 16 + 16 + 0 = 32. A = (1/2)|32| = 16. ✓ (4×4 square.)',
+  'ch02p2_shoelace_polygon',
+  'formula_recall',
+  ['shoelace formula', 'polygon area', 'vertices', 'CCW', 'CW', 'determinant']
+)
+
+add(
+  'How do you apply the Shoelace Formula to a pentagon or higher polygon?',
+  'Procedure: (1) List vertices in order (CCW or CW) — if not given in order, sort by angle around centroid first. (2) Apply: A = (1/2)|Σ(x_i · y_{i+1} − x_{i+1} · y_i)|, with wrap-around. (3) Take absolute value. **Example (pentagon)**: (0,0), (4,0), (5,2), (2,5), (−1,3). Compute: (0·0 − 4·0) + (4·2 − 5·0) + (5·5 − 2·2) + (2·3 − (−1)·5) + ((−1)·0 − 0·3) = 0 + 8 + 21 + 11 + 0 = 40. A = (1/2)|40| = 20. **Self-intersecting polygon**: shoelace gives signed "algebraic" area; for proper area, decompose into simple regions. **Tip**: For convex polygons, you can also triangulate from any vertex and sum triangle shoelace areas. **Tip**: Always verify the result is positive and reasonable (compare to a bounding box). ✓',
+  'ch02p2_shoelace_higher_polygon',
+  'problem_solving',
+  ['shoelace', 'pentagon', 'polygon area', 'vertices order', 'wrap around', 'convex']
+)
+
+// ============================================================
+// SECTION 7 — SECTION FORMULA (3 items)
+// ============================================================
+add(
+  'What is the section formula (internal division)?',
+  '**Section formula (internal division)**: A point P that divides the segment from A(x_1, y_1) to B(x_2, y_2) in the ratio **m : n** (internally, i.e., P is between A and B) is: **P = ((m·x_2 + n·x_1)/(m+n), (m·y_2 + n·y_1)/(m+n))**. Equivalently, P = A + (m/(m+n))·(B − A). **Special case**: m = n gives the midpoint. **Example**: A(1, 2), B(7, 8), ratio 2:1 (closer to B). P = ((2·7 + 1·1)/3, (2·8 + 1·2)/3) = (15/3, 18/3) = (5, 6). Check: AP/PB = 2/1: AP = sqrt(16+16) = 4·sqrt(2); PB = sqrt(4+4) = 2·sqrt(2). Ratio = 2 ✓. **Generalization to 3D**: same formula with z-coordinate. ✓',
+  'ch02p2_section_formula_internal',
+  'formula_recall',
+  ['section formula', 'internal division', 'ratio', 'midpoint', 'weighted average']
+)
+
+add(
+  'What is the section formula for external division?',
+  '**External division**: A point P on the line AB but **outside** the segment AB, dividing AB externally in ratio m : n, is: **P = ((m·x_2 − n·x_1)/(m − n), (m·y_2 − n·y_1)/(m − n))**, for m ≠ n. (Sign change from internal formula.) **Interpretation**: P lies beyond B if m > n (and m:n is the "external ratio"), or beyond A otherwise. **Example**: A(1, 2), B(5, 6), external ratio 3:1. P = ((3·5 − 1·1)/(3−1), (3·6 − 1·2)/(3−1)) = (14/2, 16/2) = (7, 8). Check: P is beyond B (since B = (5,6) and direction (4,4) from A; P = (5,6) + (1/4)(4,4)·... actually P = B + (1/2)(B−A) = (5,6) + (2,2) = (7,8) ✓). **Use**: harmonic conjugates, exsimilicenter of two circles. ✓',
+  'ch02p2_section_formula_external',
+  'formula_recall',
+  ['external division', 'section formula', 'ratio', 'outside segment', 'harmonic']
+)
+
+add(
+  'How do you find the centroid, incenter, and other centers of a triangle in coordinates?',
+  '**Centroid** (intersection of medians): **G = ((x_1 + x_2 + x_3)/3, (y_1 + y_2 + y_3)/3)**. **Incenter** (intersection of angle bisectors, center of incircle): **I = (a·x_1 + b·x_2 + c·x_3)/(a+b+c), (a·y_1 + b·y_2 + c·y_3)/(a+b+c)** where a, b, c are side lengths opposite vertices A, B, C. (Barycentric coordinates weighted by side lengths.) **Circumcenter**: solve perpendicular bisectors of any two sides — yields the equidistant point from all three vertices. **Orthocenter**: solve any two altitude equations. **Example (centroid)**: A(0,0), B(6,0), C(0,9). G = (2, 3). **Example (incenter)**: Right triangle A(0,0), B(3,0), C(0,4); a = BC = 5, b = AC = 4, c = AB = 3. I = (5·0 + 4·3 + 3·0)/12, (5·0 + 4·0 + 3·4)/12 = (12/12, 12/12) = (1, 1). Inradius r = A/s = 6/6 = 1; check distance from I to AB (y=0): 1 ✓. ✓',
+  'ch02p2_centers_coordinates',
+  'problem_solving',
+  ['centroid', 'incenter', 'circumcenter', 'orthocenter', 'barycentric', 'coordinates']
+)
+
+// ============================================================
+// SECTION 8 — CIRCLE (4 items)
+// ============================================================
+add(
+  'What is the standard equation of a circle?',
+  '**Standard form**: A circle with center (h, k) and radius r has equation **(x − h)² + (y − k)² = r²**. **Special case**: centered at origin: **x² + y² = r²**. **Derivation**: every point (x, y) on the circle is at distance r from (h, k), so by distance formula: sqrt((x − h)² + (y − k)²) = r ⇒ square both sides. **Example**: Center (3, −2), radius 5 ⇒ (x − 3)² + (y + 2)² = 25. **Finding center & radius**: compare with standard form. (x + 4)² + (y − 1)² = 9 ⇒ center (−4, 1), radius 3. **Point on circle?**: Substitute; equation holds. E.g., (1, 1) on (x − 3)² + (y + 2)² = 25? (1−3)² + (1+2)² = 4 + 9 = 13 ≠ 25 ⇒ not on circle. ✓',
+  'ch02p2_circle_standard',
+  'formula_recall',
+  ['circle', 'standard equation', 'center', 'radius', 'x h squared y k squared']
+)
+
+add(
+  'What is the general equation of a circle?',
+  '**General form**: **x² + y² + Dx + Ey + F = 0** (coefficients of x² and y² must be equal; no xy term). **Center**: (−D/2, −E/2). **Radius**: r = sqrt((D/2)² + (E/2)² − F) — valid (real) iff (D/2)² + (E/2)² − F > 0. **Conversion**: complete the square on x and y. **Example**: x² + y² − 6x + 4y − 12 = 0. Group: (x² − 6x) + (y² + 4y) = 12. Complete squares: (x − 3)² − 9 + (y + 2)² − 4 = 12 ⇒ (x − 3)² + (y + 2)² = 25. Center (3, −2), radius 5. **Identifying if general equation is a circle**: must have equal coefficients on x² and y² AND no xy term, AND radius² > 0. If radius² = 0, point circle (degenerate). If radius² < 0, no real locus (imaginary circle). ✓',
+  'ch02p2_circle_general',
+  'formula_recall',
+  ['circle general', 'complete the square', 'D E F', 'center radius', 'degenerate']
+)
+
+add(
+  'How do you find the equation of a tangent to a circle?',
+  '**Tangent at point (x_0, y_0) on circle (x − h)² + (y − k)² = r²**: **(x_0 − h)(x − h) + (y_0 − k)(y − k) = r²**, OR equivalently **(x_0 − h)(x − x_0) + (y_0 − k)(y − y_0) = r²** (using the radius as normal vector). **For circle x² + y² = r² at (x_0, y_0)**: **x·x_0 + y·y_0 = r²**. **Tangent from external point (x_1, y_1)**: solve the system: (i) point on circle, (ii) radius perpendicular to tangent. Use the condition that distance from center to the line equals r. **Example**: Circle x² + y² = 25, point (3, 4). Tangent: 3x + 4y = 25. Check: passes through (3, 4): 9 + 16 = 25 ✓. Perpendicular to radius (slope of radius = 4/3; slope of tangent = −3/4 ✓). **Slope form**: y − y_0 = m(x − x_0) with condition that distance from (h,k) to this line equals r ⇒ |m·h − k + (y_0 − m·x_0)| / sqrt(m² + 1) = r. ✓',
+  'ch02p2_circle_tangent',
+  'problem_solving',
+  ['tangent circle', 'point on circle', 'radius perpendicular', 'external point', 'tangent equation']
+)
+
+add(
+  'How do you determine if two circles intersect, are tangent, or disjoint?',
+  'Two circles with centers C_1, C_2 and radii r_1, r_2; let d = |C_1C_2| (distance between centers). **Conditions**: (1) **d > r_1 + r_2**: separate (no intersection). (2) **d = r_1 + r_2**: externally tangent (one common point). (3) **|r_1 − r_2| < d < r_1 + r_2**: intersect in two points. (4) **d = |r_1 − r_2|**: internally tangent (one common point). (5) **d < |r_1 − r_2|**: one inside the other (no intersection). (6) **d = 0**: concentric (same center); coincident if r_1 = r_2. **Example**: C_1 = (0,0), r_1 = 5; C_2 = (8,0), r_2 = 3. d = 8. r_1 + r_2 = 8 ⇒ externally tangent (one point at (5, 0)). **Example 2**: C_1 = (0,0), r_1 = 5; C_2 = (6, 0), r_2 = 4. d = 6; |5−4| = 1 < 6 < 9 = 5+4 ⇒ intersect in two points. Radical axis (locus of equal power) is the line through intersection points. ✓',
+  'ch02p2_two_circles_relation',
+  'problem_solving',
+  ['two circles', 'intersect', 'tangent', 'disjoint', 'concentric', 'radical axis']
+)
+
+// ============================================================
+// SECTION 9 — PARABOLA (4 items)
+// ============================================================
+add(
+  'What is a parabola and what are its standard equations?',
+  '**Parabola**: locus of points equidistant from a fixed point (**focus** F) and a fixed line (**directrix**). **Axis of symmetry**: line through F perpendicular to directrix. **Vertex**: midpoint of F and the foot of perpendicular from F to directrix. **Standard form (vertex at origin, axis horizontal)**: **y² = 4px**, focus (p, 0), directrix x = −p. **Standard form (vertex at origin, axis vertical)**: **x² = 4py**, focus (0, p), directrix y = −p. **Vertex form (vertex (h, k), axis vertical)**: **(x − h)² = 4p(y − k)**, focus (h, k + p), directrix y = k − p. **Horizontal axis at (h,k)**: (y − k)² = 4p(x − h), focus (h + p, k). **Example**: y² = 12x ⇒ 4p = 12, p = 3; focus (3, 0), directrix x = −3, vertex (0,0). **Example 2**: (x − 2)² = 8(y + 1) ⇒ vertex (2, −1), 4p = 8 ⇒ p = 2; focus (2, 1), directrix y = −3. ✓',
+  'ch02p2_parabola_standard',
+  'formula_recall',
+  ['parabola', 'focus', 'directrix', 'vertex', 'standard form', 'axis of symmetry']
+)
+
+add(
+  'How do you identify a parabola from a quadratic equation y = ax² + bx + c?',
+  '**y = ax² + bx + c** (a ≠ 0) is a parabola with **vertical axis**. **Vertex**: x = −b/(2a), y = c − b²/(4a) (or y = f(−b/(2a))). **Focus**: (−b/(2a), c − b²/(4a) + 1/(4a)) = (h, k + 1/(4a)) where (h, k) is the vertex. **Directrix**: y = k − 1/(4a). **Opens up** if a > 0; **opens down** if a < 0. **Axis of symmetry**: x = −b/(2a). **Example**: y = x² − 4x + 7. a = 1, b = −4, c = 7. Vertex: x = 4/2 = 2; y = 7 − 16/4 = 3. Vertex (2, 3). 4p = 1/a = 1 ⇒ p = 1/4. Focus (2, 3 + 1/4) = (2, 13/4). Directrix y = 3 − 1/4 = 11/4. Opens up (a > 0). **Conversion to vertex form**: y = a(x − h)² + k. y = (x − 2)² + 3 (expand: x² − 4x + 4 + 3 = x² − 4x + 7 ✓). ✓',
+  'ch02p2_parabola_quadratic',
+  'problem_solving',
+  ['parabola', 'quadratic', 'vertex', 'focus', 'axis of symmetry', 'opens up down']
+)
+
+add(
+  'What are the tangent and normal to a parabola?',
+  '**Tangent at point (x_0, y_0) on parabola y² = 4px**: **y·y_0 = 2p(x + x_0)** (the "t·t_1 = ..." or T = 0 form). **For x² = 4py at (x_0, y_0)**: x·x_0 = 2p(y + y_0). **Slope form** for y² = 4px: tangent with slope m is **y = mx + p/m** (m ≠ 0). **Point-of-contact** for slope m: (p/m², 2p/m). **Condition for line y = mx + c to be tangent to y² = 4px**: c = p/m, i.e., the line touches the parabola iff the discriminant of (mx + c)² = 4px viewed as quadratic in x is zero. **Normal at (x_0, y_0)** on y² = 4px: y − y_0 = −(y_0/(2p))(x − x_0). **Example**: y² = 8x (p = 2), point (2, 4). Tangent: y·4 = 4(x + 2) ⇒ 4y = 4x + 8 ⇒ y = x + 2. Check: (2,4) on line: 4 = 2+2 ✓. Slope 1; slope of focal radius (from (2,4) to focus (2,0)) is undefined (vertical), so tangent slope 0·... actually tangent ⊥ to focal radius; focal radius slope = (4−0)/(2−2) = ∞ (vertical), so tangent horizontal? But we got slope 1. Hmm — tangency to parabola is not perpendicular to focal radius; rather, tangent bisects the angle between focal radius and perpendicular to directrix. ✓',
+  'ch02p2_parabola_tangent',
+  'formula_recall',
+  ['parabola tangent', 'normal', 'slope form', 'point of contact', 'condition tangent']
+)
+
+add(
+  'How do you find the focus, directrix, and axis of a parabola from its equation?',
+  'Steps: (1) Identify orientation — if y is squared (y² = ...), axis is horizontal; if x is squared (x² = ...), axis is vertical. (2) Complete the square if needed to get the standard form (y − k)² = 4p(x − h) or (x − h)² = 4p(y − k). (3) Read off: vertex (h, k); 4p is the coefficient of the linear variable. **Horizontal axis**: focus (h + p, k), directrix x = h − p. **Vertical axis**: focus (h, k + p), directrix y = k − p. **Example**: y² − 4y − 6x + 10 = 0. (y² − 4y) = 6x − 10 ⇒ (y − 2)² − 4 = 6x − 10 ⇒ (y − 2)² = 6x − 6 = 6(x − 1). 4p = 6 ⇒ p = 3/2. Vertex (1, 2). Focus (1 + 3/2, 2) = (5/2, 2). Directrix x = 1 − 3/2 = −1/2. Axis: y = 2 (horizontal). ✓',
+  'ch02p2_parabola_identify',
+  'problem_solving',
+  ['parabola', 'focus', 'directrix', 'axis', 'complete the square', 'identify']
+)
+
+// ============================================================
+// SECTION 10 — ELLIPSE (4 items)
+// ============================================================
+add(
+  'What is an ellipse and what are its standard equations?',
+  '**Ellipse**: locus of points P such that the **sum of distances to two fixed foci F_1, F_2 is constant** (= 2a, where a is the semi-major axis). **Standard form (center origin, major axis horizontal)**: **x²/a² + y²/b² = 1**, with a > b. Foci (±c, 0) where **c² = a² − b²**. Vertices (±a, 0). Co-vertices (0, ±b). **Standard form (major axis vertical)**: **x²/b² + y²/a² = 1**, foci (0, ±c), vertices (0, ±a). **Eccentricity**: e = c/a, 0 < e < 1 (e = 0 is a circle). **Centered at (h, k)**: ((x−h)²/a²) + ((y−k)²/b²) = 1 (or swap a, b for vertical). **Example**: x²/25 + y²/9 = 1 ⇒ a = 5, b = 3, c = sqrt(25−9) = 4. Foci (±4, 0), vertices (±5, 0), co-vertices (0, ±3). Eccentricity 4/5 = 0.8. **Area** of ellipse = π·a·b. ✓',
+  'ch02p2_ellipse_standard',
+  'formula_recall',
+  ['ellipse', 'foci', 'sum of distances', 'semi-major', 'semi-minor', 'eccentricity']
+)
+
+add(
+  'How do you find the foci, vertices, and eccentricity of an ellipse from its equation?',
+  'Steps: (1) Put equation in standard form by completing the square on both x and y if needed. (2) Identify a (larger denominator under x² or y²) and b (smaller). (3) Compute c = sqrt(a² − b²). (4) Determine orientation: if a² is under x², major axis is horizontal; if under y², vertical. (5) Read foci, vertices, eccentricity. **Example**: 9x² + 25y² − 18x + 100y − 116 = 0. Complete squares: 9(x² − 2x) + 25(y² + 4y) = 116 ⇒ 9(x − 1)² − 9 + 25(y + 2)² − 100 = 116 ⇒ 9(x − 1)² + 25(y + 2)² = 225 ⇒ (x − 1)²/25 + (y + 2)²/9 = 1. Center (1, −2). a² = 25 ⇒ a = 5 (under x, major horizontal); b² = 9 ⇒ b = 3. c = sqrt(25 − 9) = 4. Foci (1 ± 4, −2) = (5, −2) and (−3, −2). Vertices (1 ± 5, −2). Eccentricity 4/5. ✓',
+  'ch02p2_ellipse_identify',
+  'problem_solving',
+  ['ellipse', 'foci', 'complete the square', 'standard form', 'eccentricity', 'identify']
+)
+
+add(
+  'What are the tangent lines and tangent condition for an ellipse?',
+  '**Tangent at point (x_0, y_0) on ellipse x²/a² + y²/b² = 1**: **(x·x_0)/a² + (y·y_0)/b² = 1**. (Substitute x² → x·x_0, y² → y·y_0, and 1 → 1.) **Slope form (tangent with slope m)**: **y = mx ± sqrt(a²·m² + b²)**. The two signs give the two parallel tangents with slope m. **Condition for line y = mx + c to be tangent to ellipse x²/a² + b² = 1**: **c² = a²·m² + b²** (i.e., discriminant of the quadratic in x must be 0). **Example**: Tangent to x²/25 + y²/9 = 1 at (3, 12/5)? Check (3)²/25 + (12/5)²/9 = 9/25 + 144/225 = 9/25 + 16/25 = 25/25 = 1 ✓. Tangent: (x·3)/25 + (y·(12/5))/9 = 1 ⇒ 3x/25 + 12y/45 = 1 ⇒ 3x/25 + 4y/15 = 1. Multiply by 75: 9x + 20y = 75. ✓',
+  'ch02p2_ellipse_tangent',
+  'formula_recall',
+  ['ellipse tangent', 'point of contact', 'slope form', 'tangent condition', 'discriminant']
+)
+
+add(
+  'How do you compute the area, perimeter (approximation), and other quantities of an ellipse?',
+  '**Area**: **A = π·a·b** (semi-major × semi-minor × π). **Perimeter (no elementary closed form)**: Use **Ramanujan\'s approximation**: P ≈ π·[3(a + b) − sqrt((3a + b)(a + 3b))] (very accurate, error < 0.01%). Or simpler: P ≈ π(a + b)·(1 + 3h/(10 + sqrt(4 − 3h))) where h = ((a − b)/(a + b))². **Crude approx**: P ≈ 2π·sqrt((a² + b²)/2). **Focal length** (distance between foci): 2c = 2·sqrt(a² − b²). **Latus rectum** (chord through a focus perpendicular to major axis): length = 2b²/a. **Example**: Ellipse with a = 5, b = 3. Area = 15π ≈ 47.12. c = 4; focal length 8. Latus rectum = 2·9/5 = 18/5 = 3.6. Perimeter (Ramanujan): π·[3·8 − sqrt((15+3)(5+9))] = π·[24 − sqrt(252)] = π·[24 − 15.87] ≈ 8.13π ≈ 25.53. Exact (integral): ≈ 25.527. ✓',
+  'ch02p2_ellipse_quantities',
+  'problem_solving',
+  ['ellipse area', 'perimeter', 'Ramanujan', 'latus rectum', 'focal length']
+)
+
+// ============================================================
+// SECTION 11 — HYPERBOLA (4 items)
+// ============================================================
+add(
+  'What is a hyperbola and what are its standard equations?',
+  '**Hyperbola**: locus of points P such that the **absolute difference of distances to two fixed foci F_1, F_2 is constant** (= 2a, where a is the semi-transverse axis). **Standard form (center origin, transverse axis horizontal)**: **x²/a² − y²/b² = 1**. Foci (±c, 0), where **c² = a² + b²**. Vertices (±a, 0). **Asymptotes**: y = ±(b/a)·x. **Standard form (transverse vertical)**: **y²/a² − x²/b² = 1**. Foci (0, ±c), vertices (0, ±a), asymptotes y = ±(a/b)·x. **Eccentricity**: e = c/a, e > 1. **Centered at (h, k)**: (x − h)²/a² − (y − k)²/b² = 1 (or swap for vertical). **Rectangular (equilateral) hyperbola**: a = b, asymptotes perpendicular. **Example**: x²/9 − y²/16 = 1 ⇒ a = 3, b = 4, c = 5. Foci (±5, 0), vertices (±3, 0), asymptotes y = ±(4/3)x. Eccentricity 5/3. ✓',
+  'ch02p2_hyperbola_standard',
+  'formula_recall',
+  ['hyperbola', 'foci', 'difference of distances', 'asymptotes', 'transverse axis', 'eccentricity']
+)
+
+add(
+  'How do you find the foci, vertices, and asymptotes of a hyperbola?',
+  'Steps: (1) Put in standard form (complete the square if necessary). (2) Identify the **positive** term — that variable\'s axis is the transverse axis. (3) a² is the denominator of the positive term; b² of the negative term. (4) c = sqrt(a² + b²). (5) Foci, vertices along the transverse axis; asymptotes pass through center with slope ±b/a (horizontal) or ±a/b (vertical). **Example**: 9y² − 16x² − 144 = 0 ⇒ 9y² − 16x² = 144 ⇒ y²/16 − x²/9 = 1. Transverse vertical. a² = 16 ⇒ a = 4; b² = 9 ⇒ b = 3. c = sqrt(16 + 9) = 5. Center (0, 0). Vertices (0, ±4). Foci (0, ±5). Asymptotes y = ±(4/3)x (since a/b = 4/3 for vertical). **Example 2 (rectangular)**: x² − y² = 1. a = b = 1, c = sqrt(2). Foci (±sqrt(2), 0). Asymptotes y = ±x (perpendicular). ✓',
+  'ch02p2_hyperbola_identify',
+  'problem_solving',
+  ['hyperbola', 'foci', 'asymptotes', 'standard form', 'complete square', 'identify']
+)
+
+add(
+  'What are the tangent lines and asymptotes for a hyperbola?',
+  '**Tangent at point (x_0, y_0) on hyperbola x²/a² − y²/b² = 1**: **(x·x_0)/a² − (y·y_0)/b² = 1**. **Slope form (tangent with slope m)**: y = mx ± sqrt(a²·m² − b²) — exists only when |m| > b/a (slope steeper than asymptotes); for |m| < b/a, no real tangent with that slope. **Condition for y = mx + c tangent**: **c² = a²·m² − b²**. **Asymptotes**: lines the hyperbola approaches at infinity. For x²/a² − y²/b² = 1: **y = ±(b/a)x** (replace 1 with 0 in standard form: x²/a² − y²/b² = 0 ⇒ y² = (b²/a²)x² ⇒ y = ±(b/a)x). For a rectangular hyperbola xy = c² (rotated form), asymptotes are the coordinate axes. **Example**: x²/9 − y²/16 = 1. Tangent at (5, 16/3)? Check: 25/9 − (256/9)/16 = 25/9 − 16/9 = 9/9 = 1 ✓. Tangent: 5x/9 − (16/3)y/16 = 1 ⇒ 5x/9 − y/3 = 1 ⇒ 5x − 3y = 9. ✓',
+  'ch02p2_hyperbola_tangent',
+  'formula_recall',
+  ['hyperbola tangent', 'asymptotes', 'slope form', 'tangent condition', 'rectangular']
+)
+
+add(
+  'What is the conjugate hyperbola and the auxiliary circle?',
+  '**Conjugate hyperbola**: of x²/a² − y²/b² = 1 is **y²/b² − x²/a² = 1** (swap signs and roles of a, b). Its transverse axis is along y (the original\'s conjugate axis), and vice versa. The two hyperbolas share the same asymptotes y = ±(b/a)x and the same center. **Auxiliary circle**: circle with center at the hyperbola\'s center and radius = a (the semi-transverse axis); x² + y² = a² for the standard hyperbola. Useful for parametric representation. **Parametric form** of x²/a² − y²/b² = 1: **x = a·sec(θ), y = b·tan(θ)** (parameter θ, sometimes called the eccentric angle). For ellipse: x = a·cos(θ), y = b·sin(θ). **Director circle**: locus of intersection of perpendicular tangents; for hyperbola it\'s x² + y² = a² − b² (real only if a > b). **Example**: x²/9 − y²/16 = 1. Conjugate: y²/16 − x²/9 = 1. Auxiliary circle: x² + y² = 9 (radius 3). Parametric: (3 sec θ, 4 tan θ). ✓',
+  'ch02p2_conjugate_hyperbola',
+  'factual_question',
+  ['conjugate hyperbola', 'auxiliary circle', 'parametric', 'director circle', 'asymptotes shared']
+)
+
+// ============================================================
+// SECTION 12 — GENERAL SECOND-DEGREE EQUATION (3 items)
+// ============================================================
+add(
+  'What is the general second-degree equation and how do you identify the conic?',
+  '**General conic equation**: **Ax² + Bxy + Cy² + Dx + Ey + F = 0**. The **discriminant** Δ = B² − 4AC determines the type (when the conic is non-degenerate): (1) **Δ < 0 (B² − 4AC < 0)**: **ellipse** (or circle if B = 0 and A = C; or point/imaginary if degenerate). (2) **Δ = 0**: **parabola**. (3) **Δ > 0**: **hyperbola** (or two intersecting lines if degenerate). **Special cases** (degenerate, also signaled by certain conditions on D, E, F): a point, a line, two parallel lines, two intersecting lines, no real locus. **Example**: 9x² + 4y² − 36 = 0. A = 9, B = 0, C = 4. Δ = 0 − 144 = −144 < 0 ⇒ ellipse (in fact x²/4 + y²/9 = 1, vertical ellipse). **Example 2**: x² − 4y² + 8 = 0. Δ = 0 − 4·1·(−4) = 16 > 0 ⇒ hyperbola. **Example 3**: y² − 4x = 0. A = 0, B = 0, C = 1. Δ = 0 ⇒ parabola. ✓',
+  'ch02p2_general_conic_identify',
+  'formula_recall',
+  ['general conic', 'second degree', 'discriminant', 'B^2 - 4AC', 'identify ellipse parabola hyperbola']
+)
+
+add(
+  'How do you handle rotation of axes to remove the xy term in a conic?',
+  'When the general conic **Ax² + Bxy + Cy² + Dx + Ey + F = 0** has B ≠ 0, the axes are rotated. The rotation angle θ that eliminates the xy term satisfies **cot(2θ) = (A − C)/B**, equivalently **tan(2θ) = B/(A − C)** (use atan2 to get the right quadrant). Choose θ in (0, π/2). **Rotation formulas** (axes rotated by θ, new coordinates (x\', y\')): **x = x\'·cos θ − y\'·sin θ**, **y = x\'·sin θ + y\'·cos θ** (and inverse: x\' = x·cos θ + y·sin θ, y\' = −x·sin θ + y·cos θ). **After substitution**, the new equation has A\'x\'² + C\'y\'² + D\'x\' + E\'y\' + F = 0 (no x\'y\' term), which can be classified and analyzed as a standard conic. **Invariants**: A + C, B² − 4AC, and the determinant of the 3×3 matrix of coefficients are preserved under rotation. **Example**: 5x² − 6xy + 5y² − 8 = 0. cot(2θ) = (5 − 5)/(−6) = 0 ⇒ 2θ = π/2 ⇒ θ = π/4 (45°). cos θ = sin θ = sqrt(2)/2. Substitute, get x\'²/4 + y\'²/1 = 1 (after simplification) — ellipse. ✓',
+  'ch02p2_rotation_axes',
+  'problem_solving',
+  ['rotation of axes', 'xy term', 'cot 2 theta', 'invariants', 'eliminate cross term']
+)
+
+add(
+  'How do you classify degenerate conics?',
+  'A conic is **degenerate** if it reduces to a simpler figure: a point, a line, two lines (intersecting, parallel, or coincident), or no real points. **Detection**: besides the discriminant Δ = B² − 4AC, also check the determinant of the 3×3 matrix: **|A B/2 D/2; B/2 C E/2; D/2 E/2 F|** = 0 signals degeneracy. **Examples**: (1) **Point (degenerate ellipse)**: x² + y² = 0 ⇒ only (0, 0). (2) **Two intersecting lines (degenerate hyperbola)**: x² − y² = 0 ⇒ y = ±x (two lines). (3) **Two parallel lines (degenerate parabola)**: y² − 4 = 0 ⇒ y = ±2. (4) **Single line (degenerate parabola)**: y² = 0 ⇒ y = 0 (double line). (5) **Imaginary (no real locus)**: x² + y² + 1 = 0. **General rule**: After classifying by Δ, check whether the equation factors (or has only one real solution, etc.) to detect degeneracy. ✓',
+  'ch02p2_degenerate_conics',
+  'factual_question',
+  ['degenerate conic', 'point', 'two lines', 'parallel', 'imaginary', 'determinant']
+)
+
+// ============================================================
+// SECTION 13 — POLAR COORDINATES (3 items)
+// ============================================================
+add(
+  'What are polar coordinates and how do you convert to/from Cartesian?',
+  '**Polar coordinates**: a point P is described by (r, θ), where r is the distance from the origin (pole) O and θ is the angle from the positive x-axis (polar axis) to OP (counterclockwise positive). **Conversions**: From polar (r, θ) to Cartesian (x, y): **x = r·cos θ**, **y = r·sin θ**. From Cartesian (x, y) to polar (r, θ): **r = sqrt(x² + y²)**, **θ = atan2(y, x)** (use atan2 to get the right quadrant; equivalently θ = arctan(y/x) with quadrant adjustment). **Non-uniqueness**: (r, θ) ≡ (r, θ + 2kπ) ≡ (−r, θ + π) for any integer k. **Negative r**: plot in the opposite direction. **Example**: Convert (3, π/4) to Cartesian: x = 3·cos(π/4) = 3·sqrt(2)/2 ≈ 2.121; y = 3·sin(π/4) ≈ 2.121. **Example 2**: Convert (−3, 4) to polar: r = sqrt(9 + 16) = 5; θ = atan2(4, −3) ≈ 2.214 rad (≈ 126.87°). ✓',
+  'ch02p2_polar_coordinates',
+  'formula_recall',
+  ['polar coordinates', 'r theta', 'conversion', 'atan2', 'Cartesian']
+)
+
+add(
+  'What are common polar curves and their equations?',
+  '**Common polar curves**: (1) **Circle**: r = a (circle of radius a centered at pole); r = 2a·cos θ (circle of radius a centered at (a, 0) on x-axis); r = 2a·sin θ (circle centered at (0, a) on y-axis). (2) **Cardioid**: r = a(1 ± cos θ) or r = a(1 ± sin θ). (3) **Limaçon**: r = a + b·cos θ (with loop if a < b, dimpled if a < 2b, convex if a ≥ 2b). (4) **Lemniscate**: r² = a²·cos(2θ) (figure-eight). (5) **Rose curve**: r = a·cos(nθ) or r = a·sin(nθ) — n petals if n odd, 2n petals if n even. (6) **Spiral of Archimedes**: r = aθ. (7) **Logarithmic spiral**: r = a·e^(bθ). (8) **Line**: r·cos(θ − α) = p (line at distance p from origin, normal at angle α). **Example**: r = 4 cos(3θ) is a 3-petal rose. r = 2(1 + cos θ) is a cardioid with cusp at origin, max r = 4 at θ = 0. ✓',
+  'ch02p2_polar_curves',
+  'factual_question',
+  ['polar curves', 'cardioid', 'limacon', 'lemniscate', 'rose', 'spiral', 'circle']
+)
+
+add(
+  'How do you find intersections, arc length, and area in polar coordinates?',
+  '**Area** enclosed by polar curve r = f(θ) from θ = α to θ = β: **A = (1/2)·∫_α^β r² dθ**. **Full curve** (closed, period 2π): integrate over [0, 2π]. **Area between two curves** r_1, r_2: A = (1/2)·∫(r_outer² − r_inner²) dθ. **Arc length**: **L = ∫_α^β sqrt(r² + (dr/dθ)²) dθ**. **Intersections**: solve f(θ) = g(θ); also check the pole (r = 0) for both, and check (r, θ + π) representations. **Example (area of circle)**: r = 2. A = (1/2)∫_0^(2π) 4 dθ = (1/2)(4)(2π) = 4π ✓. **Example (area of cardioid r = 1 + cos θ)**: A = (1/2)∫_0^(2π) (1 + cos θ)² dθ = (1/2)∫(1 + 2cos θ + cos² θ) dθ = (1/2)(2π + 0 + π) = 3π/2. **Example (arc length of cardioid r = 1 + cos θ)**: L = ∫_0^(2π) sqrt((1 + cos θ)² + sin² θ) dθ = ∫_0^(2π) sqrt(2 + 2cos θ) dθ = ∫_0^(2π) 2|cos(θ/2)| dθ = 8. ✓',
+  'ch02p2_polar_area_length',
+  'problem_solving',
+  ['polar area', 'polar arc length', 'intersection', 'cardioid', 'half r squared integral']
+)
+
+// ============================================================
+// SECTION 14 — PARAMETRIC EQUATIONS (3 items)
+// ============================================================
+add(
+  'What are parametric equations and how do you convert to Cartesian form?',
+  '**Parametric equations** express x and y as functions of a third variable (the **parameter**, often t): **x = f(t), y = g(t)**. The curve is traced as t varies over an interval. **Conversion to Cartesian**: eliminate the parameter t by solving for t in one equation and substituting into the other, or using identities. **Example**: x = 3t + 1, y = 2t − 5. Solve t = (x − 1)/3, substitute: y = 2·(x − 1)/3 − 5 = (2x − 2)/3 − 5 ⇒ 3y = 2x − 2 − 15 ⇒ 2x − 3y − 17 = 0 (a line). **Example 2**: x = 3 cos t, y = 3 sin t. Use cos²t + sin²t = 1: (x/3)² + (y/3)² = 1 ⇒ x² + y² = 9 (circle). **Example 3**: x = t², y = t³. Eliminate t: t = sqrt(x), so y = (sqrt(x))³ = x^(3/2); equivalently y² = x³ (semicubical parabola). **Domain**: t range determines which portion of the Cartesian curve is traced. ✓',
+  'ch02p2_parametric_intro',
+  'formula_recall',
+  ['parametric', 'parameter', 'eliminate parameter', 'Cartesian', 'curve']
+)
+
+add(
+  'How do you find dy/dx, d²y/dx², tangent lines, and arc length for parametric curves?',
+  '**First derivative**: If x = f(t), y = g(t), then **dy/dx = (dy/dt)/(dx/dt) = g\'(t)/f\'(t)** (provided f\'(t) ≠ 0). **Second derivative**: **d²y/dx² = d/dt(dy/dx) / (dx/dt) = (d/dt(g\'/f\')) · (1/f\')**. **Tangent slope** at t = t_0: dy/dx|_{t_0}. **Horizontal tangent**: dy/dt = 0 (and dx/dt ≠ 0). **Vertical tangent**: dx/dt = 0 (and dy/dt ≠ 0). **Arc length** from t = α to t = β: **L = ∫_α^β sqrt((dx/dt)² + (dy/dt)²) dt**. **Surface area** (revolution about x-axis): S = ∫ 2π·y·sqrt((dx/dt)² + (dy/dt)²) dt. **Example**: x = t², y = t³, t = 1. dy/dx = 3t²/(2t) = 3t/2; at t=1, slope = 3/2. Point (1, 1). Tangent: y − 1 = (3/2)(x − 1) ⇒ 3x − 2y − 1 = 0. Arc length [0, 2]: ∫_0^2 sqrt((2t)² + (3t²)²) dt = ∫_0^2 sqrt(4t² + 9t^4) dt = ∫_0^2 t·sqrt(4 + 9t²) dt. Substitution u = 4 + 9t², du = 18t dt: (1/18)∫_4^40 sqrt(u) du = (1/18)·(2/3)·(40^(3/2) − 4^(3/2)) = (1/27)(253.0 − 8) ≈ 9.07. ✓',
+  'ch02p2_parametric_calculus',
+  'problem_solving',
+  ['parametric derivative', 'second derivative', 'tangent', 'arc length', 'parametric curve']
+)
+
+add(
+  'What are common parametric representations of curves?',
+  '**Common parametric forms**: (1) **Line** through (x_0, y_0) with direction (a, b): x = x_0 + a·t, y = y_0 + b·t. (2) **Circle** of radius r centered at (h, k): x = h + r·cos t, y = k + r·sin t, t in [0, 2π]. (3) **Ellipse** with semi-axes a, b: x = a·cos t, y = b·sin t. (4) **Parabola** y² = 4ax: x = at², y = 2at (standard parametrization). (5) **Hyperbola** x²/a² − y²/b² = 1: x = a·sec t, y = b·tan t. (6) **Cycloid** (path of a point on a rolling circle of radius r): x = r(t − sin t), y = r(1 − cos t), t = angle rolled. (7) **Astroid**: x = a·cos³t, y = a·sin³t (star-shaped; Cartesian: x^(2/3) + y^(2/3) = a^(2/3)). (8) **Lissajous**: x = A·sin(at + δ), y = B·sin(bt). **Example**: Cycloid with r = 1. At t = π: x = π − 0 = π, y = 1 + 1 = 2 (top of arch). At t = 2π: x = 2π, y = 0 (back on x-axis). One arch spans 2π horizontally, height 2r. ✓',
+  'ch02p2_parametric_common',
+  'factual_question',
+  ['parametric', 'circle', 'ellipse', 'parabola', 'cycloid', 'astroid', 'Lissajous']
+)
+
+// ============================================================
+// SECTION 15 — ROTATION OF AXES / ADVANCED CONICS (3 items)
+// ============================================================
+add(
+  'How do you find the angle of rotation and new coefficients when eliminating the xy term?',
+  'For conic Ax² + Bxy + Cy² + ... = 0 with B ≠ 0, rotate axes by angle θ where **cot(2θ) = (A − C)/B** (or **tan(2θ) = B/(A − C)** if A ≠ C; if A = C, then 2θ = π/2 ⇒ θ = π/4). Useful identities (avoid computing θ directly): **cos(2θ) = (A − C)/sqrt((A − C)² + B²)**, **sin(2θ) = B/sqrt((A − C)² + B²)**, **cos²θ = (1 + cos(2θ))/2**, **sin²θ = (1 − cos(2θ))/2**, **sin θ·cos θ = sin(2θ)/2**. **New coefficients**: A\' = A·cos²θ + B·sin θ·cos θ + C·sin²θ, C\' = A·sin²θ − B·sin θ·cos θ + C·cos²θ, B\' = 0 (by construction). **Invariants**: A + C = A\' + C\' (trace), B² − 4AC = B\'² − 4A\'C\' = −4A\'C\' (discriminant). **Example**: 5x² + 6xy + 5y² − 8 = 0. cot(2θ) = 0/6 = 0 ⇒ 2θ = π/2 ⇒ θ = π/4. A\' = 5·(1/2) + 6·(1/2) + 5·(1/2) = 5/2 + 3 + 5/2 = 8. C\' = 5·(1/2) − 6·(1/2) + 5·(1/2) = 5/2 − 3 + 5/2 = 2. New: 8x\'² + 2y\'² − 8 = 0 ⇒ x\'²/1 + y\'²/4 = 1 (vertical ellipse). ✓',
+  'ch02p2_rotation_coefficients',
+  'problem_solving',
+  ['rotation of axes', 'cot 2 theta', 'new coefficients', 'invariants', 'eliminate xy']
+)
+
+add(
+  'How do you find the focus and directrix of a rotated parabola?',
+  'For a rotated parabola given by general second-degree equation, the procedure: (1) Compute the rotation angle θ to eliminate the xy term (cot(2θ) = (A − C)/B). (2) Rotate coordinates: x = x\'·cos θ − y\'·sin θ, y = x\'·sin θ + y\'·cos θ. (3) In the rotated frame, the equation is in standard parabola form: (something)² = 4p·(something else). (4) Identify vertex, focus, directrix in the rotated frame. (5) Rotate back: convert focus coordinates and directrix equation to the original frame using the inverse rotation (x\' = x·cos θ + y·sin θ, y\' = −x·sin θ + y·cos θ). **Example**: x² + 2xy + y² + 2x − 2y − 4 = 0. (x + y)² + 2(x − y) − 4 = 0. Let u = (x + y)/sqrt(2), v = (x − y)/sqrt(2) (i.e., rotate by π/4). Then 2u² + 2·sqrt(2)·v − 4 = 0 ⇒ u² = 2 − sqrt(2)·v ⇒ u² = −sqrt(2)·(v − sqrt(2)). So 4p = sqrt(2), p = sqrt(2)/4. In (u, v) frame: vertex (0, sqrt(2)), focus (0, sqrt(2) − sqrt(2)/4) = (0, 3·sqrt(2)/4), directrix v = sqrt(2) + sqrt(2)/4 = 5·sqrt(2)/4. Convert back to (x, y) using rotation. ✓',
+  'ch02p2_rotated_parabola',
+  'problem_solving',
+  ['rotated parabola', 'focus', 'directrix', 'rotate axes', 'standard form']
+)
+
+add(
+  'How do you identify and sketch a conic from a general second-degree equation end-to-end?',
+  'Full procedure: (1) **Classify** using discriminant Δ = B² − 4AC: Δ < 0 ellipse, Δ = 0 parabola, Δ > 0 hyperbola. (2) **Check degeneracy** via the 3×3 determinant; if zero, factor or analyze as a point/lines. (3) If B ≠ 0: **rotate axes** by θ = (1/2)·arctan(B/(A − C)) to eliminate xy term. (4) **Complete the square** in the rotated frame to translate to standard position; identify center/vertex. (5) **Extract parameters** (a, b, c, p, foci, vertices, asymptotes, directrix, eccentricity) in the rotated frame. (6) **Transform back** to original coordinates for foci, etc. (7) **Sketch**: plot center/vertex, draw asymptotes (hyperbola) or bounding box (ellipse), plot key points, smooth curve. **Example sketch of 5x² + 6xy + 5y² = 8**: Δ = 36 − 100 = −64 < 0 ⇒ ellipse. Rotate by π/4 (computed earlier). New equation x\'²/1 + y\'²/4 = 1: vertical ellipse, semi-minor 1, semi-major 2. Major axis along y\' (i.e., the line y = x in original). Eccentricity sqrt(3)/2. ✓',
+  'ch02p2_conic_full_analysis',
+  'how_to',
+  ['conic', 'classify', 'rotate', 'complete the square', 'sketch', 'end to end']
+)
+
+// ============================================================
+// VALIDATION & WRITE
+// ============================================================
+
+const topicSet = new Set<string>()
+const dupes: string[] = []
+for (const it of items) {
+  if (topicSet.has(it.topic)) dupes.push(it.topic)
+  topicSet.add(it.topic)
+}
+if (dupes.length) {
+  console.error('DUPLICATE TOPICS:', dupes)
+  process.exit(1)
+}
+
+for (const it of items) {
+  if (!it.question || !it.answer || !it.topic || !it.keywords.length) {
+    console.error('INVALID ITEM:', it.topic)
+    process.exit(1)
+  }
+  if (!it.answer.includes('\u2713') && it.answer.length < 200) {
+    console.error('SUSPICIOUSLY SHORT ANSWER:', it.topic)
+    process.exit(1)
+  }
+}
+
+const output = {
+  generatedAt: new Date().toISOString(),
+  totalItems: items.length,
+  subject: 'mathematics_formulas_volume_9_chapter_02_part_02',
+  volume:
+    'Volume 9 — Comprehensive Formula Encyclopedia, Chapter 2 Part 2 (Coordinate / Analytic Geometry — Cartesian Coordinate System; Distance & Midpoint Formulas; Slope; Equations of Lines: Slope-Intercept, Point-Slope, Two-Point, Intercept, General Form; Parallel/Perpendicular Slopes & Angle Between Lines; Distance from Point to Line & Between Parallel Lines; Area of Triangle/Polygon via Coordinates (Shoelace Formula); Section Formula: Internal & External Division; Centroid & Incenter Coordinates; Conic Sections — Circle (Standard & General, Tangent), Parabola (Vertex/Focus/Directrix, Tangent), Ellipse (Center/Foci/Vertices/Eccentricity, Tangent, Area), Hyperbola (Center/Foci/Vertices/Asymptotes/Eccentricity, Tangent, Conjugate); General Second-Degree Equation & Identification; Polar Coordinates: Conversion & Curves; Parametric Equations; Rotation of Axes)',
+  source: 'TRIZA Generated Formula Dataset',
+  language: 'en',
+  religionNeutral: true,
+  items,
+}
+
+mkdirSync('data', { recursive: true })
+writeFileSync('data/math-formulas-vol9-ch02p2.json', JSON.stringify(output, null, 2))
+
+console.log(`Wrote data/math-formulas-vol9-ch02p2.json with ${items.length} items.`)
+console.log('Topics:')
+for (const it of items) console.log('  -', it.topic)
+const intents = items.reduce<Record<string, number>>((a, it) => {
+  a[it.intent] = (a[it.intent] || 0) + 1
+  return a
+}, {})
+console.log('Intent counts:', intents)
+const lengths = items.map((i) => i.answer.length)
+console.log(
+  'Answer lengths: min',
+  Math.min(...lengths),
+  'max',
+  Math.max(...lengths),
+  'avg',
+  Math.round(lengths.reduce((a, b) => a + b, 0) / lengths.length)
+)

@@ -1,0 +1,498 @@
+/**
+ * ============================================================
+ *  Mathematics Formula Encyclopedia — Volume 9
+ *  Comprehensive Formula Reference
+ *  Chapter 1 — Part 3 (Functions & Their Graphs)
+ *  Function Concept, Notation & Evaluation, Piecewise,
+ *  Domain Restrictions, Operations on Functions,
+ *  Composition, One-to-One & Onto, Inverse Functions,
+ *  Transformations (Shifts, Reflections, Stretches),
+ *  Even/Odd Functions, Function Families (Linear, Power,
+ *  Polynomial, Rational, Exponential, Logarithmic),
+ *  Asymptotes, End Behavior, Intercepts, Graphing,
+ *  Difference Quotient
+ *  Generator for TRIZA
+ * ============================================================
+ *
+ *  Output: data/math-formulas-vol9-ch01p3.json
+ * ============================================================
+ */
+import { writeFileSync, mkdirSync } from 'fs'
+
+interface MathItem {
+  question: string
+  answer: string
+  topic: string
+  intent: 'factual_question' | 'how_to' | 'formula_recall' | 'problem_solving'
+  keywords: string[]
+}
+
+const items: MathItem[] = []
+
+function add(
+  question: string,
+  answer: string,
+  topic: string,
+  intent: MathItem['intent'] = 'formula_recall',
+  keywords: string[] = []
+) {
+  items.push({ question, answer, topic, intent, keywords })
+}
+
+// ============================================================
+// SECTION 1 — FUNCTION CONCEPT & NOTATION (5 items)
+// ============================================================
+add(
+  'What is a function and how is it different from a relation?',
+  '**Function**: a relation between a set of inputs (the **domain**) and a set of outputs (the **codomain**) such that EACH input is paired with EXACTLY ONE output. Formally, f: A → B is a function iff for every a in A there is exactly one b in B with (a, b) in f. **Relation**: any set of ordered pairs; one input can map to multiple outputs. **Vertical Line Test (VLT)**: a graph in the xy-plane represents a function of x iff no vertical line intersects the graph in more than one point. **Examples**: (1) y = x^2 is a function (each x → one y). (2) x = y^2 is NOT a function of x (e.g., x = 4 has y = ±2). (3) y = sqrt(x) is a function (principal, nonnegative root). (4) A circle x^2 + y^2 = 1 is not a function (fails VLT). (5) The set {(1,3), (2,5), (3,7)} is a function; {(1,3), (1,4), (2,5)} is not (input 1 has two outputs). **Notation**: y = f(x), read "f of x". ✓',
+  'ch01p3_function_definition',
+  'factual_question',
+  ['function', 'relation', 'domain', 'codomain', 'vertical line test', 'unique output']
+)
+
+add(
+  'How do you find the domain and range of a function?',
+  '**Domain** = set of all valid inputs (x-values). **Range** = set of all resulting outputs (y-values). **Domain restrictions to watch for**: (1) **Denominators ≠ 0**: f(x) = 1/(x - 3) → domain excludes x = 3. (2) **Even roots of nonnegatives**: sqrt(x + 2) requires x + 2 ≥ 0 → x ≥ -2. (3) **Logarithms of positive**: log(x - 1) requires x - 1 > 0 → x > 1. (4) Avoid tan at odd multiples of π/2, etc. **Examples**: (1) f(x) = sqrt(4 - x^2): 4 - x^2 ≥ 0 → x^2 ≤ 4 → -2 ≤ x ≤ 2. Domain: [-2, 2]. Range: [0, 2]. (2) g(x) = 1/(x^2 - 9): x^2 ≠ 9 → x ≠ ±3. Domain: R \\ {-3, 3}. (3) h(x) = ln(x - 4) + sqrt(9 - x): x > 4 AND x ≤ 9 → (4, 9]. (4) Polynomial (any degree): domain all R (no restrictions). (5) f(x) = x^2: domain R, range [0, inf). (6) f(x) = x^3: domain R, range R. (7) f(x) = 1/x: domain R \\ {0}, range R \\ {0}. **Finding range**: graph or solve y = f(x) for x in terms of y and check which y have valid x. ✓',
+  'ch01p3_domain_range',
+  'how_to',
+  ['domain', 'range', 'restrictions', 'denominator', 'sqrt', 'log', 'find']
+)
+
+add(
+  'How do you use function notation and evaluate functions?',
+  '**Notation**: f(x), read "f of x", denotes the output of function f for input x. **Evaluation**: substitute the value for x and simplify. **Examples**: if f(x) = 3x^2 - 2x + 1, then f(4) = 3(16) - 2(4) + 1 = 48 - 8 + 1 = 41. f(-1) = 3(1) - 2(-1) + 1 = 3 + 2 + 1 = 6. f(0) = 1 (constant term). f(x + h) = 3(x + h)^2 - 2(x + h) + 1 = 3(x^2 + 2xh + h^2) - 2x - 2h + 1 = 3x^2 + 6xh + 3h^2 - 2x - 2h + 1. **Piecewise evaluation**: f(x) = {x + 2 if x < 1; x^2 if x ≥ 1}. f(0) = 0 + 2 = 2; f(1) = 1; f(3) = 9. **Difference quotient**: [f(x + h) - f(x)]/h is central to derivatives. **Compositions**: f(g(2)) where g(x) = x + 1, f(x) = x^3: g(2) = 3, f(3) = 27. **Inverse evaluation**: f^(-1)(b) is the x with f(x) = b. **Tip**: be careful with negative inputs and parentheses — f(-x) is NOT the same as -f(x) in general. ✓',
+  'ch01p3_function_notation_evaluation',
+  'how_to',
+  ['function notation', 'evaluate', 'substitute', 'f(x)', 'piecewise', 'composition']
+)
+
+add(
+  'How does the vertical line test work and what are its limitations?',
+  '**Vertical Line Test (VLT)**: a graph in the xy-plane represents y as a function of x (y = f(x)) iff NO vertical line intersects the graph at more than one point. **Reasoning**: a vertical line x = c hits all points with x = c. If it hits the graph twice, then input c has two outputs → not a function. **Examples**: (a) Line y = 2x + 1: any vertical line hits once → function. (b) Parabola y = x^2: any vertical line hits once → function. (c) Sideways parabola x = y^2: vertical line x = 4 hits at (4, 2) and (4, -2) → NOT a function of x. (d) Circle x^2 + y^2 = 25: most vertical lines hit twice → not a function of x. (e) Cubic y = x^3: vertical line hits once → function. **Horizontal Line Test (HLT)**: for a function f, the graph passes the HLT iff f is one-to-one (each y has at most one x). HLT determines whether the function has an inverse. **Limitations**: VLT only tests if y is a function of x; even if it fails, x might be a function of y (e.g., x = y^2: x is a function of y). The test does NOT tell you if the inverse is a function — that\'s the HLT\'s job. ✓',
+  'ch01p3_vertical_line_test',
+  'formula_recall',
+  ['vertical line test', 'function', 'graph', 'horizontal line test', 'one-to-one']
+)
+
+add(
+  'How do you determine if a relation is a function from a table, set, or graph?',
+  '**From a set of ordered pairs**: check that no two pairs share the same first coordinate (input) with different second coordinates (outputs). {(1, 2), (2, 4), (3, 6)} — function ✓. {(1, 2), (1, 3)} — NOT a function (1 maps to both 2 and 3). **From a table**: scan the x-column; if any x-value appears with two different y-values, not a function. **From a graph**: apply the Vertical Line Test. **From an equation**: solve for y; if for some x you get TWO (or more) y values, not a function. Examples: (a) y = x^2: for each x, one y → function. (b) y^2 = x: for x = 4, y = ±2 → not a function of x. (c) |y| = x: same issue → not a function. (d) y = ±sqrt(x): not a function (two values). (e) y = sqrt(x): function (principal root). (f) x^2 + y^2 = 1 (circle): not a function. (g) y = sin(x): function (single output per input). **Implicit relations**: e.g., x^2 y + y^3 = 1 might be a function of x locally but not globally. **Special check**: if equation can be solved uniquely for y in terms of x, it\'s a function. ✓',
+  'ch01p3_determine_function',
+  'how_to',
+  ['relation', 'ordered pairs', 'table', 'graph', 'equation', 'unique output']
+)
+
+// ============================================================
+// SECTION 2 — PIECEWISE & SPECIAL FUNCTIONS (3 items)
+// ============================================================
+add(
+  'How do you evaluate and graph a piecewise function?',
+  '**Piecewise function**: defined by different formulas on different intervals of the domain. **Notation**: f(x) = {formula_1 if condition_1; formula_2 if condition_2; ...}. **Evaluation**: determine which interval x falls in, then use that formula. **Example**: f(x) = {2x + 1 if x < 0; x^2 if 0 ≤ x < 2; 5 if x ≥ 2}. f(-3) = 2(-3) + 1 = -5. f(0) = 0^2 = 0. f(1) = 1. f(2) = 5. f(5) = 5. **Graphing**: graph each piece on its restricted interval (open circle at endpoints where the inequality is strict, closed where non-strict). **Continuity check**: at boundary points (e.g., x = 0, 2), check if left limit = right limit = function value. At x = 0: left limit (from 2x + 1) = 1; right (from x^2) = 0; f(0) = 0. **Discontinuous at x = 0** (jump). At x = 2: left (x^2) = 4; right (5) = 5; f(2) = 5. Discontinuous (jump). **Common piecewise**: absolute value |x| = {-x if x < 0; x if x ≥ 0}. **Floor function** ⌊x⌋: greatest integer ≤ x — step function with jumps at each integer. ✓',
+  'ch01p3_piecewise_functions',
+  'how_to',
+  ['piecewise', 'evaluate', 'graph', 'interval', 'open circle', 'closed circle']
+)
+
+add(
+  'How do you set up a piecewise function for an absolute value expression?',
+  '**Definition**: |x| = {-x if x < 0; x if x ≥ 0}. Geometrically: distance from x to 0 on the number line. **For |f(x)|**: |f(x)| = {-f(x) if f(x) < 0; f(x) if f(x) ≥ 0}. Find where f(x) = 0 to determine intervals. **Example 1**: |x - 3|. Zero at x = 3. Piecewise: {-(x - 3) = 3 - x if x < 3; x - 3 if x ≥ 3}. **Example 2**: |2x + 1|. Zero at x = -1/2. Piecewise: {-(2x + 1) = -2x - 1 if x < -1/2; 2x + 1 if x ≥ -1/2}. **Example 3 (sum of absolute values)**: |x - 1| + |x + 2|. Critical points: x = -2, 1 (where each absolute value is zero). Intervals: x < -2, -2 ≤ x < 1, x ≥ 1. (a) x < -2: |x - 1| = 1 - x, |x + 2| = -x - 2. Sum = 1 - x - x - 2 = -2x - 1. (b) -2 ≤ x < 1: |x - 1| = 1 - x, |x + 2| = x + 2. Sum = 1 - x + x + 2 = 3. (c) x ≥ 1: |x - 1| = x - 1, |x + 2| = x + 2. Sum = 2x + 1. So |x - 1| + |x + 2| = {-2x - 1 if x < -2; 3 if -2 ≤ x < 1; 2x + 1 if x ≥ 1}. Graph is V-shaped flat-bottom. ✓',
+  'ch01p3_absolute_value_piecewise',
+  'problem_solving',
+  ['absolute value', 'piecewise', 'critical points', 'intervals', 'sum of absolutes']
+)
+
+add(
+  'What are step functions and other special piecewise functions?',
+  '**Step functions**: piecewise constant, jumping at discrete points. **Floor function** ⌊x⌋ (greatest integer ≤ x): ⌊2.7⌋ = 2, ⌊-1.3⌋ = -2, ⌊5⌋ = 5. Graph: horizontal segments with closed-left, open-right jumps at integers. **Ceiling function** ⌈x⌉ (smallest integer ≥ x): ⌈2.1⌉ = 3, ⌈-1.5⌉ = -1. **Sign function** sgn(x) = {-1 if x < 0; 0 if x = 0; 1 if x > 0}. **Ramp function** R(x) = {0 if x < 0; x if x ≥ 0} (max(0, x)). **Heaviside step**: H(x) = {0 if x < 0; 1 if x ≥ 0} (used in differential equations and signal processing). **Dirichlet function** (indicator of Q): D(x) = {1 if x rational; 0 if x irrational} — nowhere continuous! **Indicator function** of set S: 1_S(x) = {1 if x in S; 0 otherwise}. **Application**: postage pricing (rate per ounce, stepwise), taxi fares (flat fee plus per-mile rate, rounded up), parking garage rates (different rates for first hour vs additional hours). Example: parking costs $5 for first hour or any part, $3 for each additional hour or part. P(t) = 5 + 3 * ⌈t - 1⌉ for t > 1, where t in hours. ✓',
+  'ch01p3_step_functions',
+  'formula_recall',
+  ['step function', 'floor', 'ceiling', 'sign', 'Heaviside', 'indicator', 'piecewise constant']
+)
+
+// ============================================================
+// SECTION 3 — DOMAIN RESTRICTIONS & COMPOSITE DOMAINS (3 items)
+// ============================================================
+add(
+  'How do you find the domain of a function with multiple restrictions?',
+  '**Procedure**: identify ALL restrictions from the formula, then INTERSECT them (all must be satisfied). Common restrictions: (1) Denominator ≠ 0. (2) Argument of even root ≥ 0. (3) Argument of logarithm > 0. (4) Argument of tangent ≠ π/2 + nπ. (5) Argument of arcsin/arccos in [-1, 1]. **Examples**: (1) f(x) = sqrt(x - 2) / (x - 5). Restrictions: x - 2 ≥ 0 (x ≥ 2) AND x ≠ 5. Domain: [2, 5) ∪ (5, inf). (2) g(x) = ln(x^2 - 4). Need x^2 - 4 > 0 → x < -2 OR x > 2. Domain: (-inf, -2) ∪ (2, inf). (3) h(x) = sqrt(9 - x^2) / ln(x). Restrictions: 9 - x^2 ≥ 0 (|x| ≤ 3), x > 0 (log domain), x ≠ 1 (log denominator zero). Intersect: (0, 3] minus {1} → (0, 1) ∪ (1, 3]. (4) f(x) = sqrt(x + 1) + sqrt(3 - x). Need x ≥ -1 AND x ≤ 3 → [-1, 3]. (5) f(x) = arcsin(2x - 1). Need -1 ≤ 2x - 1 ≤ 1 → 0 ≤ 2x ≤ 2 → 0 ≤ x ≤ 1. (6) f(x) = (x^2 - 4)/(x^2 + 4): denominator x^2 + 4 ≥ 4 > 0 always — domain all R. ✓',
+  'ch01p3_domain_multiple_restrictions',
+  'how_to',
+  ['domain', 'multiple restrictions', 'intersect', 'denominator', 'sqrt', 'log', 'arcsin']
+)
+
+add(
+  'How do you find the domain of a composite function?',
+  '**Composite function** (f ∘ g)(x) = f(g(x)). **Domain rule**: x is in the domain of f ∘ g iff (a) x is in the domain of g, AND (b) g(x) is in the domain of f. **Procedure**: (1) Find domain of g. (2) Find domain of f. (3) Find values of x in domain of g such that g(x) is in domain of f. **Example 1**: f(x) = sqrt(x), g(x) = x - 3. Domain of g: R. Domain of f: [0, inf). Need g(x) = x - 3 ≥ 0 → x ≥ 3. Domain of f(g(x)) = sqrt(x - 3): [3, inf). **Example 2**: f(x) = 1/x, g(x) = x - 2. Domain of g: R. Domain of f: R \\ {0}. Need g(x) ≠ 0 → x ≠ 2. Domain of 1/(x - 2): R \\ {2}. **Example 3 (subtle)**: f(x) = 1/(x - 1), g(x) = x^2. Domain of g: R. Domain of f: R \\ {1}. Need g(x) = x^2 ≠ 1 → x ≠ ±1. Domain of f(g(x)) = 1/(x^2 - 1): R \\ {-1, 1}. **Compare with (g ∘ f)(x)**: order matters. f ∘ g ≠ g ∘ f in general. **Example 4**: f(x) = sqrt(x), g(x) = -x^2 - 1. g(x) = -x^2 - 1 ≤ -1 < 0 always; never in domain [0, inf) of f. Domain of f ∘ g: EMPTY. ✓',
+  'ch01p3_composite_domain',
+  'how_to',
+  ['composite function', 'domain', 'f(g(x))', 'restrict', 'order matters']
+)
+
+add(
+  'How do you find the domain and range of inverse trigonometric functions?',
+  '**Inverse trig functions** (principal values): arcsin (sin^(-1)) has domain [-1, 1] and range [-π/2, π/2]. arccos has domain [-1, 1] and range [0, π]. arctan has domain R (all reals) and range (-π/2, π/2). arccsc has domain (-inf, -1] ∪ [1, inf) and range [-π/2, 0) ∪ (0, π/2]. arcsec has domain (-inf, -1] ∪ [1, inf) and range [0, π/2) ∪ (π/2, π]. arccot has domain R and range (0, π). **Examples**: arcsin(1/2) = π/6. arccos(-1/2) = 2π/3. arctan(1) = π/4. arcsin(2) — UNDEFINED (2 not in [-1, 1]). **Composition identities**: sin(arcsin(x)) = x for x in [-1, 1]. arcsin(sin(x)) = x only if x in [-π/2, π/2]; otherwise wraps. **Example**: arcsin(sin(3π/4)). 3π/4 is NOT in [-π/2, π/2]; sin(3π/4) = sqrt(2)/2; arcsin(sqrt(2)/2) = π/4. So arcsin(sin(3π/4)) = π/4 (not 3π/4). **Useful**: arcsin(x) + arccos(x) = π/2 (complementary). arctan(x) + arctan(1/x) = π/2 for x > 0 (and = -π/2 for x < 0). **Inverse of f(x) = x^2** (not one-to-one on R, so restrict domain to [0, inf)): inverse is sqrt(x), domain [0, inf), range [0, inf). ✓',
+  'ch01p3_inverse_trig_domain_range',
+  'formula_recall',
+  ['inverse trig', 'arcsin', 'arccos', 'arctan', 'principal value', 'domain', 'range']
+)
+
+// ============================================================
+// SECTION 4 — OPERATIONS ON FUNCTIONS (4 items)
+// ============================================================
+add(
+  'How do you add, subtract, and multiply functions?',
+  '**Operations** for f(x) and g(x): (1) **Sum**: (f + g)(x) = f(x) + g(x). (2) **Difference**: (f - g)(x) = f(x) - g(x). (3) **Product**: (f · g)(x) = f(x) · g(x). (4) **Quotient**: (f / g)(x) = f(x)/g(x), with g(x) ≠ 0. **Domain**: for (f + g), (f - g), (f · g): domain is the INTERSECTION of domains of f and g. For (f/g): intersection, plus exclude points where g(x) = 0. **Example**: f(x) = sqrt(x - 2), g(x) = sqrt(5 - x). Domain of f: [2, inf). Domain of g: (-inf, 5]. Intersection: [2, 5]. (f + g)(x) = sqrt(x - 2) + sqrt(5 - x), domain [2, 5]. (f - g)(x) = sqrt(x - 2) - sqrt(5 - x), domain [2, 5]. (f · g)(x) = sqrt((x - 2)(5 - x)) = sqrt(-x^2 + 7x - 10), domain [2, 5]. (f/g)(x) = sqrt((x - 2)/(5 - x)), domain [2, 5) (excluded x = 5 where g = 0). **Other examples**: f(x) = 2x + 1, g(x) = x - 3. (f + g)(x) = 3x - 2. (f · g)(x) = (2x + 1)(x - 3) = 2x^2 - 5x - 3. ✓',
+  'ch01p3_operations_functions',
+  'formula_recall',
+  ['sum', 'difference', 'product', 'quotient', 'intersection', 'domain', 'operations']
+)
+
+add(
+  'How do you divide two functions and what are the restrictions?',
+  '**Quotient**: (f/g)(x) = f(x)/g(x) for all x where (a) x is in BOTH domains, and (b) g(x) ≠ 0. **Example 1**: f(x) = x^2 - 4, g(x) = x - 2. (f/g)(x) = (x^2 - 4)/(x - 2). Factor: (x - 2)(x + 2)/(x - 2) = x + 2 for x ≠ 2. Domain: R \\ {2} (NOT all R — even though simplification looks like x + 2, the original has a hole at x = 2). **Example 2**: f(x) = 1, g(x) = x^2 + 1. (f/g)(x) = 1/(x^2 + 1). Denominator never zero (x^2 + 1 ≥ 1) → domain all R. **Example 3**: f(x) = x, g(x) = x^2 - 9. (f/g)(x) = x/(x^2 - 9). Domain: R \\ {-3, 3}. **Simplification note**: when simplifying a quotient, the domain restriction from the original g(x) ≠ 0 STILL APPLIES — those points are "holes" in the simplified graph. **Sign chart for quotient**: useful for inequalities (e.g., (x + 1)/(x - 2) > 0). **Polynomial division**: when numerator degree ≥ denominator degree, perform long division to express as polynomial + proper fraction. Example: (x^2 + 2x - 1)/(x + 1) = (x + 1) - 2/(x + 1). ✓',
+  'ch01p3_divide_functions',
+  'how_to',
+  ['quotient', 'divide', 'restriction', 'hole', 'simplify', 'domain']
+)
+
+add(
+  'How do you compose two functions f(g(x))?',
+  '**Composition** (f ∘ g)(x) = f(g(x)): apply g first, then apply f to the result. **Substitution method**: replace every x in f\'s formula with the entire expression g(x). **Example 1**: f(x) = x^2 + 1, g(x) = 2x - 3. f(g(x)) = (2x - 3)^2 + 1 = 4x^2 - 12x + 9 + 1 = 4x^2 - 12x + 10. g(f(x)) = 2(x^2 + 1) - 3 = 2x^2 + 2 - 3 = 2x^2 - 1. Note: f(g(x)) ≠ g(f(x)) in general. **Example 2**: f(x) = sqrt(x), g(x) = x + 5. f(g(x)) = sqrt(x + 5). g(f(x)) = sqrt(x) + 5. **Example 3**: f(x) = 1/x, g(x) = x - 4. f(g(x)) = 1/(x - 4). **Domain**: x in domain of g AND g(x) in domain of f. For sqrt(x + 5): need x + 5 ≥ 0 → x ≥ -5 (and g(x) = x + 5 in domain of f = [0, inf) → x + 5 ≥ 0). Domain: [-5, inf). **Example 4 (three-deep)**: f(x) = 2x, g(x) = x + 1, h(x) = x^2. f(g(h(x))) = f(g(x^2)) = f(x^2 + 1) = 2(x^2 + 1) = 2x^2 + 2. **Decomposition**: given F(x) = sqrt(3x - 1), express as f ∘ g. Let g(x) = 3x - 1, f(x) = sqrt(x). Then f(g(x)) = sqrt(3x - 1). ✓ **Tip**: read "f of g of x" — work from inside out.',
+  'ch01p3_composition_of_functions',
+  'how_to',
+  ['composition', 'f(g(x))', 'substitute', 'decompose', 'inner', 'outer']
+)
+
+add(
+  'How do you decompose a composite function into its components?',
+  '**Decomposition**: given F(x) = f(g(x)), find simpler f and g. **Strategy**: identify the "outer" operation (last applied) and the "inner" expression. **Examples**: (1) F(x) = (3x + 1)^5. Outer = power 5, inner = 3x + 1. So g(x) = 3x + 1, f(x) = x^5. (2) F(x) = sqrt(x^2 - 4). Outer = sqrt, inner = x^2 - 4. g(x) = x^2 - 4, f(x) = sqrt(x). (3) F(x) = 1/(x + 7)^3. Outer = 1/u^3 (or (·)^(-3)), inner = x + 7. g(x) = x + 7, f(x) = 1/x^3 = x^(-3). Or two-step: g_1(x) = x + 7, g_2(x) = x^3, f(x) = 1/x. Then f(g_2(g_1(x))) = 1/(x + 7)^3. (4) F(x) = sin(ln(x)). Outer = sin, inner = ln(x). g(x) = ln(x), f(x) = sin(x). (5) F(x) = e^(2x + 1). Outer = e^x, inner = 2x + 1. g(x) = 2x + 1, f(x) = e^x. **Multiple decompositions**: often not unique. (3x + 1)^5 could be: g(x) = 3x + 1, f(x) = x^5. Or g(x) = x, f(x) = (3x + 1)^5 (trivial). The meaningful decomposition uses the **simplest** inner function. **Use**: chain rule in calculus — d/dx[f(g(x))] = f\'(g(x)) g\'(x). ✓',
+  'ch01p3_decompose_composite',
+  'how_to',
+  ['decompose', 'composite', 'outer', 'inner', 'chain rule', 'simplest']
+)
+
+// ============================================================
+// SECTION 5 — ONE-TO-ONE & ONTO FUNCTIONS (3 items)
+// ============================================================
+add(
+  'What does it mean for a function to be one-to-one (injective)?',
+  '**One-to-one (injective)**: a function f: A → B is one-to-one iff distinct inputs give distinct outputs: f(a_1) = f(a_2) ⟹ a_1 = a_2. Equivalently (contrapositive): a_1 ≠ a_2 ⟹ f(a_1) ≠ f(a_2). **Horizontal Line Test (HLT)**: f is one-to-one iff no horizontal line intersects its graph more than once. **Examples**: (1) f(x) = 2x + 1: one-to-one (any y has unique x). (2) f(x) = x^2: NOT one-to-one (f(2) = f(-2) = 4). (3) f(x) = x^3: one-to-one (strictly increasing). (4) f(x) = |x|: NOT one-to-one (f(2) = f(-2)). (5) f(x) = e^x: one-to-one (strictly increasing). (6) f(x) = sin(x): NOT one-to-one on R, but IS on [-π/2, π/2] (principal branch). **Restricting domain to make one-to-one**: f(x) = x^2 on [0, inf) is one-to-one (strictly increasing); inverse is sqrt(x). **Tests for one-to-one**: (a) algebraic: assume f(a) = f(b), derive a = b; (b) graphical: HLT; (c) monotonic: strictly increasing or strictly decreasing → one-to-one. **Significance**: one-to-one functions have inverses. ✓',
+  'ch01p3_one_to_one_injective',
+  'formula_recall',
+  ['one-to-one', 'injective', 'horizontal line test', 'distinct inputs', 'inverse']
+)
+
+add(
+  'What does it mean for a function to be onto (surjective)?',
+  '**Onto (surjective)**: a function f: A → B is onto iff every element of B is the image of some element of A: for every b in B, there exists a in A with f(a) = b. Equivalently, range of f = codomain B. **Examples**: (1) f: R → R, f(x) = 2x: onto (every real y has x = y/2). (2) f: R → R, f(x) = x^2: NOT onto (negative reals not in range). (3) f: R → [0, inf), f(x) = x^2: ONTO (range = [0, inf) = codomain). (4) f: R → R, f(x) = e^x: NOT onto (range is (0, inf), not all R). (5) f: R → (0, inf), f(x) = e^x: onto (range = (0, inf) = codomain). **Test**: solve y = f(x) for x; if every y in codomain has a real solution x in domain, f is onto. **Bijection (one-to-one correspondence)**: f is BOTH one-to-one AND onto. Bijections have **inverses** (as functions from B to A). **Examples of bijections**: f: R → R, f(x) = 2x + 3 (one-to-one and onto). f: [0, inf) → [0, inf), f(x) = x^2 (one-to-one and onto). **Cardinality**: two sets have the same cardinality iff there is a bijection between them. (e.g., N and Z, N and Q are both countable.) ✓',
+  'ch01p3_onto_surjective',
+  'formula_recall',
+  ['onto', 'surjective', 'codomain', 'range', 'bijection', 'one-to-one correspondence']
+)
+
+add(
+  'How do you algebraically prove a function is one-to-one?',
+  '**Method** (algebraic): assume f(a) = f(b) for arbitrary a, b in domain; derive a = b. If derivation succeeds, f is one-to-one. If you find a counterexample (a ≠ b with f(a) = f(b)), f is NOT one-to-one. **Example 1**: prove f(x) = 3x - 5 is one-to-one. Assume f(a) = f(b): 3a - 5 = 3b - 5. Add 5: 3a = 3b. Divide by 3: a = b. ✓ So f is one-to-one. **Example 2**: prove f(x) = x^2 (on R) is NOT one-to-one. Counterexample: f(2) = 4 = f(-2) but 2 ≠ -2. ✓ So f is not one-to-one. **Example 3**: prove f(x) = x^3 is one-to-one. Assume a^3 = b^3. Then a^3 - b^3 = 0 → (a - b)(a^2 + ab + b^2) = 0. Either a = b, or a^2 + ab + b^2 = 0. The quadratic a^2 + ab + b^2 = (a + b/2)^2 + 3b^2/4 ≥ 0, with equality only if a = b = 0. So either a = b OR a = b = 0 → in both cases a = b. ✓ One-to-one. **Example 4 (decreasing)**: prove f(x) = 1/x (on R\\{0}) is one-to-one. Assume 1/a = 1/b → cross-multiply: b = a → a = b. ✓ One-to-one. **Strictly monotonic shortcut**: if f\'(x) > 0 (or < 0) for all x in domain (strictly increasing/decreasing), then f is one-to-one. ✓',
+  'ch01p3_prove_one_to_one',
+  'how_to',
+  ['prove', 'one-to-one', 'algebraic', 'assume', 'derive', 'counterexample', 'monotonic']
+)
+
+// ============================================================
+// SECTION 6 — INVERSE FUNCTIONS (4 items)
+// ============================================================
+add(
+  'What is an inverse function and when does it exist?',
+  '**Inverse function** f^(-1): if f: A → B is a BIJECTION (one-to-one AND onto), then f^(-1): B → A is the function satisfying **f^(-1)(f(x)) = x** for all x in A, and **f(f^(-1)(y)) = y** for all y in B. Geometrically: f^(-1) "undoes" f. **Existence**: f has an inverse function iff f is one-to-one. (Onto is needed for the inverse to be defined on all of B; if f maps A → range(f) only, restrict codomain.) **Graphical**: the graph of y = f^(-1)(x) is the reflection of y = f(x) across the line y = x. **Finding**: swap x and y in y = f(x), solve for y → y = f^(-1)(x). **Examples**: (1) f(x) = 2x + 3. Set y = 2x + 3, swap: x = 2y + 3, solve: y = (x - 3)/2. So f^(-1)(x) = (x - 3)/2. Check: f(f^(-1)(5)) = f(1) = 5 ✓. (2) f(x) = x^3. Inverse: y = x^3 → x = y^3 → y = cube_root(x). So f^(-1)(x) = x^(1/3). (3) f(x) = e^x. Inverse: ln(x). (4) f(x) = x^2 on [0, inf). Inverse: sqrt(x). (5) f(x) = sin(x) on [-π/2, π/2]. Inverse: arcsin(x). **Note**: f^(-1)(x) is NOT 1/f(x) (that\'s the reciprocal). ✓',
+  'ch01p3_inverse_function_definition',
+  'formula_recall',
+  ['inverse function', 'bijection', 'undo', 'reflection', 'swap', 'one-to-one']
+)
+
+add(
+  'How do you find the inverse of a function algebraically?',
+  '**Procedure**: (1) Verify f is one-to-one (HLT or algebraic test). (2) Write y = f(x). (3) Swap x and y (interchange variables). (4) Solve for y in terms of x. (5) The result is y = f^(-1)(x). (6) Verify: f(f^(-1)(x)) = x and f^(-1)(f(x)) = x. **Example 1**: f(x) = 3x - 7. y = 3x - 7. Swap: x = 3y - 7. Solve: x + 7 = 3y → y = (x + 7)/3. So f^(-1)(x) = (x + 7)/3. Verify: f((x + 7)/3) = 3 * (x + 7)/3 - 7 = x + 7 - 7 = x ✓. **Example 2**: f(x) = (2x + 1)/(x - 3) (rational, x ≠ 3). y = (2x + 1)/(x - 3). Swap: x = (2y + 1)/(y - 3). Cross-multiply: x(y - 3) = 2y + 1 → xy - 3x = 2y + 1 → xy - 2y = 3x + 1 → y(x - 2) = 3x + 1 → y = (3x + 1)/(x - 2). So f^(-1)(x) = (3x + 1)/(x - 2), x ≠ 2. **Example 3**: f(x) = x^3 + 2. y = x^3 + 2 → x = y^3 + 2 → y^3 = x - 2 → y = cube_root(x - 2). f^(-1)(x) = cube_root(x - 2). **Example 4**: f(x) = 5 - sqrt(x) (domain x ≥ 0). y = 5 - sqrt(x) → x = 5 - sqrt(y) → sqrt(y) = 5 - x → y = (5 - x)^2. Domain of inverse: need 5 - x ≥ 0 → x ≤ 5. So f^(-1)(x) = (5 - x)^2, x ≤ 5. ✓',
+  'ch01p3_find_inverse_algebraically',
+  'how_to',
+  ['find inverse', 'swap', 'solve', 'verify', 'rational', 'sqrt']
+)
+
+add(
+  'How are the graphs of a function and its inverse related?',
+  '**Key property**: the graph of y = f^(-1)(x) is the **reflection** of the graph of y = f(x) across the line **y = x**. **Why**: if (a, b) is on the graph of f (meaning f(a) = b), then (b, a) is on the graph of f^(-1) (meaning f^(-1)(b) = a). The point (b, a) is the reflection of (a, b) across y = x. **Consequences**: (1) Domain of f^(-1) = range of f; range of f^(-1) = domain of f. (2) If (c, 0) is an x-intercept of f, then (0, c) is a y-intercept of f^(-1). (3) If (0, d) is a y-intercept of f, then (d, 0) is an x-intercept of f^(-1). (4) If f is increasing, so is f^(-1). (5) If f has a horizontal asymptote y = L, then f^(-1) has a vertical asymptote x = L. (6) If f has a vertical asymptote x = c, then f^(-1) has a horizontal asymptote y = c. **Example**: f(x) = e^x has horizontal asymptote y = 0; its inverse ln(x) has vertical asymptote x = 0. **Graphing**: plot f, then reflect key points across y = x to plot f^(-1). **Symmetry**: points on y = x (where f(x) = x, i.e., fixed points) are on both graphs. **Caution**: if f is NOT one-to-one, its reflection is NOT a function (fails VLT). Restrict domain to make it one-to-one. ✓',
+  'ch01p3_inverse_graph_reflection',
+  'formula_recall',
+  ['graph', 'inverse', 'reflection', 'y = x', 'asymptote', 'domain range swap']
+)
+
+add(
+  'How do you restrict the domain of a function to make it invertible?',
+  '**Many functions** are NOT one-to-one on their natural domain, but BECOME one-to-one when the domain is restricted to a "principal branch". **Standard restrictions**: (1) f(x) = x^2 (not 1-1 on R). Restrict to [0, inf) → inverse is sqrt(x). Or restrict to (-inf, 0] → inverse is -sqrt(x). (2) f(x) = sin(x) (not 1-1 on R). Restrict to [-π/2, π/2] → inverse arcsin(x). (3) f(x) = cos(x). Restrict to [0, π] → inverse arccos(x). (4) f(x) = tan(x). Restrict to (-π/2, π/2) → inverse arctan(x). (5) f(x) = x^4 (not 1-1 on R). Restrict to [0, inf) → inverse x^(1/4). **Procedure**: (a) Determine where f is strictly increasing or strictly decreasing (use derivative or test values). (b) Choose the largest interval where f is monotonic that includes a "natural" starting point. (c) The restricted f is 1-1, so has an inverse. **Example**: f(x) = x^2 - 4x + 3. Vertex at x = 2. On [2, inf), f is increasing → 1-1. On (-inf, 2], f is decreasing → 1-1. If we restrict to [2, inf): y = x^2 - 4x + 3 = (x - 2)^2 - 1. Swap: x = (y - 2)^2 - 1 → (y - 2)^2 = x + 1 → y - 2 = sqrt(x + 1) → y = 2 + sqrt(x + 1). So inverse (on restricted domain): f^(-1)(x) = 2 + sqrt(x + 1), with domain x ≥ -1 (matching range of f restricted = [-1, inf)). ✓',
+  'ch01p3_restrict_domain_invertible',
+  'how_to',
+  ['restrict domain', 'invertible', 'principal branch', 'one-to-one', 'monotonic', 'inverse']
+)
+
+// ============================================================
+// SECTION 7 — FUNCTION TRANSFORMATIONS (5 items)
+// ============================================================
+add(
+  'How do vertical and horizontal shifts transform a function\'s graph?',
+  '**Vertical shifts**: y = f(x) + k. k > 0: shift UP by k. k < 0: shift DOWN by |k|. **Horizontal shifts**: y = f(x - h). h > 0: shift RIGHT by h. h < 0: shift LEFT by |h|. **Caution**: the sign in (x - h) is "opposite" — positive h shifts right, negative h shifts left. **Examples**: base f(x) = x^2 (vertex at origin). (1) y = x^2 + 3: shift up 3, vertex at (0, 3). (2) y = x^2 - 4: shift down 4, vertex at (0, -4). (3) y = (x - 2)^2: shift right 2, vertex at (2, 0). (4) y = (x + 5)^2 = (x - (-5))^2: shift left 5, vertex at (-5, 0). (5) y = (x - 2)^2 + 3: right 2, up 3, vertex at (2, 3). **Combined example**: f(x) = sqrt(x). y = sqrt(x - 4) - 2: right 4, down 2. Domain shifts from [0, inf) to [4, inf). **Asymptotes shift too**: f(x) = 1/x has vertical asymptote x = 0, horizontal y = 0. y = 1/(x - 3) + 2: vertical asymptote x = 3, horizontal y = 2. **Key points**: pick a few key points on f, shift each by (h, k) to get points on the transformed graph. ✓',
+  'ch01p3_shifts',
+  'how_to',
+  ['shift', 'vertical', 'horizontal', 'up', 'down', 'left', 'right']
+)
+
+add(
+  'How do reflections across the x-axis and y-axis transform a graph?',
+  '**Reflection across x-axis**: y = -f(x). Each point (x, y) on f maps to (x, -y). Flips the graph vertically. **Reflection across y-axis**: y = f(-x). Each point (x, y) on f maps to (-x, y). Flips the graph horizontally. **Both axes** (origin symmetry): y = -f(-x). **Examples**: base f(x) = sqrt(x). (1) y = -sqrt(x): reflect across x-axis (now points downward). (2) y = sqrt(-x): reflect across y-axis (defined for x ≤ 0, mirror image). (3) y = -sqrt(-x): reflect both (defined for x ≤ 0, points downward). **Even/odd connection**: if f is even (f(-x) = f(x)), the y-axis reflection = original (symmetric about y-axis). If f is odd (f(-x) = -f(x)), the x-axis reflection after y-axis = original (symmetric about origin). **Example with parabola**: f(x) = x^2 - 4. (a) y = -(x^2 - 4) = -x^2 + 4: opens downward, vertex at (0, 4). (b) y = (-x)^2 - 4 = x^2 - 4: same as original (f is even). (c) y = -((-x)^2 - 4) = -x^2 + 4: same as (a). **Example with cube**: f(x) = x^3. y = (-x)^3 = -x^3 (f is odd, so reflection across y-axis = reflection across x-axis). **Application**: simplifying by recognizing reflections: |x - 3| vs -|x - 3| (a "downward V"). ✓',
+  'ch01p3_reflections',
+  'formula_recall',
+  ['reflection', 'x-axis', 'y-axis', 'flip', 'even', 'odd', 'origin']
+)
+
+add(
+  'How do vertical and horizontal stretches/compressions transform a graph?',
+  '**Vertical stretch/compression**: y = a * f(x). |a| > 1: vertical STRETCH by factor |a| (taller). 0 < |a| < 1: vertical COMPRESSION (shorter). a < 0: also reflect across x-axis. **Horizontal stretch/compression**: y = f(b * x). |b| > 1: horizontal COMPRESSION by factor 1/|b| (narrower). 0 < |b| < 1: horizontal STRETCH by factor 1/|b| (wider). b < 0: also reflect across y-axis. **Note**: horizontal stretches/compressions feel "backwards" — larger b compresses, smaller b stretches. **Examples**: base f(x) = x^2. (1) y = 3x^2: vertical stretch by 3 (3x as tall). (2) y = (1/2) x^2: vertical compression (half height). (3) y = (2x)^2 = 4x^2: horizontal compression by 1/2 (narrower; also = vertical stretch by 4). (4) y = (x/2)^2 = x^2/4: horizontal stretch by 2 (wider; also = vertical compression by 4). (5) y = -2 f(x) = -2x^2: vertical stretch by 2 AND reflect across x-axis (downward parabola, 2x as tall). **Domain effects**: horizontal scaling changes x-coordinates; for f with bounded domain [a, b], y = f(2x) has domain [a/2, b/2]. **Period scaling**: for trig functions, y = sin(bx) has period 2π/|b|. y = sin(2x) has period π (compressed). y = sin(x/2) has period 4π (stretched). ✓',
+  'ch01p3_stretches_compressions',
+  'how_to',
+  ['stretch', 'compression', 'vertical', 'horizontal', 'scale', 'factor', 'narrower']
+)
+
+add(
+  'How do you combine multiple transformations in the correct order?',
+  '**General form**: y = a · f(b(x - h)) + k. **Transformations in order** (apply right-to-left for x, then top-to-bottom for y): (1) **Horizontal shift** by h (right if h > 0, left if h < 0). (2) **Horizontal scale/reflect** by 1/b (compression if |b| > 1, stretch if |b| < 1, reflect if b < 0). (3) **Vertical scale/reflect** by a (stretch if |a| > 1, compression if 0 < |a| < 1, reflect if a < 0). (4) **Vertical shift** by k (up if k > 0, down if k < 0). **Order matters**: do shifts LAST (after scaling) to avoid mistakes — or factor the b out first. **Example 1**: y = -2(x - 3)^2 + 5 from base y = x^2. Steps: (a) shift right 3 → (x - 3)^2; (b) reflect across x-axis AND vertical stretch by 2 → -2(x - 3)^2; (c) shift up 5 → -2(x - 3)^2 + 5. Vertex at (3, 5), opens downward. **Example 2**: y = 3 f(2x + 4) - 1. First factor: y = 3 f(2(x + 2)) - 1. Steps: (a) shift left 2 → f(x + 2); (b) horizontal compress by 2 → f(2(x + 2)) = f(2x + 4); (c) vertical stretch by 3 → 3 f(2x + 4); (d) shift down 1. **Example 3**: y = -|x + 1| - 4 from base |x|. (a) shift left 1 → |x + 1|; (b) reflect x-axis → -|x + 1|; (c) shift down 4 → -|x + 1| - 4. Vertex at (-1, -4), downward V. ✓',
+  'ch01p3_combined_transformations',
+  'how_to',
+  ['combined', 'transformations', 'order', 'shift', 'scale', 'reflect', 'factor']
+)
+
+add(
+  'How do you identify the parent function and transformations from a given formula?',
+  '**Procedure**: (1) Identify the **parent function** (basic shape): linear (ax + b), quadratic (x^2), cubic (x^3), absolute value (|x|), square root (sqrt(x)), reciprocal (1/x), exponential (b^x), logarithmic (log_b(x)), trigonometric (sin, cos, tan). (2) Write in the form y = a · f(b(x - h)) + k. (3) Read off transformations: a (vertical scale/reflect), b (horizontal scale/reflect), h (horizontal shift), k (vertical shift). **Examples**: (1) y = -3(x - 2)^2 + 5. Parent: x^2 (parabola). a = -3 (downward, 3x stretch), b = 1, h = 2 (right 2), k = 5 (up 5). Vertex: (2, 5). (2) y = 2 sqrt(-x + 4) - 1 = 2 sqrt(-(x - 4)) - 1. Parent: sqrt(x). a = 2 (2x stretch), b = -1 (reflect y-axis), h = 4 (right 4), k = -1 (down 1). Domain: -x + 4 ≥ 0 → x ≤ 4. After reflection: x ≤ 4 still. Endpoint at (4, -1). (3) y = (1/2) |x + 3|. Parent: |x|. a = 1/2 (vertical compression), b = 1, h = -3 (left 3), k = 0. Vertex at (-3, 0), wider V. (4) y = 4 sin(2x - π) + 1 = 4 sin(2(x - π/2)) + 1. Parent: sin(x). a = 4 (amplitude 4), b = 2 (period = π), h = π/2 (right π/2), k = 1 (up 1). (5) y = -1/(x - 5). Parent: 1/x. a = -1 (reflect x-axis), h = 5 (right 5), k = 0. Vertical asymptote x = 5, horizontal y = 0. ✓',
+  'ch01p3_identify_parent_transformations',
+  'problem_solving',
+  ['parent function', 'identify', 'transformations', 'read', 'parabola', 'form']
+)
+
+// ============================================================
+// SECTION 8 — EVEN & ODD FUNCTIONS (2 items)
+// ============================================================
+add(
+  'What are even and odd functions and how do you test for them?',
+  '**Even function**: f(-x) = f(x) for all x in domain (symmetric about y-axis). **Odd function**: f(-x) = -f(x) for all x in domain (symmetric about origin). **Tests**: substitute -x for x and simplify. If result = f(x): even. If result = -f(x): odd. If neither: neither. **Examples**: (1) f(x) = x^2: f(-x) = (-x)^2 = x^2 = f(x). EVEN. (2) f(x) = x^3: f(-x) = (-x)^3 = -x^3 = -f(x). ODD. (3) f(x) = x^4: even. (4) f(x) = x^2 + x^3: f(-x) = x^2 - x^3 ≠ f(x), ≠ -f(x). NEITHER. (5) f(x) = |x|: even (|−x| = |x|). (6) f(x) = 1/x: f(-x) = -1/x = -f(x). ODD. (7) f(x) = cos(x): even (cos(-x) = cos x). (8) f(x) = sin(x): odd (sin(-x) = -sin x). (9) f(x) = e^x: neither. (10) f(x) = ln(x): domain (0, inf) not symmetric → neither (not testable). **Properties**: (a) Sum of two even = even. (b) Sum of two odd = odd. (c) Sum of even + odd = neither (in general). (d) Product of two even = even. (e) Product of two odd = even. (f) Product of even × odd = odd. (g) Constant function (nonzero): even. (h) Zero function: BOTH even and odd. **Decomposition**: ANY function f can be written as sum of even and odd parts: f(x) = [(f(x) + f(-x))/2] + [(f(x) - f(-x))/2] (even part + odd part). ✓',
+  'ch01p3_even_odd_functions',
+  'formula_recall',
+  ['even function', 'odd function', 'symmetric', 'y-axis', 'origin', 'test']
+)
+
+add(
+  'How do you use symmetry to simplify graphing and integration?',
+  '**Symmetry shortcuts**: if you know the symmetry of a function, you only need to graph (or analyze) half the domain. **Even function** (symmetric about y-axis): graph the right half (x ≥ 0), then reflect across y-axis for left half. **Odd function** (symmetric about origin): graph the right half, then rotate 180° about origin for left half (equivalently: reflect across y-axis then across x-axis). **Example 1 (graphing)**: f(x) = x^4 - 3x^2. Test: f(-x) = x^4 - 3x^2 = f(x). Even. Graph for x ≥ 0: minimum at x = sqrt(3/2), y = -9/4; crosses x-axis at x = 0 and x = sqrt(3); y-intercept at 0. Reflect across y-axis for full graph. **Example 2 (integration)**: integral of even function over symmetric interval [-a, a]: integral = 2 * integral from 0 to a. integral of odd function over symmetric interval [-a, a]: integral = 0. **Example**: integral from -1 to 1 of x^3 dx = 0 (odd function, symmetric interval). integral from -2 to 2 of x^2 dx = 2 * integral from 0 to 2 of x^2 dx = 2 * (8/3) = 16/3. **Example 3 (Fourier)**: Fourier series of even functions contain only cosine terms (cosine series); of odd functions contain only sine terms (sine series). **Example 4 (Taylor)**: Taylor series of even functions contain only even powers; of odd functions contain only odd powers. ✓',
+  'ch01p3_symmetry_applications',
+  'problem_solving',
+  ['symmetry', 'graph', 'integration', 'simplify', 'even', 'odd', 'Fourier']
+)
+
+// ============================================================
+// SECTION 9 — COMMON FUNCTION FAMILIES (6 items)
+// ============================================================
+add(
+  'What are the key features of linear functions?',
+  '**Linear function**: f(x) = mx + b. **m = slope** = (change in y)/(change in x) = (y_2 - y_1)/(x_2 - x_1). **b = y-intercept** = f(0). **Graph**: a straight line. **Domain and range**: both R (unless restricted). **Properties**: increasing if m > 0, decreasing if m < 0, constant if m = 0. **Perpendicular lines**: m_1 * m_2 = -1. **Parallel lines**: m_1 = m_2. **Forms**: slope-intercept (y = mx + b), point-slope (y - y_1 = m(x - x_1)), standard (Ax + By = C), two-point ((y - y_1)/(y_2 - y_1) = (x - x_1)/(x_2 - x_1)). **Example**: f(x) = -2x + 3. Slope -2 (decreasing), y-intercept 3. f(0) = 3, f(1) = 1, f(2) = -1. X-intercept: 0 = -2x + 3 → x = 3/2. **Special cases**: horizontal line y = b (m = 0); vertical line x = a (undefined slope, NOT a function). **Direct variation**: y = kx (passes through origin; m = k, b = 0). **Application**: cost = fixed + variable * quantity: C(x) = b + mx. ✓',
+  'ch01p3_linear_functions',
+  'formula_recall',
+  ['linear function', 'slope', 'y-intercept', 'point-slope', 'parallel', 'perpendicular']
+)
+
+add(
+  'What are the key features of quadratic functions and parabolas?',
+  '**Quadratic function**: f(x) = ax^2 + bx + c (a ≠ 0). **Graph**: parabola. **Vertex**: at x = -b/(2a); y = f(-b/(2a)) = c - b^2/(4a). **Vertex form**: f(x) = a(x - h)^2 + k where (h, k) is the vertex. **Direction**: a > 0 opens UP (vertex is minimum); a < 0 opens DOWN (vertex is maximum). **Axis of symmetry**: vertical line x = -b/(2a) (through vertex). **Y-intercept**: f(0) = c. **X-intercepts (roots)**: solutions to ax^2 + bx + c = 0; x = [-b ± sqrt(b^2 - 4ac)]/(2a). Discriminant D = b^2 - 4ac: D > 0 → 2 real roots (crosses x-axis twice); D = 0 → 1 real root (tangent, vertex on x-axis); D < 0 → no real roots (above or below x-axis). **Domain**: R. **Range**: a > 0 → [k, inf); a < 0 → (-inf, k]. **Example**: f(x) = -2x^2 + 8x - 5. a = -2 (downward). Vertex: x = -8/(-4) = 2; y = -2(4) + 16 - 5 = 3. Vertex (2, 3). Max value 3. Axis of symmetry x = 2. Y-intercept -5. Roots: x = [-8 ± sqrt(64 - 40)]/(-4) = [-8 ± sqrt(24)]/(-4) = 2 ∓ sqrt(6)/2 ≈ 0.78, 3.22. Range (-inf, 3]. ✓',
+  'ch01p3_quadratic_functions',
+  'formula_recall',
+  ['quadratic', 'parabola', 'vertex', 'axis of symmetry', 'maximum', 'minimum', 'discriminant']
+)
+
+add(
+  'What are the key features of polynomial functions in general?',
+  '**Polynomial function**: f(x) = a_n x^n + ... + a_1 x + a_0, n non-negative integer, a_n ≠ 0. **Degree** = n. **Leading coefficient** = a_n. **Constant term** = a_0. **Domain**: all R (no restrictions). **End behavior** (determined by degree and sign of a_n): (1) Degree even, a_n > 0: rises both ends (y → +inf as x → ±inf). (2) Degree even, a_n < 0: falls both ends. (3) Degree odd, a_n > 0: falls left, rises right. (4) Degree odd, a_n < 0: rises left, falls right. **Roots/zeros**: by FTA, n roots (counting multiplicity) over C; real roots are x-intercepts. **Multiplicity**: root r with multiplicity m: graph touches x-axis and turns around if m even (e.g., (x-r)^2), crosses if m odd (e.g., (x-r)^1 or (x-r)^3), flattens more for higher m. **Y-intercept**: f(0) = a_0. **Turning points**: a polynomial of degree n has at most n - 1 turning points. **Example**: f(x) = (x - 1)^2 (x + 2) (degree 3). Roots: x = 1 (mult 2, touch), x = -2 (mult 1, cross). Y-intercept: (1)^2 (-2)... wait, f(0) = (0 - 1)^2 (0 + 2) = 1 * 2 = 2. End behavior: odd degree, a_n > 0 (expand: leading term x^3), so falls left, rises right. ✓',
+  'ch01p3_polynomial_features',
+  'formula_recall',
+  ['polynomial', 'degree', 'end behavior', 'multiplicity', 'turning points', 'leading coefficient']
+)
+
+add(
+  'What are the key features of rational functions?',
+  '**Rational function**: f(x) = P(x)/Q(x), where P, Q polynomials, Q not zero. **Domain**: R \\ {zeros of Q}. **Vertical asymptotes (VA)**: x = c where Q(c) = 0 but P(c) ≠ 0 (the denominator goes to ±inf). If P(c) = 0 too (common factor), there\'s a HOLE (removable discontinuity), not a VA. **Horizontal asymptote (HA)**: y = L where lim(x→±inf) f(x) = L. Rules: (1) deg P < deg Q → HA y = 0. (2) deg P = deg Q → HA y = leading coefficient of P / leading coefficient of Q. (3) deg P > deg Q → no HA (but possibly slant/oblique asymptote). **Slant (oblique) asymptote**: when deg P = deg Q + 1; perform polynomial long division, the asymptote is y = quotient (linear part). **X-intercepts**: zeros of P (where Q ≠ 0). **Y-intercept**: f(0) (if defined). **Example**: f(x) = (x^2 - 1)/(x - 2). Factor numerator: (x-1)(x+1)/(x-2). VA: x = 2 (denominator zero, numerator nonzero). X-intercepts: x = ±1. Y-intercept: f(0) = -1/-2 = 1/2. HA: none (deg P > deg Q). Slant asymptote: divide x^2 - 1 by x - 2: quotient x + 2, remainder 3. So slant y = x + 2. Domain: R \\ {2}. ✓',
+  'ch01p3_rational_functions',
+  'formula_recall',
+  ['rational function', 'vertical asymptote', 'horizontal asymptote', 'slant', 'hole', 'domain']
+)
+
+add(
+  'What are the key features of exponential functions?',
+  '**Exponential function**: f(x) = a · b^x + c, where b > 0, b ≠ 1. **Base b**: b > 1 → exponential GROWTH (increasing). 0 < b < 1 → exponential DECAY (decreasing). **Y-intercept**: f(0) = a + c (since b^0 = 1). **Horizontal asymptote**: y = c (as x → -inf if b > 1; as x → +inf if 0 < b < 1). **Domain**: R. **Range**: (c, inf) if a > 0; (-inf, c) if a < 0. **One-to-one**: yes (strictly monotonic). **Inverse**: logarithmic function log_b. **Special bases**: b = e ≈ 2.71828 (natural exponential e^x). b = 2 (doubling). b = 10 (common). **Half-life/doubling time**: for f(t) = A_0 (1/2)^(t/h), h = half-life. For f(t) = A_0 * 2^(t/d), d = doubling time. **Compound interest**: A = P (1 + r/n)^(nt) (n compounds per year). **Continuous growth**: A = P e^(rt). **Examples**: (1) f(x) = 2^x. Passes through (0, 1), (1, 2), (2, 4), (-1, 1/2). HA y = 0. Increasing. (2) f(x) = (1/2)^x = 2^(-x). Decreasing. (3) f(x) = 3 e^(0.5x) - 2: starts (0, 3 - 2) = (0, 1); HA y = -2; growth. **Laws**: b^(x+y) = b^x b^y; (b^x)^y = b^(xy); b^(-x) = 1/b^x. ✓',
+  'ch01p3_exponential_functions',
+  'formula_recall',
+  ['exponential', 'growth', 'decay', 'base', 'horizontal asymptote', 'half-life', 'compound']
+)
+
+add(
+  'What are the key features of logarithmic functions?',
+  '**Logarithmic function**: f(x) = log_b(x), the inverse of b^x. **Definition**: y = log_b(x) iff b^y = x. **Domain**: (0, inf) (input must be positive). **Range**: R. **Vertical asymptote**: x = 0 (the y-axis). **X-intercept**: x = 1 (since log_b(1) = 0). **Base b > 1**: increasing. 0 < b < 1: decreasing (rare). **Common bases**: log_10 (often written "log"), log_e = ln (natural log), log_2 (binary). **Change of base**: log_b(x) = log_c(x) / log_c(b) = ln(x) / ln(b). **Laws of logarithms**: (1) log_b(xy) = log_b(x) + log_b(y). (2) log_b(x/y) = log_b(x) - log_b(y). (3) log_b(x^p) = p · log_b(x). (4) log_b(b) = 1; log_b(1) = 0. (5) b^(log_b(x)) = x for x > 0; log_b(b^x) = x. **Transformations**: f(x) = a log_b(x - h) + k shifts right h, up k, scales by a. **Example**: f(x) = log_2(x - 3) + 1. Domain: x - 3 > 0 → x > 3. VA: x = 3. X-intercept: log_2(x - 3) = -1 → x - 3 = 1/2 → x = 3.5. Y-intercept: NONE (x = 0 not in domain). **Examples of values**: log_2(8) = 3 (since 2^3 = 8). ln(e^5) = 5. log_10(1000) = 3. log_10(0.01) = -2. **Application**: pH = -log_10[H+]; Richter magnitude = log_10(amplitude). ✓',
+  'ch01p3_logarithmic_functions',
+  'formula_recall',
+  ['logarithmic', 'inverse exponential', 'laws of logs', 'change of base', 'vertical asymptote', 'natural log']
+)
+
+// ============================================================
+// SECTION 10 — ASYMPTOTES (4 items)
+// ============================================================
+add(
+  'How do you find vertical asymptotes of a rational function?',
+  '**Vertical asymptote (VA)** of f(x) = P(x)/Q(x): a vertical line x = c where lim(x→c) |f(x)| = inf. **Procedure**: (1) Factor P and Q completely. (2) Find zeros of Q (denominator). (3) For each zero c: if (x - c) is NOT a factor of P (in lowest terms), then x = c is a VA. If (x - c) IS a common factor (cancels), then there is a HOLE at x = c, not a VA. **Example 1**: f(x) = (x + 1)/(x^2 - 4) = (x + 1)/((x - 2)(x + 2)). Zeros of Q: x = 2, x = -2. Neither cancels with numerator (x + 1). VAs: x = 2 and x = -2. **Example 2**: f(x) = (x^2 - 1)/(x - 1) = (x - 1)(x + 1)/(x - 1) = x + 1 (for x ≠ 1). At x = 1: factor cancels → HOLE at (1, 2), NO VA. **Example 3**: f(x) = x/(x^2 + 1). Denominator never zero (x^2 + 1 > 0). No VA. **Example 4 (repeated factor)**: f(x) = 1/(x - 3)^2. VA at x = 3 (factor (x - 3)^2 doesn\'t cancel). Behavior: as x → 3, f → +inf (always positive since square). **For non-rational functions**: VA also occurs where log argument → 0 (e.g., ln(x - 2) has VA at x = 2), where tan has poles (x = π/2 + nπ), etc. **General**: VA at x = c iff lim(x → c^+) f = ±inf OR lim(x → c^-) f = ±inf. ✓',
+  'ch01p3_vertical_asymptotes',
+  'how_to',
+  ['vertical asymptote', 'rational', 'factor', 'hole', 'removable discontinuity', 'limit']
+)
+
+add(
+  'How do you find horizontal asymptotes of a rational function?',
+  '**Horizontal asymptote (HA)** of f(x) = P(x)/Q(x): a horizontal line y = L where lim(x → ±inf) f(x) = L. **Rules** (based on degrees n = deg P, m = deg Q): (1) **n < m** (numerator degree less): HA is y = 0. (2) **n = m** (equal degrees): HA is y = (leading coefficient of P)/(leading coefficient of Q). (3) **n > m** (numerator degree more): NO horizontal asymptote. (If n = m + 1, there may be a slant asymptote instead.) **Examples**: (1) f(x) = (3x + 1)/(x^2 - 4). n = 1 < m = 2. HA: y = 0. (2) f(x) = (5x^2 + 2)/(2x^2 - x + 1). n = m = 2. HA: y = 5/2. (3) f(x) = (x^3 + 1)/(x^2 - 1). n = 3 > m = 2. No HA. (Slant asymptote exists: do long division.) (4) f(x) = 7/(x + 3). HA: y = 0. (5) f(x) = (2x^2 - 1)/(3x^2 + 5). HA: y = 2/3. **Method**: divide numerator and denominator by highest power of x in denominator, take limit. **Note**: HA can be crossed (function value can equal L at finite x); only the limit at infinity matters. **Two-sided HA**: usually same for x → +inf and x → -inf for rational functions; can differ for piecewise or absolute value cases. ✓',
+  'ch01p3_horizontal_asymptotes',
+  'how_to',
+  ['horizontal asymptote', 'degree', 'leading coefficient', 'limit at infinity', 'rational']
+)
+
+add(
+  'How do you find slant (oblique) asymptotes?',
+  '**Slant (oblique) asymptote**: a non-horizontal, non-vertical line y = mx + b that f(x) approaches as x → ±inf. **Occurs** when deg P = deg Q + 1 in f(x) = P(x)/Q(x). **Procedure**: (1) Perform polynomial long division of P by Q. (2) The QUOTIENT (linear part) is the slant asymptote y = mx + b. (3) The remainder → 0 as x → ±inf, so it doesn\'t affect the asymptote. **Example 1**: f(x) = (x^2 + 2x - 1)/(x - 3). Divide: x^2 + 2x - 1 = (x - 3)(x + 5) + 14. Quotient = x + 5, remainder = 14. Slant asymptote: y = x + 5. (Note: there is also a VA at x = 3, and the function crosses the asymptote where 14/(x-3) = 0 — never; it approaches but doesn\'t cross.) **Example 2**: f(x) = (2x^2 - 3x + 1)/(x + 2). Divide: 2x^2 - 3x + 1 = (x + 2)(2x - 7) + 15. Slant: y = 2x - 7. **Example 3**: f(x) = (x^3 + x)/(x^2 - 1) = (x^3 + x)/((x-1)(x+1)) = x(x^2 + 1)/(x^2 - 1). Wait, x^3 + x = x(x^2 + 1); doesn\'t simplify. Long divide: x^3 + 0x^2 + x + 0 by x^2 + 0x - 1: quotient = x, remainder = x + x = 2x. So slant y = x. **No slant asymptote** when deg P ≤ deg Q (then HA, possibly y = 0) or deg P > deg Q + 1 (then no linear asymptote; might be a parabolic asymptote if deg P = deg Q + 2, etc.). **For non-rational**: e.g., f(x) = x + e^(-x) has slant y = x as x → +inf (since e^(-x) → 0). ✓',
+  'ch01p3_slant_asymptotes',
+  'how_to',
+  ['slant asymptote', 'oblique', 'long division', 'quotient', 'linear', 'remainder']
+)
+
+add(
+  'How do you find all asymptotes and graph a rational function?',
+  '**Complete procedure**: (1) **Factor** numerator and denominator. (2) **Simplify** by canceling common factors. (3) **Domain**: exclude zeros of original denominator. (4) **Holes**: at canceled factors (x = c); compute y = limit at x = c using simplified form. (5) **Vertical asymptotes**: zeros of the simplified denominator. (6) **Horizontal/slant asymptote**: based on degree comparison (use long division for slant). (7) **X-intercepts**: zeros of simplified numerator. (8) **Y-intercept**: f(0) (if 0 in domain). (9) **Behavior near VAs**: as x → c^+ and x → c^-, does f → +inf or -inf? Use sign analysis. (10) **Behavior near HA**: does f approach from above or below? (11) **Symmetry**: even, odd, or neither (check f(-x)). (12) **Plot key points** and sketch. **Example**: f(x) = (x^2 - 4)/(x^2 - x - 6). Factor: (x-2)(x+2)/((x-3)(x+2)). Cancel (x + 2): simplified = (x - 2)/(x - 3), with HOLE at x = -2 (y = (-4)/(-5) = 4/5 → hole at (-2, 4/5)). VA: x = 3. HA: y = 1 (equal degrees, leading coefficients 1/1). X-intercept: x = 2. Y-intercept: f(0) = -2/-3 = 2/3. Domain: R \\ {-2, 3}. Behavior near VA: as x → 3^+, (x - 2)/(x - 3) → 1/0^+ → +inf. As x → 3^-, → 1/0^- → -inf. ✓',
+  'ch01p3_graph_rational_function',
+  'problem_solving',
+  ['graph rational', 'all asymptotes', 'holes', 'procedure', 'sign analysis', 'sketch']
+)
+
+// ============================================================
+// SECTION 11 — END BEHAVIOR & INTERCEPTS (3 items)
+// ============================================================
+add(
+  'How do you determine the end behavior of a function?',
+  '**End behavior**: what f(x) does as x → +inf and x → -inf. **Notation**: lim(x → +inf) f(x) = L (finite), or ±inf, or DNE (oscillates). **For polynomials** P(x) = a_n x^n + ...: dominated by leading term a_n x^n as |x| → inf. (1) **Even n, a_n > 0**: f → +inf both ends. (2) **Even n, a_n < 0**: f → -inf both ends. (3) **Odd n, a_n > 0**: f → -inf as x → -inf, f → +inf as x → +inf. (4) **Odd n, a_n < 0**: f → +inf as x → -inf, f → -inf as x → +inf. **Examples**: (a) 3x^4 - x^2 + 7: even n, +a → +inf both ends. (b) -2x^5 + x: odd n, -a → +inf left, -inf right. **For rational functions**: use HA/slant (computed by long division or degree rules). **For exponentials** b^x (b > 1): → +inf as x → +inf, → 0 as x → -inf. (0 < b < 1): opposite. **For logs** ln(x): → +inf as x → +inf, → -inf as x → 0^+. **For trig**: sin(x), cos(x): oscillate, no limit at infinity. **Mixed functions**: compare growth rates. Hierarchy (fastest to slowest): factorial n! >> exponential b^x >> polynomial x^n >> logarithmic log(x) >> constant. E.g., lim(x → inf) x^3 / e^x = 0 (exponential dominates). lim(x → inf) ln(x) / x = 0 (polynomial dominates log). **L\'Hôpital\'s rule** for indeterminate forms inf/inf or 0/0. ✓',
+  'ch01p3_end_behavior',
+  'how_to',
+  ['end behavior', 'limit at infinity', 'leading term', 'growth rates', 'polynomial', 'exponential']
+)
+
+add(
+  'How do you find the x- and y-intercepts of a function?',
+  '**X-intercepts** (zeros, roots): points where the graph crosses the x-axis, i.e., where f(x) = 0. **Procedure**: set f(x) = 0, solve for x. Each solution x = r gives an x-intercept (r, 0). **Y-intercept**: point where the graph crosses the y-axis, i.e., where x = 0. **Procedure**: evaluate f(0); y-intercept is (0, f(0)) — if 0 is in the domain. **Examples**: (1) f(x) = x^2 - 5x + 6. X-ints: x^2 - 5x + 6 = 0 → (x - 2)(x - 3) = 0 → (2, 0), (3, 0). Y-int: f(0) = 6 → (0, 6). (2) f(x) = (x - 1)/(x + 2). X-int: x - 1 = 0 → (1, 0). Y-int: f(0) = -1/2 → (0, -1/2). (3) f(x) = sqrt(x - 4). X-int: sqrt(x - 4) = 0 → x = 4 → (4, 0). Y-int: f(0) = sqrt(-4) — undefined (0 not in domain). So no y-intercept. (4) f(x) = e^x - 1. X-int: e^x = 1 → x = 0 → (0, 0). Y-int: f(0) = 0 → (0, 0). (5) f(x) = ln(x - 1). X-int: ln(x - 1) = 0 → x - 1 = 1 → x = 2 → (2, 0). Y-int: f(0) = ln(-1) — undefined. No y-int. **For functions with VA**: y-int only if 0 is in the domain. **For piecewise**: evaluate the appropriate piece at x = 0. ✓',
+  'ch01p3_intercepts',
+  'how_to',
+  ['x-intercept', 'y-intercept', 'roots', 'zeros', 'find', 'evaluate']
+)
+
+add(
+  'How do you use intercepts, asymptotes, and symmetry to sketch a graph?',
+  '**Sketching strategy**: (1) **Identify function type** (polynomial, rational, exponential, log, trig, piecewise). (2) **Find domain**. (3) **Find intercepts** (x-ints from f(x) = 0; y-int from f(0)). (4) **Find asymptotes** (vertical, horizontal, slant). (5) **Check symmetry** (even: y-axis; odd: origin; periodic: trig). (6) **Find critical points** (where f\'(x) = 0 — local extrema; this requires calculus). (7) **Find inflection points** (where f\'\'(x) = 0). (8) **Analyze end behavior**. (9) **Plot key points** (intercepts, vertices, asymptote crossings). (10) **Connect smoothly** respecting asymptotes (don\'t cross VAs, approach HAs). **Example**: sketch f(x) = (x - 1)/(x^2 - 4). Domain: R \\ {-2, 2}. Intercepts: x-int at x = 1 (point (1, 0)); y-int at f(0) = -1/-4 = 1/4 (point (0, 1/4)). VAs: x = -2, x = 2 (denominator zeros). HA: y = 0 (deg numerator 1 < deg denominator 2). Symmetry: f(-x) = (-x - 1)/(x^2 - 4) ≠ ±f(x). Neither. Behavior near VAs: x → 2^+, (1)/(small +) → +inf. x → 2^-, (1)/(small -) → -inf. x → -2^+, (-3)/(small +) → -inf. x → -2^-, (-3)/(small -) → +inf. End behavior: f → 0 from above (x > 1, positive numerator, positive denom → small positive) or below (x < 1, etc.). Plot (1, 0), (0, 1/4), and sketch: comes from y = 0 (below) on far left, rises to +inf at x = -2^-, drops from -inf at x = -2^+, crosses (0, 1/4) and (1, 0), drops to -inf at x = 2^-, rises from +inf at x = 2^+, approaches y = 0 from above. ✓',
+  'ch01p3_sketch_graph',
+  'problem_solving',
+  ['sketch', 'graph', 'intercepts', 'asymptotes', 'symmetry', 'key points']
+)
+
+// ============================================================
+// SECTION 12 — DIFFERENCE QUOTIENT & RATES (2 items)
+// ============================================================
+add(
+  'What is the difference quotient and how do you compute it?',
+  '**Difference quotient**: [f(x + h) - f(x)] / h, where h ≠ 0. **Meaning**: the average rate of change of f from x to x + h. As h → 0, the limit (if it exists) gives f\'(x), the instantaneous rate of change (derivative). **Procedure**: (1) Compute f(x + h) by substituting x + h for x in f. (2) Subtract f(x). (3) Simplify the numerator (often factors h). (4) Divide by h and simplify (the h should cancel). **Example 1**: f(x) = 3x + 5. f(x + h) = 3(x + h) + 5 = 3x + 3h + 5. f(x + h) - f(x) = (3x + 3h + 5) - (3x + 5) = 3h. Quotient: 3h/h = 3. So DQ = 3 (constant — f is linear with slope 3 = f\'(x)). **Example 2**: f(x) = x^2. f(x + h) = (x + h)^2 = x^2 + 2xh + h^2. f(x + h) - f(x) = 2xh + h^2 = h(2x + h). Quotient: h(2x + h)/h = 2x + h. As h → 0: f\'(x) = 2x. ✓ **Example 3**: f(x) = 1/x. f(x + h) = 1/(x + h). f(x + h) - f(x) = 1/(x + h) - 1/x = [x - (x + h)]/[x(x + h)] = -h/[x(x + h)]. Quotient: -h/[x(x + h) * h] = -1/[x(x + h)]. As h → 0: f\'(x) = -1/x^2. ✓ **Example 4**: f(x) = sqrt(x). f(x + h) - f(x) = sqrt(x + h) - sqrt(x). Rationalize: [sqrt(x+h) - sqrt(x)][sqrt(x+h) + sqrt(x)]/[sqrt(x+h) + sqrt(x)] = h/[sqrt(x+h) + sqrt(x)]. Quotient: 1/[sqrt(x+h) + sqrt(x)]. As h → 0: f\'(x) = 1/(2 sqrt(x)). ✓',
+  'ch01p3_difference_quotient',
+  'how_to',
+  ['difference quotient', 'average rate of change', 'derivative', 'h', 'simplify', 'rationalize']
+)
+
+add(
+  'How do you compute the average rate of change of a function over an interval?',
+  '**Average rate of change (ARC)** of f from x = a to x = b: ARC = [f(b) - f(a)] / (b - a). **Geometric meaning**: slope of the secant line through (a, f(a)) and (b, f(b)). **Units**: (units of f) per (units of x). **Examples**: (1) f(x) = x^2 from x = 1 to x = 3. ARC = (9 - 1)/(3 - 1) = 8/2 = 4. Secant line through (1, 1) and (3, 9) has slope 4. (2) f(x) = 2x + 1 from x = 0 to x = 5. ARC = (11 - 1)/5 = 10/5 = 2 = slope (constant for linear). (3) f(x) = x^3 from x = -1 to x = 2. ARC = (8 - (-1))/(2 - (-1)) = 9/3 = 3. (4) Position s(t) = -16t^2 + 96t (height in feet, t in sec) from t = 1 to t = 4. ARC = [s(4) - s(1)]/(4 - 1) = [(-256 + 384) - (-16 + 96)]/3 = [128 - 80]/3 = 48/3 = 16 ft/s. (Average velocity over [1, 4].) **Connection to derivative**: as b → a, ARC → f\'(a) (instantaneous rate). **For h interval**: ARC from x to x + h = [f(x + h) - f(x)]/h = difference quotient. **Application**: a function is increasing on [a, b] iff ARC > 0; decreasing iff ARC < 0; constant iff ARC = 0. ✓',
+  'ch01p3_average_rate_of_change',
+  'problem_solving',
+  ['average rate of change', 'secant line', 'slope', 'interval', 'difference quotient', 'velocity']
+)
+
+// ============================================================
+// SECTION 13 — MIXED PROBLEM-SOLVING (1 item)
+// ============================================================
+add(
+  'How do you model real-world situations using functions?',
+  '**Modeling steps**: (1) Identify the quantity to optimize or describe (output, y). (2) Identify the input variable(s) (x, t, etc.). (3) Determine the type of relationship: linear (constant rate), quadratic (projectile, area), exponential (growth/decay), logarithmic (signal, intensity), trigonometric (periodic). (4) Use given data points to find parameters (slope, base, coefficients). (5) State domain restrictions (e.g., time ≥ 0). (6) Use the model to predict/answer. **Example 1 (linear depreciation)**: A car worth $25,000 depreciates $2,500/year. Value V(t) = 25000 - 2500t, t ≥ 0. When worth $0? t = 10 years. After 7 years: V = $7,500. **Example 2 (quadratic — projectile)**: h(t) = -16t^2 + 64t + 80. Max height at t = -64/(-32) = 2 s; h(2) = -64 + 128 + 80 = 144 ft. Hits ground: -16t^2 + 64t + 80 = 0 → t^2 - 4t - 5 = 0 → (t - 5)(t + 1) = 0 → t = 5 s. **Example 3 (exponential growth)**: Population doubles every 5 years, P(0) = 1000. P(t) = 1000 * 2^(t/5). After 12 years: P = 1000 * 2^2.4 ≈ 5278. **Example 4 (exponential decay — half-life)**: 100 g of radioactive substance with half-life 8 years. A(t) = 100 * (1/2)^(t/8). After 20 years: 100 * (1/2)^2.5 ≈ 17.7 g. **Example 5 (logarithmic — pH)**: pH = -log_10[H+]. If [H+] = 10^(-4), pH = 4 (acidic). If [H+] = 5 × 10^(-9), pH = -log(5 × 10^(-9)) ≈ 8.3 (basic). ✓',
+  'ch01p3_modeling_functions',
+  'problem_solving',
+  ['modeling', 'real-world', 'linear', 'quadratic', 'exponential', 'logarithmic', 'application']
+)
+
+// ============================================================
+// VALIDATION & WRITE
+// ============================================================
+
+const topicSet = new Set<string>()
+const dupes: string[] = []
+for (const it of items) {
+  if (topicSet.has(it.topic)) dupes.push(it.topic)
+  topicSet.add(it.topic)
+}
+if (dupes.length) {
+  console.error('DUPLICATE TOPICS:', dupes)
+  process.exit(1)
+}
+
+for (const it of items) {
+  if (!it.question || !it.answer || !it.topic || !it.keywords.length) {
+    console.error('INVALID ITEM:', it.topic)
+    process.exit(1)
+  }
+  if (!it.answer.includes('\u2713') && it.answer.length < 200) {
+    console.error('SUSPICIOUSLY SHORT ANSWER:', it.topic, 'len=', it.answer.length)
+    process.exit(1)
+  }
+}
+
+const output = {
+  generatedAt: new Date().toISOString(),
+  totalItems: items.length,
+  subject: 'mathematics_formulas_volume_9_chapter_01_part_03',
+  volume:
+    'Volume 9 — Comprehensive Formula Encyclopedia, Chapter 1 Part 3 (Functions & Their Graphs — Function Concept & Notation, Domain & Range, Piecewise & Step Functions, Domain Restrictions, Operations on Functions, Composition, One-to-One & Onto, Inverse Functions, Transformations [Shifts, Reflections, Stretches, Compressions], Even/Odd Functions, Function Families [Linear, Quadratic, Polynomial, Rational, Exponential, Logarithmic], Asymptotes [Vertical, Horizontal, Slant], End Behavior, Intercepts, Graphing Techniques, Difference Quotient, Modeling)',
+  source: 'TRIZA Generated Formula Dataset',
+  language: 'en',
+  religionNeutral: true,
+  items,
+}
+
+mkdirSync('data', { recursive: true })
+writeFileSync('data/math-formulas-vol9-ch01p3.json', JSON.stringify(output, null, 2))
+
+console.log(`Wrote data/math-formulas-vol9-ch01p3.json with ${items.length} items.`)
+console.log('Topics:')
+for (const it of items) console.log('  -', it.topic)
+const intents = items.reduce<Record<string, number>>((a, it) => {
+  a[it.intent] = (a[it.intent] || 0) + 1
+  return a
+}, {})
+console.log('Intent counts:', intents)
+const lengths = items.map((i) => i.answer.length)
+console.log(
+  'Answer lengths: min',
+  Math.min(...lengths),
+  'max',
+  Math.max(...lengths),
+  'avg',
+  Math.round(lengths.reduce((a, b) => a + b, 0) / lengths.length)
+)

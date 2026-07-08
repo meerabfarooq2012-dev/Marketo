@@ -1,0 +1,598 @@
+{
+  "generatedAt": "2026-07-08T12:42:54.747Z",
+  "totalItems": 45,
+  "subject": "mathematics_formulas_volume_9_chapter_03_part_03",
+  "volume": "Volume 9 — Comprehensive Formula Encyclopedia, Chapter 3 Part 3 (Complex Numbers & Vectors — Complex Number Definition & Standard Form, Equality & Conjugate & Modulus & Argument, Add/Subtract/Multiply/Divide, Complex Plane Plotting, Polar/Trigonometric Form r(cos theta + i sin theta), Exponential Form via Euler's Formula re^(i theta), De Moivre's Theorem for Powers & nth Roots, Roots of Unity, Polynomial Roots, Fractional Powers, Multiple-Angle Formula Derivation; Vectors — Definition, Magnitude, Direction, Components, Unit Vectors i/j/k in 2D/3D, Addition (Triangle/Parallelogram/Polygon Rule) & Scalar Multiplication, Position & Direction Vectors, Section Formula, Dot Product (Definition, Geometric, Properties, Angle, Projection, Work, Perpendicular/Parallel Tests, Decomposition), Cross Product (Definition, Right-Hand Rule, Magnitude = Parallelogram Area, Triangle Area, Scalar Triple Product & Volume, Perpendicular Vector, Vector Triple Product BAC-CAB), Applications — Resultant Forces, Navigation, Work along Path, Projections, Distance to Plane, Equilibrium Problems)",
+  "source": "TRIZA Generated Formula Dataset",
+  "language": "en",
+  "religionNeutral": true,
+  "items": [
+    {
+      "question": "What is a complex number and how is it written in standard form?",
+      "answer": "A **complex number** is a number of the form **z = a + bi**, where a and b are real numbers and i is the imaginary unit with **i^2 = -1**. ### Components - **Real part**: Re(z) = a - **Imaginary part**: Im(z) = b ### Sets - Real numbers are complex with b = 0. - Pure imaginary numbers have a = 0. - Complex numbers a + bi and c + di are **equal** iff a = c and b = d. ### Examples 3 + 4i (Re=3, Im=4); -2 + 0i = -2 (real); 0 + 5i = 5i (pure imaginary); 7 (real, also complex with Im=0). ### Visualization Complex plane: horizontal axis = real part, vertical axis = imaginary part. Plot 3 + 4i as the point (3, 4). ### Operations summary - Add: (a + bi) + (c + di) = (a+c) + (b+d)i. - Subtract: (a + bi) - (c + di) = (a-c) + (b-d)i. - Multiply: (a + bi)(c + di) = (ac - bd) + (ad + bc)i. ✓",
+      "topic": "ch03p3_complex_number_definition",
+      "intent": "formula_recall",
+      "keywords": [
+        "complex number",
+        "a + bi",
+        "standard form",
+        "real part",
+        "imaginary part"
+      ]
+    },
+    {
+      "question": "What is the complex conjugate and modulus of a complex number?",
+      "answer": "### Conjugate For z = a + bi, the **conjugate** is **z* = a - bi** (or written with overline z). Conjugate reflects z across the real axis. ### Properties - z + z* = 2a (twice real part) - z - z* = 2bi (twice imaginary part) - z * z* = a^2 + b^2 (real, always non-negative) - (z*)* = z - (z + w)* = z* + w* - (zw)* = z* w* ### Modulus (magnitude, absolute value) |z| = sqrt(a^2 + b^2). Always non-negative real. Distance from origin to z in complex plane. ### Properties - |z|^2 = z z* = a^2 + b^2 - |zw| = |z| |w| - |z/w| = |z|/|w| - |z + w| <= |z| + |w| (triangle inequality) ### Examples z = 3 + 4i: z* = 3 - 4i, |z| = sqrt(9 + 16) = 5. z = -2 + 7i: z* = -2 - 7i, |z| = sqrt(4 + 49) = sqrt(53). z = 5 (real): z* = 5, |z| = 5. z = 3i (pure imaginary): z* = -3i, |z| = 3. ✓",
+      "topic": "ch03p3_conjugate_modulus",
+      "intent": "formula_recall",
+      "keywords": [
+        "conjugate",
+        "modulus",
+        "magnitude",
+        "a^2 + b^2",
+        "absolute value"
+      ]
+    },
+    {
+      "question": "How do you add and subtract complex numbers geometrically?",
+      "answer": "Complex numbers add like vectors in the plane. ### Algebraic (a + bi) + (c + di) = (a + c) + (b + d)i. (a + bi) - (c + di) = (a - c) + (b - d)i. ### Geometric Vector addition by parallelogram rule or head-to-tail. The sum z + w is the diagonal of the parallelogram formed by z and w. ### Example (3 + 4i) + (1 + 2i) = 4 + 6i. Plot (3,4) and (1,2); sum is (4,6). ### Properties - Commutative: z + w = w + z. - Associative: (z + w) + v = z + (w + v). - Identity: 0 + z = z. - Inverse: z + (-z) = 0 where -z = -a - bi. ### Geometric insight The modulus of the sum is at most |z| + |w| (triangle inequality), with equality when z and w have the same argument. ### Example |3 + 4i + 4 + 3i| = |7 + 7i| = sqrt(49+49) = 7sqrt(2) ~ 9.9. Compare |3+4i| + |4+3i| = 5 + 5 = 10. Indeed 9.9 < 10. ✓",
+      "topic": "ch03p3_add_subtract_complex",
+      "intent": "formula_recall",
+      "keywords": [
+        "add",
+        "subtract",
+        "complex",
+        "parallelogram",
+        "vector",
+        "triangle inequality"
+      ]
+    },
+    {
+      "question": "How do you multiply two complex numbers in standard form?",
+      "answer": "### Formula (a + bi)(c + di) = ac + adi + bci + bdi^2 = ac + adi + bci - bd = (ac - bd) + (ad + bc)i. ### Steps 1. Use FOIL. 2. Replace i^2 with -1. 3. Collect real and imaginary parts. ### Examples (3 + 4i)(1 + 2i) = 3 + 6i + 4i + 8i^2 = 3 + 10i - 8 = -5 + 10i. (2 + 3i)(2 - 3i) = 4 - 6i + 6i - 9i^2 = 4 + 9 = 13. (Note: this is z * z* = |z|^2.) (1 + i)^2 = 1 + 2i + i^2 = 2i. (1 + i)^4 = (2i)^2 = -4. (1 + i)^8 = 16. ### Properties - Commutative, associative, distributive over addition. - Identity: 1. - Inverse of z = a + bi (z != 0): 1/z = z*/|z|^2 = (a - bi)/(a^2 + b^2). - Multiplication by i is rotation 90 deg counterclockwise: (a + bi)*i = -b + ai (point (a,b) -> (-b, a)). ✓",
+      "topic": "ch03p3_multiply_complex",
+      "intent": "formula_recall",
+      "keywords": [
+        "multiply",
+        "complex",
+        "FOIL",
+        "i^2 = -1",
+        "standard form"
+      ]
+    },
+    {
+      "question": "How do you divide two complex numbers?",
+      "answer": "### Method Multiply numerator and denominator by the conjugate of the denominator. ### Formula (a + bi)/(c + di) = [(a + bi)(c - di)]/[(c + di)(c - di)] = [(ac + bd) + (bc - ad)i]/(c^2 + d^2) = (ac + bd)/(c^2 + d^2) + [(bc - ad)/(c^2 + d^2)]i. ### Example (3 + 4i)/(1 - 2i). Multiply by (1 + 2i)/(1 + 2i): Numerator: (3 + 4i)(1 + 2i) = 3 + 6i + 4i + 8i^2 = 3 + 10i - 8 = -5 + 10i. Denominator: (1 - 2i)(1 + 2i) = 1 - 4i^2 = 1 + 4 = 5. Quotient: (-5 + 10i)/5 = -1 + 2i. ### Example 1/(1 + i). Multiply by (1 - i)/(1 - i): = (1 - i)/((1+i)(1-i)) = (1 - i)/(1 + 1) = (1 - i)/2 = 1/2 - (1/2)i. ### Tip The denominator always becomes a real number (c^2 + d^2 = |denominator|^2). ### Property |z/w| = |z|/|w|. ✓",
+      "topic": "ch03p3_divide_complex",
+      "intent": "problem_solving",
+      "keywords": [
+        "divide",
+        "complex",
+        "conjugate",
+        "multiply",
+        "rationalize"
+      ]
+    },
+    {
+      "question": "How do you compute powers of i?",
+      "answer": "### Powers of i cycle with period 4: - i^0 = 1 - i^1 = i - i^2 = -1 - i^3 = -i - i^4 = 1 (back to start) - i^5 = i, i^6 = -1, etc. ### Formula For n >= 0, write n = 4q + r where 0 <= r < 4 (r = n mod 4). Then i^n = i^r. ### Examples i^10 = i^(10 mod 4) = i^2 = -1. i^27 = i^3 = -i. i^100 = i^0 = 1. i^2023 = i^(2023 mod 4) = i^(3) = -i (since 2023 = 4*505 + 3). ### Negative powers i^(-1) = 1/i = -i (multiply by i/i: i/(i^2) = i/(-1) = -i). i^(-2) = 1/i^2 = 1/(-1) = -1. i^(-n) = 1/i^n = i^(4-n) for n in 1..3. ### Insight Powers of i form a 4-cycle: {1, i, -1, -i}. This is the cyclic group of order 4, isomorphic to Z_4. ✓",
+      "topic": "ch03p3_powers_of_i",
+      "intent": "formula_recall",
+      "keywords": [
+        "powers of i",
+        "cycle",
+        "period 4",
+        "i^2 = -1",
+        "i^n"
+      ]
+    },
+    {
+      "question": "How do you find the square root of a complex number?",
+      "answer": "### Method To find sqrt(a + bi), solve (x + yi)^2 = a + bi for real x, y. Expand: x^2 - y^2 + 2xy i = a + bi. Match real and imaginary parts: - x^2 - y^2 = a - 2xy = b Also use |z| = x^2 + y^2 = sqrt(a^2 + b^2) =: r. So x^2 = (r + a)/2, y^2 = (r - a)/2, and sign of xy = sign of b. ### Formula sqrt(a + bi) = ±[sqrt((r + a)/2) + sign(b) sqrt((r - a)/2) i], where r = sqrt(a^2 + b^2). ### Example Find sqrt(3 + 4i). r = 5. x = sqrt((5+3)/2) = 2. y = sqrt((5-3)/2) = 1. Check sign: b = 4 > 0, so xy > 0, both positive. sqrt(3 + 4i) = ±(2 + i). Check: (2 + i)^2 = 4 + 4i + i^2 = 3 + 4i. ✓ ### Example Find sqrt(-5 + 12i). r = sqrt(25 + 144) = 13. x = sqrt((13 + (-5))/2) = sqrt(4) = 2. y = sqrt((13 - (-5))/2) = sqrt(9) = 3. Sign: b = 12 > 0, xy > 0. sqrt(-5 + 12i) = ±(2 + 3i). Check: (2+3i)^2 = 4 + 12i + 9i^2 = 4 - 9 + 12i = -5 + 12i. ✓ ### Note Every non-zero complex number has exactly two square roots (negatives of each other). ✓",
+      "topic": "ch03p3_square_root_complex",
+      "intent": "problem_solving",
+      "keywords": [
+        "square root",
+        "complex",
+        "solve",
+        "x^2 - y^2",
+        "modulus"
+      ]
+    },
+    {
+      "question": "How do you plot a complex number on the complex plane?",
+      "answer": "### Complex plane (Argand diagram) - Horizontal axis: real part (Re). - Vertical axis: imaginary part (Im). - Plot z = a + bi as the point (a, b) (or as a vector from origin to (a, b)). ### Examples - 3 + 4i -> point (3, 4) in QI. - -2 + 5i -> point (-2, 5) in QII. - -3 - 2i -> point (-3, -2) in QIII. - 4 - i -> point (4, -1) in QIV. - 5 + 0i = 5 -> point (5, 0) on real axis. - 0 - 3i = -3i -> point (0, -3) on imaginary axis. ### Geometric interpretations - |z| = distance from origin. - Argument (arg z) = angle from positive real axis (measured counterclockwise). - Conjugate z* is reflection across real axis. - Negation -z is reflection through origin. - Sum z + w is parallelogram/vector addition. - Difference z - w is vector from w to z. ### Visualization insights Symmetries: conjugation flips y; negation flips both x and y. ✓",
+      "topic": "ch03p3_plot_complex_plane",
+      "intent": "formula_recall",
+      "keywords": [
+        "complex plane",
+        "Argand diagram",
+        "plot",
+        "real imaginary axis",
+        "point"
+      ]
+    },
+    {
+      "question": "How do you convert a complex number to polar (trigonometric) form?",
+      "answer": "### Polar form z = r(cos theta + i sin theta), where: - r = |z| = sqrt(a^2 + b^2) (modulus, magnitude) - theta = arg(z) = arctan(b/a), adjusted for quadrant (argument, angle) ### Conversion formulas - a = r cos theta - b = r sin theta - r = sqrt(a^2 + b^2) - theta = atan2(b, a) (handles all quadrants) ### Finding theta - QI (a > 0, b > 0): theta = arctan(b/a). - QII (a < 0, b > 0): theta = arctan(b/a) + pi. - QIII (a < 0, b < 0): theta = arctan(b/a) - pi (or + pi, same thing mod 2pi). - QIV (a > 0, b < 0): theta = arctan(b/a). - On axes: theta = 0 (positive real), pi/2 (positive imag), pi (negative real), 3pi/2 or -pi/2 (negative imag). ### Example Convert 1 + i. r = sqrt(2), theta = arctan(1) = pi/4. Polar: sqrt(2)(cos(pi/4) + i sin(pi/4)) = sqrt(2)(sqrt(2)/2 + i sqrt(2)/2) = 1 + i. ✓ ### Example Convert -sqrt(3) + i. r = sqrt(3 + 1) = 2. theta = arctan(1/(-sqrt(3))) + pi = -pi/6 + pi = 5pi/6. Polar: 2(cos(5pi/6) + i sin(5pi/6)) = 2(-sqrt(3)/2 + i(1/2)) = -sqrt(3) + i. ✓ ### Note Principal argument is usually in (-pi, pi] or [0, 2pi). ✓",
+      "topic": "ch03p3_polar_form",
+      "intent": "formula_recall",
+      "keywords": [
+        "polar form",
+        "trigonometric form",
+        "r cos theta",
+        "modulus",
+        "argument"
+      ]
+    },
+    {
+      "question": "How do you multiply and divide complex numbers in polar form?",
+      "answer": "### Multiplication If z1 = r1(cos t1 + i sin t1) and z2 = r2(cos t2 + i sin t2), then: **z1 * z2 = r1 r2 (cos(t1 + t2) + i sin(t1 + t2))** Multiply moduli; add arguments. ### Division **z1 / z2 = (r1/r2)(cos(t1 - t2) + i sin(t1 - t2))** Divide moduli; subtract arguments. ### Geometric meaning Multiplication by z2 scales by r2 and rotates by t2. Division scales by 1/r2 and rotates by -t2. ### Example (2(cos(pi/3) + i sin(pi/3))) * (3(cos(pi/4) + i sin(pi/4))) = 6(cos(7pi/12) + i sin(7pi/12)). ### Example (4(cos(2pi/3) + i sin(2pi/3))) / (2(cos(pi/6) + i sin(pi/6))) = 2(cos(2pi/3 - pi/6) + i sin(2pi/3 - pi/6)) = 2(cos(pi/2) + i sin(pi/2)) = 2(0 + i) = 2i. ### Verify with standard form (1 + i)(1 - i) = 1 - i^2 = 1 + 1 = 2. In polar: 1 + i = sqrt(2) e^(i pi/4); 1 - i = sqrt(2) e^(-i pi/4). Product = 2 e^(i 0) = 2. ✓ ### Powers become easy: z^n = r^n (cos(nt) + i sin(nt)). ✓",
+      "topic": "ch03p3_polar_multiply_divide",
+      "intent": "formula_recall",
+      "keywords": [
+        "polar multiply",
+        "polar divide",
+        "add argument",
+        "multiply modulus",
+        "rotation"
+      ]
+    },
+    {
+      "question": "What is Euler's formula and the exponential form of a complex number?",
+      "answer": "### Euler's Formula For any real theta: **e^(i theta) = cos theta + i sin theta**. ### Exponential form z = r * e^(i theta) = r(cos theta + i sin theta). Compact polar notation. ### Special values - e^(i*0) = 1. - e^(i*pi/2) = i. - e^(i*pi) = -1. - e^(i*3pi/2) = -i. - e^(i*2pi) = 1. ### Euler's identity e^(i*pi) + 1 = 0 — relates the five most important constants (e, i, pi, 1, 0). ### Properties (now natural) - e^(i theta) * e^(i phi) = e^(i(theta + phi)) (angle addition follows from exponential law). - (e^(i theta))^n = e^(i n theta) (De Moivre's theorem follows). - 1/e^(i theta) = e^(-i theta) = cos theta - i sin theta (conjugate of e^(i theta)). ### Magnitude |e^(i theta)| = sqrt(cos^2 + sin^2) = 1. So e^(i theta) lies on unit circle. ### Use Simplifies manipulation of trig: cos theta = (e^(i theta) + e^(-i theta))/2; sin theta = (e^(i theta) - e^(-i theta))/(2i). ✓",
+      "topic": "ch03p3_euler_formula",
+      "intent": "formula_recall",
+      "keywords": [
+        "Euler formula",
+        "exponential form",
+        "e^(i theta)",
+        "cos + i sin",
+        "Euler identity"
+      ]
+    },
+    {
+      "question": "How do you derive the multiplication rule for complex numbers in exponential form?",
+      "answer": "### Goal: Show that r1 e^(i t1) * r2 e^(i t2) = r1 r2 e^(i(t1 + t2)). ### Proof Using Euler's formula: r1 e^(i t1) * r2 e^(i t2) = r1 r2 e^(i t1) e^(i t2). By the law of exponents (which holds for complex arguments): = r1 r2 e^(i(t1 + t2)). Now apply Euler backwards: e^(i(t1 + t2)) = cos(t1 + t2) + i sin(t1 + t2). So z1 z2 = r1 r2 [cos(t1 + t2) + i sin(t1 + t2)]. ### Cross-check with trig identities Expand directly: [r1(cos t1 + i sin t1)][r2(cos t2 + i sin t2)] = r1 r2 [(cos t1 cos t2 - sin t1 sin t2) + i(cos t1 sin t2 + sin t1 cos t2)] = r1 r2 [cos(t1 + t2) + i sin(t1 + t2)]. ✓ (Using sum formulas.) ### Insight The \"law of exponents\" for complex exponentials is essentially equivalent to the angle-addition formulas. This is why exponential form is so powerful — it makes the trig identities automatic. ✓",
+      "topic": "ch03p3_derive_exponential_multiplication",
+      "intent": "how_to",
+      "keywords": [
+        "derive",
+        "exponential",
+        "multiplication",
+        "Euler",
+        "angle addition"
+      ]
+    },
+    {
+      "question": "How do you convert between exponential, polar, and standard form?",
+      "answer": "### Three forms of z = a + bi 1. **Standard (rectangular)**: a + bi 2. **Polar (trig)**: r(cos theta + i sin theta) 3. **Exponential**: r e^(i theta) ### Conversion paths - Standard -> Polar/Exponential: r = sqrt(a^2 + b^2), theta = atan2(b, a). - Polar/Exponential -> Standard: a = r cos theta, b = r sin theta. - Polar <-> Exponential: direct via Euler (e^(i theta) = cos theta + i sin theta). ### Examples 1. Convert 3 - 3i to exponential. r = sqrt(9 + 9) = 3 sqrt(2). theta = arctan(-3/3) = -pi/4 (QIV). Exponential: 3 sqrt(2) e^(-i pi/4). 2. Convert 4 e^(i 2pi/3) to standard. a = 4 cos(2pi/3) = 4(-1/2) = -2. b = 4 sin(2pi/3) = 4(sqrt(3)/2) = 2 sqrt(3). Standard: -2 + 2 sqrt(3) i. 3. Convert 5 e^(i pi) to standard. = 5(cos pi + i sin pi) = 5(-1 + 0i) = -5. ✓ 4. Convert 1 + sqrt(3) i to exponential. r = sqrt(1 + 3) = 2. theta = arctan(sqrt(3)/1) = pi/3. Exponential: 2 e^(i pi/3). ✓",
+      "topic": "ch03p3_convert_forms",
+      "intent": "problem_solving",
+      "keywords": [
+        "convert",
+        "exponential",
+        "polar",
+        "standard",
+        "three forms"
+      ]
+    },
+    {
+      "question": "What is the argument of a complex number and how do you handle multiple values?",
+      "answer": "The **argument** (arg z) of a complex number z = a + bi (nonzero) is the angle theta from positive real axis to the vector (a, b), measured counterclockwise. ### Principal value **Arg(z)** (capital A) is the principal argument, typically in (-pi, pi] (or sometimes [0, 2pi)). ### General argument arg(z) = Arg(z) + 2k*pi for any integer k. Infinitely many values, all differing by 2pi. ### Finding Arg(z) Use atan2(b, a): - QI (a > 0, b > 0): Arg = arctan(b/a). - QII (a < 0, b > 0): Arg = arctan(b/a) + pi. - QIII (a < 0, b < 0): Arg = arctan(b/a) - pi. - QIV (a > 0, b < 0): Arg = arctan(b/a). - If a = 0: b > 0 -> pi/2; b < 0 -> -pi/2. - If b = 0: a > 0 -> 0; a < 0 -> pi. ### Examples Arg(1 + i) = pi/4. Arg(-1 + i) = 3pi/4. Arg(-1 - i) = -3pi/4 (in (-pi, pi]). Arg(1 - i) = -pi/4. Arg(-5) = pi. Arg(3i) = pi/2. ### Special case z = 0 has no argument (undefined). ### Property Arg(zw) = Arg(z) + Arg(w) mod 2pi. Arg(z/w) = Arg(z) - Arg(w) mod 2pi. ✓",
+      "topic": "ch03p3_argument",
+      "intent": "formula_recall",
+      "keywords": [
+        "argument",
+        "arg z",
+        "principal value",
+        "atan2",
+        "angle"
+      ]
+    },
+    {
+      "question": "What is De Moivre's Theorem and how is it used for powers?",
+      "answer": "### De Moivre's Theorem For any complex number z = r(cos theta + i sin theta) and integer n: **z^n = r^n (cos(n theta) + i sin(n theta))** Equivalently: (r e^(i theta))^n = r^n e^(i n theta). ### In words To raise a complex number to an integer power, raise the modulus to that power and multiply the argument by n. ### Examples (1 + i)^8. 1 + i = sqrt(2) e^(i pi/4). (sqrt(2))^8 e^(i 8 pi/4) = 16 e^(i 2pi) = 16(cos 2pi + i sin 2pi) = 16(1) = 16. ✓ [(-1 + sqrt(3) i)/2]^3 = ? Magnitude 1, angle 2pi/3. So ^3 gives 1 * e^(i 2pi) = 1. ✓ This shows that (-1 + sqrt(3) i)/2 is a cube root of unity. ### Use to derive multiple-angle formulas cos(3 theta) = Re[(cos theta + i sin theta)^3]. Expand (c + is)^3 = c^3 + 3c^2(is) + 3c(is)^2 + (is)^3 = c^3 + 3i c^2 s - 3c s^2 - i s^3 = (c^3 - 3c s^2) + i(3 c^2 s - s^3). So cos(3 theta) = c^3 - 3c s^2 = cos^3 - 3 cos sin^2 = cos^3 - 3 cos(1 - cos^2) = 4 cos^3 - 3 cos. ✓ (Triple-angle formula.) ### Generalizes to all integer n (positive, negative, zero). ✓",
+      "topic": "ch03p3_de_moivre_theorem",
+      "intent": "formula_recall",
+      "keywords": [
+        "De Moivre",
+        "theorem",
+        "power",
+        "r^n",
+        "n theta"
+      ]
+    },
+    {
+      "question": "How do you find the nth roots of a complex number?",
+      "answer": "### nth roots of z = r(cos theta + i sin theta) The n distinct nth roots are: **w_k = r^(1/n) [cos((theta + 2k*pi)/n) + i sin((theta + 2k*pi)/n)]** for k = 0, 1, 2, ..., n-1. ### Derivation From De Moivre: if w = s(cos phi + i sin phi) and w^n = z, then s^n = r and n*phi = theta + 2k*pi (for any integer k, due to periodicity). So s = r^(1/n) and phi = (theta + 2k*pi)/n. Only n distinct values (k = 0 to n-1); after that, repeats due to cos/sin period. ### Geometric meaning The n roots are equally spaced on a circle of radius r^(1/n) in the complex plane, forming a regular n-gon. ### Example Find cube roots of 8. z = 8 = 8(cos 0 + i sin 0), r = 8, theta = 0, n = 3. Roots: 2[cos(2k*pi/3) + i sin(2k*pi/3)] for k = 0, 1, 2. - k=0: 2(cos 0 + i sin 0) = 2. - k=1: 2(cos(2pi/3) + i sin(2pi/3)) = 2(-1/2 + i sqrt(3)/2) = -1 + i sqrt(3). - k=2: 2(cos(4pi/3) + i sin(4pi/3)) = 2(-1/2 - i sqrt(3)/2) = -1 - i sqrt(3). Verify: (-1 + i sqrt(3))^3 / 8 = ... actually check: each cube = 8. ✓ ### Insight The n roots of unity (roots of 1) are 1, omega, omega^2, ..., omega^(n-1) where omega = e^(2pi i/n). ✓",
+      "topic": "ch03p3_nth_roots",
+      "intent": "formula_recall",
+      "keywords": [
+        "nth root",
+        "complex",
+        "r^(1/n)",
+        "equally spaced",
+        "regular n-gon"
+      ]
+    },
+    {
+      "question": "How do you find the nth roots of unity?",
+      "answer": "### nth roots of unity The n complex numbers z such that z^n = 1. ### Formula The roots are: **omega_k = e^(2pi i k/n) = cos(2pi k/n) + i sin(2pi k/n)** for k = 0, 1, 2, ..., n-1. ### Properties - omega_0 = 1 (always). - All roots lie on the unit circle (|omega_k| = 1). - Roots are equally spaced, forming a regular n-gon inscribed in unit circle. - The \"primitive\" root is omega = e^(2pi i/n) (k=1); all others are powers of omega: 1, omega, omega^2, ..., omega^(n-1). - Sum of all roots = 0: sum_{k=0}^{n-1} omega^k = (1 - omega^n)/(1 - omega) = 0/... = 0 (since omega^n = 1, and omega != 1). - Product of all roots = (-1)^(n+1) (sign alternates). ### Examples Cube roots of unity (n=3): omega = e^(2pi i/3) = -1/2 + i sqrt(3)/2. Roots: 1, omega, omega^2 = -1/2 - i sqrt(3)/2. Sum: 1 + (-1/2 + i sqrt(3)/2) + (-1/2 - i sqrt(3)/2) = 1 - 1 = 0. ✓ Product: 1 * omega * omega^2 = omega^3 = 1. ### 4th roots of unity: 1, i, -1, -i. ### 6th roots of unity: 1, (1 + i sqrt(3))/2, (-1 + i sqrt(3))/2, -1, (-1 - i sqrt(3))/2, (1 - i sqrt(3))/2. ✓",
+      "topic": "ch03p3_roots_of_unity",
+      "intent": "formula_recall",
+      "keywords": [
+        "roots of unity",
+        "nth root of 1",
+        "omega",
+        "unit circle",
+        "regular n-gon"
+      ]
+    },
+    {
+      "question": "How do you solve polynomial equations with complex roots?",
+      "answer": "### Fundamental Theorem of Algebra Every polynomial of degree n with complex coefficients has exactly n complex roots (counting multiplicity). ### Strategy (1) Factor the polynomial as much as possible over the reals. (2) For each quadratic factor with negative discriminant, find complex roots via quadratic formula. (3) For higher-degree factors, use nth roots. ### Quadratic formula For ax^2 + bx + c = 0 with discriminant D = b^2 - 4ac < 0: x = (-b ± sqrt(D))/(2a) = (-b ± i sqrt(-D))/(2a) = -b/(2a) ± i sqrt(-D)/(2a). ### Example Solve x^2 + 4 = 0. x^2 = -4, x = ±2i. ### Example Solve x^2 + 2x + 5 = 0. D = 4 - 20 = -16. x = (-2 ± sqrt(-16))/2 = (-2 ± 4i)/2 = -1 ± 2i. ### Example Solve x^3 - 8 = 0. x^3 = 8. Roots: cube roots of 8 (see nth roots example). x = 2, -1 ± i sqrt(3). ### Example Solve x^4 + 16 = 0. x^4 = -16 = 16 e^(i pi). Roots: 2 e^(i (pi + 2k pi)/4) for k = 0,1,2,3 = 2 e^(i pi/4), 2 e^(i 3pi/4), 2 e^(i 5pi/4), 2 e^(i 7pi/4). In standard form: sqrt(2)(1+i), sqrt(2)(-1+i), sqrt(2)(-1-i), sqrt(2)(1-i). ### Conjugate Root Theorem If polynomial has real coefficients and z is a root, then z* is also a root. So complex roots come in conjugate pairs. ✓",
+      "topic": "ch03p3_polynomial_complex_roots",
+      "intent": "problem_solving",
+      "keywords": [
+        "polynomial",
+        "complex roots",
+        "quadratic formula",
+        "Fundamental Theorem",
+        "conjugate"
+      ]
+    },
+    {
+      "question": "How do you raise a complex number to a fractional power?",
+      "answer": "### Fractional powers z^(p/q) (p, q positive integers, gcd(p, q) = 1): use (z^p)^(1/q) or (z^(1/q))^p. Better: compute z^p first, then find q-th roots of the result. ### Formula z^(p/q) = (r^p)^(1/q) e^(i p theta/q) e^(i 2k pi/q) for k = 0, 1, ..., q-1. = r^(p/q) e^(i (p theta + 2k pi)/q) for k = 0, ..., q-1. ### Example Compute (1 + i)^(3/2). 1 + i = sqrt(2) e^(i pi/4). z^(3/2) = (sqrt(2))^3 e^(i (3 pi/4 + 2k pi)/2) = 2 sqrt(2) e^(i (3pi/8 + k pi)) for k = 0, 1. - k=0: 2 sqrt(2) e^(i 3pi/8) = 2 sqrt(2) [cos(3pi/8) + i sin(3pi/8)] ~ 2.828 (0.383 + 0.924i) ~ 1.082 + 2.613i. - k=1: 2 sqrt(2) e^(i 11pi/8) ~ 2.828 (-0.383 - 0.924i) ~ -1.082 - 2.613i. (2 distinct square roots of (1+i)^3.) ### Example Compute 8^(2/3). 8 = 8 e^(i 0). 8^(2/3) = 8^(2/3) e^(i (0 + 2k pi)/3) for k = 0, 1, 2 — wait this is for 1/3 power of 8^2. Better: 8^(2/3) = (8^2)^(1/3) = 64^(1/3). Roots: cube roots of 64. = 4 e^(i 2k pi/3) for k = 0, 1, 2 = 4, -2 + 2 sqrt(3) i, -2 - 2 sqrt(3) i. So 8^(2/3) has 3 values (since 2/3 in lowest terms has denominator 3). ✓ ### Tip Always rationalize the exponent and use lowest terms to determine number of distinct values. ✓",
+      "topic": "ch03p3_fractional_powers",
+      "intent": "problem_solving",
+      "keywords": [
+        "fractional power",
+        "rational exponent",
+        "z^(p/q)",
+        "q-th root",
+        "multiple values"
+      ]
+    },
+    {
+      "question": "How do you use De Moivre's theorem to derive multiple-angle formulas?",
+      "answer": "### Strategy (cos theta + i sin theta)^n = cos(n theta) + i sin(n theta). Expand the left side using binomial theorem, separate real and imaginary parts. The real part is cos(n theta) (in terms of cos theta, sin theta); imaginary part is sin(n theta). ### Example: n = 2 (cos + i sin)^2 = cos^2 + 2i cos sin + i^2 sin^2 = (cos^2 - sin^2) + i (2 sin cos). So cos(2 theta) = cos^2 - sin^2, sin(2 theta) = 2 sin cos. ✓ (Double-angle.) ### Example: n = 3 (cos + i sin)^3 = cos^3 + 3 cos^2 (i sin) + 3 cos (i sin)^2 + (i sin)^3 = cos^3 + 3i cos^2 sin - 3 cos sin^2 - i sin^3 = (cos^3 - 3 cos sin^2) + i(3 cos^2 sin - sin^3). So: - cos(3 theta) = cos^3 theta - 3 cos theta sin^2 theta = 4 cos^3 theta - 3 cos theta (using sin^2 = 1 - cos^2). - sin(3 theta) = 3 cos^2 theta sin theta - sin^3 theta = 3 sin theta - 4 sin^3 theta. ### Example: n = 4 cos(4 theta) = 8 cos^4 - 8 cos^2 + 1. sin(4 theta) = 4 sin cos (cos^2 - sin^2) = 4 sin cos (2 cos^2 - 1) = ... ✓ (Exercise.) ### Use De Moivre gives Chebyshev polynomials: cos(n theta) = T_n(cos theta) where T_n is the nth Chebyshev polynomial. ✓",
+      "topic": "ch03p3_derive_multiple_angle",
+      "intent": "problem_solving",
+      "keywords": [
+        "De Moivre",
+        "multiple angle",
+        "cos 3 theta",
+        "derive",
+        "binomial"
+      ]
+    },
+    {
+      "question": "What is a vector and how is it represented?",
+      "answer": "A **vector** is a quantity with both magnitude (length) and direction. Contrast with scalars (magnitude only, like temperature, mass). ### Representations - **Geometric**: arrow from point A (tail) to point B (head), denoted AB-> or v->. - **Component (algebraic)**: in 2D, v = <v1, v2>; in 3D, v = <v1, v2, v3>; in n-D, v = <v1, ..., vn>. - **Standard unit vector notation**: v = v1 i + v2 j (2D) or v = v1 i + v2 j + v3 k (3D), where i = <1,0>, j = <0,1>, k = <0,0,1>. ### Magnitude (norm, length) |v| = sqrt(v1^2 + v2^2) (2D) or sqrt(v1^2 + v2^2 + v3^2) (3D). ### Direction Angle theta that v makes with positive x-axis: theta = arctan(v2/v1), adjusted for quadrant (or atan2(v2, v1)). ### Examples - v = <3, 4>: |v| = 5, theta = arctan(4/3) ~ 53.13 deg. - w = <-2, 5>: |w| = sqrt(29), theta = arctan(5/-2) + pi ~ 111.8 deg. - u = <1, 1, 1>: |u| = sqrt(3). ### Equality Two vectors are equal iff all corresponding components are equal. ✓",
+      "topic": "ch03p3_vector_definition",
+      "intent": "formula_recall",
+      "keywords": [
+        "vector",
+        "magnitude",
+        "direction",
+        "component",
+        "unit vector i j k"
+      ]
+    },
+    {
+      "question": "How do you find the magnitude and direction of a 2D vector?",
+      "answer": "### Magnitude For v = <a, b>: **|v| = sqrt(a^2 + b^2)**. ### Direction angle theta (from positive x-axis, counterclockwise): - If a > 0: theta = arctan(b/a). - If a < 0, b >= 0: theta = arctan(b/a) + pi. - If a < 0, b < 0: theta = arctan(b/a) + pi (or - pi). - If a = 0, b > 0: theta = pi/2. - If a = 0, b < 0: theta = -pi/2 (or 3pi/2). Use atan2(b, a) which handles all cases. ### Examples v = <3, 4>: |v| = 5, theta = arctan(4/3) ~ 0.9273 rad ~ 53.13 deg. v = <-3, 4>: |v| = 5, theta = arctan(4/-3) + pi ~ 2.214 rad ~ 126.87 deg. v = <-3, -4>: |v| = 5, theta = -2.214 rad ~ 233.13 deg (or -126.87 deg). v = <0, -5>: |v| = 5, theta = -pi/2 (pointing straight down). ### Converting from magnitude and direction to components Given magnitude r and direction theta: a = r cos theta, b = r sin theta. ### Example Wind at 30 mph blowing at angle 60 deg from north (so 30 deg from x-axis if north is +y... depends on convention). If 60 deg from x-axis: components = 30 cos(60) i + 30 sin(60) j = 15 i + 15 sqrt(3) j ~ 15 i + 26 j. ✓",
+      "topic": "ch03p3_vector_magnitude_direction",
+      "intent": "formula_recall",
+      "keywords": [
+        "magnitude",
+        "direction",
+        "atan2",
+        "2D vector",
+        "angle"
+      ]
+    },
+    {
+      "question": "What are unit vectors and how do you find them?",
+      "answer": "A **unit vector** has magnitude 1. ### Standard unit vectors - 2D: **i** = <1, 0>, **j** = <0, 1>. - 3D: **i** = <1, 0, 0>, **j** = <0, 1, 0>, **k** = <0, 0, 1>. Any vector v = <a, b> can be written as v = a i + b j. ### Finding a unit vector in direction of v **u = v / |v|** (divide each component by magnitude). ### Examples v = <3, 4>: |v| = 5, u = <3/5, 4/5> = (3/5) i + (4/5) j. Check: |u| = sqrt(9/25 + 16/25) = 1. ✓ v = <-2, 5>: |v| = sqrt(29), u = <-2/sqrt(29), 5/sqrt(29)>. v = <1, 1, 1>: |v| = sqrt(3), u = <1/sqrt(3), 1/sqrt(3), 1/sqrt(3)>. ### Properties - |u| = 1 by definition. - Multiplying a vector by a scalar k scales magnitude by |k|: |kv| = |k| |v|. - If k > 0, kv points same direction as v. If k < 0, opposite direction. ### Use Unit vectors specify pure direction. Useful for: projections, parametric equations of lines (r(t) = r0 + t u), normals to surfaces, etc. ✓",
+      "topic": "ch03p3_unit_vectors",
+      "intent": "formula_recall",
+      "keywords": [
+        "unit vector",
+        "i j k",
+        "v / |v|",
+        "magnitude 1",
+        "standard basis"
+      ]
+    },
+    {
+      "question": "How do you add and subtract vectors componentwise?",
+      "answer": "### Componentwise addition If u = <u1, u2, u3> and v = <v1, v2, v3>, then: - u + v = <u1 + v1, u2 + v2, u3 + v3> - u - v = <u1 - v1, u2 - v2, u3 - v3> ### Scalar multiplication k * u = <k*u1, k*u2, k*u3>. ### Properties - Commutative: u + v = v + u. - Associative: (u + v) + w = u + (v + w). - Additive identity: 0 + u = u (where 0 = <0, 0, 0>). - Additive inverse: u + (-u) = 0 (where -u = -1 * u = <-u1, -u2, -u3>). - Distributive: k(u + v) = ku + kv; (k + m)u = ku + mu. ### Examples u = <2, -1, 3>, v = <-1, 4, 0>. u + v = <1, 3, 3>. u - v = <3, -5, 3>. 2u = <4, -2, 6>. -3v = <3, -12, 0>. 2u + 3v = <4, -2, 6> + <-3, 12, 0> = <1, 10, 6>. ### Geometric meaning (parallelogram rule) u + v is the diagonal of the parallelogram formed by u and v (when their tails coincide). u - v is the vector from tip of v to tip of u. ### Polygon rule For u1 + u2 + ... + un, place tail of each at head of previous; sum is from tail of first to head of last. ✓",
+      "topic": "ch03p3_vector_addition",
+      "intent": "formula_recall",
+      "keywords": [
+        "vector addition",
+        "subtraction",
+        "componentwise",
+        "scalar multiplication",
+        "parallelogram"
+      ]
+    },
+    {
+      "question": "How do you find a position vector and direction vector?",
+      "answer": "### Position vector A **position vector** describes the location of a point P relative to origin O. If P = (x, y, z), then position vector OP = <x, y, z> = x i + y j + z k. ### Direction vector A **direction vector** specifies direction only (magnitude can be anything nonzero). Often a unit vector. Direction of a line through two points P1, P2: P1P2 = <x2 - x1, y2 - y1, z2 - z1>. ### Vector from point A to point B AB = B - A (componentwise). If A = (a1, a2, a3), B = (b1, b2, b3), then AB = <b1 - a1, b2 - a2, b3 - a3>. ### Examples 1. Position vector of P = (3, -2, 5): <3, -2, 5>. 2. Vector from A = (1, 2, 3) to B = (4, 0, -1): AB = <3, -2, -4>. 3. Direction vector of line through (1, 1, 1) and (3, 5, 7): <2, 4, 6>, or simplified <1, 2, 3>. ### Parametric equation of line through P0 with direction d: r(t) = r0 + t*d, where r0 is position vector of P0, d is direction vector. ### Example Line through (1, 2, 3) in direction <2, -1, 4>: x = 1 + 2t, y = 2 - t, z = 3 + 4t. ✓",
+      "topic": "ch03p3_position_direction_vector",
+      "intent": "formula_recall",
+      "keywords": [
+        "position vector",
+        "direction vector",
+        "point to point",
+        "parametric",
+        "line"
+      ]
+    },
+    {
+      "question": "How do you find the section formula (point dividing a segment) using vectors?",
+      "answer": "### Section formula If point P divides segment AB in ratio m:n (i.e., AP:PB = m:n), then: **OP = (n * OA + m * OB)/(m + n)** (where O is origin and OA, OB, OP are position vectors). ### Midpoint formula (special case m:n = 1:1): **M = (A + B)/2** = midpoint of AB. ### Examples 1. Midpoint of A = (1, 2) and B = (5, 8): M = ((1+5)/2, (2+8)/2) = (3, 5). 2. Point dividing A = (1, 1, 1) to B = (4, 7, 10) in ratio 2:3: P = (3*A + 2*B)/5 = (3*(1,1,1) + 2*(4,7,10))/5 = ((3+8)/5, (3+14)/5, (3+20)/5) = (11/5, 17/5, 23/5). 3. Point 1/4 of way from A to B (m:n = 1:3): P = (3*A + 1*B)/4. ### External division If P divides AB externally in ratio m:n (P beyond B): OP = (m*OB - n*OA)/(m - n) (where m != n). ### Use in coordinate geometry and physics: center of mass of two-particle system uses weighted midpoint: COM = (m1*r1 + m2*r2)/(m1 + m2). ✓",
+      "topic": "ch03p3_section_formula",
+      "intent": "formula_recall",
+      "keywords": [
+        "section formula",
+        "midpoint",
+        "divide segment",
+        "ratio",
+        "m:n"
+      ]
+    },
+    {
+      "question": "What is the dot product and how do you compute it?",
+      "answer": "### Definition (algebraic) For u = <u1, u2, u3> and v = <v1, v2, v3>: **u · v = u1*v1 + u2*v2 + u3*v3**. Result is a SCALAR (number). ### Definition (geometric) **u · v = |u| |v| cos(theta)** where theta is the angle between u and v (0 <= theta <= pi). ### Example u = <1, 2, 3>, v = <-1, 4, 2>. u · v = (1)(-1) + (2)(4) + (3)(2) = -1 + 8 + 6 = 13. ### Geometric example |u| = 5, |v| = 3, theta = 60 deg. u · v = 5 * 3 * cos(60) = 15 * 0.5 = 7.5. ### Properties - Commutative: u · v = v · u. - Distributive: u · (v + w) = u · v + u · w. - Scalar: (k u) · v = k (u · v) = u · (k v). - u · u = |u|^2 (so |u| = sqrt(u · u)). - u · 0 = 0. ### Insight Dot product combines magnitude info and angle info. Used to find: angles, projections, perpendicularity, work in physics. ✓",
+      "topic": "ch03p3_dot_product_definition",
+      "intent": "formula_recall",
+      "keywords": [
+        "dot product",
+        "scalar product",
+        "u · v",
+        "component",
+        "cos theta"
+      ]
+    },
+    {
+      "question": "How do you find the angle between two vectors?",
+      "answer": "### Formula From u · v = |u| |v| cos theta, solve for theta: **cos(theta) = (u · v)/(|u| |v|)**. Then theta = arccos((u · v)/(|u| |v|)). ### Steps 1. Compute u · v. 2. Compute |u| and |v|. 3. Compute cos theta = (u · v)/(|u| |v|). 4. theta = arccos of that value. ### Example Find angle between u = <1, 1> and v = <1, 0>. u · v = 1. |u| = sqrt(2), |v| = 1. cos theta = 1/sqrt(2) = sqrt(2)/2. theta = pi/4 (45 deg). ✓ ### Example Find angle between u = <1, 2, 3> and v = <-2, 1, 0>. u · v = -2 + 2 + 0 = 0. So vectors are PERPENDICULAR; theta = pi/2. ### Example Find angle between u = <3, 4> and v = <4, 3>. u · v = 12 + 12 = 24. |u| = 5, |v| = 5. cos theta = 24/25. theta = arccos(24/25) ~ 16.26 deg. ### Special cases - cos theta = 1 (theta = 0): parallel, same direction. - cos theta = -1 (theta = pi): anti-parallel. - cos theta = 0 (theta = pi/2): perpendicular. ✓",
+      "topic": "ch03p3_angle_between_vectors",
+      "intent": "problem_solving",
+      "keywords": [
+        "angle between vectors",
+        "cos theta",
+        "arccos",
+        "dot product",
+        "perpendicular"
+      ]
+    },
+    {
+      "question": "How do you compute the projection of one vector onto another?",
+      "answer": "### Projection of u onto v (vector projection) **proj_v u = [(u · v)/(|v|^2)] v** = ((u · v)/|v|^2) v. This is a VECTOR parallel to v. ### Scalar projection (component of u along v) **comp_v u = (u · v)/|v|** = |u| cos theta. (A scalar; can be negative.) ### Relationship proj_v u = (comp_v u) * (v/|v|) = (scalar projection) * (unit vector in direction of v). ### Example Find projection of u = <3, 4> onto v = <1, 0>. u · v = 3. |v|^2 = 1. proj_v u = (3/1) <1, 0> = <3, 0>. (Indeed, projecting <3,4> onto x-axis gives the x-component.) ### Example Find projection of u = <1, 2, 3> onto v = <1, 1, 1>. u · v = 1 + 2 + 3 = 6. |v|^2 = 3. proj_v u = (6/3)<1,1,1> = 2<1,1,1> = <2, 2, 2>. ### Decomposition u = proj_v u + (u - proj_v u). The second term is the component of u perpendicular to v. ### Application: orthogonal decomposition Any vector u can be written as u = u_parallel + u_perp, where u_parallel is along v and u_perp is perpendicular to v. ✓",
+      "topic": "ch03p3_projection",
+      "intent": "formula_recall",
+      "keywords": [
+        "projection",
+        "component",
+        "orthogonal",
+        "proj_v u",
+        "u · v / |v|^2"
+      ]
+    },
+    {
+      "question": "How do you determine if two vectors are perpendicular (orthogonal) or parallel?",
+      "answer": "### Perpendicular (orthogonal) Two nonzero vectors u and v are perpendicular iff **u · v = 0**. Reason: u · v = |u||v| cos theta = 0 iff cos theta = 0 iff theta = pi/2 (for nonzero vectors). ### Parallel Two nonzero vectors are parallel iff **u = k v** for some scalar k (one is a scalar multiple of the other). Equivalently, their components are proportional: u1/v1 = u2/v2 = u3/v3 (assuming no zero components). Equivalently, |u · v| = |u| |v| (cos theta = ±1). ### Examples u = <1, 2>, v = <-2, 1>: u · v = -2 + 2 = 0. Perpendicular. ✓ u = <2, 4, 6>, v = <1, 2, 3>: u = 2v. Parallel. ✓ u = <3, 1>, v = <-6, -2>: u = -1/2 v. Parallel (opposite direction). u = <1, 1, 0>, v = <1, -1, 0>: u · v = 1 - 1 + 0 = 0. Perpendicular. ### Use in geometry: check if sides of polygon are perpendicular (rectangle/square check), or parallel (parallelogram check). ### Application: find vector perpendicular to given v = <a, b> in 2D: <b, -a> or <-b, a>. Both are perpendicular (dot product = ab - ab = 0). ✓",
+      "topic": "ch03p3_perpendicular_parallel",
+      "intent": "problem_solving",
+      "keywords": [
+        "perpendicular",
+        "parallel",
+        "orthogonal",
+        "u · v = 0",
+        "scalar multiple"
+      ]
+    },
+    {
+      "question": "How do you use the dot product in physics: work done by a force?",
+      "answer": "### Work formula Work W done by a constant force F over displacement d: **W = F · d = |F| |d| cos(theta)** where theta is the angle between force and displacement. ### Units SI: Joules (N * m). ### Examples 1. Force F = <10, 0> N, displacement d = <5, 0> m (same direction). W = 10*5 = 50 J. 2. F = <10, 0> N, d = <0, 5> m (perpendicular). W = 0 (force perpendicular to motion does no work). 3. F = <3, 4> N (|F| = 5), d = <2, 0> m. W = 3*2 + 4*0 = 6 J. Equivalent: |F| |d| cos(theta) where cos(theta) = (F · d)/(|F||d|) = 6/10 = 0.6, theta ~ 53.13 deg. W = 5 * 2 * 0.6 = 6 J. ✓ 4. Pull a sled with force 50 N at 30 deg above horizontal, moving 20 m horizontally. F_horizontal = 50 cos(30) ~ 43.3 N. W = 50 * 20 * cos(30) ~ 866 J. ### Sign convention - W > 0: force does positive work (helps motion). - W < 0: force opposes motion (e.g., friction). - W = 0: force perpendicular to motion (e.g., centripetal force in circular motion). ### Insight: dot product projects force onto direction of motion, giving the effective component. ✓",
+      "topic": "ch03p3_work_dot_product",
+      "intent": "problem_solving",
+      "keywords": [
+        "work",
+        "physics",
+        "F · d",
+        "force",
+        "displacement",
+        "application"
+      ]
+    },
+    {
+      "question": "What are the properties of the dot product?",
+      "answer": "### Properties of dot product 1. **Commutative**: u · v = v · u. 2. **Distributive over addition**: u · (v + w) = u · v + u · w. 3. **Scalar**: (k u) · v = k (u · v) = u · (k v) for any scalar k. 4. **u · u = |u|^2** (always non-negative; = 0 iff u = 0). 5. **u · 0 = 0**. 6. **Cauchy-Schwarz inequality**: |u · v| <= |u| |v|, with equality iff u, v parallel. 7. **Triangle inequality**: |u + v| <= |u| + |v|. Derived from Cauchy-Schwarz. 8. **Pythagorean**: |u + v|^2 + |u - v|^2 = 2(|u|^2 + |v|^2) (parallelogram law). 9. **Polarization identity**: u · v = (1/4)(|u + v|^2 - |u - v|^2). ### Examples - (2u + 3v) · (u - v) = 2 u · u - 2 u · v + 3 v · u - 3 v · v = 2|u|^2 + u · v - 3|v|^2. - |u + v|^2 = (u + v) · (u + v) = u · u + 2 u · v + v · v = |u|^2 + 2 u · v + |v|^2. ### Note Unlike ordinary multiplication of numbers, dot product does NOT have a \"cancellation law\": u · v = u · w with u != 0 does NOT imply v = w. (Because u · (v - w) = 0 only implies v - w is perpendicular to u, not that v = w.) ✓",
+      "topic": "ch03p3_dot_product_properties",
+      "intent": "formula_recall",
+      "keywords": [
+        "dot product properties",
+        "commutative",
+        "distributive",
+        "Cauchy-Schwarz",
+        "triangle inequality"
+      ]
+    },
+    {
+      "question": "How do you decompose a vector into perpendicular components?",
+      "answer": "### Goal: Write u = u_parallel + u_perp where u_parallel is parallel to v and u_perp is perpendicular to v. ### Formulas - u_parallel = proj_v u = [(u · v)/|v|^2] v (vector projection). - u_perp = u - u_parallel. ### Verification u_parallel · u_perp = [(u · v)/|v|^2 v] · [u - (u · v)/|v|^2 v] = (u · v)/|v|^2 [v · u - (u · v)/|v|^2 v · v] = (u · v)/|v|^2 [u · v - (u · v)/|v|^2 |v|^2] = (u · v)/|v|^2 [u · v - u · v] = 0. ✓ (Perpendicular.) ### Example Decompose u = <3, 4> into components parallel and perpendicular to v = <1, 1>. u · v = 7. |v|^2 = 2. u_parallel = (7/2)<1, 1> = <7/2, 7/2>. u_perp = <3, 4> - <7/2, 7/2> = <-1/2, 1/2>. Check perpendicular: (7/2)(-1/2) + (7/2)(1/2) = -7/4 + 7/4 = 0. ✓ ### Use in physics: resolving forces along and perpendicular to a surface (normal force, friction). ### Application: Gram-Schmidt orthogonalization Repeatedly subtract projections to build an orthogonal basis from any basis. ✓",
+      "topic": "ch03p3_decompose_perpendicular",
+      "intent": "problem_solving",
+      "keywords": [
+        "decompose",
+        "parallel perpendicular",
+        "orthogonal components",
+        "projection",
+        "Gram-Schmidt"
+      ]
+    },
+    {
+      "question": "What is the cross product and how do you compute it?",
+      "answer": "### Definition (3D only) For u = <u1, u2, u3> and v = <v1, v2, v3>: **u x v = <u2*v3 - u3*v2, u3*v1 - u1*v3, u1*v2 - u2*v1>**. ### Determinant form: u x v = det | i  j  k ; u1 u2 u3 ; v1 v2 v3 | (3x3 determinant with first row unit vectors i, j, k and second/third rows the components of u and v). ### Memory aid \"First times second minus second times first\" for each pair, cyclically. ### Result is a VECTOR, perpendicular to both u and v, magnitude = |u||v| sin(theta). ### Example u = <1, 2, 3>, v = <4, 5, 6>. u x v = <(2)(6) - (3)(5), (3)(4) - (1)(6), (1)(5) - (2)(4)> = <12 - 15, 12 - 6, 5 - 8> = <-3, 6, -3>. Verify perpendicular: u · (u x v) = (1)(-3) + (2)(6) + (3)(-3) = -3 + 12 - 9 = 0. ✓ v · (u x v) = (4)(-3) + (5)(6) + (6)(-3) = -12 + 30 - 18 = 0. ✓ ### Standard basis i x j = k, j x k = i, k x i = j. And reverse: j x i = -k, etc. i x i = j x j = k x k = 0. ✓",
+      "topic": "ch03p3_cross_product_definition",
+      "intent": "formula_recall",
+      "keywords": [
+        "cross product",
+        "vector product",
+        "u x v",
+        "determinant",
+        "perpendicular"
+      ]
+    },
+    {
+      "question": "What is the geometric interpretation of the cross product?",
+      "answer": "### Magnitude **|u x v| = |u| |v| sin(theta)**, where theta is the angle between u and v (0 <= theta <= pi). ### Direction Perpendicular to BOTH u and v, following the **right-hand rule**: point right hand fingers from u toward v (curl), thumb points in direction of u x v. ### Area interpretation |u x v| = area of parallelogram spanned by u and v. (Half of this is area of triangle.) ### Properties - If u, v parallel (theta = 0 or pi): u x v = 0 (zero vector). - If u, v perpendicular (theta = pi/2): |u x v| = |u| |v| (max magnitude). - Anti-commutative: u x v = -(v x u). - Distributive over addition: u x (v + w) = u x v + u x w. - NOT associative: u x (v x w) != (u x v) x w in general. - Jacobi identity: u x (v x w) + v x (w x u) + w x (u x v) = 0. - Lagrange identity: |u x v|^2 = |u|^2 |v|^2 - (u · v)^2. - Triple scalar product: u · (v x w) = volume of parallelepiped (signed). - Triple vector product: u x (v x w) = (u · w) v - (u · v) w. ### Examples u = <1, 0, 0>, v = <0, 1, 0>. u x v = <0, 0, 1> = k. Magnitude 1 = area of unit square. ✓",
+      "topic": "ch03p3_cross_product_geometric",
+      "intent": "formula_recall",
+      "keywords": [
+        "cross product geometric",
+        "right-hand rule",
+        "area parallelogram",
+        "magnitude",
+        "direction"
+      ]
+    },
+    {
+      "question": "How do you find the area of a triangle or parallelogram using cross product?",
+      "answer": "### Parallelogram area If parallelogram has adjacent sides u and v: **Area = |u x v|** (magnitude of cross product). ### Triangle area If triangle has sides u and v (from a common vertex): **Area = (1/2) |u x v|**. ### With vertices given For triangle with vertices A, B, C: - Two side vectors: AB and AC. - Area = (1/2) |AB x AC|. ### Example Triangle with vertices A = (1, 0, 0), B = (0, 1, 0), C = (0, 0, 1). AB = <-1, 1, 0>, AC = <-1, 0, 1>. AB x AC = <(1)(1) - (0)(0), (0)(-1) - (-1)(1), (-1)(0) - (1)(-1)> = <1, 1, 1>. Area = (1/2) |<1, 1, 1>| = (1/2) sqrt(3) ~ 0.866. ### Example Parallelogram with sides u = <2, 1, 0> and v = <1, 3, 0>. u x v = <(1)(0) - (0)(3), (0)(1) - (2)(0), (2)(3) - (1)(1)> = <0, 0, 5>. |u x v| = 5. Area = 5. (Check: it's a parallelogram in xy-plane with vertices (0,0), (2,1), (3,4), (1,3). Area via shoelace: |0(1-4) + 2(4-3) + 3(3-1) + 1(0-4)|/2 = |0 + 2 + 6 - 4|/2 = 4/2 = 2... wait that doesn't match. Let me recheck. Actually |u x v| = |5k| = 5, but shoelace on (0,0), (2,1), (3,4), (1,3): area = |x1(y2-y4) + x2(y3-y1) + x3(y4-y2) + x4(y1-y3)|/2 = |0(1-3) + 2(4-0) + 3(3-1) + 1(0-4)|/2 = |0 + 8 + 6 - 4|/2 = 10/2 = 5. ✓) ✓",
+      "topic": "ch03p3_area_cross_product",
+      "intent": "problem_solving",
+      "keywords": [
+        "area parallelogram",
+        "area triangle",
+        "cross product",
+        "vertices",
+        "1/2 |u x v|"
+      ]
+    },
+    {
+      "question": "How do you compute the scalar triple product and what does it represent?",
+      "answer": "### Scalar triple product **u · (v x w)** — a scalar. ### Formula u · (v x w) = u1(v2 w3 - v3 w2) + u2(v3 w1 - v1 w3) + u3(v1 w2 - v2 w1) = determinant of matrix with rows (or columns) u, v, w. ### Geometric meaning **|u · (v x w)| = volume of parallelepiped** spanned by u, v, w. ### Sign convention - Positive: u, v, w form a \"right-handed\" triple. - Negative: \"left-handed.\" - Zero: u, v, w are coplanar (lie in same plane). ### Properties - Cyclic: u · (v x w) = v · (w x u) = w · (u x v). - Swap two: changes sign. - u · (v x w) = (u x v) · w (scalar triple product is symmetric under cyclic permutation). ### Example u = <1, 0, 0>, v = <0, 1, 0>, w = <0, 0, 1>. v x w = <1, 0, 0> = i. u · (v x w) = 1. Volume of unit cube = 1. ✓ ### Example Test if u = <1, 2, 3>, v = <2, 4, 6>, w = <0, 1, 0> are coplanar. v = 2u, so u, v parallel. u · (v x w) = u · (2u x w) = 2 u · (u x w) = 2 (u x u) · w = 0. (Using cyclic property.) ✓ Indeed coplanar (since u and v are parallel, all three are in the plane containing u and w). ### Use in 3D geometry: volume of tetrahedron with vertices A, B, C, D = (1/6) |(AB x AC) · AD|. ✓",
+      "topic": "ch03p3_scalar_triple_product",
+      "intent": "formula_recall",
+      "keywords": [
+        "scalar triple",
+        "parallelepiped",
+        "volume",
+        "coplanar",
+        "determinant"
+      ]
+    },
+    {
+      "question": "How do you find a vector perpendicular to two given vectors?",
+      "answer": "### Method The cross product u x v is perpendicular to both u and v. So **n = u x v** is the desired normal vector. ### Example Find a vector perpendicular to both u = <1, 2, 3> and v = <-1, 0, 2>. u x v = <(2)(2) - (3)(0), (3)(-1) - (1)(2), (1)(0) - (2)(-1)> = <4, -5, 2>. Verify: u · (u x v) = 4 - 10 + 6 = 0. ✓ v · (u x v) = -4 + 0 + 4 = 0. ✓ ### Use Find normal to a plane: if plane contains points P1, P2, P3, then normal n = (P1P2) x (P1P3). ### Example Plane through P1 = (1, 0, 0), P2 = (0, 1, 0), P3 = (0, 0, 1). P1P2 = <-1, 1, 0>, P1P3 = <-1, 0, 1>. Normal = P1P2 x P1P3 = <1*1 - 0*0, 0*(-1) - (-1)*1, (-1)*0 - 1*(-1)> = <1, 1, 1>. Plane equation: 1*(x - 1) + 1*(y - 0) + 1*(z - 0) = 0 -> x + y + z = 1. ✓ ### 2D case To find vector perpendicular to v = <a, b>: use <-b, a> or <b, -a>. Both are perpendicular (dot product 0). ### Application: torque in physics Torque tau = r x F (cross product of position vector and force). Direction of torque gives axis of rotation. ✓",
+      "topic": "ch03p3_perpendicular_vector",
+      "intent": "problem_solving",
+      "keywords": [
+        "perpendicular",
+        "normal vector",
+        "cross product",
+        "plane",
+        "two vectors"
+      ]
+    },
+    {
+      "question": "What is the vector triple product and how do you use it?",
+      "answer": "### Vector triple product **u x (v x w)** — a vector. ### Formula (BAC-CAB rule): **u x (v x w) = (u · w) v - (u · v) w** (vector in the plane of v and w). ### Memory aid \"BAC - CAB\" (back-cab). ### Properties - Result lies in plane spanned by v and w (perpendicular to v x w). - Non-associative: u x (v x w) != (u x v) x w. - (u x v) x w = (u · w) v - (v · w) u (alternate form). ### Example u = <1, 0, 0>, v = <0, 1, 0>, w = <0, 0, 1>. v x w = <1, 0, 0> = i. u x (v x w) = u x i = 0 (since u = i). Using formula: (u · w) v - (u · v) w = (0) <0,1,0> - (0) <0,0,1> = 0. ✓ ### Example Compute u x (v x w) for u = <1, 1, 0>, v = <1, 0, 1>, w = <0, 1, 1>. v x w = <-1, -1, 1>. u x (v x w) = <1, 1, 0> x <-1, -1, 1> = <(1)(1) - (0)(-1), (0)(-1) - (1)(1), (1)(-1) - (1)(-1)> = <1, -1, 0>. Verify with BAC-CAB: (u · w) v - (u · v) w = (0 + 1 + 0) <1, 0, 1> - (1 + 0 + 0) <0, 1, 1> = <1, 0, 1> - <0, 1, 1> = <1, -1, 0>. ✓ ### Use in physics: angular momentum, electromagnetic theory (Lorentz force F = q v x B). ✓",
+      "topic": "ch03p3_vector_triple_product",
+      "intent": "formula_recall",
+      "keywords": [
+        "vector triple",
+        "BAC CAB",
+        "u x (v x w)",
+        "cross product",
+        "non-associative"
+      ]
+    },
+    {
+      "question": "How do you find resultant forces and velocities?",
+      "answer": "### Resultant Sum of multiple vectors (forces, velocities, etc.). Use componentwise addition. ### Steps 1. Resolve each vector into x, y, z components. 2. Sum components separately. 3. Resultant R = <sum of x, sum of y, sum of z>. 4. Magnitude |R| = sqrt(sums of squares). 5. Direction angle = arctan(R_y/R_x) (adjusted for quadrant). ### Example Three forces: F1 = <3, 4>, F2 = <-2, 5>, F3 = <1, -1>. R = <3 - 2 + 1, 4 + 5 - 1> = <2, 8>. |R| = sqrt(4 + 64) = sqrt(68) = 2 sqrt(17) ~ 8.25. Direction: arctan(8/2) = arctan(4) ~ 75.96 deg from +x. ### Example Velocity problem: boat heads north at 5 m/s, current pushes east at 3 m/s. Resultant velocity = <3, 5> m/s. Speed = sqrt(9 + 25) = sqrt(34) ~ 5.83 m/s. Direction = arctan(5/3) ~ 59 deg north of east (or 31 deg east of north). ### Equilibrium When resultant is zero: sum of forces = 0. Object in static equilibrium. Solve system of equations (one per component). ### Example Find force F3 to balance F1 = <10, 0> N and F2 = <0, 5> N. F3 = -<10, 5> = <-10, -5> N. |F3| = sqrt(125) = 5 sqrt(5) ~ 11.18 N. ✓",
+      "topic": "ch03p3_resultant_forces",
+      "intent": "problem_solving",
+      "keywords": [
+        "resultant",
+        "forces",
+        "velocities",
+        "componentwise",
+        "equilibrium"
+      ]
+    },
+    {
+      "question": "How do you solve navigation problems with vectors?",
+      "answer": "### Method Treat each leg of a journey as a vector; sum to get net displacement. ### Heading vs course - Heading: direction the boat/plane points. - Course (track): actual direction of motion (heading + wind/current effect). - Wind correction angle: difference between heading and course. ### Example Plane flies at 300 mph on heading N 60 deg E (60 deg east of north = 30 deg from x-axis). Wind blows 50 mph due east. Find resultant ground speed and course. Plane velocity: 300 * <cos(30), sin(30)> = <300 sqrt(3)/2, 150> ~ <259.8, 150>. Wait — careful: N 60 E means 60 deg from north, so 30 deg from east. Components: east = 300 sin(60) = 300 sqrt(3)/2 ~ 259.8, north = 300 cos(60) = 150. So plane vector = <259.8, 150> in (east, north) coordinates. Wind = <50, 0> (due east). Resultant = <309.8, 150>. Ground speed = sqrt(309.8^2 + 150^2) ~ sqrt(95976 + 22500) ~ sqrt(118476) ~ 344.2 mph. Course: angle from north = arctan(east/north) = arctan(309.8/150) ~ 64.16 deg. So course is N 64.16 deg E. ### Example River crossing: boat 8 m/s north, river current 6 m/s east. Width 100 m. Time to cross = 100/8 = 12.5 s (north component independent). Drift downstream = 6 * 12.5 = 75 m east. Resultant velocity = <6, 8> m/s, speed = 10 m/s. ✓ ### Use Trigonometry + vectors solve most 2D navigation problems. ✓",
+      "topic": "ch03p3_navigation_vectors",
+      "intent": "problem_solving",
+      "keywords": [
+        "navigation",
+        "heading course",
+        "wind",
+        "river crossing",
+        "resultant"
+      ]
+    },
+    {
+      "question": "How do you find the work done by a force along a path?",
+      "answer": "### Work done by constant force W = F · d, where F is force vector and d is displacement vector. ### Work done by variable force along curve W = integral_C F · dr, where dr is differential displacement along curve C. ### For parametric curve r(t) = <x(t), y(t), z(t)>, t in [a, b]: W = integral_a^b F(r(t)) · r'(t) dt. ### Example Constant force F = <2, -1, 3> N moves object from A = (0, 0, 0) to B = (4, 2, -1). d = B - A = <4, 2, -1>. W = F · d = (2)(4) + (-1)(2) + (3)(-1) = 8 - 2 - 3 = 3 J. ### Example Force F = <x, y, 0> moves object along curve r(t) = <cos t, sin t, 0>, t in [0, pi/2]. F(r(t)) = <cos t, sin t, 0>. r'(t) = <-sin t, cos t, 0>. F · r' = -cos t sin t + sin t cos t + 0 = 0. So W = 0. (Force perpendicular to motion along this quarter circle — centripetal.) ### Example F = <x, 0, 0> along r(t) = <t, t^2, 0>, t in [0, 1]. F = <t, 0, 0>. r' = <1, 2t, 0>. F · r' = t. W = integral_0^1 t dt = 1/2 J. ### Conservative forces If F = grad(phi) for some scalar potential phi, then W = phi(B) - phi(A) (path-independent). Example: gravity F = <0, 0, -mg> = grad(-mgz). W from z1 to z2 = -mg(z2 - z1). ✓",
+      "topic": "ch03p3_work_path",
+      "intent": "problem_solving",
+      "keywords": [
+        "work",
+        "force",
+        "path",
+        "line integral",
+        "conservative"
+      ]
+    },
+    {
+      "question": "How do you find the projection and component in applications?",
+      "answer": "### Component of u in direction of v comp_v u = (u · v)/|v| (scalar). ### Vector projection proj_v u = ((u · v)/|v|^2) v (vector). ### Application: shadow length Pole 10 ft tall casts shadow when sun is at 30 deg elevation. Sun direction: <cos(30), sin(30)> (assuming flat ground). Pole direction: <0, 1>. Shadow = projection of pole onto ground (perpendicular to sun direction). Actually, shadow length = pole height / tan(elevation) = 10/tan(30) = 10 sqrt(3) ~ 17.32 ft. ### Application: force components Block on incline at 30 deg. Gravity F = <0, -mg>. Incline direction (down the slope): <cos(30), -sin(30)> (if x is along slope, y is perpendicular; here we're projecting gravity onto slope direction). Force along slope = F · <cos(30), -sin(30)> = (0)(cos 30) + (-mg)(-sin 30) = mg sin(30) = mg/2. (Component pulling block down the slope.) Force perpendicular to slope (normal force) = mg cos(30) = mg sqrt(3)/2. ### Application: distance from point to line Line through P0 with direction v. Distance from Q to line = |(Q - P0) x v|/|v| (in 3D) or |(Q - P0) - proj_v(Q - P0)| (in any dimension). ### Example Line through (1, 0, 0) in direction <2, 1, 0>. Distance from (3, 0, 0). Q - P0 = <2, 0, 0>. proj = (2*2 + 0*1 + 0*0)/(4 + 1) * <2, 1, 0> = (4/5)<2, 1, 0> = <8/5, 4/5, 0>. Perp = <2, 0, 0> - <8/5, 4/5, 0> = <2/5, -4/5, 0>. |perp| = sqrt(4/25 + 16/25) = sqrt(20/25) = 2 sqrt(5)/5. Distance = 2 sqrt(5)/5. ✓",
+      "topic": "ch03p3_projection_applications",
+      "intent": "problem_solving",
+      "keywords": [
+        "projection",
+        "component",
+        "incline",
+        "shadow",
+        "distance point line"
+      ]
+    },
+    {
+      "question": "How do you find the distance from a point to a plane using vectors?",
+      "answer": "### Plane equation ax + by + cz + d = 0 (or n · (r - r0) = 0 where n = <a, b, c> is normal). ### Distance from point P = (x0, y0, z0) to plane: **D = |ax0 + by0 + cz0 + d| / sqrt(a^2 + b^2 + c^2)** = |n · (P - r0)| / |n| (where r0 is any point on the plane). ### Derivation Project vector from plane to point onto the normal direction. ### Example Distance from (1, 2, 3) to plane 2x - y + 2z - 4 = 0. D = |2(1) - 1(2) + 2(3) - 4|/sqrt(4 + 1 + 4) = |2 - 2 + 6 - 4|/sqrt(9) = 2/3. ### Example Distance from origin to plane x + y + z = 6 (i.e., x + y + z - 6 = 0). D = |0 + 0 + 0 - 6|/sqrt(3) = 6/sqrt(3) = 2 sqrt(3) ~ 3.46. ### Use the projection formula directly D = |(P - P_plane) · n_hat|, where n_hat = n/|n| is the unit normal. ### Example Distance from (3, 0, 0) to plane containing points (1, 0, 0), (0, 1, 0), (0, 0, 1). Find normal: n = P1P2 x P1P3 = <-1, 1, 0> x <-1, 0, 1> = <1, 1, 1>. Plane: 1*(x - 1) + 1*(y - 0) + 1*(z - 0) = 0 -> x + y + z = 1. Distance from (3, 0, 0): D = |3 + 0 + 0 - 1|/sqrt(3) = 2/sqrt(3) = 2 sqrt(3)/3 ~ 1.15. ✓",
+      "topic": "ch03p3_distance_point_plane",
+      "intent": "problem_solving",
+      "keywords": [
+        "distance point plane",
+        "normal",
+        "projection",
+        "plane equation",
+        "formula"
+      ]
+    },
+    {
+      "question": "How do you solve equilibrium problems using vectors?",
+      "answer": "### Static equilibrium An object is in static equilibrium when the resultant force on it is zero: sum F = 0. This gives a system of equations (one per component). ### Steps 1. Identify all forces acting on the object. 2. Resolve each into components. 3. Set sum of x-components = 0, sum of y-components = 0 (and z if 3D). 4. Solve the system for unknowns. ### Example Block of weight 100 N suspended by two ropes making angles 30 deg and 60 deg with the ceiling. Find tensions T1 and T2. Forces: T1 at 30 deg above horizontal (rope 1 pulls up-left at 30 deg from horizontal): <-T1 cos(30), T1 sin(30)>. Wait — ropes pull block upward. If rope 1 is at 30 deg from vertical (more common phrasing), then components are <-T1 sin(30), T1 cos(30)>. Let's say rope 1 makes 30 deg with vertical (so 60 deg with horizontal), rope 2 makes 60 deg with vertical (30 deg with horizontal). Then: T1 components: <-T1 sin(30), T1 cos(30)> = <-T1/2, T1 sqrt(3)/2>. T2 components: <T2 sin(60), T2 cos(60)> = <T2 sqrt(3)/2, T2/2>. Weight: <0, -100>. Equilibrium: sum x = 0: -T1/2 + T2 sqrt(3)/2 = 0 -> T1 = T2 sqrt(3). sum y = 0: T1 sqrt(3)/2 + T2/2 - 100 = 0 -> T1 sqrt(3) + T2 = 200. Substituting: T2 sqrt(3) * sqrt(3) + T2 = 200 -> 3 T2 + T2 = 200 -> T2 = 50 N. T1 = 50 sqrt(3) ~ 86.6 N. ### Example Three forces in 2D equilibrium: F1 = <10, 0>, F2 = <0, 8>. Find F3. F3 = -F1 - F2 = <-10, -8>. |F3| = sqrt(100 + 64) = sqrt(164) = 2 sqrt(41) ~ 12.81 N. ✓",
+      "topic": "ch03p3_equilibrium_vectors",
+      "intent": "problem_solving",
+      "keywords": [
+        "equilibrium",
+        "static",
+        "forces",
+        "tension",
+        "system of equations"
+      ]
+    }
+  ]
+}

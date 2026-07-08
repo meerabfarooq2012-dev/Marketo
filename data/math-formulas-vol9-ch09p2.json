@@ -1,0 +1,479 @@
+{
+  "generatedAt": "2026-07-08T12:44:36.717Z",
+  "totalItems": 32,
+  "subject": "mathematics_formulas_volume_9_chapter_09_part_02",
+  "volume": "Volume 9 — Comprehensive Formula Encyclopedia, Chapter 9 Part 2 (Vector Spaces & Linear Transformations — Vector Space Axioms & Examples, Subspaces Span & Linear Combinations, Linear Independence Wronskian, Basis & Dimension Rank-Nullity, Four Fundamental Subspaces, Linear Transformations Matrix Representation Rotations Reflections Projections, Inner Product Spaces Cauchy-Schwarz Gram-Schmidt Orthonormal Bases Projection Theorem, Isomorphisms & Worked Problems)",
+  "source": "TRIZA Generated Formula Dataset",
+  "language": "en",
+  "religionNeutral": true,
+  "items": [
+    {
+      "question": "What is a vector space and what are its axioms?",
+      "answer": "A **vector space** (or linear space) V over a field F (typically R or C) is a set equipped with two operations: vector addition (+) and scalar multiplication (·), satisfying the following axioms for all u, v, w in V and all c, d in F: ### Vector addition axioms (1) **Closure**: u + v in V. (2) **Commutativity**: u + v = v + u. (3) **Associativity**: (u + v) + w = u + (v + w). (4) **Zero vector**: there exists 0 in V with v + 0 = v for all v. (5) **Additive inverse**: for each v in V, there exists -v in V with v + (-v) = 0. ### Scalar multiplication axioms (6) **Closure**: c · v in V. (7) **Distributivity over vector sum**: c · (u + v) = c · u + c · v. (8) **Distributivity over scalar sum**: (c + d) · v = c · v + d · v. (9) **Associativity**: c · (d · v) = (cd) · v. (10) **Unit**: 1 · v = v. ### Consequences (a) 0 · v = 0 (zero scalar gives zero vector). (b) c · 0 = 0 (zero vector scaled is still zero). (c) -v = (-1) · v. (d) If c · v = 0 then c = 0 or v = 0. (e) The zero vector is unique; the additive inverse is unique. ### Examples (i) **R^n** (n-tuples of reals) with component-wise addition and scalar multiplication: the canonical example. (ii) **C^n** (complex n-tuples). (iii) **Polynomials P_n** of degree <= n: real coefficients, addition and scalar multiplication coefficient-wise. (iv) **Continuous functions C[a, b]** on an interval: (f+g)(x) = f(x)+g(x); (cf)(x) = c f(x). (v) **m x n matrices M_{m,n}**: entry-wise operations. (vi) **Solutions of a homogeneous linear ODE** (e.g., y'' + y = 0 has solution space spanned by sin x, cos x). (vii) **Sequence spaces** l^p, l^infinity. ### Non-examples (a) The set of nonzero vectors in R^2 (no zero vector — fails axiom 4). (b) The set of polynomials with positive coefficients only (not closed under scalar multiplication by negative numbers). (c) R^n with \"addition\" defined as component-wise multiplication (no additive inverse in general).",
+      "topic": "ch09p2_vector_space_axioms",
+      "intent": "formula_recall",
+      "keywords": [
+        "vector space",
+        "axioms",
+        "closure",
+        "commutativity",
+        "associativity",
+        "distributivity",
+        "zero vector",
+        "additive inverse"
+      ]
+    },
+    {
+      "question": "What are common examples of vector spaces besides R^n?",
+      "answer": "### Function spaces (1) **C[a, b]**: continuous real-valued functions on [a, b]. Addition: (f + g)(x) = f(x) + g(x). Scalar mult: (cf)(x) = c f(x). Infinite-dimensional (basis requires infinitely many functions, e.g., polynomials are dense by Weierstrass). (2) **C^k[a, b]**: k-times continuously differentiable functions. A subspace of C[a, b]. (3) **L^2[a, b]**: square-integrable functions (Lebesgue). Inner product <f, g> = integral f g dx. Hilbert space. (4) **L^p** spaces (p >= 1): integrable functions with finite p-norm. Banach spaces. ### Polynomial spaces (5) **P_n**: polynomials of degree <= n (with real coefficients). Dimension n + 1 (basis: 1, x, x^2, ..., x^n). (6) **P** (all polynomials): countably infinite-dimensional (basis: {1, x, x^2, ...}). ### Sequence spaces (7) **l^2**: square-summable sequences {a_n} with sum |a_n|^2 < inf. Hilbert space with <a, b> = sum a_n b_n. (8) **l^infinity**: bounded sequences with sup norm. (9) **c_0**: sequences tending to 0. ### Matrix spaces (10) **M_{m, n}(F)**: m x n matrices, dimension m*n. (11) **Sym_n**: n x n symmetric matrices, dimension n(n+1)/2. (12) **Skew_n**: n x n skew-symmetric matrices, dimension n(n-1)/2. (13) **Upper triangular n x n**, dimension n(n+1)/2. ### Solution spaces (14) Solutions of a homogeneous linear system Ax = 0 (subspace of R^n). (15) Solutions of a homogeneous linear ODE y'' + p(x) y' + q(x) y = 0 (vector space of functions; dimension 2 by existence/uniqueness). (16) Solutions of a homogeneous linear PDE (e.g., harmonic functions form an infinite-dimensional space). ### Abstract algebraic (17) The field F itself as a 1-dimensional vector space over F. (18) C as a 2-dimensional vector space over R (basis {1, i}). (19) R as an infinite-dimensional vector space over Q (uncountable dimension — uses axiom of choice). ### Engineering/physics (20) State spaces in quantum mechanics (Hilbert space). (21) Configuration spaces (positions/velocities as vectors). (22) Signal spaces in signal processing (sampled signals in R^n, continuous signals in L^2). The unifying power of vector space theory: any of these settings supports the same operations (linear combinations, basis, dimension, linear transformations).",
+      "topic": "ch09p2_vector_space_examples",
+      "intent": "formula_recall",
+      "keywords": [
+        "function space",
+        "polynomial space",
+        "sequence space",
+        "matrix space",
+        "solution space",
+        "L^2",
+        "Hilbert space"
+      ]
+    },
+    {
+      "question": "What is a subspace and how do you apply the subspace test?",
+      "answer": "### Definition A subset W of a vector space V (over F) is a **subspace** of V if W is itself a vector space under the same operations as V (i.e., W is closed under addition and scalar multiplication, and contains the zero vector). ### Subspace test (three-condition version) W ⊆ V is a subspace iff: (1) **Zero vector**: 0 in W. (2) **Closed under addition**: u, v in W => u + v in W. (3) **Closed under scalar multiplication**: u in W, c in F => c u in W. ### Two-condition version (more compact) W is a subspace iff: (a) W is nonempty (equivalent to: 0 in W), AND (b) W is closed under linear combinations: u, v in W and c, d in F => c u + d v in W. (This combines addition and scalar mult into one statement.) ### Why the test works The vector space axioms (commutativity, associativity, distributivity, etc.) are INHERITED from V — they hold for all elements of V, hence for all elements of W ⊆ V. The only axioms that might fail in W are: closure under + and ·, and existence of 0 / additive inverses. But if W is closed under scalar multiplication by -1, then for any u in W, -u = (-1) u is in W (giving inverses); and 0 = 0 · u (or u + (-u)) is in W (giving the zero vector). So checking closure under + and · (plus nonemptiness) is sufficient. ### Examples (1) **Lines and planes through the origin** in R^3 are subspaces. (A line not through the origin, e.g., {(x, y, 1)}, is NOT a subspace.) (2) **Symmetric matrices**: a subspace of M_n. (3) **Diagonal matrices**: subspace of M_n (and of symmetric matrices). (4) **Upper triangular matrices**: subspace of M_n. (5) **Polynomials of degree <= k**: subspace of P (all polynomials). (6) **C^1[a, b]**: subspace of C[a, b]. (7) **Solutions of Ax = 0** (null space): subspace of R^n. ### Non-examples (a) The set of vectors in R^2 with x >= 0 (closed under + but not under scalar mult by negative). (b) The unit circle in R^2 (not closed under + or scalar mult). (c) The set of polynomials of degree EXACTLY n (not closed under +: x^n + (-x^n) = 0, which has degree -inf, not n). (d) The set of invertible matrices (not closed under +: I + (-I) = 0). (e) The set of integer vectors in R^n (closed under + but not under scalar mult by 1/2).",
+      "topic": "ch09p2_subspace_test",
+      "intent": "formula_recall",
+      "keywords": [
+        "subspace",
+        "subspace test",
+        "closed under addition",
+        "closed under scalar multiplication",
+        "zero vector",
+        "linear combination"
+      ]
+    },
+    {
+      "question": "What is the span of a set of vectors and how does it relate to subspaces?",
+      "answer": "### Definition The **span** of a set S = {v_1, v_2, ..., v_k} of vectors in a vector space V is the set of all linear combinations: span(S) = {c_1 v_1 + c_2 v_2 + ... + c_k v_k : c_i in F}. By convention, span(empty set) = {0} (the zero subspace). ### Properties (1) span(S) is always a SUBSPACE of V (closed under + and scalar mult: any two linear combinations sum to another linear combination, and any scalar multiple of a linear combination is a linear combination). (2) span(S) is the SMALLEST subspace containing S (any subspace containing S must contain all linear combinations of S, hence contains span(S)). (3) If W is a subspace and S ⊆ W, then span(S) ⊆ W. (4) span(span(S)) = span(S) (idempotent). (5) S is a **spanning set** for V if span(S) = V. ### Examples (1) In R^3: span({e_1, e_2, e_3}) = R^3 (standard basis spans). span({e_1, e_2}) = the xy-plane. span({(1, 1, 1)}) = the line through origin in direction (1, 1, 1). (2) In P_n (polynomials of degree <= n): span({1, x, x^2, ..., x^n}) = P_n (standard basis). (3) In C[a, b]: span({1, x, x^2, ...}) = P (all polynomials) — a countable-dim subspace of the uncountable-dim C[a, b]. (4) In M_{2x2}: span({[[1 0]; [0 0]], [[0 1]; [0 0]], [[0 0]; [1 0]], [[0 0]; [0 1]]}) = all 2x2 matrices. ### Geometric interpretation The span of k vectors is the \"generalized plane\" (k-dim subspace) through the origin that contains them. Span of 1 vector = a line; of 2 linearly independent vectors = a plane; of 3 (independent in R^3) = all of R^3. ### Testing if a vector is in a span To check if w in span({v_1, ..., v_k}), solve c_1 v_1 + ... + c_k v_k = w for the c_i. This is a linear system Ac = w (columns of A are the v_i). w is in the span iff the system is consistent (rank(A) = rank([A | w])). ### Relation to column space If A is a matrix with columns v_1, ..., v_k, then the column space of A is span({v_1, ..., v_k}). So \"column space\" = \"span of the columns\".",
+      "topic": "ch09p2_span_definition",
+      "intent": "formula_recall",
+      "keywords": [
+        "span",
+        "linear combination",
+        "smallest subspace",
+        "spanning set",
+        "column space"
+      ]
+    },
+    {
+      "question": "What are linear combinations and how do you express a vector as a linear combination of others?",
+      "answer": "### Definition A **linear combination** of vectors v_1, v_2, ..., v_k in V is any vector of the form c_1 v_1 + c_2 v_2 + ... + c_k v_k where c_1, ..., c_k are scalars in F. The c_i are the **coefficients** of the linear combination. ### Examples (1) In R^3: 2(1, 0, 0) + 3(0, 1, 0) - 1(0, 0, 1) = (2, 3, -1). (2) In P_2: 3 + 2x - x^2 = 3(1) + 2(x) - 1(x^2), a linear combination of {1, x, x^2} with coefficients 3, 2, -1. (3) In C[a, b]: 2 sin(x) + 3 cos(x) is a linear combination of {sin x, cos x}. ### Expressing one vector as a linear combination of others To write w as a linear combination of v_1, ..., v_k: solve the system c_1 v_1 + ... + c_k v_k = w for the unknowns c_1, ..., c_k. This is equivalent to solving the matrix equation A c = w where A has columns v_1, ..., v_k. ### Procedure (1) Form the augmented matrix [v_1 | v_2 | ... | v_k | w] (each v_i and w as a column). (2) Reduce to RREF. (3) If consistent: read off the unique coefficients (if unique solution) or a parametric family (if infinitely many). (4) If inconsistent: w is NOT in span({v_1, ..., v_k}). ### Worked example Express w = (1, 2, 3) as a linear combination of v_1 = (1, 1, 0), v_2 = (0, 1, 1), v_3 = (1, 0, 1). Set up: c_1 (1, 1, 0) + c_2 (0, 1, 1) + c_3 (1, 0, 1) = (1, 2, 3). Component-wise: c_1 + c_3 = 1; c_1 + c_2 = 2; c_2 + c_3 = 3. Solve: from eqn 1, c_3 = 1 - c_1. From eqn 2, c_2 = 2 - c_1. Substitute into eqn 3: (2 - c_1) + (1 - c_1) = 3 => 3 - 2 c_1 = 3 => c_1 = 0. Then c_2 = 2, c_3 = 1. Check: 0*(1,1,0) + 2*(0,1,1) + 1*(1,0,1) = (0, 0, 0) + (0, 2, 2) + (1, 0, 1) = (1, 2, 3) ✓. ### Affine combination If the coefficients sum to 1 (sum c_i = 1), the linear combination is an **affine** combination (used in convex geometry: convex combination has c_i >= 0 and sum = 1). Affine combinations span affine subspaces (which may not pass through the origin). ### Conic and other generalizations Linear combinations generalize to conic combinations (c_i >= 0), convex combinations (c_i >= 0, sum = 1), and affine combinations (sum = 1). These restrictions define cones, convex hulls, and affine hulls respectively — fundamental in optimization.",
+      "topic": "ch09p2_linear_combination",
+      "intent": "formula_recall",
+      "keywords": [
+        "linear combination",
+        "coefficients",
+        "augmented matrix",
+        "affine combination",
+        "convex combination"
+      ]
+    },
+    {
+      "question": "What is the standard basis and what are some other common bases of R^n?",
+      "answer": "### Standard basis of R^n The **standard basis** (or natural basis) of R^n is e_1 = (1, 0, 0, ..., 0), e_2 = (0, 1, 0, ..., 0), ..., e_n = (0, 0, ..., 0, 1). Properties: (1) Orthonormal: e_i . e_j = delta_{ij} (dot product = Kronecker delta). (2) Spanning: any vector x = (x_1, ..., x_n) = sum x_i e_i (coordinates are the components). (3) Linearly independent (no e_i is a combination of the others). (4) Forms the identity matrix I_n when stacked as rows or columns. ### Other common bases of R^n (1) **Rescaled standard basis**: {a_1 e_1, a_2 e_2, ..., a_n e_n} for nonzero a_i — orthogonal but not orthonormal (if a_i != 1). (2) **Rotated basis**: {Q e_1, Q e_2, ..., Q e_n} where Q is orthogonal — gives another orthonormal basis (e.g., rotated axes in R^2). (3) **Fourier basis** (for R^n with periodic interpretation): {(1, 1, ..., 1)/sqrt(n), (1, omega, omega^2, ..., omega^{n-1})/sqrt(n), ...} where omega = e^{2 pi i / n} — discrete Fourier transform basis (orthonormal in C^n with Hermitian inner product). (4) **Polynomial evaluation basis**: columns of a Vandermonde matrix at distinct points x_1, ..., x_n form a basis (used in polynomial interpolation). (5) **Haar wavelet basis** in R^n (for n a power of 2): step functions with localized support; useful in signal processing. ### Common bases in other spaces (a) **P_n**: standard basis {1, x, x^2, ..., x^n}. Alternative: **Legendre polynomials** {P_0, P_1, ..., P_n} (orthogonal on [-1, 1] with weight 1). **Chebyshev polynomials** {T_0, T_1, ..., T_n} (orthogonal on [-1, 1] with weight 1/sqrt(1-x^2); excellent for polynomial interpolation). **Lagrange polynomials** {L_i(x) = prod_{j != i} (x - x_j)/(x_i - x_j)} for distinct nodes x_i (each L_i is 1 at x_i and 0 at other nodes; great for interpolation). **Newton basis** {1, (x-x_1), (x-x_1)(x-x_2), ...} (gives Newton's divided-difference form of interpolating polynomial). (b) **C[0, 2pi]**: trigonometric basis {1, cos x, sin x, cos 2x, sin 2x, ...} (orthogonal; used in Fourier series). (c) **L^2(R)**: Haar wavelets, or (continuous) Hermite functions (eigenfunctions of quantum harmonic oscillator). ### Coordinates The coordinates of v relative to a basis B = {b_1, ..., b_n} are the unique scalars [v]_B = (c_1, ..., c_n)^T such that v = sum c_i b_i. The standard basis gives [v]_E = v itself (the components are the coordinates).",
+      "topic": "ch09p2_standard_basis",
+      "intent": "formula_recall",
+      "keywords": [
+        "standard basis",
+        "natural basis",
+        "orthonormal",
+        "Fourier basis",
+        "Legendre",
+        "Chebyshev",
+        "Lagrange",
+        "coordinates"
+      ]
+    },
+    {
+      "question": "How is the vector space of polynomials P_n structured?",
+      "answer": "### Definition P_n = {polynomials p(x) = a_0 + a_1 x + a_2 x^2 + ... + a_n x^n with coefficients a_i in F} is a vector space over F (typically R or C) under coefficient-wise addition and scalar multiplication: (p + q)(x) = p(x) + q(x); (cp)(x) = c * p(x). ### Dimension dim(P_n) = n + 1, with standard basis {1, x, x^2, ..., x^n}. ### Other bases (1) **Falling factorial basis**: {1, x, x(x-1), x(x-1)(x-2), ..., x^{(n)}} where x^{(k)} = x(x-1)...(x-k+1) is the falling factorial. Useful in finite differences and combinatorics: Delta x^{(k)} = k x^{(k-1)} (analogous to d/dx x^k = k x^{k-1}). (2) **Bernstein basis**: {B_{k,n}(x) = C(n,k) x^k (1-x)^{n-k} : k = 0, ..., n}. Used in Bezier curves and computer-aided geometric design. Each B_{k,n} is nonneg on [0, 1] and sum B_{k,n} = 1 (a \"partition of unity\"). (3) **Legendre basis**: {P_0, P_1, ..., P_n} where P_k is the k-th Legendre polynomial (orthogonal on [-1, 1] with weight 1). P_0 = 1, P_1 = x, P_2 = (3x^2-1)/2, etc. (4) **Chebyshev basis**: {T_0, T_1, ..., T_n} with T_k(x) = cos(k arccos x). Orthogonal on [-1, 1] with weight 1/sqrt(1-x^2). Minimizes the maximum interpolation error (minimax property). (5) **Lagrange basis** (depends on nodes x_0, ..., x_n): {L_k(x) = prod_{j != k} (x - x_j)/(x_k - x_j)}. Each L_k is 1 at x_k and 0 at other nodes — useful for interpolation. (6) **Newton basis** (depends on nodes x_0, ..., x_n): {1, (x - x_0), (x - x_0)(x - x_1), ...}. Allows efficient incremental interpolation (adding a new node requires only one new term). ### Relation to function space P_n is a subspace of C^infinity (smooth functions), and also of P_{n+1}, P_{n+2}, etc. The union P = union_n P_n (all polynomials) is an infinite-dimensional space. By Weierstrass approximation, P is DENSE in C[a, b] (any continuous function on a closed interval can be uniformly approximated by polynomials) — this is the theoretical basis for polynomial approximation in numerical analysis. ### Linear operators on P_n (1) Differentiation D: P_n -> P_{n-1}, Dp = p'. Lowers degree by 1. In standard basis, D = [[0 1 0 ... 0]; [0 0 2 ... 0]; ...; [0 0 0 ... n]; [0 0 0 ... 0]] (an (n+1) x (n+1) matrix sending 1 -> 0, x -> 1, x^2 -> 2x, etc.). D is nilpotent: D^{n+1} = 0. (2) Integration J: P_n -> P_{n+1}, Jp = integral_0^x p(t) dt. Raises degree by 1. (3) Evaluation E_a: P_n -> F, E_a(p) = p(a). A linear functional. (4) Shift T_a: P_n -> P_n, T_a p(x) = p(x + a).",
+      "topic": "ch09p2_polynomial_space",
+      "intent": "formula_recall",
+      "keywords": [
+        "polynomial space",
+        "P_n",
+        "Bernstein basis",
+        "Legendre",
+        "Chebyshev",
+        "Lagrange",
+        "Newton basis",
+        "Bezier",
+        "differentiation operator"
+      ]
+    },
+    {
+      "question": "What does it mean for vectors to be linearly independent, and how do you test it?",
+      "answer": "### Definition A set S = {v_1, ..., v_k} of vectors in V is **linearly independent** (LI) if the only linear combination c_1 v_1 + ... + c_k v_k = 0 is the trivial one (c_1 = c_2 = ... = c_k = 0). Equivalently: no v_i can be written as a linear combination of the others. If a nontrivial combination equals 0, the set is **linearly dependent** (LD). ### Test for vectors in R^n Form the matrix A with columns v_1, ..., v_k (an n x k matrix). The vectors are LI iff rank(A) = k (full column rank) iff the homogeneous system A c = 0 has only the trivial solution c = 0. For k = n (square A), this is equivalent to det(A) != 0. ### Worked example Are v_1 = (1, 2, 3), v_2 = (0, 1, 4), v_3 = (5, 6, 0) LI? Form A = [[1 0 5]; [2 1 6]; [3 4 0]]. Compute det: 1*(1*0 - 6*4) - 0 + 5*(2*4 - 1*3) = -24 + 5*5 = -24 + 25 = 1 != 0. So LI. ### Tests in other spaces (1) **Polynomials**: {p_1, ..., p_k} in P_n are LI iff the matrix of their coefficients (in some basis, e.g., standard {1, x, ..., x^n}) has rank k. (2) **Functions**: {f_1, ..., f_k} in C[a, b] are LI iff the only c_1, ..., c_k with c_1 f_1(x) + ... + c_k f_k(x) = 0 for ALL x in [a, b] is c_i = 0 for all. Hard to test directly; use the Wronskian (see separate question). ### Properties (1) Any set containing 0 is LD (e.g., 1 * 0 = 0 nontrivially). (2) A single vector v is LI iff v != 0. (3) Two vectors are LD iff one is a scalar multiple of the other. (4) If k > n in R^n, the set is LD (more vectors than dimension). (5) A subset of an LI set is LI; a superset of an LD set is LD. (6) An LI set in an n-dimensional space has at most n vectors. ### Geometric interpretation LI vectors \"point in independent directions\" — none lies in the span of the others. k LI vectors in R^n span a k-dimensional subspace. ### Why it matters Linear independence is the key property distinguishing a basis from a mere spanning set: a basis is a LI spanning set. Coefficients in a linear combination relative to a basis are UNIQUE (this is the foundation of coordinates).",
+      "topic": "ch09p2_linear_independence",
+      "intent": "formula_recall",
+      "keywords": [
+        "linear independence",
+        "LI",
+        "linear dependence",
+        "rank test",
+        "determinant test",
+        "unique representation"
+      ]
+    },
+    {
+      "question": "What is the Wronskian and how is it used to test linear independence of functions?",
+      "answer": "### Definition For k smooth functions f_1, ..., f_k in C^{k-1}[a, b], the **Wronskian** is the determinant W(f_1, ..., f_k)(x) = det [[f_1(x) f_2(x) ... f_k(x)]; [f_1'(x) f_2'(x) ... f_k'(x)]; ...; [f_1^{(k-1)}(x) ... f_k^{(k-1)}(x)]]. It is a function of x. ### Wronskian test (sufficient condition for LI) If W(f_1, ..., f_k)(x_0) != 0 for SOME x_0 in [a, b], then {f_1, ..., f_k} are linearly independent on [a, b]. ### Important caveat The converse is FALSE in general: W = 0 everywhere does NOT imply linear dependence (for arbitrary smooth functions). Counterexample: f_1(x) = x^2, f_2(x) = x |x| on [-1, 1]. Both are C^1, W = 0 everywhere, but they are LI. However, the converse DOES hold in special cases: (a) For functions satisfying a linear ODE y''' + p(x) y'' + q(x) y' + r(x) y = 0 with continuous coefficients on [a, b], the Wronskian satisfies Abel's identity W(x) = W(x_0) exp(-integral p), so W is either identically 0 or never 0. In this case, W != 0 somewhere iff the functions are LI (they form a \"fundamental set\" of solutions). (b) For analytic functions (real power series), W = 0 identically does imply LD. ### Worked example Test {e^x, e^{2x}, e^{3x}} for LI. W = det [[e^x e^{2x} e^{3x}]; [e^x 2e^{2x} 3e^{3x}]; [e^x 4e^{2x} 9e^{3x}]] = e^x e^{2x} e^{3x} det [[1 1 1]; [1 2 3]; [1 4 9]] = e^{6x} * (Vandermonde with nodes 1, 2, 3) = e^{6x} * (2-1)(3-1)(3-2) = 2 e^{6x} != 0. So LI. (Indeed, these are solutions of y''' - 6y'' + 11y' - 6y = 0, characteristic roots 1, 2, 3.) ### Abel's identity For solutions y_1, y_2 of y'' + p(x) y' + q(x) y = 0, W(y_1, y_2)(x) = W(y_1, y_2)(x_0) exp(-integral_{x_0}^x p(t) dt). So W is either identically 0 (if y_1, y_2 LD) or never 0 (if LI). This is the theoretical basis for the Wronskian test for second-order ODEs. ### Limitations For C^infinity functions that are not analytic, the Wronskian can vanish identically even for LI functions (Peano's example). Modern approaches use other methods (e.g., evaluating at many points, or converting to a vector-valued ODE).",
+      "topic": "ch09p2_wronskian",
+      "intent": "formula_recall",
+      "keywords": [
+        "Wronskian",
+        "linear independence functions",
+        "Abel's identity",
+        "fundamental set",
+        "analytic functions"
+      ]
+    },
+    {
+      "question": "What is a basis of a vector space and what is its dimension?",
+      "answer": "### Basis A set B = {b_1, b_2, ..., b_n} of vectors in V is a **basis** of V if: (1) B **spans** V: every v in V can be written as v = sum c_i b_i for some scalars c_i. (2) B is **linearly independent**: the representation v = sum c_i b_i is UNIQUE. ### Equivalently B is a maximal linearly independent set, or B is a minimal spanning set. ### Dimension The **dimension** of V, denoted dim(V), is the number of vectors in any basis. The dimension is well-defined because: ### Theorem (dimension is well-defined) Any two bases of V have the same number of vectors. Proof sketch: if B_1 has m vectors and B_2 has n vectors with m < n, then since B_1 spans V, every vector of B_2 is a linear combination of B_1, so B_2 has at most m LI vectors (Steinitz exchange / replacement theorem) — contradiction. Hence m = n. ### Finite vs infinite dimensional V is **finite-dimensional** if it has a finite basis; otherwise **infinite-dimensional**. (a) R^n: dim = n. (b) P_n: dim = n + 1. (c) M_{m,n}: dim = m*n. (d) Sym_n (n x n symmetric): dim = n(n+1)/2. (e) C[a, b]: infinite-dimensional. (f) l^2: infinite-dimensional (countable basis). ### Coordinates If B = {b_1, ..., b_n} is a basis of V, every v in V has a UNIQUE representation v = c_1 b_1 + ... + c_n b_n. The column vector [v]_B = (c_1, ..., c_n)^T is the **coordinate vector** of v relative to B. This sets up an isomorphism V -> F^n (preserving + and ·). ### Examples (1) Standard basis of R^n: e_1, ..., e_n; [x]_E = (x_1, ..., x_n) (the components themselves). (2) Basis {1, x, x^2} of P_2: [a + b x + c x^2] = (a, b, c)^T. (3) Basis {(1, 1), (1, -1)} of R^2: [(3, 5)]_{B} solves c_1 (1,1) + c_2 (1,-1) = (3, 5) => c_1 + c_2 = 3, c_1 - c_2 = 5 => c_1 = 4, c_2 = -1. So [(3,5)]_B = (4, -1)^T. ### Existence of bases For finite-dimensional V: bases always exist (start with empty set, add LI vectors until spanning — terminates since dim is finite). For infinite-dimensional V (Zorn's lemma): every vector space has a basis (possibly uncountable). The proof uses the Axiom of Choice; explicit bases are usually impossible to construct.",
+      "topic": "ch09p2_basis_dimension",
+      "intent": "formula_recall",
+      "keywords": [
+        "basis",
+        "dimension",
+        "well-defined",
+        "finite dimensional",
+        "infinite dimensional",
+        "coordinates",
+        "Steinitz exchange"
+      ]
+    },
+    {
+      "question": "What is the dimension theorem (rank-nullity) for linear maps?",
+      "answer": "### Theorem (rank-nullity) If T : V -> W is a linear transformation with V finite-dimensional, then dim(V) = dim(ker T) + dim(im T) = nullity(T) + rank(T). ### Definitions (1) **Kernel (null space)**: ker(T) = {v in V : T(v) = 0}. A subspace of V. Its dimension is the **nullity** of T. (2) **Image (range)**: im(T) = {T(v) : v in V} = T(V). A subspace of W. Its dimension is the **rank** of T. ### Proof sketch Let {u_1, ..., u_k} be a basis of ker(T) (k = nullity). Extend to a basis {u_1, ..., u_k, v_1, ..., v_r} of V (so k + r = dim V, using the basis extension theorem). Claim: {T(v_1), ..., T(v_r)} is a basis of im(T). (a) Spans: any T(v) for v in V can be written v = sum a_i u_i + sum b_j v_j (basis expansion), so T(v) = sum a_i T(u_i) + sum b_j T(v_j) = sum b_j T(v_j) (since T(u_i) = 0). So {T(v_j)} spans im(T). (b) LI: if sum c_j T(v_j) = 0, then T(sum c_j v_j) = 0, so sum c_j v_j is in ker(T), so sum c_j v_j = sum d_i u_i for some d_i. But {u_i, v_j} is LI, so all c_j = 0 (and d_i = 0). So dim(im T) = r, and dim V = k + r = nullity + rank. ### For matrices If A is m x n, viewing A : R^n -> R^m (linear map x -> Ax), the theorem becomes: **n = nullity(A) + rank(A)**, where rank(A) = dim(column space) = rank of A as a matrix, and nullity(A) = dim(null space of A) = n - rank(A). ### Consequences (1) If dim V = dim W and T is injective (ker = 0), then T is also surjective (rank = dim V = dim W => im T = W), hence T is an isomorphism. (2) An n x n matrix A is invertible iff ker(A) = {0} (nullity 0) iff rank(A) = n. (3) The number of free variables in Ax = b equals nullity(A) = n - rank(A). (4) For homogeneous Ax = 0 with m < n: rank <= m < n, so nullity >= n - m > 0; nontrivial solutions always exist. ### Worked example A is 4x5 with rank 3. Then nullity = 5 - 3 = 2: the null space of A is 2-dimensional (the equation Ax = 0 has 2 free parameters).",
+      "topic": "ch09p2_rank_nullity_theorem",
+      "intent": "formula_recall",
+      "keywords": [
+        "rank-nullity",
+        "dimension theorem",
+        "kernel",
+        "image",
+        "nullity",
+        "rank",
+        "basis extension"
+      ]
+    },
+    {
+      "question": "What is the relationship between basis extension and the replacement (Steinitz) theorem?",
+      "answer": "### Basis extension theorem If S = {v_1, ..., v_k} is a linearly independent set in a finite-dimensional vector space V (with dim V = n), then S can be extended to a basis of V by adding n - k vectors. ### Construction Start with S. If span(S) != V, pick v_{k+1} not in span(S) (so {v_1, ..., v_{k+1}} is still LI). Repeat until the set spans V; this happens after adding n - k vectors. ### Steinitz exchange (replacement) theorem If {u_1, ..., u_m} is LI and {v_1, ..., v_n} spans V (so n >= m), then we can replace m of the v's with the u's: there's a reordering of v_1, ..., v_n such that {u_1, ..., u_m, v_{m+1}, ..., v_n} also spans V. ### Consequence (dimension is well-defined) Apply Steinitz twice: if {u_1, ..., u_m} and {v_1, ..., v_n} are both bases of V, then m <= n (exchange u's into the v spanning set, can't have more u's than v's) and n <= m (symmetric). Hence m = n: any two bases have the same size, defining dim(V). ### Examples (1) In R^3, the LI set {(1, 0, 0)} can be extended to a basis by adding (0, 1, 0) and (0, 0, 1) (the standard basis). Or by adding (1, 1, 0) and (1, 1, 1) — many extensions possible. (2) In P_2 (dim 3), the LI set {1, x} can be extended by adding x^2. ### Why it matters (a) **Existence of bases**: any LI set can be extended, so bases exist for any finite-dim V. (b) **Dimension is well-defined**: the exchange theorem is the key tool. (c) **Subspace dimension**: if W is a subspace of finite-dim V, then dim(W) <= dim(V), and any basis of W can be extended to a basis of V. (d) **Complement subspace**: for any subspace W of V, there exists a complementary subspace U with V = W ⊕ U and dim W + dim U = dim V. ### Infinite-dimensional version In infinite dimensions, the analogous statements hold (using Zorn's lemma): any LI set can be extended to a basis; any two bases have the same cardinality (dimension as a cardinal number).",
+      "topic": "ch09p2_basis_extension_steinitz",
+      "intent": "formula_recall",
+      "keywords": [
+        "basis extension",
+        "Steinitz exchange",
+        "replacement theorem",
+        "dimension well-defined",
+        "complement subspace"
+      ]
+    },
+    {
+      "question": "How do you compute the coordinates of a vector relative to a non-standard basis?",
+      "answer": "### Setup Let B = {b_1, ..., b_n} be a basis of V (not necessarily the standard basis). For any v in V, the **coordinates** [v]_B = (c_1, ..., c_n)^T are the unique scalars with v = c_1 b_1 + ... + c_n b_n. ### In R^n: change-of-coordinates matrix Form the matrix P_B = [b_1 | b_2 | ... | b_n] (columns are the basis vectors in the standard basis). Then v = P_B [v]_B, so [v]_B = P_B^{-1} v. P_B is called the **change-of-coordinates matrix** (from B-coordinates to standard coordinates); P_B^{-1} converts standard to B-coordinates. ### Worked example Let B = {(1, 1), (1, -1)} (a basis of R^2). Find [v]_B for v = (3, 5). P_B = [[1 1]; [1 -1]]. det = -2. P_B^{-1} = (-1/2) [[-1 -1]; [-1 1]] = (1/2) [[1 1]; [1 -1]]. [v]_B = P_B^{-1} [3; 5] = (1/2) [[1 1]; [1 -1]] [3; 5] = (1/2) [8; -2] = [4; -1]. Check: 4 (1, 1) + (-1) (1, -1) = (4, 4) + (-1, 1) = (3, 5) ✓. ### Change of basis (between two non-standard bases) If B_1 and B_2 are two bases, the **change-of-basis matrix** from B_1 to B_2 is P_{B_2 <- B_1} = P_{B_2}^{-1} P_{B_1}. Then [v]_{B_2} = P_{B_2 <- B_1} [v]_{B_1}. ### Properties (1) P_{B <- B} = I (identity). (2) P_{B_3 <- B_1} = P_{B_3 <- B_2} * P_{B_2 <- B_1} (composition). (3) P_{B_1 <- B_2} = (P_{B_2 <- B_1})^{-1}. (4) If both bases are orthonormal, the change-of-basis matrix is orthogonal: P^{-1} = P^T (just transpose, no inverse computation needed). ### Worked change of basis B_1 = {(1, 0), (0, 1)} (standard), B_2 = {(1, 1), (1, -1)}. P_{B_2 <- B_1} = P_{B_2}^{-1} P_{B_1} = P_{B_2}^{-1} = (1/2) [[1 1]; [1 -1]] (computed above). So [v]_{B_2} = (1/2) [[1 1]; [1 -1]] [v]_{B_1} = (1/2) [v_1 + v_2; v_1 - v_2]. For v = (3, 5): (1/2) [8; -2] = [4; -1] ✓ (same as before). ### Coordinates in P_n For p(x) = a_0 + a_1 x + ... + a_n x^n in standard basis {1, x, ..., x^n}, [p]_std = (a_0, ..., a_n)^T. In Bernstein basis {B_{k,n} = C(n,k) x^k (1-x)^{n-k}}, the coordinates are different; conversion uses the Bernstein-Bezier conversion formulas. In Legendre basis {P_k}, the coefficients are obtained by projection: c_k = <p, P_k> / <P_k, P_k> = (2k+1)/2 integral_{-1}^1 p(x) P_k(x) dx.",
+      "topic": "ch09p2_coordinates_change_of_basis",
+      "intent": "how_to",
+      "keywords": [
+        "coordinates",
+        "change of basis matrix",
+        "P_B^{-1}",
+        "orthogonal basis",
+        "Bernstein",
+        "Legendre"
+      ]
+    },
+    {
+      "question": "How do you determine the dimension of a subspace of a matrix space (e.g., symmetric, skew-symmetric)?",
+      "answer": "### Strategy for matrix subspaces Find a basis by parametrizing the constraint defining the subspace, then count the free parameters. ### Symmetric matrices Sym_n = {A in M_n : A^T = A}. Constraint: a_{ij} = a_{ji}. Free parameters: diagonal entries a_{ii} (i = 1..n): n parameters. Off-diagonal entries a_{ij} for i < j (one per pair): C(n, 2) = n(n-1)/2 parameters. Total: n + n(n-1)/2 = n(n+1)/2. So dim(Sym_n) = n(n+1)/2. ### Skew-symmetric matrices Skew_n = {A : A^T = -A}. Constraint: a_{ij} = -a_{ji} (so a_{ii} = 0 forced). Free parameters: a_{ij} for i < j: n(n-1)/2. Total: n(n-1)/2. So dim(Skew_n) = n(n-1)/2. ### Diagonal matrices Diag_n = {A : a_{ij} = 0 for i != j}. Free parameters: a_{ii} (n of them). dim = n. ### Upper triangular UT_n = {A : a_{ij} = 0 for i > j}. Free parameters: a_{ij} for i <= j: n + (n-1) + ... + 1 = n(n+1)/2. dim = n(n+1)/2. (Same as Sym_n — coincidental, not isomorphic.) ### Lower triangular Same as UT_n: dim = n(n+1)/2. ### Strictly upper triangular (zero diagonal) i < j only: (n-1) + (n-2) + ... + 1 = n(n-1)/2. dim = n(n-1)/2 (same as Skew_n). ### Tridiagonal matrices a_{ij} = 0 for |i - j| > 1. Free: main diagonal (n) + first superdiagonal (n-1) + first subdiagonal (n-1). Total: 3n - 2. ### Trace-zero matrices {A : tr(A) = 0}. Constraint: sum a_{ii} = 0 (one linear equation). dim = n^2 - 1. ### Invertible matrices NOT a subspace! (0 is not invertible.) So \"dimension\" doesn't apply. ### General principle For a matrix subspace defined by k independent linear constraints on n^2 entries, dim = n^2 - k. ### Decomposition theorem Any A in M_n decomposes uniquely as A = S + K where S = (A + A^T)/2 is symmetric and K = (A - A^T)/2 is skew-symmetric. So M_n = Sym_n ⊕ Skew_n (direct sum), and dim(M_n) = n^2 = n(n+1)/2 + n(n-1)/2 = n^2 ✓.",
+      "topic": "ch09p2_matrix_subspace_dimensions",
+      "intent": "problem_solving",
+      "keywords": [
+        "symmetric matrices",
+        "skew-symmetric",
+        "dimension",
+        "matrix subspace",
+        "triangular",
+        "tridiagonal",
+        "direct sum decomposition"
+      ]
+    },
+    {
+      "question": "What are the four fundamental subspaces associated with a matrix?",
+      "answer": "For an m x n matrix A (over R), there are **four fundamental subspaces**: (1) **Column space** Col(A) = span of the columns of A = {A x : x in R^n} = im(A) (image of the linear map x -> A x). Subspace of R^m. dim = rank(A). (2) **Row space** Row(A) = span of the rows of A = Col(A^T). Subspace of R^n. dim = rank(A) (same as column rank). (3) **Null space** N(A) = {x in R^n : A x = 0} = ker(A) (kernel). Subspace of R^n. dim = n - rank(A) (nullity). (4) **Left null space** N(A^T) = {y in R^m : A^T y = 0} = {y : y^T A = 0}. Subspace of R^m. dim = m - rank(A). ### Dimensional bookkeeping dim Col(A) + dim N(A^T) = rank(A) + (m - rank(A)) = m (both subspaces of R^m). dim Row(A) + dim N(A) = rank(A) + (n - rank(A)) = n (both subspaces of R^n). ### Fundamental Theorem of Linear Algebra (Strang) Part 1 (dimensions): dim Row(A) = dim Col(A) = rank(A); dim N(A) = n - rank(A); dim N(A^T) = m - rank(A). Part 2 (orthogonality): Row(A) ⊥ N(A) (the row space and null space are orthogonal complements in R^n). Col(A) ⊥ N(A^T) (the column space and left null space are orthogonal complements in R^m). ### Orthogonal complement If W is a subspace of V, its orthogonal complement is W^perp = {v in V : v . w = 0 for all w in W}. For matrices: Row(A)^perp = N(A) and Col(A)^perp = N(A^T). So R^n = Row(A) ⊕ N(A) (direct sum of orthogonal complements), and R^m = Col(A) ⊕ N(A^T). ### Why it matters (a) **Solvability of Ax = b**: b is in Col(A) iff Ax = b has a solution. Geometrically: b must be in the column space. (b) **Uniqueness**: if Ax = b has a solution, it's unique iff N(A) = {0} (no null space). (c) **Least squares**: when Ax = b has no solution, find x minimizing ||Ax - b||; the residual b - Ax is in N(A^T) (orthogonal to Col(A)). (d) **Pseudoinverse**: A^+ maps Col(A) back to Row(A), and annihilates N(A^T). ### Worked example A = [[1 2 3]; [2 4 6]] (rank 1). Col(A) = span{(1, 2)} in R^2 (1-dim line). Row(A) = span{(1, 2, 3)} in R^3 (1-dim line). N(A) = {(x, y, z) : x + 2y + 3z = 0} = 2-dim plane in R^3 (perpendicular to (1, 2, 3)). N(A^T) = {(u, v) : u + 2v = 0} = 1-dim line in R^2 (perpendicular to (1, 2)). Check: 1 + 2 = 3 (dim in R^3: Row + N = 1 + 2 ✓); 1 + 1 = 2 (dim in R^2: Col + N(A^T) = 1 + 1 ✓).",
+      "topic": "ch09p2_four_fundamental_subspaces",
+      "intent": "formula_recall",
+      "keywords": [
+        "four fundamental subspaces",
+        "column space",
+        "row space",
+        "null space",
+        "left null space",
+        "orthogonal complement",
+        "Strang"
+      ]
+    },
+    {
+      "question": "How do you find bases for the column space, row space, and null space of a matrix?",
+      "answer": "### Procedure (via RREF) Reduce A to RREF R. Identify pivot columns. ### Column space basis The pivot columns of the ORIGINAL matrix A (NOT of R) form a basis for Col(A). (The pivot columns of R also form a basis for Col(R) = Col(A) transformed, but they're NOT the same vectors as those in A — only the original A's pivot columns are in Col(A).) ### Row space basis The nonzero rows of R (the RREF of A) form a basis for Row(A). (Row operations preserve the row space; the nonzero rows of R are LI by echelon structure.) Alternatively, the nonzero rows of A itself do NOT form a basis in general (they may be LD); use R. ### Null space basis Solve Ax = 0 via RREF. For each FREE variable (non-pivot column), set that variable = 1, others = 0, and back-substitute to find the basic variables. Each free variable gives a basis vector. Number of free variables = n - rank = nullity. ### Left null space basis Solve A^T y = 0 (i.e., find null space of A^T). Alternatively, track the row operations used to reduce A to R: if E is the product of elementary matrices with E A = R, then the rows of E corresponding to zero rows of R form a basis for N(A^T). ### Worked example A = [[1 2 3 4]; [2 4 6 8]; [1 1 1 1]] (3x4). Reduce: R2 - 2R1, R3 - R1: [[1 2 3 4]; [0 0 0 0]; [0 -1 -2 -3]]. Swap R2, R3 and negate: [[1 2 3 4]; [0 1 2 3]; [0 0 0 0]]. R1 - 2R2: [[1 0 -1 -2]; [0 1 2 3]; [0 0 0 0]]. RREF done; pivot cols 1, 2; rank = 2. ### Bases Col(A): pivot cols of A = columns 1, 2 = {(1, 2, 1)^T, (2, 4, 1)^T} (2-dim subspace of R^3). Row(A): nonzero rows of R = {(1, 0, -1, -2), (0, 1, 2, 3)} (2-dim subspace of R^4). N(A): free vars x_3, x_4. Set x_3 = 1, x_4 = 0: x_1 = 1, x_2 = -2 -> v_1 = (1, -2, 1, 0). Set x_3 = 0, x_4 = 1: x_1 = 2, x_2 = -3 -> v_2 = (2, -3, 0, 1). Basis: {v_1, v_2} (2-dim subspace of R^4). N(A^T): solve A^T y = 0 where A^T = [[1 2 1]; [2 4 1]; [3 6 1]; [4 8 1]] (4x3). y in R^3, equations: y_1 + 2 y_2 + y_3 = 0 (twice, from rows 1, 2); 3 y_1 + 6 y_2 + y_3 = 0; 4 y_1 + 8 y_2 + y_3 = 0. From eqn 1: y_3 = -y_1 - 2 y_2. Substitute into eqn 3: 3 y_1 + 6 y_2 - y_1 - 2 y_2 = 0 => 2 y_1 + 4 y_2 = 0 => y_1 = -2 y_2. Then y_3 = 2 y_2 - 2 y_2 = 0. So y = (-2 y_2, y_2, 0) = y_2 (-2, 1, 0). Basis: {(-2, 1, 0)} (1-dim subspace of R^3). Check dim: m - rank = 3 - 2 = 1 ✓.",
+      "topic": "ch09p2_basis_fundamental_subspaces",
+      "intent": "how_to",
+      "keywords": [
+        "basis column space",
+        "basis row space",
+        "basis null space",
+        "pivot columns",
+        "free variables",
+        "RREF"
+      ]
+    },
+    {
+      "question": "What is the orthogonal complement of a subspace and what are its properties?",
+      "answer": "### Definition For a subspace W of an inner product space V (e.g., R^n with dot product), the **orthogonal complement** of W is W^perp = {v in V : <v, w> = 0 for all w in W}. Read: \"all vectors orthogonal to every vector in W\". ### Properties (1) W^perp is a subspace of V (closed under + and scalar mult). (2) W ∩ W^perp = {0} (a vector orthogonal to itself has norm 0). (3) **Direct sum decomposition**: V = W ⊕ W^perp (every v in V can be uniquely written as v = w + w' with w in W, w' in W^perp). This gives dim W + dim W^perp = dim V. (4) (W^perp)^perp = W (for finite-dim V). (5) If W_1 ⊆ W_2 then W_2^perp ⊆ W_1^perp. (6) (W_1 + W_2)^perp = W_1^perp ∩ W_2^perp. (7) (W_1 ∩ W_2)^perp = W_1^perp + W_2^perp. ### Computation If W = span({w_1, ..., w_k}), then W^perp = {v : v . w_i = 0 for all i} = null space of the matrix A with rows w_1, ..., w_k. So W^perp = N(A) where A = [w_1; w_2; ...; w_k] (k x n). ### Fundamental subspaces connection For any m x n matrix A: Row(A)^perp = N(A) (vectors orthogonal to all rows = null space). Col(A)^perp = N(A^T) (vectors orthogonal to all columns = left null space). These are the orthogonal complement relations in the Fundamental Theorem of Linear Algebra. ### Projection theorem For any v in V and subspace W: there exists a UNIQUE w* in W minimizing ||v - w|| over w in W. The minimizer w* is the **orthogonal projection** of v onto W, and v - w* is in W^perp. So v = w* + (v - w*) with w* in W, (v - w*) in W^perp — this is the direct sum decomposition. ### Examples (1) In R^3: W = xy-plane (z = 0). W^perp = z-axis (span{(0, 0, 1)}). dim W + dim W^perp = 2 + 1 = 3 ✓. (2) In R^n: W = span{(1, 1, ..., 1)}. W^perp = {v : sum v_i = 0} (the \"sum-zero\" hyperplane, dimension n - 1). (3) For A = I, N(A) = {0} and Row(A) = R^n, so Row(A)^perp = {0} ✓. ### In infinite-dimensional (Hilbert) spaces For a closed subspace W of a Hilbert space H, still H = W ⊕ W^perp (projection theorem). For non-closed subspaces, the orthogonal complement may not give a direct sum.",
+      "topic": "ch09p2_orthogonal_complement",
+      "intent": "formula_recall",
+      "keywords": [
+        "orthogonal complement",
+        "W^perp",
+        "direct sum",
+        "projection theorem",
+        "fundamental theorem",
+        "closed subspace"
+      ]
+    },
+    {
+      "question": "What is a linear transformation and what are its basic properties?",
+      "answer": "### Definition A function T : V -> W between vector spaces V and W (over the same field F) is a **linear transformation** (or linear map, linear operator when V = W) if for all u, v in V and all c in F: (1) **Additivity**: T(u + v) = T(u) + T(v). (2) **Homogeneity**: T(c u) = c T(u). Equivalently (combined): T(c u + d v) = c T(u) + d T(v) for all scalars c, d and vectors u, v. ### Consequences (a) T(0_V) = 0_W (zero maps to zero). (b) T(-v) = -T(v). (c) T(c_1 v_1 + ... + c_k v_k) = c_1 T(v_1) + ... + c_k T(v_k) (preserves linear combinations). (d) T maps subspaces of V to subspaces of W: if U ⊆ V is a subspace, T(U) is a subspace of W. (e) T maps linearly dependent sets to linearly dependent sets (but LI sets may map to LD sets if T is not injective). ### Kernel and image **Kernel (null space)**: ker(T) = {v in V : T(v) = 0}, a subspace of V. **Image (range)**: im(T) = T(V) = {T(v) : v in V}, a subspace of W. T is **injective** (one-to-one) iff ker(T) = {0}. T is **surjective** (onto) iff im(T) = W. T is **bijective** (an isomorphism) iff both — then T has an inverse T^{-1} : W -> V which is also linear. ### Examples (1) **Zero map** T(v) = 0: linear, ker = V, im = {0}. (2) **Identity** I(v) = v: linear, ker = {0}, im = V (an isomorphism). (3) **Scalar multiplication** T(v) = c v: linear. (4) **Rotation** in R^2 by angle theta: T(x, y) = (x cos theta - y sin theta, x sin theta + y cos theta). Linear (preserves + and scalar mult). ker = {0}, im = R^2 (isomorphism). (5) **Projection** onto xy-plane in R^3: T(x, y, z) = (x, y, 0). Linear. ker = z-axis, im = xy-plane. (6) **Differentiation** D : C^1[a, b] -> C[a, b], D(f) = f'. Linear: (f+g)' = f' + g', (cf)' = c f'. ker = constant functions. im = C[a, b] (every continuous function has an antiderivative). (7) **Integration** J : C[a, b] -> C[a, b], J(f)(x) = integral_a^x f(t) dt. Linear. (8) **Matrix multiplication** T_A : R^n -> R^m, T_A(x) = A x: linear. ker = N(A), im = Col(A). ### Composition If T : V -> W and S : W -> U are linear, then S ∘ T : V -> U is linear. If T and S are isomorphisms, so is S ∘ T (with inverse T^{-1} ∘ S^{-1}). ### Algebra of linear maps The set L(V, W) of linear maps V -> W is itself a vector space (under pointwise + and scalar mult). Composition gives L(V, V) (operators on V) the structure of an **associative algebra** (a ring that's also a vector space).",
+      "topic": "ch09p2_linear_transformation_definition",
+      "intent": "formula_recall",
+      "keywords": [
+        "linear transformation",
+        "additivity",
+        "homogeneity",
+        "kernel",
+        "image",
+        "isomorphism",
+        "composition"
+      ]
+    },
+    {
+      "question": "How do you represent a linear transformation as a matrix?",
+      "answer": "### Matrix representation Let T : V -> W be linear, with B_V = {v_1, ..., v_n} a basis of V and B_W = {w_1, ..., w_m} a basis of W. The **matrix representation** of T relative to (B_V, B_W) is the m x n matrix A = [T]_{B_W <- B_V} whose j-th column is [T(v_j)]_{B_W} (the coordinates of T(v_j) in the basis B_W). ### How to compute (1) Apply T to each basis vector v_j of V: get T(v_j) in W. (2) Express each T(v_j) as a linear combination of the w_i: T(v_j) = sum_i a_{ij} w_i. (3) The j-th column of A is (a_{1j}, a_{2j}, ..., a_{mj})^T. ### Key property For any v in V with [v]_{B_V} = c (column of coordinates), [T(v)]_{B_W} = A c. So the matrix A converts B_V-coordinates of the input to B_W-coordinates of the output. ### Standard bases When V = R^n, W = R^m with standard bases, the matrix representation of T is the matrix whose columns are T(e_1), T(e_2), ..., T(e_n) — and the abstract definition reduces to the usual matrix-vector multiplication T(x) = A x. ### Worked example T : R^2 -> R^2 defined by T(x, y) = (2x + y, x - 3y). Standard bases. T(e_1) = T(1, 0) = (2, 1) = first column. T(e_2) = T(0, 1) = (1, -3) = second column. So [T] = [[2 1]; [1 -3]]. Verify: A [x; y] = [2x + y; x - 3y] = T(x, y) ✓. ### Change of basis If B_1, B_2 are two bases of V and B'_1, B'_2 two bases of W, and P, Q are the change-of-basis matrices (P for V: B_2 = P B_1; Q for W: B'_2 = Q B'_1), then [T]_{B'_2 <- B'_1} = Q^{-1} [T]_{B_2 <- B_1} P. ### Square case (operator T : V -> V) Using the SAME basis B for domain and codomain: [T]_B is the matrix of T relative to B. Under change of basis B_2 = P B_1: [T]_{B_2} = P^{-1} [T]_{B_1} P. So matrices of the same operator in different bases are **similar** (B = P^{-1} A P). ### Why it matters Linear transformations are abstract; matrices are concrete computable objects. The matrix representation lets us: (a) compute T(v) via matrix-vector multiplication; (b) compose transformations via matrix multiplication: [S ∘ T] = [S][T]; (c) invert transformations via matrix inversion: [T^{-1}] = [T]^{-1}; (d) study eigenvalues/eigenvectors (which are basis-independent properties of T).",
+      "topic": "ch09p2_matrix_representation",
+      "intent": "formula_recall",
+      "keywords": [
+        "matrix representation",
+        "basis",
+        "columns",
+        "coordinate vector",
+        "change of basis",
+        "similar matrices"
+      ]
+    },
+    {
+      "question": "What are common examples of linear transformations: rotations, reflections, projections, dilations?",
+      "answer": "### Rotations In R^2, rotation by angle theta counterclockwise about the origin: T(x, y) = (x cos theta - y sin theta, x sin theta + y cos theta). Matrix: R(theta) = [[cos theta -sin theta]; [sin theta cos theta]]. Properties: orthogonal (R^T R = I), det = +1, eigenvalues e^{±i theta} (complex on unit circle). Composition: R(alpha) R(beta) = R(alpha + beta) (rotations form the group SO(2)). In R^3, rotation by angle theta about an axis (unit vector) u: T(v) = v cos theta + (u × v) sin theta + u (u · v) (1 - cos theta) (Rodrigues' formula). ### Reflections In R^2, reflection across a line through the origin making angle phi with x-axis: T(x, y) = (x cos 2phi + y sin 2phi, x sin 2phi - y cos 2phi). Matrix: [[cos 2phi sin 2phi]; [sin 2phi -cos 2phi]]. Properties: orthogonal, det = -1, eigenvalues +1 (along the line, multiplicity 1) and -1 (perpendicular to the line, multiplicity 1). **Householder reflection**: across the hyperplane perpendicular to v: H = I - 2 v v^T / (v^T v). H is symmetric, orthogonal, det = -1. Householder reflections are used in QR decomposition (reflect A to upper triangular). ### Projections Projection of R^n onto a subspace W along its complement: idempotent (P^2 = P). If W = span of {w_1, ..., w_k} (LI), the orthogonal projection matrix onto W is P = A (A^T A)^{-1} A^T where A = [w_1 | ... | w_k]. Special case: projection onto a line spanned by unit u: P = u u^T (outer product). Projection onto xy-plane in R^3: P = [[1 0 0]; [0 1 0]; [0 0 0]]. Properties: idempotent (P^2 = P), symmetric (for orthogonal projection), eigenvalues 0 (on complement) and 1 (on W), trace = rank = dim W. ### Dilations (scalings) T(v) = c v (scalar multiplication). Matrix: c I. Properties: scales all vectors by c; if c > 1 stretches, if 0 < c < 1 shrinks, if c < 0 reflects through origin and scales, if c = 0 collapses to zero. ### Shears In R^2, horizontal shear with factor k: T(x, y) = (x + k y, y). Matrix: [[1 k]; [0 1]]. Properties: det = 1 (area-preserving), idempotent? No: T^2 has matrix [[1 2k]; [0 1]] (not idempotent unless k = 0). Shears appear in Gaussian elimination (row replacement = shear). ### Compositions Any linear map R^n -> R^n can be decomposed into rotations, reflections, projections, and dilations via the SVD: A = U Sigma V^T = (rotation) (axis-aligned scaling/dilation) (rotation). Geometrically: rotate, then scale each axis, then rotate again. ### Other examples (a) **Cross product by a fixed vector** in R^3: T_u(v) = u × v. Linear in v. Matrix: [[0 -u_3 u_2]; [u_3 0 -u_1]; [-u_2 u_1 0]] (skew-symmetric, T_u(v) = -T_v(u)). (b) **Differentiation** on P_n: nilpotent operator. (c) **Laplace transform** L : f -> integral_0^inf e^{-st} f(t) dt: linear (in infinite-dimensional function spaces).",
+      "topic": "ch09p2_examples_rotations_reflections",
+      "intent": "formula_recall",
+      "keywords": [
+        "rotation",
+        "reflection",
+        "projection",
+        "dilation",
+        "shear",
+        "Householder",
+        "Rodrigues",
+        "SVD",
+        "idempotent"
+      ]
+    },
+    {
+      "question": "What is an inner product and what are its properties?",
+      "answer": "### Definition An **inner product** on a real vector space V is a function <·, ·> : V × V -> R satisfying for all u, v, w in V and c in R: (1) **Symmetry**: <u, v> = <v, u>. (2) **Linearity in first argument**: <c u + d v, w> = c <u, w> + d <v, w>. (3) **Positive-definite**: <v, v> >= 0, with equality iff v = 0. For complex vector spaces, replace symmetry with **conjugate symmetry**: <u, v> = conj(<v, u>), and linearity becomes **conjugate linearity in the second argument**: <u, c v + d w> = conj(c) <u, v> + conj(d) <u, w> (physics convention; mathematicians often use conjugate-linearity in the first argument instead). ### Induced norm ||v|| = sqrt(<v, v>) defines a norm on V (satisfies triangle inequality via Cauchy-Schwarz). ### Examples (1) **Dot product** on R^n: <u, v> = sum u_i v_i = u^T v. (2) **Weighted inner product** on R^n: <u, v>_W = u^T W v where W is symmetric positive definite. (3) **Hermitian inner product** on C^n: <u, v> = sum conj(u_i) v_i = u* v. (4) **L^2 inner product** on C[a, b]: <f, g> = integral_a^b f(x) g(x) dx (or conj(f) g for complex). (5) **Weighted L^2**: <f, g>_w = integral_a^b w(x) f(x) g(x) dx with w >= 0. (6) **Frobenius inner product** on M_n: <A, B> = tr(A^T B) = sum a_{ij} b_{ij}. ### Properties (a) **Cauchy-Schwarz inequality**: |<u, v>| <= ||u|| ||v||, with equality iff u, v are linearly dependent. (b) **Triangle inequality**: ||u + v|| <= ||u|| + ||v||. (c) **Pythagorean theorem**: if <u, v> = 0 then ||u + v||^2 = ||u||^2 + ||v||^2. (d) **Parallelogram law**: ||u + v||^2 + ||u - v||^2 = 2 ||u||^2 + 2 ||v||^2. (e) **Polarization identity** (real): <u, v> = (1/4) (||u + v||^2 - ||u - v||^2). ### Hilbert space A complete inner product space is a **Hilbert space** (e.g., L^2, l^2). Completeness ensures that Cauchy sequences converge. Hilbert spaces generalize R^n to infinite dimensions and are central to quantum mechanics, signal processing (Fourier analysis), and partial differential equations.",
+      "topic": "ch09p2_inner_product_definition",
+      "intent": "formula_recall",
+      "keywords": [
+        "inner product",
+        "symmetry",
+        "linearity",
+        "positive definite",
+        "Cauchy-Schwarz",
+        "Hilbert space",
+        "Frobenius",
+        "L^2"
+      ]
+    },
+    {
+      "question": "What is the Cauchy-Schwarz inequality and how is it proved?",
+      "answer": "### Statement For any vectors u, v in an inner product space V: |<u, v>| <= ||u|| ||v||, with equality iff u and v are linearly dependent (one is a scalar multiple of the other). ### Proof (1) If v = 0, both sides are 0 and equality holds (and 0 is a multiple of any vector). (2) Assume v != 0. For any scalar t, consider ||u - t v||^2 >= 0 (positive definite). Expand: ||u - t v||^2 = <u - t v, u - t v> = ||u||^2 - 2 t <u, v> + t^2 ||v||^2 (real case; complex is similar with conjugates). Choose t = <u, v> / ||v||^2 (minimizing value). Then: 0 <= ||u||^2 - 2 (<u,v>/||v||^2) <u,v> + (<u,v>^2/||v||^4) ||v||^2 = ||u||^2 - <u,v>^2 / ||v||^2. Rearrange: <u,v>^2 / ||v||^2 <= ||u||^2, so <u,v>^2 <= ||u||^2 ||v||^2, hence |<u,v>| <= ||u|| ||v||. ### Equality case Equality in the derivation means ||u - t v||^2 = 0, i.e., u = t v for some t — linearly dependent. ### Consequences (1) **Triangle inequality** (Minkowski): ||u + v|| <= ||u|| + ||v||. Proof: ||u + v||^2 = ||u||^2 + 2 <u, v> + ||v||^2 <= ||u||^2 + 2 ||u|| ||v|| + ||v||^2 = (||u|| + ||v||)^2. Take square roots. (2) **Angle between vectors**: in real inner product space, define cos(theta) = <u, v> / (||u|| ||v||). Cauchy-Schwarz ensures |cos(theta)| <= 1, so theta is well-defined. (3) **Integral form**: for f, g in L^2, |integral f g| <= sqrt(integral f^2) sqrt(integral g^2). (4) **Sum form**: |sum a_i b_i| <= sqrt(sum a_i^2) sqrt(sum b_i^2). ### Worked example u = (1, 2, 3), v = (4, 5, 6). <u, v> = 4 + 10 + 18 = 32. ||u|| = sqrt(14), ||v|| = sqrt(77). ||u|| ||v|| = sqrt(14 * 77) = sqrt(1078) approx 32.83. Indeed 32 <= 32.83 ✓. Equality would require u = c v; (1, 2, 3) = c (4, 5, 6) requires c = 1/4, c = 2/5, c = 1/2 — inconsistent, so strict inequality. ### Applications Cauchy-Schwarz is the most-used inequality in mathematics: it underlies triangle inequality, Hölder's inequality, the Heisenberg uncertainty principle (in quantum mechanics, via commutator form), and the proof that L^p spaces are normed.",
+      "topic": "ch09p2_cauchy_schwarz",
+      "intent": "formula_recall",
+      "keywords": [
+        "Cauchy-Schwarz",
+        "triangle inequality",
+        "angle between vectors",
+        "Hölder",
+        "uncertainty principle"
+      ]
+    },
+    {
+      "question": "What is the Gram-Schmidt process and how does it produce an orthonormal basis?",
+      "answer": "### Goal Given a basis {v_1, v_2, ..., v_n} of an inner product space V (often R^n with dot product), produce an **orthonormal basis** {q_1, q_2, ..., q_n} with the same span at each step (span{q_1, ..., q_k} = span{v_1, ..., v_k} for each k). ### Classical Gram-Schmidt algorithm Iterate: (1) Set u_1 = v_1. (2) Normalize: q_1 = u_1 / ||u_1||. (3) For k = 2, 3, ..., n: subtract the projections of v_k onto q_1, ..., q_{k-1} (the components of v_k in the previous directions), then normalize: u_k = v_k - sum_{j=1}^{k-1} <v_k, q_j> q_j; q_k = u_k / ||u_k||. ### Why it works Each q_k is constructed to be orthogonal to all previous q_j (by subtracting the projections), and normalized to unit length. So {q_1, ..., q_k} is orthonormal and spans the same subspace as {v_1, ..., v_k}. ### Modified Gram-Schmidt (more numerically stable) Same mathematical result, but rearranged computation: for each k, FIRST orthogonalize v_k against q_1, then orthogonalize the result against q_2, etc., updating the residual each time. MGS is more stable than CGS in finite precision; both produce the same result mathematically. ### QR decomposition The matrix Q with columns q_1, ..., q_n and the matrix R with entries r_{kj} = <v_j, q_k> (for k <= j) and 0 for k > j satisfy A = Q R, where A = [v_1 | ... | v_n]. This is the **QR decomposition**: Q is orthogonal (or unitary for complex), R is upper triangular. ### Worked example Orthonormalize v_1 = (1, 1, 0), v_2 = (1, 0, 1), v_3 = (0, 1, 1) in R^3. Step 1: u_1 = (1, 1, 0). ||u_1|| = sqrt(2). q_1 = (1/sqrt(2), 1/sqrt(2), 0). Step 2: <v_2, q_1> = (1)(1/sqrt(2)) + (0)(1/sqrt(2)) + (1)(0) = 1/sqrt(2). u_2 = v_2 - <v_2, q_1> q_1 = (1, 0, 1) - (1/sqrt(2))(1/sqrt(2), 1/sqrt(2), 0) = (1, 0, 1) - (1/2, 1/2, 0) = (1/2, -1/2, 1). ||u_2||^2 = 1/4 + 1/4 + 1 = 3/2, ||u_2|| = sqrt(3/2). q_2 = u_2 / sqrt(3/2) = (1/sqrt(6), -1/sqrt(6), 2/sqrt(6)) [equivalently: (1, -1, 2)/sqrt(6)]. Step 3: <v_3, q_1> = (0 + 1 + 0)/sqrt(2) = 1/sqrt(2). <v_3, q_2> = (0 - 1 + 2)/sqrt(6) = 1/sqrt(6). u_3 = v_3 - <v_3, q_1> q_1 - <v_3, q_2> q_2 = (0, 1, 1) - (1/sqrt(2))(1/sqrt(2), 1/sqrt(2), 0) - (1/sqrt(6))(1/sqrt(6), -1/sqrt(6), 2/sqrt(6)) = (0, 1, 1) - (1/2, 1/2, 0) - (1/6, -1/6, 2/6) = (-2/3, 2/3, 2/3). ||u_3||^2 = 4/9 + 4/9 + 4/9 = 12/9 = 4/3, ||u_3|| = 2/sqrt(3). q_3 = u_3 / (2/sqrt(3)) = (-1/sqrt(3), 1/sqrt(3), 1/sqrt(3)) [i.e., (-1, 1, 1)/sqrt(3)]. ### Result q_1 = (1, 1, 0)/sqrt(2), q_2 = (1, -1, 2)/sqrt(6), q_3 = (-1, 1, 1)/sqrt(3). Verify orthonormality: <q_1, q_2> = (1 - 1 + 0)/sqrt(12) = 0 ✓; <q_1, q_3> = (-1 + 1 + 0)/sqrt(6) = 0 ✓; <q_2, q_3> = (-1 - 1 + 2)/sqrt(18) = 0 ✓. Norms all 1 ✓.",
+      "topic": "ch09p2_gram_schmidt",
+      "intent": "how_to",
+      "keywords": [
+        "Gram-Schmidt",
+        "orthonormal basis",
+        "QR decomposition",
+        "modified Gram-Schmidt",
+        "projection",
+        "numerical stability"
+      ]
+    },
+    {
+      "question": "What is the orthogonal projection onto a subspace, and how do you compute it?",
+      "answer": "### Setup Let W be a subspace of an inner product space V (e.g., R^n). The **orthogonal projection** of v onto W is the unique vector w* in W such that v - w* is perpendicular to W (i.e., v - w* in W^perp). ### Existence and uniqueness (Projection theorem) For finite-dim W (or closed subspace of a Hilbert space), w* exists and is unique. ### Computation Given an orthogonal basis {u_1, ..., u_k} of W, the projection is: proj_W(v) = sum_{i=1}^k <v, u_i> / <u_i, u_i> * u_i. If {q_1, ..., q_k} is an orthonormal basis of W: proj_W(v) = sum <v, q_i> q_i (each term is a unit projection). ### Matrix form (for W ⊆ R^n with basis given as columns of A) If A is n x k with columns forming a basis of W (rank k), then proj_W(v) = A (A^T A)^{-1} A^T v. The matrix P = A (A^T A)^{-1} A^T is the **projection matrix** onto Col(A) (= W). ### Properties of P (1) **Symmetric**: P^T = P. (2) **Idempotent**: P^2 = P (projecting an already-projected vector doesn't change it). (3) **Range**: Col(P) = W. (4) **Null**: N(P) = W^perp. (5) Eigenvalues: 0 (on W^perp) and 1 (on W), so trace(P) = rank(W). (6) I - P is the projection onto W^perp (complementary projection); also symmetric and idempotent. ### Worked example Project v = (1, 2, 3) onto the plane W = {(x, y, z) : x + y + z = 0} in R^3. W^perp = span{(1, 1, 1)}. Project onto W^perp: proj_{W^perp}(v) = <v, (1,1,1)>/||(1,1,1)||^2 * (1,1,1) = 6/3 * (1,1,1) = (2, 2, 2). So proj_W(v) = v - proj_{W^perp}(v) = (1, 2, 3) - (2, 2, 2) = (-1, 0, 1). Check: -1 + 0 + 1 = 0 (in W) ✓; v - proj = (2, 2, 2) parallel to (1, 1, 1) ✓. ### Applications (a) **Least squares**: minimize ||Ax - b||; the residual b - Ax is perpendicular to Col(A), so Ax = proj_{Col(A)}(b). (b) **Fourier series**: project a function onto span{1, cos nx, sin nx} (orthogonal basis of trig polynomials); the Fourier coefficients are the projection coefficients. (c) **Regression**: the fitted values yhat = X beta-hat = H y where H = X(X^T X)^{-1} X^T is the \"hat matrix\" (projection onto Col(X)). (d) **Compressing signals**: project onto a low-dimensional subspace (e.g., principal components) to denoise or compress.",
+      "topic": "ch09p2_orthogonal_projection",
+      "intent": "how_to",
+      "keywords": [
+        "orthogonal projection",
+        "projection matrix",
+        "idempotent",
+        "symmetric",
+        "least squares",
+        "hat matrix",
+        "Fourier"
+      ]
+    },
+    {
+      "question": "What is the projection theorem (best approximation) and how does it relate to least squares?",
+      "answer": "### Projection theorem Let W be a subspace (or closed subspace in a Hilbert space) of an inner product space V. For any v in V, there exists a UNIQUE w* in W minimizing ||v - w|| over all w in W. The minimizer w* is the orthogonal projection of v onto W; equivalently, v - w* is orthogonal to W. ### Proof of optimality For any w in W: ||v - w||^2 = ||(v - w*) + (w* - w)||^2 = ||v - w*||^2 + ||w* - w||^2 (Pythagorean theorem, since (v - w*) ⊥ W and (w* - w) in W). So ||v - w||^2 >= ||v - w*||^2, with equality iff w = w*. ### Least squares as projection Given an overdetermined system Ax = b (m > n), if b is not in Col(A), no exact solution exists. The least-squares solution x* minimizes ||Ax - b||. Setting w = Ax (in W = Col(A)), the projection theorem says the minimizer is w* = proj_W(b). So the least-squares residual b - Ax* is orthogonal to Col(A), i.e., A^T (b - Ax*) = 0, equivalently A^T A x* = A^T b (the **normal equations**). ### Fourier series as projection The space of trigonometric polynomials span{1, cos x, sin x, cos 2x, sin 2x, ...} is a subspace of L^2[-pi, pi]. The N-th partial sum of the Fourier series S_N(f) = a_0/2 + sum_{n=1}^N (a_n cos nx + b_n sin nx) is the orthogonal projection of f onto the (2N+1)-dim subspace spanned by {1, cos x, sin x, ..., cos Nx, sin Nx}. The coefficients a_n, b_n are the projection coefficients (inner products of f with the basis functions, divided by the basis norms). ### Worked least-squares example Fit y = a + b x to (0, 1), (1, 3), (2, 7). Setup: A = [[1 0]; [1 1]; [1 2]] (3x2), b = [1; 3; 7]. Project b onto Col(A). A^T A = [[3 3]; [3 5]] (computed by summing outer products of rows); A^T b = [11; 17]. Solve [[3 3]; [3 5]] [a; b] = [11; 17]: det = 6; a = (5*11 - 3*17)/6 = (55-51)/6 = 4/6 = 2/3; b = (3*17 - 3*11)/6 = (51-33)/6 = 18/6 = 3. So y = 2/3 + 3 x. Fitted: yhat = (2/3, 5/3, 11/3); residual = (1/3, 4/3, 10/3). Verify orthogonal to columns of A: A^T r = [1/3 + 4/3 + 10/3; 0 + 4/3 + 20/3] = [15/3; 24/3] = [5; 8]. Hmm that's not 0. Let me recheck: I had b = [1; 3; 7], so yhat = A beta-hat = [[1 0]; [1 1]; [1 2]] [2/3; 3] = [2/3; 2/3 + 3; 2/3 + 6] = [2/3; 11/3; 20/3]. Residual r = b - yhat = [1 - 2/3; 3 - 11/3; 7 - 20/3] = [1/3; -2/3; 1/3]. A^T r = [1/3 - 2/3 + 1/3; 0 - 2/3 + 2/3] = [0; 0] ✓. Good, residual perpendicular to columns of A.",
+      "topic": "ch09p2_projection_theorem_least_squares",
+      "intent": "problem_solving",
+      "keywords": [
+        "projection theorem",
+        "best approximation",
+        "least squares",
+        "normal equations",
+        "Fourier series",
+        "residual orthogonal"
+      ]
+    },
+    {
+      "question": "What is an orthonormal basis and why is it useful?",
+      "answer": "### Definition A basis {q_1, q_2, ..., q_n} of an inner product space V is **orthonormal** if <q_i, q_j> = delta_{ij} (Kronecker delta): 1 if i = j, 0 otherwise. \"Ortho\" = pairwise orthogonal; \"normal\" = each has unit norm. ### Examples (1) Standard basis {e_1, ..., e_n} of R^n with dot product: orthonormal. (2) {1/sqrt(2pi), cos x/sqrt(pi), sin x/sqrt(pi), cos 2x/sqrt(pi), sin 2x/sqrt(pi), ...} of L^2[-pi, pi]: orthonormal (after normalization). (3) **Haar basis** of L^2[0, 1]: step functions; first orthonormal wavelet basis. (4) **Legendre polynomials** (normalized) of L^2[-1, 1]: orthonormal. (5) **Hermite functions** of L^2(R, e^{-x^2} dx): orthonormal; eigenfunctions of quantum harmonic oscillator. (6) **Discrete Fourier basis** of C^n with Hermitian inner product: {(1, omega^k, omega^{2k}, ..., omega^{(n-1)k})/sqrt(n) : k = 0, ..., n-1} where omega = e^{2 pi i / n}; orthonormal. ### Why useful ### Easy coordinates For any v in V: v = sum <v, q_i> q_i (Fourier expansion). The i-th coordinate is c_i = <v, q_i> — just compute the inner product (no system to solve). Compare with a non-orthogonal basis B = {b_1, ..., b_n}: to find [v]_B, solve v = sum c_i b_i, a linear system. ### Easy norm (Parseval) ||v||^2 = sum |<v, q_i>|^2 (Parseval's identity). The norm squared equals the sum of squared coordinates. For non-orthonormal bases, the norm involves a quadratic form with the Gram matrix G_{ij} = <b_i, b_j>: ||v||^2 = c^T G c. ### Easy projection To project v onto a subspace W with orthonormal basis {q_1, ..., q_k}: proj_W(v) = sum_{i=1}^k <v, q_i> q_i. No matrix inversion needed. ### Easy matrix representation If T : V -> V is linear and B = {q_i} is orthonormal, the matrix [T]_B has entries a_{ij} = <T q_j, q_i> (just inner products). The adjoint T* has matrix [T*]_B = [T]_B^* (conjugate transpose). ### Numerical stability Orthonormal bases are perfectly conditioned (condition number 1). Computations in orthonormal bases don't amplify errors. This is why QR, SVD, and Krylov methods (Lanczos, Arnoldi) all use orthonormal bases. ### Existence Every finite-dimensional inner product space has an orthonormal basis (Gram-Schmidt). Every separable Hilbert space has a countable orthonormal basis (e.g., Fourier basis for L^2). Non-separable Hilbert spaces have uncountable orthonormal bases. ### Complete orthonormal systems (CON) In infinite-dim Hilbert spaces, a CON {q_i} has the property that span{q_i} is dense, so every v can be expanded v = sum <v, q_i> q_i (converging in norm). This is the basis of Fourier analysis, wavelet theory, and quantum mechanics (eigenfunction expansions).",
+      "topic": "ch09p2_orthonormal_basis",
+      "intent": "formula_recall",
+      "keywords": [
+        "orthonormal basis",
+        "Parseval",
+        "Fourier expansion",
+        "Gram matrix",
+        "numerical stability",
+        "complete orthonormal system",
+        "Gram-Schmidt"
+      ]
+    },
+    {
+      "question": "How do you find the best approximation of a function by a polynomial of degree n?",
+      "answer": "### Problem Given f in C[a, b] (or L^2[a, b]) and a degree n, find the polynomial p* in P_n minimizing ||f - p|| over all p in P_n. ### Solution (least-squares polynomial approximation) Using the inner product <f, g> = integral_a^b f(x) g(x) dx (optionally with weight w(x)), the best approximation is the **orthogonal projection** of f onto P_n. ### Procedure (1) Construct an orthogonal basis of P_n on [a, b] — e.g., the Legendre polynomials P_0, P_1, ..., P_n (orthogonal on [-1, 1] with weight 1). (2) The best approximation: p*(x) = sum_{k=0}^n c_k P_k(x) where c_k = <f, P_k> / <P_k, P_k> = (2k+1)/2 integral_{-1}^1 f(x) P_k(x) dx. ### Why this is best p* is the orthogonal projection of f onto P_n in L^2; by the projection theorem, it minimizes ||f - p|| over all p in P_n (least-squares error). ### Worked example Approximate f(x) = e^x on [-1, 1] by a linear polynomial p(x) = a + b x. Legendre: P_0(x) = 1, P_1(x) = x. <P_0, P_0> = 2, <P_1, P_1> = 2/3. c_0 = <f, P_0>/<P_0, P_0> = integral_{-1}^1 e^x dx / 2 = (e - 1/e)/2 = sinh(1) approx 1.1752. c_1 = <f, P_1>/<P_1, P_1> = integral_{-1}^1 x e^x dx / (2/3). Compute integral: by parts, integral x e^x dx = e^x (x - 1). Evaluated -1 to 1: e(0) - e^{-1}(-2) = 2/e approx 0.7358. So c_1 = (2/e)/(2/3) = 3/e approx 1.1036. Best linear approximation: p*(x) = sinh(1) * 1 + (3/e) * x = 1.1752 + 1.1036 x. ### Comparison with Taylor expansion The Taylor polynomial of degree 1 at x = 0 is T_1(x) = 1 + x. This minimizes the LOCAL error near 0 (matches derivatives at 0), but not the GLOBAL error on [-1, 1]. The least-squares approximation p*(x) = 1.1752 + 1.1036 x minimizes the integral of squared error, giving a better global fit. ### Chebyshev alternative For minimizing the MAXIMUM error (minimax approximation, ||f - p||_infinity), use Chebyshev polynomials T_k(x) = cos(k arccos x) on [-1, 1] (orthogonal with weight 1/sqrt(1-x^2)). The Chebyshev expansion truncated to degree n is close to optimal in the minimax sense (equioscillation theorem: best minimax polynomial has n+2 alternating extrema of the error). ### Other inner products (1) Discrete least squares: <f, g> = sum_{i=1}^N f(x_i) g(x_i) at sample points — leads to discrete polynomial least squares (polyfit). (2) Weighted continuous: <f, g> = integral_a^b w(x) f(x) g(x) dx — gives weighted orthogonal polynomials (Jacobi, Laguerre, Hermite families). ### Applications Polynomial least squares is used in curve fitting, regression analysis, numerical quadrature (Gaussian quadrature from orthogonal polynomials), and spectral methods for PDEs.",
+      "topic": "ch09p2_best_polynomial_approximation",
+      "intent": "problem_solving",
+      "keywords": [
+        "best approximation",
+        "least squares polynomial",
+        "Legendre",
+        "Chebyshev",
+        "minimax",
+        "projection",
+        "Fourier coefficient"
+      ]
+    },
+    {
+      "question": "What is an isomorphism of vector spaces, and how do you show two spaces are isomorphic?",
+      "answer": "### Definition A linear map T : V -> W is an **isomorphism** if it is bijective (injective and surjective). The inverse T^{-1} : W -> V is automatically linear. Two vector spaces V and W are **isomorphic** (V ≅ W) if there exists an isomorphism between them. ### Key theorem (finite-dimensional) Two finite-dimensional vector spaces over the same field F are isomorphic iff they have the same dimension. In particular, any n-dimensional vector space over F is isomorphic to F^n. ### Proof sketch (=>) If T : V -> W is an isomorphism, then T maps a basis of V to a basis of W (LI preserved by injectivity, spanning by surjectivity), so dim V = dim W. (<=) If dim V = dim W = n, pick bases {v_i} of V and {w_i} of W. Define T(sum c_i v_i) = sum c_i w_i. This is well-defined (coordinates are unique), linear, injective (T(v) = 0 => all c_i = 0 => v = 0), and surjective (any w = sum c_i w_i = T(sum c_i v_i)). So T is an isomorphism. ### Examples (1) **R^n ≅ M_{n×1}** (column vectors). The isomorphism sends (x_1, ..., x_n) to the column matrix [x_1; ...; x_n]. (2) **P_n ≅ R^{n+1}** via coefficients: a_0 + a_1 x + ... + a_n x^n -> (a_0, a_1, ..., a_n). (3) **M_{m,n}(R) ≅ R^{mn}** via \"vectorization\" (stacking columns). (4) **Sym_n ≅ R^{n(n+1)/2}** (using only the upper-triangular entries). (5) **C ≅ R^2** as real vector spaces (via a + bi -> (a, b)). (6) **C^n ≅ R^{2n}** as real vector spaces (split real and imaginary parts). ### Coordinate isomorphism Given a basis B = {b_1, ..., b_n} of V, the map v -> [v]_B (coordinates) is an isomorphism V -> F^n. This is the canonical isomorphism used to translate abstract linear algebra into matrix computations. ### Properties of isomorphisms (1) Composition of isomorphisms is an isomorphism. (2) Inverse of an isomorphism is an isomorphism. (3) Isomorphism preserves: linear independence, span, dimension, basis, subspace structure, kernel/image dimensions. (4) Isomorphisms form a group under composition (the general linear group GL(V) for V -> V automorphisms). ### Infinite-dimensional Two infinite-dimensional spaces are isomorphic iff they have the same dimension (cardinality of a basis). E.g., l^2 and L^2[0, 1] are both separable Hilbert spaces, both have countable orthonormal bases, so they're isomorphic as Hilbert spaces (any separable infinite-dim Hilbert space is isomorphic to l^2). ### Important note Isomorphism preserves the vector space structure but NOT additional structure (norm, inner product, topology) unless explicitly stated. E.g., R^n with the standard inner product is isomorphic as a vector space to R^n with the discrete topology, but they're very different as topological vector spaces.",
+      "topic": "ch09p2_isomorphism",
+      "intent": "formula_recall",
+      "keywords": [
+        "isomorphism",
+        "bijective linear map",
+        "same dimension",
+        "coordinates",
+        "general linear group",
+        "Hilbert space isomorphism"
+      ]
+    },
+    {
+      "question": "Verify that the solution set of y'' + y = 0 is a 2-dimensional vector space and find a basis.",
+      "answer": "### Setup The ODE y'' + y = 0 has solutions y : R -> R. We claim the solution set S = {y in C^infinity(R) : y'' + y = 0} is a vector subspace of C^infinity(R). ### Subspace test (1) Zero: y = 0 satisfies 0'' + 0 = 0, so 0 in S. (2) Closed under +: if y_1, y_2 in S, then (y_1 + y_2)'' + (y_1 + y_2) = y_1'' + y_2'' + y_1 + y_2 = (y_1'' + y_1) + (y_2'' + y_2) = 0 + 0 = 0, so y_1 + y_2 in S. (3) Closed under scalar mult: if y in S and c in R, then (c y)'' + c y = c (y'' + y) = c * 0 = 0, so c y in S. So S is a subspace ✓. ### Find solutions (characteristic equation) Try y = e^{rx}: y'' = r^2 e^{rx}, so r^2 + 1 = 0 => r = ±i (complex roots). For real solutions, use Euler's formula: e^{ix} = cos x + i sin x. The general complex solution is y = C_1 e^{ix} + C_2 e^{-ix}; for real solutions, take real and imaginary parts: y = A cos x + B sin x, A, B in R. ### Verify cos and sin are solutions (cos x)'' = -cos x, so (cos x)'' + cos x = 0 ✓. (sin x)'' = -sin x, so (sin x)'' + sin x = 0 ✓. ### Linear independence (Wronskian) W(cos x, sin x)(x) = det [[cos x sin x]; [-sin x cos x]] = cos^2 x + sin^2 x = 1 != 0 for all x. So {cos x, sin x} are LI on any interval. (They're also solutions of the linear ODE y'' + y = 0, so the Wronskian test applies directly.) ### Spanning For any solution y of y'' + y = 0, by existence/uniqueness of ODEs, y is uniquely determined by initial conditions y(0) = a, y'(0) = b. The function y_0(x) = a cos x + b sin x satisfies y_0(0) = a, y_0'(0) = b, and is a solution. By uniqueness, y = y_0 = a cos x + b sin x. So {cos x, sin x} spans S. ### Conclusion S is a 2-dim vector space with basis {cos x, sin x}. ### Generalization For the n-th order linear ODE y^{(n)} + p_{n-1}(x) y^{(n-1)} + ... + p_0(x) y = 0 with continuous coefficients on [a, b], the solution set is an n-dimensional vector space (a \"fundamental set\" of n LI solutions forms a basis). This is why ODE theory and linear algebra are deeply intertwined.",
+      "topic": "ch09p2_worked_ode_solution_space",
+      "intent": "problem_solving",
+      "keywords": [
+        "worked",
+        "ODE solution space",
+        "subspace",
+        "characteristic equation",
+        "Wronskian",
+        "fundamental set",
+        "cos sin basis"
+      ]
+    },
+    {
+      "question": "Determine whether the vectors v_1 = (1, 2, 1), v_2 = (2, 1, 0), v_3 = (4, 5, 2) are linearly independent, and find a basis for their span.",
+      "answer": "### Setup Three vectors in R^3. Form the matrix A with these as columns: A = [[1 2 4]; [2 1 5]; [1 0 2]]. ### Test 1: determinant det(A) = 1*(1*2 - 5*0) - 2*(2*2 - 5*1) + 4*(2*0 - 1*1) = 1*2 - 2*(4 - 5) + 4*(0 - 1) = 2 - 2*(-1) + 4*(-1) = 2 + 2 - 4 = 0. det = 0 => vectors are linearly DEPENDENT (and do not span R^3). ### Test 2: RREF [[1 2 4]; [2 1 5]; [1 0 2]]. R2 -> R2 - 2 R1: [[1 2 4]; [0 -3 -3]; [1 0 2]]. R3 -> R3 - R1: [[1 2 4]; [0 -3 -3]; [0 -2 -2]]. R3 -> R3 - (2/3) R2: [[1 2 4]; [0 -3 -3]; [0 0 0]]. R2 -> R2 / (-3): [[1 2 4]; [0 1 1]; [0 0 0]]. R1 -> R1 - 2 R2: [[1 0 2]; [0 1 1]; [0 0 0]]. RREF done. Two pivots (cols 1, 2), so rank = 2. ### Linear dependence The third column of the RREF is (2, 1, 0)^T, which means v_3 = 2 v_1 + 1 v_2 + 0 v_3 (no contribution from itself in RREF terms — wait, this is the dependence relation in the original column space). Actually, the third column of RREF being (2, 1, 0)^T means: v_3 = 2 * (first pivot column of A) + 1 * (second pivot column of A) + 0 * (third column). So v_3 = 2 v_1 + 1 v_2 = 2 (1, 2, 1) + 1 (2, 1, 0) = (2, 4, 2) + (2, 1, 0) = (4, 5, 2) ✓. So the dependence relation is 2 v_1 + v_2 - v_3 = 0 (i.e., v_3 = 2 v_1 + v_2). ### Basis for span(v_1, v_2, v_3) Since v_3 is a linear combination of v_1, v_2, the span is 2-dimensional with basis {v_1, v_2} (the pivot columns of A). Any 2 of the 3 vectors that are LI would also form a basis; here {v_1, v_2} works (and they're LI since neither is a multiple of the other). ### Geometric interpretation The span is a 2-dim subspace of R^3 — a plane through the origin. The plane contains the points (1, 2, 1), (2, 1, 0), and (4, 5, 2), as well as their linear combinations. To find the equation of the plane: find a normal vector n perpendicular to v_1 and v_2: n = v_1 × v_2 = (2*0 - 1*1, 1*2 - 1*0, 1*1 - 2*2) = (-1, 2, -3). Plane: -x + 2y - 3z = 0. Check: -1 + 4 - 3 = 0 ✓ (for v_1); -2 + 2 - 0 = 0 ✓ (for v_2); -4 + 10 - 6 = 0 ✓ (for v_3). So span = {(x, y, z) : -x + 2y - 3z = 0}, a 2-dim plane in R^3.",
+      "topic": "ch09p2_worked_li_basis_span",
+      "intent": "problem_solving",
+      "keywords": [
+        "worked",
+        "linear independence",
+        "RREF",
+        "pivot columns",
+        "dependence relation",
+        "basis for span",
+        "plane"
+      ]
+    },
+    {
+      "question": "Find the matrix of the linear transformation T(p) = p' (derivative) on P_2 relative to the standard basis, and find its kernel and image.",
+      "answer": "### Setup T : P_2 -> P_2 (actually T : P_2 -> P_1, but we can view it as P_2 -> P_2 with the image landing in P_1 ⊆ P_2) by T(p) = p' (derivative). Standard basis of P_2: B = {1, x, x^2}. ### Compute T on each basis vector T(1) = 0 = 0 * 1 + 0 * x + 0 * x^2 -> coordinates (0, 0, 0)^T. T(x) = 1 = 1 * 1 + 0 * x + 0 * x^2 -> (1, 0, 0)^T. T(x^2) = 2x = 0 * 1 + 2 * x + 0 * x^2 -> (0, 2, 0)^T. ### Matrix representation [T]_B = [[0 1 0]; [0 0 2]; [0 0 0]] (columns are [T(1)]_B, [T(x)]_B, [T(x^2)]_B). This is a 3x3 matrix (square) but only the first two rows are nonzero — the image lands in P_1 (subspace spanned by 1, x). ### Properties (1) Upper triangular (strictly, in fact). (2) Nilpotent: [T]^2 = [[0 0 2]; [0 0 0]; [0 0 0]], [T]^3 = 0 (differentiation applied 3 times kills any quadratic polynomial). (3) Eigenvalues: all 0 (since nilpotent). (4) Characteristic polynomial: lambda^3 (only eigenvalue 0 with multiplicity 3). (5) NOT diagonalizable (the only eigenvalue is 0 but the matrix is not the zero matrix — would need to be diagonal 0). ### Kernel ker(T) = {p : p' = 0} = {constant polynomials} = span{1}. Dimension 1. From the matrix: ker([T]) = null space = {c : [T] c = 0} = {c : (c_2, 2 c_3, 0) = (0, 0, 0)} = {c : c_2 = 0, c_3 = 0, c_1 free}. So ker = span{(1, 0, 0)^T} = span{1} ✓. ### Image im(T) = {p' : p in P_2} = {a + 2b x : a, b in R} = P_1 (polynomials of degree <= 1). Dimension 2 = rank(T). From the matrix: column space = span{(0,0,0)^T, (1,0,0)^T, (0,2,0)^T} = span{(1,0,0)^T, (0,1,0)^T} = span{1, x} = P_1 ✓. ### Rank-nullity check dim P_2 = 3. nullity = 1 (ker = span{1}). rank = 2 (im = P_1, dim 2). 1 + 2 = 3 ✓. ### Generalization For T : P_n -> P_n given by differentiation: [T]_B is the (n+1) x (n+1) matrix with 1, 2, 3, ..., n on the superdiagonal (and 0 elsewhere). It's nilpotent of index n+1. The kernel is span{1} (constant polynomials), the image is P_{n-1}, rank = n, nullity = 1, and dim P_n = n + 1 = 1 + n ✓.",
+      "topic": "ch09p2_worked_derivative_matrix",
+      "intent": "problem_solving",
+      "keywords": [
+        "worked",
+        "derivative operator",
+        "matrix representation",
+        "nilpotent",
+        "kernel",
+        "image",
+        "P_n",
+        "rank-nullity"
+      ]
+    },
+    {
+      "question": "Apply Gram-Schmidt to the columns of A = [[1 1 1]; [1 1 0]; [1 0 0]] to obtain a QR decomposition.",
+      "answer": "### Setup A is 3x3 with columns v_1 = (1, 1, 1), v_2 = (1, 1, 0), v_3 = (1, 0, 0). Apply Gram-Schmidt to obtain orthonormal q_1, q_2, q_3 and upper-triangular R with A = Q R. ### Step 1: q_1 u_1 = v_1 = (1, 1, 1). ||u_1|| = sqrt(3). q_1 = (1/sqrt(3)) (1, 1, 1). r_11 = ||u_1|| = sqrt(3) (or = <v_1, q_1> = (1+1+1)/sqrt(3) = sqrt(3) ✓). ### Step 2: q_2 <v_2, q_1> = (1+1+0)/sqrt(3) = 2/sqrt(3). u_2 = v_2 - <v_2, q_1> q_1 = (1, 1, 0) - (2/sqrt(3))(1/sqrt(3))(1, 1, 1) = (1, 1, 0) - (2/3)(1, 1, 1) = (1/3, 1/3, -2/3). ||u_2||^2 = 1/9 + 1/9 + 4/9 = 6/9 = 2/3, ||u_2|| = sqrt(2/3) = sqrt(2)/sqrt(3). q_2 = u_2 / ||u_2|| = (1/3, 1/3, -2/3) / (sqrt(2)/sqrt(3)) = (sqrt(3)/(3 sqrt(2))) (1, 1, -2) = (1/sqrt(6)) (1, 1, -2). r_12 = <v_2, q_1> = 2/sqrt(3). r_22 = ||u_2|| = sqrt(2/3). ### Step 3: q_3 <v_3, q_1> = (1+0+0)/sqrt(3) = 1/sqrt(3). <v_3, q_2> = (1/sqrt(6))(1+0+0) = 1/sqrt(6). u_3 = v_3 - <v_3, q_1> q_1 - <v_3, q_2> q_2 = (1, 0, 0) - (1/sqrt(3))(1/sqrt(3))(1, 1, 1) - (1/sqrt(6))(1/sqrt(6))(1, 1, -2) = (1, 0, 0) - (1/3)(1, 1, 1) - (1/6)(1, 1, -2) = (1, 0, 0) - (1/3, 1/3, 1/3) - (1/6, 1/6, -1/3) = (1 - 1/3 - 1/6, 0 - 1/3 - 1/6, 0 - 1/3 + 1/3) = (1/2, -1/2, 0). ||u_3||^2 = 1/4 + 1/4 + 0 = 1/2, ||u_3|| = 1/sqrt(2). q_3 = u_3 / (1/sqrt(2)) = sqrt(2) (1/2, -1/2, 0) = (1/sqrt(2)) (1, -1, 0). r_13 = <v_3, q_1> = 1/sqrt(3). r_23 = <v_3, q_2> = 1/sqrt(6). r_33 = ||u_3|| = 1/sqrt(2). ### Result Q = [[1/sqrt(3) 1/sqrt(6) 1/sqrt(2)]; [1/sqrt(3) 1/sqrt(6) -1/sqrt(2)]; [1/sqrt(3) -2/sqrt(6) 0]]. R = [[sqrt(3) 2/sqrt(3) 1/sqrt(3)]; [0 sqrt(2/3) 1/sqrt(6)]; [0 0 1/sqrt(2)]]. ### Verify Q is orthogonal Q^T Q should be I. <q_1, q_1> = 1/3 + 1/3 + 1/3 = 1 ✓. <q_1, q_2> = (1 + 1 - 2)/(sqrt(3) sqrt(6)) = 0 ✓. <q_1, q_3> = (1 - 1 + 0)/(sqrt(3) sqrt(2)) = 0 ✓. <q_2, q_2> = (1 + 1 + 4)/6 = 1 ✓. <q_2, q_3> = (1 - 1 + 0)/(sqrt(6) sqrt(2)) = 0 ✓. <q_3, q_3> = (1 + 1 + 0)/2 = 1 ✓. ### Verify A = Q R First column of Q R: Q [sqrt(3); 0; 0] = sqrt(3) q_1 = (1, 1, 1) = v_1 ✓. Second column: Q [2/sqrt(3); sqrt(2/3); 0] = (2/sqrt(3)) q_1 + sqrt(2/3) q_2 = (2/sqrt(3))(1/sqrt(3))(1,1,1) + sqrt(2/3)(1/sqrt(6))(1,1,-2) = (2/3)(1,1,1) + (1/3)(1,1,-2) = (1, 1, 0) = v_2 ✓. Third column: Q [1/sqrt(3); 1/sqrt(6); 1/sqrt(2)] = (1/sqrt(3)) q_1 + (1/sqrt(6)) q_2 + (1/sqrt(2)) q_3 = (1/3)(1,1,1) + (1/6)(1,1,-2) + (1/2)(1,-1,0) = (1/3 + 1/6 + 1/2, 1/3 + 1/6 - 1/2, 1/3 - 1/3 + 0) = (1, 0, 0) = v_3 ✓.",
+      "topic": "ch09p2_worked_qr_decomposition",
+      "intent": "problem_solving",
+      "keywords": [
+        "worked",
+        "QR decomposition",
+        "Gram-Schmidt",
+        "orthonormal columns",
+        "upper triangular",
+        "verification"
+      ]
+    }
+  ]
+}
