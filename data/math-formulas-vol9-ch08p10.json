@@ -1,0 +1,799 @@
+{
+  "generatedAt": "2026-07-08T12:08:19.270Z",
+  "totalItems": 50,
+  "subject": "Mathematics Formula Encyclopedia",
+  "volume": "vol9ch08p10",
+  "source": "generate-math-formulas-vol9-ch08p10.ts",
+  "language": "en",
+  "religionNeutral": true,
+  "items": [
+    {
+      "question": "What is the one-way ANOVA model and its assumptions?",
+      "answer": "The ONE-WAY ANALYSIS OF VARIANCE (one-way ANOVA) compares the means of k >= 2 independent groups. The MODEL is Y_{ij} = mu + alpha_i + epsilon_{ij}, for i = 1, ..., k (groups/treatments) and j = 1, ..., n_i (observations per group). Here mu is the GRAND MEAN, alpha_i is the TREATMENT EFFECT of group i (with sum_i n_i alpha_i = 0 as the identifiability constraint, or sum_i alpha_i = 0 in the balanced case n_i = n), and epsilon_{ij} ~ N(0, sigma^2) iid are the random errors. Equivalently Y_{ij} ~ N(mu_i, sigma^2) with mu_i = mu + alpha_i, and the HYPOTHESES are H_0: mu_1 = mu_2 = ... = mu_k (all group means equal) vs H_a: at least one mu_i differs. The CLASSICAL ASSUMPTIONS ( mnemonic \"LINE\"): (1) LINEARITY/ADDITIVITY — the model Y_{ij} = mu + alpha_i + epsilon_{ij} correctly specifies the mean structure; (2) INDEPENDENCE — observations are independent within and across groups (typically ensured by RANDOMIZATION and independent sampling; violated by repeated measures or clustered designs); (3) NORMALITY — the residuals epsilon_{ij} are normally distributed (assessed via Q-Q plot of residuals, Shapiro-Wilk test on residuals; robust for large n by CLT); (4) EQUAL VARIANCES (homoscedasticity) — Var(epsilon_{ij}) = sigma^2 is constant across all groups (assessed via residual-vs-fitted plot, Levene/Bartlett/Brown-Forsythe tests; rule of thumb: largest group SD <= 2 * smallest group SD). The TOTAL sample size is N = sum n_i. The DESIGN is BALANCED if all n_i are equal (n_i = n); UNBALANCED otherwise. The F-test is fairly ROBUST to non-normality (especially with larger n and balanced design) and to mild heteroscedasticity, but sensitive to violations of independence (the most critical assumption). When assumptions fail: use Welch ANOVA (heteroscedasticity), Kruskal-Wallis (non-normality), or generalized linear mixed models.",
+      "topic": "math_vol9_ch08p10_oneway_anova_model",
+      "intent": "formula_recall",
+      "keywords": [
+        "one-way ANOVA",
+        "treatment effect",
+        "grand mean",
+        "normality",
+        "homoscedasticity",
+        "independence",
+        "LINE"
+      ]
+    },
+    {
+      "question": "How is the ANOVA decomposition derived for one-way ANOVA?",
+      "answer": "In one-way ANOVA, the TOTAL SUM OF SQUARES is partitioned into BETWEEN-GROUP (treatment) and WITHIN-GROUP (error) components: SST = SSTR + SSE, where SST = sum_{i=1}^{k} sum_{j=1}^{n_i} (Y_{ij} - Ybar..)^2 (total, with N - 1 degrees of freedom, N = sum n_i), SSTR = sum_{i=1}^{k} n_i (Ybar_i. - Ybar..)^2 (treatment/between, with k - 1 df), and SSE = sum_{i=1}^{k} sum_{j=1}^{n_i} (Y_{ij} - Ybar_i.)^2 (error/within, with N - k df). Here Ybar_i. = (1/n_i) sum_j Y_{ij} is the GROUP MEAN and Ybar.. = (1/N) sum_{i,j} Y_{ij} is the GRAND MEAN. DERIVATION: write Y_{ij} - Ybar.. = (Ybar_i. - Ybar..) + (Y_{ij} - Ybar_i.), square both sides and sum over i, j. The cross-product term is 2 sum_i sum_j (Ybar_i. - Ybar..)(Y_{ij} - Ybar_i.) = 2 sum_i (Ybar_i. - Ybar..) sum_j (Y_{ij} - Ybar_i.) = 2 sum_i (Ybar_i. - Ybar..) * 0 = 0, since sum_j (Y_{ij} - Ybar_i.) = 0 by definition of the group mean. Hence SST = sum_i n_i (Ybar_i. - Ybar..)^2 + sum_i sum_j (Y_{ij} - Ybar_i.)^2 = SSTR + SSE. MEAN SQUARES: MSTR = SSTR / (k - 1) and MSE = SSE / (N - k). Under H_0 (all mu_i equal): E[MSTR] = E[MSE] = sigma^2; under H_a: E[MSTR] = sigma^2 + sum n_i alpha_i^2 / (k - 1) > sigma^2 = E[MSE]. So large values of MSTR / MSE indicate H_a. Under normality and H_0, SSE/sigma^2 ~ chi^2_{N-k} and SSTR/sigma^2 ~ chi^2_{k-1}, independent (Cochran's theorem). The F-STATISTIC is F = MSTR / MSE, distributed as F_{k-1, N-k} under H_0. The ANOVA TABLE has rows: Treatments (SSTR, k-1, MSTR, F), Error (SSE, N-k, MSE), Total (SST, N-1).",
+      "topic": "math_vol9_ch08p10_oneway_anova_decomposition",
+      "intent": "formula_recall",
+      "keywords": [
+        "ANOVA decomposition",
+        "SST",
+        "SSTR",
+        "SSE",
+        "sum of squares",
+        "degrees of freedom",
+        "Cochran theorem"
+      ]
+    },
+    {
+      "question": "What is the F-test in one-way ANOVA and how is the p-value computed?",
+      "answer": "In one-way ANOVA, the F-TEST evaluates H_0: mu_1 = ... = mu_k against H_a: at least one mean differs. The TEST STATISTIC is F = MSTR / MSE = [SSTR / (k - 1)] / [SSE / (N - k)], where SSTR = sum n_i (Ybar_i. - Ybar..)^2, SSE = sum sum (Y_{ij} - Ybar_i.)^2, k = number of groups, N = total sample size. Under H_0 (with normality, independence, homoscedasticity), F ~ F_{k-1, N-k} (Snedecor's F distribution with numerator df = k - 1 and denominator df = N - k). The F distribution is the ratio of two independent chi-squared variables each divided by its df: if U ~ chi^2_{d1} and V ~ chi^2_{d2} independent, then (U/d1)/(V/d2) ~ F_{d1, d2}. The test is UPPER-TAILED (one-sided): we reject H_0 when F > F_{k-1, N-k, 1-alpha} (large F means between-group variation exceeds within-group variation). The P-VALUE is p = P(F_{k-1, N-k} >= F_obs) = upper-tail probability, computed via the incomplete beta function: p = I_{d2/(d2 + d1 * F_obs)}(d2/2, d1/2). DECISION RULE: reject H_0 at significance level alpha if p < alpha (equivalently F_obs > F_{k-1, N-k, 1-alpha}). INTUITION: F compares \"explained variance\" (between groups) to \"unexplained variance\" (within groups). F near 1 -> no evidence against H_0 (group means indistinguishable relative to noise). F large -> at least one group mean differs from the others. IMPORTANT: rejecting H_0 only tells us that NOT ALL means are equal — it does NOT identify WHICH pairs differ. POST-HOC / multiple comparison procedures (Tukey HSD, Bonferroni, Scheffe, Dunnett, Duncan, Fisher LSD, Newman-Keuls, Games-Howell) are needed to identify specific differences while controlling the family-wise error rate or false discovery rate. POWER of the F-test depends on alpha, sample sizes n_i, the true effect size (e.g., Cohen's f or the noncentrality parameter lambda = sum n_i alpha_i^2 / sigma^2), and the degrees of freedom; computed via the noncentral F distribution F_{k-1, N-k}(lambda).",
+      "topic": "math_vol9_ch08p10_oneway_anova_ftest",
+      "intent": "formula_recall",
+      "keywords": [
+        "F-test",
+        "p-value",
+        "F distribution",
+        "Snedecor",
+        "noncentral F",
+        "post-hoc",
+        "family-wise error"
+      ]
+    },
+    {
+      "question": "What are contrasts and orthogonal contrasts in one-way ANOVA?",
+      "answer": "A CONTRAST is a LINEAR COMBINATION of group means with coefficients summing to zero: psi = sum_{i=1}^{k} c_i mu_i, where sum_i c_i = 0. The ESTIMATOR is psi_hat = sum_i c_i Ybar_i., with Var(psi_hat) = sigma^2 sum_i (c_i^2 / n_i) estimated by SE(psi_hat) = sqrt(MSE * sum_i c_i^2 / n_i). The t-statistic for H_0: psi = 0 is T = psi_hat / SE(psi_hat) ~ t_{N-k}, giving CI: psi_hat +/- t_{N-k, 1-alpha/2} * SE(psi_hat). TYPES of contrasts: (1) PAIRWISE — c_i = 1 for group A, c_j = -1 for group B, others 0 (tests mu_A - mu_B); (2) TREATMENT VS CONTROL — Dunnett: c_1 = -1 (control), c_i = 1/(k-1) for treatments (Dunnett-adjusted); (3) LINEAR TREND — c_i = i - (k+1)/2 (tests for linear trend across ordered groups); (4) QUADRATIC/CUBIC — orthogonal polynomial coefficients; (5) HELMERT — each level vs mean of subsequent levels; (6) DEVIATION — each level vs grand mean (with one constrained). ORTHOGONAL CONTRASTS: two contrasts psi_1 = sum c_i mu_i and psi_2 = sum d_i mu_i are ORTHOGONAL (independent under normality) iff sum_i c_i d_i = 0 (balanced) or sum_i (c_i d_i / n_i) = 0 (unbalanced). A set of k - 1 mutually orthogonal contrasts PARTITIONS the treatment sum of squares SSTR into k - 1 independent single-df components: SSTR = sum_{m=1}^{k-1} SSM_m, where SSM_m = psi_hat_m^2 / (sum_i c_{m,i}^2 / n_i). Each component is tested with its own F_m = SSM_m / MSE ~ F_{1, N-k} = t^2_{N-k}. ORTHOGONALITY BENEFITS: (a) independent tests (no inflation if each tested at alpha); (b) clean partition of variability; (c) natural for trend analysis (linear, quadratic, cubic components). CAUTION: orthogonality is a mathematical convenience, not a scientific necessity — planned (a priori) contrasts should reflect the research questions, orthogonal or not. PLANNED CONTRASTS (few, specified before seeing data) tested at level alpha are more powerful than post-hoc tests; POST-HOC contrasts (data-suggested, many) need multiplicity correction (Bonferroni, Scheffe, Tukey).",
+      "topic": "math_vol9_ch08p10_oneway_contrasts",
+      "intent": "formula_recall",
+      "keywords": [
+        "contrast",
+        "orthogonal contrasts",
+        "linear combination",
+        "trend analysis",
+        "Helmert",
+        "Dunnett",
+        "planned contrasts"
+      ]
+    },
+    {
+      "question": "What are the Tukey HSD, Bonferroni, and Scheffe multiple comparison procedures?",
+      "answer": "After a significant one-way ANOVA F-test, MULTIPLE COMPARISON PROCEDURES (MCPs) identify WHICH group means differ while controlling the FAMILY-WISE ERROR RATE (FWER) = P(at least one Type I error among all comparisons). The three classic MCPs: (1) TUKEY'S HONESTLY SIGNIFICANT DIFFERENCE (HSD) — for ALL PAIRWISE comparisons (k(k-1)/2 pairs). Test statistic: q = (Ybar_i. - Ybar_j.) / sqrt(MSE/n) (balanced, n_i = n) where q is the STUDENTIZED RANGE distribution with parameters k and N-k. Reject H_0: mu_i = mu_j if |Ybar_i. - Ybar_j.| > q_{k, N-k, 1-alpha} * sqrt(MSE/n). For unbalanced designs, use the TUKEY-KRAMER adjustment: SE_{ij} = sqrt((MSE/2)(1/n_i + 1/n_j)). Tukey controls FWER EXACTLY for all pairwise comparisons under balanced design; it is MORE powerful than Bonferroni/Scheffe for pairwise. (2) BONFERRONI — general purpose for ANY set of m comparisons. Adjust: reject comparison i if p_i < alpha/m, equivalently use per-comparison alpha/m or CI with t_{N-k, 1-alpha/(2m)}. SIMPLE but CONSERVATIVE (actual FWER <= alpha, often much less); powerful for FEW planned comparisons, loses power as m grows. For all pairwise m = k(k-1)/2. (3) SCHEFFE — for ALL POSSIBLE contrasts (not just pairwise). Test statistic: F = psi_hat^2 / [MSE * (sum c_i^2 / n_i) * (k-1)] ; reject if F > F_{k-1, N-k, 1-alpha} (note the extra (k-1) factor). Equivalently CI: psi_hat +/- sqrt((k-1) F_{k-1, N-k, 1-alpha}) * SE(psi_hat). Scheffe controls FWER for the INFINITE family of all contrasts; MOST conservative for pairwise, but ONLY valid option for arbitrary post-hoc contrasts. COMPARISON: For pairwise — Tukey most powerful, then Bonferroni (if m small), then Scheffe. For few planned contrasts — Bonferroni. For complex post-hoc contrasts — Scheffe. OTHER MCPs: Dunnett (vs control), Games-Howell (unequal variances), Gabriel, REGW-Q/F, Holm (step-down Bonferroni, more powerful), Benjamini-Hochberg (controls FDR not FWER).",
+      "topic": "math_vol9_ch08p10_oneway_multiple_comparisons",
+      "intent": "formula_recall",
+      "keywords": [
+        "Tukey HSD",
+        "Bonferroni",
+        "Scheffe",
+        "family-wise error",
+        "studentized range",
+        "Tukey-Kramer",
+        "Dunnett",
+        "Games-Howell"
+      ]
+    },
+    {
+      "question": "How is the power and sample size for one-way ANOVA computed?",
+      "answer": "The POWER of the one-way ANOVA F-test is the probability of correctly rejecting H_0: mu_1 = ... = mu_k when H_a is true. Under H_a (specific nonzero alpha_i), the F-statistic follows a NONCENTRAL F distribution: F ~ F_{k-1, N-k}(lambda), where lambda = sum_{i=1}^{k} n_i alpha_i^2 / sigma^2 is the NONCENTRALITY PARAMETER (alpha_i = mu_i - mu, the treatment effects). The POWER is pi = P(F > F_{k-1, N-k, 1-alpha} | H_a) = 1 - F_{k-1, N-k, lambda}(F_{crit}), computed via the noncentral F CDF. EFFECT SIZE measures (standardize the magnitude of group differences, independent of units): (1) COHEN'S f: f = sqrt(sum_i (n_i/N) (mu_i - mu)^2 / sigma^2) = sqrt(lambda / N); conventions: f = 0.1 small, 0.25 medium, 0.4 large; (2) ETA-SQUARED (population): eta^2 = SSTR / SST = lambda / (lambda + N); (3) OMEGA-SQUARED (less biased): omega^2 = (SSTR - (k-1) MSE) / (SST + MSE); (4) Cohen's f and eta^2 are related: f^2 = eta^2 / (1 - eta^2). SAMPLE SIZE determination (for fixed k, effect size f, alpha, desired power 1 - beta): iterate over N (or n per group in balanced design) computing lambda = N f^2 and power = 1 - F_{k-1, N-k, lambda}(F_{crit}) until power >= 1 - beta. RULES OF THUMB (Cohen): for f = 0.1 small, ~322 per group (k=3, alpha=0.05, power=0.80); f = 0.25 medium, ~52 per group; f = 0.4 large, ~21 per group. FACTORS AFFECTING POWER: (a) larger N -> higher power; (b) larger effect size -> higher power; (c) larger alpha -> higher power (but more Type I); (d) balanced designs maximize power for fixed N; (e) fewer groups k (for fixed N) -> more df for error -> slightly higher power. NONCENTRALITY alternative: use the APPROXIMATION by Patnaik (1950) — replace noncentral chi^2 with scaled central chi^2 — for hand calculation; modern software uses exact noncentral F. For UNEQUAL group sizes, the most efficient allocation (maximizing power for a specific contrast) puts more observations where the contrast coefficients are largest; for detecting ANY difference, BALANCED is optimal.",
+      "topic": "math_vol9_ch08p10_oneway_power_sample_size",
+      "intent": "formula_recall",
+      "keywords": [
+        "power",
+        "sample size",
+        "noncentral F",
+        "Cohen f",
+        "effect size",
+        "eta-squared",
+        "omega-squared",
+        "noncentrality"
+      ]
+    },
+    {
+      "question": "What is Welch's ANOVA and when is it used for unequal variances?",
+      "answer": "WELCH'S ANOVA is a GENERALIZATION of one-way ANOVA for the case of UNEQUAL VARIANCES across groups (violation of homoscedasticity). The standard F-test assumes sigma^2 is constant; when group variances sigma_i^2 differ substantially (e.g., largest SD > 2 * smallest, or significant Levene/Bartlett test), the standard F-test has INFLATED Type I error. Welch's approach uses a WEIGHTED analysis with weights w_i = n_i / s_i^2 (inverse-variance weights, where s_i^2 is the sample variance of group i). Define the WEIGHTED MEAN wbar = sum w_i Ybar_i. / sum w_i, the BETWEEN-GROUP statistic D = sum_i w_i (Ybar_i. - wbar)^2 / (k - 1), and the WITHIN statistic V = [1 + 2(k-2)/(k^2-1) sum_i (1 - w_i/sum w_j)^2 / (n_i - 1)]. The Welch F-statistic is F_W = D / V, approximately distributed as F_{nu1, nu2} under H_0, with degrees of freedom: nu1 = k - 1 and nu2 = (k^2 - 1) / [3 sum_i (1 - w_i/sum w_j)^2 / (n_i - 1)] (Satterthwaite approximation, fractional df). DECISION: reject H_0 if F_W > F_{nu1, nu2, 1-alpha}. INTUITION: Welch weights groups by precision (more observations, less variance => more weight), and corrects the df downward to account for the extra uncertainty from estimating unequal variances. WHEN TO USE: (a) Levene or Bartlett test significant (heteroscedasticity present); (b) group SDs differ by factor > 2; (c) unbalanced design with unequal variances (the standard F-test is especially vulnerable here); (d) non-normal data with unequal spreads. PROPERTIES: (1) controls Type I error well even under extreme variance heterogeneity and unbalanced designs (unlike standard F which is liberal with large-variance small-n groups); (2) slightly less powerful than standard F when variances ARE equal (small loss); (3) robust to non-normality with moderate sample sizes. POST-HOC after Welch: use GAMES-HOWELL test (generalizes Tukey with Welch-style df correction) for pairwise comparisons; do NOT use Tukey HSD (which assumes equal variances). ALTERNATIVES to Welch: Brown-Forsythe (uses trimmed means and deviations from medians), robust ANOVA with bootstrap/permutation, generalized Welch with trimmed means (Yuen). The standard recommendation: ALWAYS report Welch's ANOVA alongside or instead of the standard F when variances are unequal.",
+      "topic": "math_vol9_ch08p10_oneway_welch_anova",
+      "intent": "formula_recall",
+      "keywords": [
+        "Welch ANOVA",
+        "unequal variances",
+        "heteroscedasticity",
+        "Satterthwaite",
+        "Games-Howell",
+        "inverse-variance weights"
+      ]
+    },
+    {
+      "question": "What are the assumptions diagnostics and remedies in one-way ANOVA?",
+      "answer": "The four ONE-WAY ANOVA assumptions (LINE: Linearity/Additivity, Independence, Normality, Equal variances) must be checked via DIAGNOSTICS, with REMEDIES applied when violations are detected. (1) INDEPENDENCE (most critical, cannot be \"fixed\" post-hoc): assessed by STUDY DESIGN — random sampling, randomization of treatment assignment, no clustering/repeated measures. If violated (e.g., repeated measures, clustered data): use REPEATED-MEASURES ANOVA, LINEAR MIXED MODELS with random effects, or GEE. Independence violations cause SEVERE inflation of Type I error. (2) NORMALITY of residuals: assessed via (a) Q-Q PLOT of residuals (visual: points should follow the 45-degree line); (b) HISTOGRAM of residuals (should be bell-shaped); (c) SHAPIRO-WILK test on residuals (H_0: normal, reject if p < 0.05); (d) Anderson-Darling test. Robust for large n (CLT: n_i >= 30 per group is usually adequate). REMEDIES: (i) transform Y (log for right-skewed/positive data, square root for counts, Box-Cox for general); (ii) nonparametric KRUSKAL-WALLIS test (rank-based, no normality); (iii) PERMUTATION F-test (exact, no distributional assumption); (iv) bootstrap. (3) EQUAL VARIANCES (homoscedasticity): assessed via (a) RESIDUAL-VS-FITTED plot (look for fan-shape/spreading); (b) LEVENE'S test (H_0: equal variances, robust to non-normality; uses absolute deviations from group means/medians — Brown-Forsythe variant uses medians, more robust); (c) BARTLETT's test (sensitive to non-normality); (d) rule of thumb: max SD / min SD <= 2. REMEDIES: (i) WELCH'S ANOVA (unequal variances F-test with Satterthwaite df); (ii) transform Y (log often stabilizes variance); (iii) weighted least squares; (iv) Games-Howell post-hoc. (4) ADDITIVITY/OUTLIERS: assessed via (a) residual plot patterns (curvature suggests non-additivity); (b) Cook's distance, leverage, studentized residuals for outliers; (c) Tukey's test for non-additivity. REMEDIES: transform, remove outliers (with justification), or use robust regression. GENERAL STRATEGY: (a) always plot data (boxplots per group, residual plots); (b) check assumptions in order of importance (independence >> equal variances > normality > additivity); (c) prefer robust alternatives (Welch, Kruskal-Wallis) if unsure; (d) report diagnostics transparently. The F-test is ROBUST to mild non-normality (especially balanced, large n) and mild heteroscedasticity (balanced), but NOT robust to independence violations.",
+      "topic": "math_vol9_ch08p10_oneway_assumptions_diagnostics",
+      "intent": "formula_recall",
+      "keywords": [
+        "assumptions",
+        "diagnostics",
+        "Levene test",
+        "Bartlett test",
+        "Shapiro-Wilk",
+        "Q-Q plot",
+        "remedies",
+        "Box-Cox"
+      ]
+    },
+    {
+      "question": "What is the two-way ANOVA model with interaction?",
+      "answer": "The TWO-WAY ANOVA model with two factors A (with a levels) and B (with b levels), and n replicates per cell (balanced), is Y_{ijk} = mu + alpha_i + beta_j + (alpha beta)_{ij} + epsilon_{ijk}, for i = 1, ..., a, j = 1, ..., b, k = 1, ..., n. Here mu is the OVERALL MEAN, alpha_i is the MAIN EFFECT of factor A at level i (constraint sum_i alpha_i = 0), beta_j is the MAIN EFFECT of factor B at level j (sum_j beta_j = 0), (alpha beta)_{ij} is the INTERACTION EFFECT at cell (i,j) (constraints sum_i (alpha beta)_{ij} = 0 for each j and sum_j (alpha beta)_{ij} = 0 for each i), and epsilon_{ijk} ~ N(0, sigma^2) iid. The CELL MEAN is mu_{ij} = mu + alpha_i + beta_j + (alpha beta)_{ij}. INTERPRETATION: alpha_i is the deviation of factor A level i from the grand mean, AVERAGED over all levels of B (marginal effect of A); beta_j similarly for B; (alpha beta)_{ij} is the EXTRA deviation at the (i,j) combination beyond what the main effects predict — it captures how the effect of A DEPENDS on the level of B (and vice versa). NO INTERACTION means the effect of A is the SAME at all levels of B (parallel profile plots / interaction plots — lines are parallel). PRESENCE OF INTERACTION means the effect of A differs across B (non-parallel lines; possibly crossing). The HYPOTHESES tested: (1) H_0^{AB}: all (alpha beta)_{ij} = 0 (no interaction); (2) H_0^A: all alpha_i = 0 (no main effect of A); (3) H_0^B: all beta_j = 0 (no main effect of B). The ANOVA DECOMPOSITION: SST = SSA + SSB + SSAB + SSE, where SSA = bn sum_i (Ybar_i.. - Ybar...)^2 (A main effect, df = a-1), SSB = an sum_j (Ybar_.j. - Ybar...)^2 (B main effect, df = b-1), SSAB = n sum_i sum_j (Ybar_ij. - Ybar_i.. - Ybar_.j. + Ybar...)^2 (interaction, df = (a-1)(b-1)), SSE = sum_i sum_j sum_k (Y_{ijk} - Ybar_ij.)^2 (error, df = ab(n-1)), and SST = sum (Y_{ijk} - Ybar...)^2 (total, df = abn - 1). F-TESTS: F_A = MSA/MSE ~ F_{a-1, ab(n-1)}; F_B = MSB/MSE ~ F_{b-1, ab(n-1)}; F_AB = MSAB/MSE ~ F_{(a-1)(b-1), ab(n-1)}. TESTING ORDER: test interaction FIRST; if significant, main effects are not directly interpretable (analyze SIMPLE EFFECTS — effect of A at each level of B — instead); if not significant, proceed to test main effects.",
+      "topic": "math_vol9_ch08p10_twoway_anova_model",
+      "intent": "formula_recall",
+      "keywords": [
+        "two-way ANOVA",
+        "main effect",
+        "interaction",
+        "factorial design",
+        "cell mean",
+        "profile plot",
+        "interaction plot"
+      ]
+    },
+    {
+      "question": "What is the difference between balanced and unbalanced two-way factorial designs?",
+      "answer": "In two-way factorial designs, the design is BALANCED if every cell (i, j) has the SAME number of replicates n_{ij} = n; UNBALANCED if cell sizes n_{ij} differ. BALANCED designs have key advantages: (1) ORTHOGONALITY — SSA, SSB, SSAB are ORTHOGONAL (independent) partitions of SST, so the decomposition SST = SSA + SSB + SSAB + SSE is exact and the sums of squares sum correctly; (2) INTERPRETABILITY — main effects and interaction are cleanly separable; (3) SIMPLICITY — standard ANOVA formulas apply directly; (4) ROBUSTNESS — F-tests are more robust to non-normality and heteroscedasticity. UNBALANCED designs arise from (a) missing data (dropout, non-response); (b) unequal sampling by design (e.g., stratified with proportional allocation); (c) observational data with naturally unequal group sizes. PROBLEMS with unbalanced designs: (1) NON-ORTHOGONALITY — SSA, SSB, SSAB are NO LONGER orthogonal; the sums of squares depend on the ORDER of terms in the model (Type I / sequential SS) or on the comparison being made (Type II, III SS). (2) MULTIPLE TYPES of sums of squares: TYPE I (sequential) — SS for each term as it is ADDED to the model in order; sum to SST but depend on order. TYPE II — SS for each term ADJUSTED for all other terms of equal or lower order (e.g., SSA adjusted for B but not AB; SSAB adjusted for A and B); tests main effects assuming no interaction; sensible when no interaction. TYPE III (marginal) — SS for each term ADJUSTED for ALL other terms including interaction (SSA adjusted for B and AB); tests the main effect in the FULL model; the default in most software (SAS, R's car::Anova); appropriate when interaction may be present. TYPE IV — handles empty cells. (3) ESTIMABILITY issues — with empty cells, some effects are non-estimable (the model is overparameterized). RECOMMENDATIONS: (a) prefer BALANCED designs whenever possible (plan sample sizes); (b) for unbalanced data, use TYPE III SS (with effect coding) for main effects when interaction is in the model; (c) use TYPE II SS when no interaction is assumed; (d) report the design clearly (cell sizes n_{ij}); (e) consider LEAST SQUARES MEANS (LS-means / estimated marginal means) — the predicted marginal means at the average of the other factor, which give fair comparison of main effects in unbalanced designs. MISSING completely at random (MCAR) is required for valid Type III inference; missing not at random (MNAR) requires more sophisticated methods (multiple imputation, mixed models).",
+      "topic": "math_vol9_ch08p10_twoway_balanced_unbalanced",
+      "intent": "formula_recall",
+      "keywords": [
+        "balanced design",
+        "unbalanced design",
+        "orthogonality",
+        "Type I SS",
+        "Type II SS",
+        "Type III SS",
+        "least squares means",
+        "missing data"
+      ]
+    },
+    {
+      "question": "What are simple effects and simple main effects analysis in two-way ANOVA?",
+      "answer": "When the INTERACTION in a two-way ANOVA is significant, the MAIN EFFECTS (averaged over the other factor) are misleading — the effect of factor A DEPENDS on the level of factor B. In this case, we analyze SIMPLE EFFECTS (also called simple main effects): the effect of one factor AT A FIXED LEVEL of the other factor. For factor A at level j of B: the simple effect of A at B_j is the difference among the A-level means within column j: {mu_{ij}}_{i=1}^{a}, tested via the SIMPLE EFFECT SS: SS_{A | B_j} = n sum_{i=1}^{a} (Ybar_{ij.} - Ybar_{.j.})^2 with df = a - 1, and F = [SS_{A|B_j} / (a-1)] / MSE ~ F_{a-1, ab(n-1)}. Similarly for the simple effect of B at A_i: SS_{B | A_i} = n sum_{j=1}^{b} (Ybar_{ij.} - Ybar_{i..})^2 with df = b - 1. WHEN TO USE SIMPLE EFFECTS: only after a SIGNIFICANT interaction. If interaction is NOT significant, analyze main effects directly (more powerful). INTERPRETATION: a significant simple effect of A at B_j means A has an effect on Y when B is held at level j. POST-HOC within simple effects: if the simple effect is significant, conduct pairwise comparisons WITHIN that level (e.g., Tukey HSD among the a means at B_j), with appropriate multiplicity adjustment. MULTIPLICITY CONCERNS: testing simple effects at all levels of B inflates FWER; use Bonferroni (divide alpha by number of simple effects tested) or hold each at alpha and interpret cautiously. PROFILE PLOTS (interaction plots) — plot Ybar_{ij.} vs i, with separate lines for each j (or vice versa) — visually reveal: PARALLEL lines = no interaction; NON-PARALLEL lines = interaction; CROSSING lines = strong/ordinal interaction (effect reverses). TYPES OF INTERACTION: (a) ORDINAL — the order of means is preserved (lines do not cross), but magnitude of effect differs; (b) DISORDINAL (cross-over) — the order reverses (lines cross), the strongest form of interaction, where main effects are especially misleading. SIMPLE EFFECTS vs SIMPLE CONTRASTS: simple effects test overall differences; simple CONTRASTS test specific pairwise or custom comparisons within a level. For three-way and higher interactions, decompose into two-way simple interactions at fixed levels of the third factor, then simple effects.",
+      "topic": "math_vol9_ch08p10_twoway_simple_effects",
+      "intent": "formula_recall",
+      "keywords": [
+        "simple effects",
+        "simple main effects",
+        "interaction",
+        "profile plot",
+        "ordinal interaction",
+        "disordinal interaction",
+        "cross-over"
+      ]
+    },
+    {
+      "question": "What is the principle of factorial design efficiency and hidden replication?",
+      "answer": "A FACTORIAL DESIGN studies TWO OR MORE factors simultaneously in a single experiment, with every combination of factor levels represented. Compared to ONE-FACTOR-AT-A-TIME (OFAT) designs, factorial designs offer dramatic efficiency gains. KEY PRINCIPLES: (1) HIDDEN REPLICATION — in a 2^k factorial with n replicates per cell, each main effect is estimated with n * 2^{k-1} observations (e.g., in a 2^3 design with n=2, each main effect uses 2*4 = 8 observations), even though only 16 total runs are made. The main effect of A averages over all levels of B, C, giving implicit replication. (2) EFFICIENCY — to achieve the same precision for each main effect with OFAT, one would need k separate experiments each with n*2^{k-1} runs = total k * n * 2^{k-1} runs vs n * 2^k runs for the factorial — a k/2-fold savings. For k=5, the factorial is 2.5x more efficient. (3) INTERACTION DETECTION — factorial designs are the ONLY way to detect interactions between factors; OFAT cannot detect interactions and can be MISLEADING when interactions are present (the optimal combination may not include either factor's individual optimum). (4) COMPREHENSIVENESS — the entire experimental region is explored, not just slices. EXAMPLE: 2^2 factorial with factors A (temperature: low/high) and B (catalyst: low/high), n=3 replicates per cell, 12 runs total. Main effect of A: difference between high-A average (6 obs) and low-A average (6 obs), with effective n=6 per level. OFAT would require: 6 obs at low-A/low-B + 6 at high-A/low-B = 12 for A; + 6 at low-A/low-B (already done) + 6 at low-A/high-B = 6 more for B; total 18 runs for the same precision, AND no interaction can be estimated. The factorial does it in 12. NOTATION: 2^k = two-level factorial with k factors (2^k runs + replicates); 3^k = three-level; general a*b*c design = mixed levels. FRACTIONAL factorial designs (e.g., 2^{k-p}) reduce the run count further by aliasing high-order interactions (assumed negligible), enabling screening of many factors with few runs. The fundamental TRIANGLE of design: MORE factors/levels => MORE runs; TRADE-OFFS between run count, precision, and interaction detectability. Factorial designs are the workhorse of industrial and scientific experimentation (Taguchi, response surface, robust design).",
+      "topic": "math_vol9_ch08p10_factorial_efficiency",
+      "intent": "formula_recall",
+      "keywords": [
+        "factorial design",
+        "hidden replication",
+        "efficiency",
+        "OFAT",
+        "one factor at a time",
+        "2^k factorial",
+        "fractional factorial"
+      ]
+    },
+    {
+      "question": "What are fixed, random, and mixed effects in ANOVA models?",
+      "answer": "In ANOVA, factor effects are classified by how the levels were selected, which determines the inference scope. (1) FIXED EFFECTS — the levels of the factor are the SPECIFIC levels of interest, chosen deliberately by the experimenter (not randomly sampled). Inference applies ONLY to those levels. Examples: three specific drugs; four specific temperatures; male vs female. The model Y_{ij} = mu + alpha_i + epsilon_{ij} treats alpha_i as FIXED unknown constants (with sum alpha_i = 0). Tests H_0: alpha_1 = ... = alpha_k = 0. The F-test denominator is MSE. (2) RANDOM EFFECTS — the levels are a RANDOM SAMPLE from a larger POPULATION of possible levels. Inference generalizes to the ENTIRE POPULATION of levels, not just the observed ones. Examples: 5 randomly selected schools (from thousands); 10 randomly selected technicians; 20 randomly selected batches. The model Y_{ij} = mu + a_i + epsilon_{ij} treats a_i as RANDOM variables, typically a_i ~ N(0, sigma_a^2) (the VARIANCE COMPONENT). Tests H_0: sigma_a^2 = 0 (no variability among population of levels). The F-test denominator depends on the expected mean squares (EMS): for one-way random effects, F = MSTR / MSE still, but the INTERPRETATION differs (sigma_a^2 = 0 vs all alpha_i = 0). VARIANCE COMPONENTS estimation: method of moments (equate observed MS to EMS and solve), MAXIMUM LIKELIHOOD (ML), RESTRICTED MAXIMUM LIKELIHOOD (REML, preferred — unbiased for balanced designs), Bayesian. (3) MIXED EFFECTS — some factors fixed, some random. Example: 3 specific drugs (fixed) tested in 5 randomly chosen clinics (random). Model Y_{ijk} = mu + alpha_i (fixed) + b_j (random) + (alpha b)_{ij} (random, typically) + epsilon_{ijk}. The interaction of a fixed and random factor is RANDOM. The F-test denominator depends on EMS: for the fixed main effect, the denominator may be the INTERACTION MS (not MSE) — this is the crucial difference from fixed-effects ANOVA. EXPECTED MEAN SQUARES (EMS) rules: for fixed factor A crossed with random factor B (with AB random), EMS_A = sigma^2 + n sigma_{AB}^2 + (bn/(a-1)) sum alpha_i^2; EMS_B = sigma^2 + an sigma_B^2; EMS_AB = sigma^2 + n sigma_{AB}^2; EMS_error = sigma^2. Hence F_A = MSA / MSAB (NOT MSA/MSE) — using MSE would give too many Type I errors because the natural variability of A includes the AB interaction. WHY DISTINGUISH: (a) correct F-tests require correct denominators (EMS-based); (b) scope of inference differs (fixed = only these levels; random = whole population); (c) generalizability of conclusions; (d) software: PROC MIXED (SAS), lme4/nlme (R) handle mixed models with REML estimation, correctly specifying random effects and computing appropriate F-tests with Satterthwaite or Kenward-Roger df approximations.",
+      "topic": "math_vol9_ch08p10_fixed_random_mixed_effects",
+      "intent": "formula_recall",
+      "keywords": [
+        "fixed effects",
+        "random effects",
+        "mixed effects",
+        "variance components",
+        "REML",
+        "expected mean squares",
+        "EMS",
+        "scope of inference"
+      ]
+    },
+    {
+      "question": "How are variance components estimated in random effects ANOVA?",
+      "answer": "In a random effects model (e.g., one-way: Y_{ij} = mu + a_i + epsilon_{ij}, a_i ~ N(0, sigma_a^2), epsilon_{ij} ~ N(0, sigma^2)), the parameters of interest are the VARIANCE COMPONENTS sigma_a^2 (between-groups) and sigma^2 (within-groups). The TOTAL VARIANCE of an observation is Var(Y_{ij}) = sigma_a^2 + sigma^2. ESTIMATION METHODS: (1) METHOD OF MOMENTS (ANOVA estimator) — equate observed mean squares to their expected values (EMS) and solve. For one-way random effects (balanced, n per group): EMS_STR = sigma^2 + n sigma_a^2, EMS_E = sigma^2. Setting MSTR = EMS_STR and MSE = EMS_E gives sigma^2_hat = MSE and sigma_a^2_hat = (MSTR - MSE) / n. If MSTR < MSE (rare), sigma_a^2_hat is NEGATIVE — truncate to 0 (no evidence of between-group variance). Properties: unbiased for balanced designs, can be negative (truncated), inefficient for unbalanced. (2) MAXIMUM LIKELIHOOD (ML) — maximize the likelihood of the data under the multivariate normal model (Y vector has covariance matrix V = Z G Z^T + R, where G = sigma_a^2 I, R = sigma^2 I). ML estimates are biased downward (don't account for fixed effects df), but asymptotically efficient. (3) RESTRICTED MAXIMUM LIKELIHOOD (REML) — maximizes the likelihood of LINEAR COMBINATIONS of Y that are ORTHOGONAL to the fixed effects (i.e., the residual likelihood). REML accounts for the df lost in estimating fixed effects, giving UNBIASED variance component estimates for balanced designs. REML is the DEFAULT in most software (SAS PROC MIXED, R lme4, nlme) and is generally preferred. (4) BAYESIAN — place priors on variance components (e.g., inverse-gamma on sigma^2, half-Cauchy on sigma_a), compute posterior via MCMC; gives interval estimates naturally. INTRACLASS CORRELATION (ICC) — for one-way random effects, ICC = sigma_a^2 / (sigma_a^2 + sigma^2), measuring the proportion of total variance due to between-group differences; ranges 0 to 1; ICC near 1 means groups are very different, ICC near 0 means groups are similar. ICC is used in reliability (inter-rater agreement), heritability (genetics), and cluster sampling design. CONFIDENCE INTERVALS for variance components: (a) exact chi-squared CI for sigma^2 (from SSE/sigma^2 ~ chi^2); (b) Satterthwaite approximation for sigma_a^2; (c) profile likelihood CIs (ML/REML); (d) Bayesian credible intervals. NEGATIVE ESTIMATES: if data show less between-group variation than expected by chance (MSTR < MSE), method-of-moments gives negative sigma_a^2; truncate to 0 or use ML/REML (which constrain to >= 0 by parameterization). UNBALANCED designs: ANOVA estimators are unbiased but messy; REML is preferred and handles unbalanced data naturally.",
+      "topic": "math_vol9_ch08p10_variance_components_estimation",
+      "intent": "formula_recall",
+      "keywords": [
+        "variance components",
+        "method of moments",
+        "REML",
+        "maximum likelihood",
+        "intraclass correlation",
+        "ICC",
+        "negative variance",
+        "Satterthwaite"
+      ]
+    },
+    {
+      "question": "What is the expected mean squares (EMS) table and how is it used to construct F-tests?",
+      "answer": "The EXPECTED MEAN SQUARES (EMS) table gives the EXPECTED VALUE of each mean square in an ANOVA, expressed in terms of variance components and fixed effects. The EMS table is CRUCIAL for: (1) determining the correct F-test denominator for each effect (especially in mixed and random effects models); (2) estimating variance components (method of moments); (3) understanding what each F-test actually tests. CONSTRUCTION rules (for balanced designs): each EMS is a linear combination of (a) sigma^2 (always present); (b) variance components of RANDOM effects that \"contain\" the factor (including the factor itself if random); (c) fixed-effect quadratic terms for FIXED factors at that level. The coefficients involve the cell size n and the number of levels of other factors. EXAMPLE — two-way mixed model (A fixed with a levels, B random with b levels, AB random, n replicates per cell): EMS_A = sigma^2 + n sigma_{AB}^2 + (bn/(a-1)) sum_i alpha_i^2; EMS_B = sigma^2 + an sigma_B^2; EMS_AB = sigma^2 + n sigma_{AB}^2; EMS_E = sigma^2. From the EMS: (a) F-test for A: F_A = MSA / MSAB (denominator is MSAB, NOT MSE — because EMS_A and EMS_AB differ only by the fixed-effect term, so their ratio isolates the A effect under H_0: alpha_i = 0). (b) F-test for B: F_B = MSB / MSE (denominator is MSE, because EMS_B and EMS_E differ only by the B variance component). (c) F-test for AB: F_AB = MSAB / MSE. This is the CRITICAL insight: in mixed models, the F-test for a FIXED main effect crossed with a RANDOM factor uses the INTERACTION MS as denominator, not the error MS — using MSE would be WRONG and inflate Type I error. EXAMPLE — one-way random effects: EMS_STR = sigma^2 + n sigma_a^2, EMS_E = sigma^2; F = MSTR / MSE tests H_0: sigma_a^2 = 0. EMS rules of thumb (the \"restriction\" or \"subscript\" method, Hicks): to find an F-test for effect X, look for the EMS that EQUALS EMS_X except for the term being tested — that EMS is the denominator. SOFTWARE: SAS PROC GLM / MIXED compute EMS for balanced designs; for unbalanced, the situation is more complex (use REML in PROC MIXED or lme4). POOLING: if an interaction is not significant and believed to be zero (sigma_{AB}^2 = 0), one may POOL MSAB with MSE to get a better estimate of sigma^2 with more df — but this is controversial (post-hoc pooling inflates Type I error of the main effects; pre-specify pooling rules). The EMS framework generalizes to nested, split-plot, and more complex designs — always construct EMS first, then derive F-tests.",
+      "topic": "math_vol9_ch08p10_ems_table_ftests",
+      "intent": "formula_recall",
+      "keywords": [
+        "expected mean squares",
+        "EMS",
+        "F-test denominator",
+        "mixed model",
+        "pooling",
+        "restriction method",
+        "variance components"
+      ]
+    },
+    {
+      "question": "What is a nested (hierarchical) design and how is its ANOVA structured?",
+      "answer": "A NESTED (or HIERARCHICAL) design has factors where the levels of one factor are NESTED WITHIN (unique to) levels of another factor, rather than CROSSED. Example: 3 schools (factor A), with 4 classes per school (factor B) — but class 1 in school 1 is DIFFERENT from class 1 in school 2 (they are not the same class). Notation: B(A) denotes B nested within A. The model is Y_{ijk} = mu + alpha_i + beta_{j(i)} + epsilon_{ijk}, for i = 1..a (levels of A), j = 1..b (levels of B within each A), k = 1..n (replicates). Here alpha_i is the effect of A (fixed or random), beta_{j(i)} is the effect of B nested in A (the j-th B within the i-th A), and epsilon_{ijk} ~ N(0, sigma^2). KEY POINT: beta_{j(i)} has a SEPARATE index j WITHIN each i — there is NO interaction between A and B(A) (interaction is not defined for nested factors, because each B level appears in only one A level). The ANOVA DECOMPOSITION: SST = SSA + SS_{B(A)} + SSE, where SSA = bn sum_i (Ybar_i.. - Ybar...)^2 (df = a-1), SS_{B(A)} = n sum_i sum_j (Ybar_{ij.} - Ybar_i..)^2 (df = a(b-1)), SSE = sum_i sum_j sum_k (Y_{ijk} - Ybar_{ij.})^2 (df = ab(n-1)). EMS (assuming A fixed, B(A) random): EMS_A = sigma^2 + n sigma_{B(A)}^2 + (bn/(a-1)) sum alpha_i^2; EMS_{B(A)} = sigma^2 + n sigma_{B(A)}^2; EMS_E = sigma^2. F-TESTS: F_A = MSA / MS_{B(A)} (denominator is the nested B MS, NOT MSE — because the natural error for comparing A levels is the variability among B-within-A); F_{B(A)} = MS_{B(A)} / MSE. APPLICATIONS: (1) SUBSAMPLING — e.g., 5 batches (A), 3 samples per batch (B(A)), 2 measurements per sample (replicates); the batch-to-batch variation is the \"real\" error for batch conclusions, while sample-within-batch and measurement-within-sample are finer nested errors; (2) quality control (parts within lots within suppliers); (3) education (students within classes within schools); (4) biology (cells within tissue within animal). PARTIALLY NESTED designs combine crossed and nested factors — common in split-plot (see separate item). VARIANCE COMPONENTS: sigma_{B(A)}^2 measures the variability of B-within-A; ICC at the B level = sigma_{B(A)}^2 / (sigma_{B(A)}^2 + sigma^2). NESTED vs CROSSED: in a CROSSED design, every level of B appears with every level of A (full factorial); in a NESTED design, each B level appears with only ONE A level. Misidentifying nested as crossed gives incorrect df and F-tests.",
+      "topic": "math_vol9_ch08p10_nested_hierarchical_design",
+      "intent": "formula_recall",
+      "keywords": [
+        "nested design",
+        "hierarchical design",
+        "nested factor",
+        "subsampling",
+        "B(A) notation",
+        "nested ANOVA",
+        "variance components"
+      ]
+    },
+    {
+      "question": "What is a split-plot design and how does its ANOVA work?",
+      "answer": "The SPLIT-PLOT DESIGN originated in agricultural experiments where some factors are hard to change (whole-plot factors, applied to large plots of land) and others are easy to change (subplot factors, applied to smaller subplots within each whole plot). The structure: WHOLE PLOTS are the experimental units for the whole-plot factor (A, with a levels); each whole plot is DIVIDED into SUBPLOTS, which are the experimental units for the subplot factor (B, with b levels). Model (RCBD whole plots, A fixed, B fixed, blocks random): Y_{ijk} = mu + rho_k (block, random) + alpha_i + delta_{ik} (whole-plot error, random) + beta_j + (alpha beta)_{ij} + epsilon_{ijk}, for i=1..a, j=1..b, k=1..r (blocks). The whole-plot error delta_{ik} = (rho alpha)_{ik} is the BLOCK-by-A interaction, which serves as the error term for testing A. The subplot error is epsilon_{ijk}. ANOVA STRUCTURE (two error strata): Whole-plot stratum: SSA (df = a-1), SS_{whole-plot error} = SS_{block*A} (df = (r-1)(a-1)). Subplot stratum: SSB (df = b-1), SS_{AB} (df = (a-1)(b-1)), SS_{subplot error} = SSE (df = a(r-1)(b-1)). EMS and F-TESTS: F_A = MSA / MS_{block*A} ~ F_{a-1, (r-1)(a-1)} (whole-plot factor A tested against the block*A interaction); F_B = MSB / MSE ~ F_{b-1, a(r-1)(b-1)} (subplot factor B tested against subplot error); F_{AB} = MS_{AB} / MSE (interaction tested against subplot error). KEY INSIGHT: the subplot factor and the AB interaction are tested with MORE precision (subplot error has more df and typically smaller variance) than the whole-plot factor (which uses the larger whole-plot error). This is the MAIN ADVANTAGE of split-plot: the factors of greatest interest can be placed in the subplots for higher precision. WHEN TO USE: (1) hard-to-change factors (e.g., oven temperature, furnace type) as whole plots; (2) destructive testing where the whole unit is consumed; (3) natural hierarchy (factory -> line -> product); (4) when one factor requires larger experimental units (e.g., irrigation level for a whole field, fertilizer for subplots). VARIATIONS: (a) SPLIT-SPLIT-PLOT — three levels of nesting (whole, sub, sub-sub); (b) STRIP-PLOT (crisscross) — two hard-to-change factors crossed in strips; (c) split-plot in time (repeated measures). CRITICAL WARNING: split-plot designs are often ANALYZED INCORRECTLY as fully randomized designs — this gives the WRONG F-test for the whole-plot factor (uses MSE instead of MS_{block*A}, inflating Type I error). Always identify the whole-plot and subplot error strata correctly. Software: SAS PROC MIXED, R lme4/nlme with random effects for whole plots.",
+      "topic": "math_vol9_ch08p10_split_plot_design",
+      "intent": "formula_recall",
+      "keywords": [
+        "split-plot",
+        "whole plot",
+        "subplot",
+        "hard-to-change factor",
+        "whole-plot error",
+        "split-split-plot",
+        "strip-plot"
+      ]
+    },
+    {
+      "question": "What are BLUE and BLUP in mixed linear models?",
+      "answer": "In the LINEAR MIXED MODEL (LMM) Y = X beta + Z u + epsilon, where beta is the vector of FIXED effects, u ~ N(0, G) is the vector of RANDOM effects, and epsilon ~ N(0, R), the two key estimators are BLUE and BLUP. (1) BLUE — BEST LINEAR UNBIASED ESTIMATOR of the fixed effects beta. \"Best\" = minimum variance among all linear unbiased estimators (Gauss-Markov sense). The BLUE is the GENERALIZED LEAST SQUARES (GLS) estimator: beta_hat = (X^T V^{-1} X)^{-1} X^T V^{-1} Y, where V = Z G Z^T + R is the covariance matrix of Y. If G and R are known, beta_hat is exactly BLUE; if V must be estimated (via REML/ML), beta_hat is EMPIRICAL BLUE (E-BLUE). Properties: unbiased (E[beta_hat] = beta), minimum variance, linear in Y. (2) BLUP — BEST LINEAR UNBIASED PREDICTOR of the random effects u. The BLUP is u_hat = G Z^T V^{-1} (Y - X beta_hat). \"Predictor\" (not estimator) because u is random, not fixed. \"Best\" = minimum mean squared error E[(u_hat - u)^2] among linear unbiased predictors. Properties: E[u_hat] = E[u] = 0 (unbiased), shrinks toward 0 (the prior mean) based on the data and the relative magnitudes of G and R. MIXED MODEL EQUATIONS (Henderson): the system [X^T R^{-1} X, X^T R^{-1} Z; Z^T R^{-1} X, Z^T R^{-1} Z + G^{-1}] [beta_hat; u_hat] = [X^T R^{-1} Y; Z^T R^{-1} Y] gives both beta_hat (BLUE) and u_hat (BLUP) simultaneously. PROPERTIES of BLUP: (a) SHRINKAGE — u_hat is a weighted average of 0 (prior mean) and the data-based estimate, with weights depending on the ratio sigma_u^2 / sigma^2 (more data or larger random-effect variance => less shrinkage); (b) for balanced one-way random effects, u_hat_i = (n sigma_a^2 / (n sigma_a^2 + sigma^2)) (Ybar_i. - Ybar..), shrinking each group mean toward the grand mean by the factor lambda = n sigma_a^2 / (n sigma_a^2 + sigma^2) (the RELIABILITY or INTRACLASS correlation when n=1); (c) small groups (small n) shrink MORE toward the grand mean (borrowing strength from other groups — the \"Stein effect\"); (d) groups with large sigma_a^2 shrink less. APPLICATIONS of BLUP: (1) animal/plant breeding (Estimated Breeding Values, EBV) — predict genetic merit of individuals; (2) small-area estimation in surveys; (3) education (value-added models for teacher effects); (4) sports ranking (Elo, TrueSkill); (5) longitudinal/repeated measures (subject-specific predictions); (6) spatial statistics (kriging is BLUP). When V is estimated (not known), u_hat is EMPIRICAL BLUP (E-BLUP); the uncertainty in V is often ignored in CI/PI construction, leading to undercoverage — use bootstrap or Bayesian methods for honest intervals.",
+      "topic": "math_vol9_ch08p10_blue_blup",
+      "intent": "formula_recall",
+      "keywords": [
+        "BLUE",
+        "BLUP",
+        "mixed model",
+        "Henderson equations",
+        "shrinkage",
+        "generalized least squares",
+        "estimated breeding value",
+        "reliability"
+      ]
+    },
+    {
+      "question": "How are crossed random effects handled in modern mixed models?",
+      "answer": "CROSSED RANDOM EFFECTS occur when two (or more) random factors are CROSSED — every level of one appears with (potentially) every level of the other — but both are random samples from populations. Example: students (random, sampled from population) crossed with teachers (random) — each student has multiple teachers, each teacher has multiple students. Model: Y_{ijk} = mu + alpha_i (fixed, e.g., treatment) + s_j (student random, s_j ~ N(0, sigma_s^2)) + t_k (teacher random, t_k ~ N(0, sigma_t^2)) + (st)_{jk} (student-teacher interaction random) + epsilon_{ijk}. The challenge: the design matrix Z for the random effects is LARGE and SPARSE (each observation has only one student and one teacher), and the covariance matrix V = sigma_s^2 Z_s Z_s^T + sigma_t^2 Z_t Z_t^T + sigma_{st}^2 Z_{st} Z_{st}^T + sigma^2 I is huge (N x N) but structured. CLASSICAL ANOVA approach: balanced crossed random effects designs can be analyzed with EMS and method-of-moments variance component estimation. UNBALANCED crossed designs (the realistic case — each student doesn't have every teacher) are HARD with classical ANOVA (negative variance estimates, undefined F-tests). MODERN SOLUTION — REML via sparse matrix computation: software like R's lme4 (function lmer) and SAS PROC MIXED use SPARSE MATRIX methods (cholmod, eigen) to compute the REML log-likelihood WITHOUT forming the full V matrix. The key trick: work with the SPARSE CHOLESKY of the mixed-model equations, exploiting the block structure. lme4 syntax: lmer(Y ~ treatment + (1|student) + (1|teacher) + (1|student:teacher), data=df) fits the crossed random effects model with REML by default. COMPUTATIONAL considerations: (1) crossed random effects with many levels (e.g., 10000 students x 5000 teachers) can be SLOW; (2) convergence warnings if the random-effects variance is near 0 (boundary of parameter space — use likelihood ratio test with mixture of chi-squared); (3) for very large data, use glmmTMB, GLMMadaptive, or INLA for faster fitting. INFERENCE: (a) variance components tested via likelihood ratio (REML) or Wald Z; (b) fixed effects tested via F-tests with Satterthwaite or Kenward-Roger df approximations (R: lmerTest, pbkrtest); (c) BLUPs for individual students/teachers obtained with ranef(). APPLICATIONS: (1) education (student, teacher, school crossed random effects); (2) psychology (subject, stimulus crossed — \"random effects of subjects and items\" in psycholinguistics, the classic \"subjects and items\" analysis); (3) raters crossed with ratees; (4) multi-rater agreement; (5) tournament/chess ratings (player x opponent). The \"keep it maximal\" debate (Barr et al. 2013) — fit the maximal random effects structure justified by the design; counter-argument (Matuschek et al. 2017) — overfitting hurts power, use model selection. Crossed random effects are now standard in psycholinguistics, education, and any field with multiple random sampling units.",
+      "topic": "math_vol9_ch08p10_crossed_random_effects",
+      "intent": "formula_recall",
+      "keywords": [
+        "crossed random effects",
+        "lme4",
+        "lmer",
+        "REML",
+        "sparse matrix",
+        "subjects and items",
+        "maximal random effects",
+        "Kenward-Roger"
+      ]
+    },
+    {
+      "question": "What are generalized linear mixed models (GLMMs) and how are they fit?",
+      "answer": "GENERALIZED LINEAR MIXED MODELS (GLMMs) extend GLMs by adding RANDOM EFFECTS to handle clustered/longitudinal non-normal data. Model: g(E[Y | u]) = X beta + Z u, where g is the LINK function, Y | u follows an exponential-family distribution (Bernoulli, Poisson, Gamma, etc.), beta is fixed effects, u ~ N(0, G) is random effects, and Z is the random-effects design matrix. Equivalently, the CONDITIONAL mean is E[Y_{ij} | u_i] = g^{-1}(X_{ij} beta + Z_{ij} u_i), and observations within a cluster (sharing u_i) are CORRELATED. Examples: (1) LOGISTIC GLMM (binary clustered data) — logit(P(Y_{ij}=1 | u_i)) = X_{ij} beta + u_i, u_i ~ N(0, sigma_u^2); used for clustered binary outcomes (e.g., students within schools passing an exam); (2) POISSON GLMM (clustered counts) — log(E[Y_{ij} | u_i]) = X_{ij} beta + u_i; used for repeated count data (e.g., seizures per patient per visit); (3) beta-binomial, negative binomial GLMM for overdispersion. FITTING CHALLENGES: the MARGINAL likelihood L(beta, G) = integral prod_j f(Y_{ij} | u_i) phi(u_i; 0, G) du_i requires INTEGRATING OUT the random effects — this integral has NO closed form for non-Gaussian GLMMs. APPROXIMATION METHODS: (a) LAPLACE APPROXIMATION — second-order Taylor expansion of the integrand around the mode; fast and accurate for many problems; default in R lme4 glmer; (b) ADAPTIVE GAUSS-HERMITE QUADRATURE (AGQ) — numerical integration with more quadrature points = more accuracy; better for single random effect, fewer levels; (c) PENALIZED QUASI-LIKELIHOOD (PQL) — linearize the model via Taylor expansion, fit with LMM software iteratively; fast but BIASED for binary data with small cluster sizes and means near 0 or 1; (d) MCMC (Bayesian) — Stan, JAGS, brms, MCMCglmm; most accurate but slow; (e) INLA — deterministic Bayesian approximation via Laplace and SPDE; fast for latent Gaussian models. INTERPRETATION: coefficients beta are CONDITIONAL (subject-specific) — the effect of X holding u (cluster) constant; this DIFFERS from MARGINAL (population-averaged) effects estimated by GEE. For logistic GLMM, the conditional odds ratio exp(beta) is LARGER in magnitude than the marginal OR (cluster-specific vs population-average). DIAGNOSTICS: (1) random effects normality (QQ plot of BLUPs — approximate); (2) overdispersion (compare residual deviance to df, or fit observation-level random effect); (3) zero inflation (test with Vuong or compare AIC); (4) residual plots (DHARMa package in R for randomized quantile residuals). SOFTWARE: R glmer (lme4), glmmTMB (faster, supports more families and zero-inflation), GLMMadaptive, SAS PROC GLIMMIX, Stata melogit/mepoisson, Stan/brms (Bayesian).",
+      "topic": "math_vol9_ch08p10_glmm",
+      "intent": "formula_recall",
+      "keywords": [
+        "GLMM",
+        "generalized linear mixed model",
+        "Laplace approximation",
+        "adaptive Gauss-Hermite",
+        "PQL",
+        "conditional vs marginal",
+        "glmer",
+        "glmmTMB"
+      ]
+    },
+    {
+      "question": "How does REML estimation work and why is it preferred over ML for variance components?",
+      "answer": "RESTRICTED (or RESIDUAL) MAXIMUM LIKELIHOOD (REML), introduced by Patterson and Thompson (1971), is the standard method for estimating variance components in linear mixed models. The PROBLEM with ML: in the model Y = X beta + Z u + epsilon with V = Z G Z^T + R, the ML estimator of V (and hence G, R) maximizes the full likelihood L(beta, V | Y) = (2pi)^{-N/2} |V|^{-1/2} exp[-(Y - X beta)^T V^{-1} (Y - X beta)/2]. After profiling out beta (beta_hat = (X^T V^{-1} X)^{-1} X^T V^{-1} Y), ML maximizes the profile likelihood over V. The issue: ML does NOT account for the DEGREES OF FREEDOM lost in estimating the fixed effects beta — it treats the residuals (Y - X beta_hat) as if they were the true errors, but they are SMALLER (fitted values are pulled toward the data). Result: ML variance component estimates are BIASED DOWNWARD by a factor of (N - p)/N (where p = rank(X)). For the simple case Y ~ N(mu, sigma^2), ML gives sigma^2_ML = sum (Y_i - Ybar)^2 / N (biased, MLE), while the unbiased estimator is sigma^2_hat = sum (Y_i - Ybar)^2 / (N - 1). REML SOLUTION: instead of maximizing the full likelihood, REML maximizes the likelihood of a set of LINEAR COMBINATIONS of Y that are ORTHOGONAL to (independent of) the fixed effects. Specifically, find a matrix K (N x (N-p)) such that K^T X = 0; then K^T Y ~ N(0, K^T V K) does NOT involve beta, and we maximize L_REML(V | K^T Y) over V only. The choice of K does not affect the result (all such K give the same likelihood, up to a constant). EQUIVALENT formulation: REML maximizes the likelihood of the RESIDUALS after projecting out X, with the Jacobian correction for the projection. PROPERTIES: (1) REML estimates are UNBIASED for balanced designs (recover the ANOVA method-of-moments estimators); (2) less biased than ML for unbalanced designs and small samples; (3) ML and REML agree asymptotically (large N); (4) REML is the DEFAULT in SAS PROC MIXED, R lme4/nlme, ASReml; (5) REML CANNOT be used to compare models with DIFFERENT fixed effects (the likelihood is for residuals after removing fixed effects, so different X give different data); use ML for likelihood-ratio tests on fixed effects (or use F-tests with Kenward-Roger df). (6) REML CAN compare models with the same fixed effects but different random-effects structures (e.g., testing sigma_u^2 = 0 — but note the null is on the boundary of parameter space, use mixture of chi-squareds 0.5 chi^2_0 + 0.5 chi^2_1). COMPUTATION: REML is implemented via the same algorithms as ML (Newton-Raphson, Fisher scoring, EM, AI/average information); the log-REML-likelihood differs from log-ML by a term involving -1/2 log|X^T V^{-1} X| (the Jacobian). SUMMARY: REML = ML on the residual (error) space, accounting for fixed-effect df, giving unbiased variance component estimates; preferred for estimating G and R, but use ML for comparing fixed-effect structures.",
+      "topic": "math_vol9_ch08p10_reml_estimation",
+      "intent": "formula_recall",
+      "keywords": [
+        "REML",
+        "restricted maximum likelihood",
+        "variance components",
+        "ML bias",
+        "Patterson-Thompson",
+        "profile likelihood",
+        "balanced design"
+      ]
+    },
+    {
+      "question": "What are the Satterthwaite and Kenward-Roger degrees of freedom approximations?",
+      "answer": "In mixed models (especially unbalanced, with multiple variance components), the F-tests and t-tests for fixed effects require DENOMINATOR DEGREES OF FREEDOM that are NOT integers and have no exact distribution. Two common approximations: (1) SATTERTHWAITE (1946) — approximates the denominator MS as a chi-squared variable with effective df. For an F-test F = numerator_MS / denom_MS where denom_MS is a LINEAR COMBINATION of mean squares denom_MS = sum c_i MS_i, the Satterthwaite df is nu = (sum c_i MS_i)^2 / sum (c_i MS_i)^2 / df_i, where df_i are the df of the MS_i. For a single contrast (e.g., comparing two least-squares means), the t-statistic T = contrast / SE has approximate df given by Satterthwaite. IMPLEMENTATION: SAS PROC MIXED, R lmerTest (for lmer models), PROC GLM (for balanced GLM). Properties: works well for moderately balanced designs; can be inaccurate for highly unbalanced data or with many variance components; gives FRACTIONAL df (e.g., 12.3). (2) KENWARD-ROGER (1997) — a more refined approximation that ALSO adjusts the estimated COVARIANCE MATRIX of the fixed effects for the uncertainty in estimating the variance components. Steps: (a) compute the variance-covariance matrix of beta_hat as Var(beta_hat) = (X^T V^{-1} X)^{-1} (the \"naive\" sandwich); (b) ADJUST this matrix for the uncertainty in V_hat using a Taylor expansion (the KR adjustment inflates the variance to account for V estimation); (c) compute the F-statistic with the KR-adjusted covariance; (d) use a Satterthwaite-style df for the F-test, with the adjusted variance. PROPERTIES: KR is MORE ACCURATE than Satterthwaite, especially for small samples, unbalanced data, and complex random-effects structures; it tends to control Type I error closer to nominal; DEFAULT in SAS PROC MIXED (ddfm=KR) and available in R via pbkrtest package (for lmer). COST: KR requires computing second derivatives of the log-likelihood (the Hessian of variance components), so it is slower than Satterthwaite. WHEN TO USE: prefer KR for small samples and unbalanced designs; Satterthwaite is acceptable for larger, more balanced data. OTHER APPROACHES: (a) BETWEEN-WITHIN df — partition effects into \"between\" (whole-plot) and \"within\" (subplot) strata, each with their own df (simple but ad-hoc); (b) RESIDUAL df = N - rank(X) (naive, ignores random-effects structure — can be wrong); (c) CONTAINMENT df — the df of the random effect that \"contains\" the fixed effect (used in older SAS PROC MIXED); (d) BAYESIAN — MCMC gives exact posterior distributions, no df approximation needed. PRACTICAL: always report which df method was used; for confirmatory analyses with small samples, use KR; for large samples, the choice matters less. The df approximation affects p-values and CI widths — with too many df, CIs are too narrow and p-values too small (Type I inflation); with too few, CIs too wide and power lost.",
+      "topic": "math_vol9_ch08p10_satterthwaite_kenward_roger",
+      "intent": "formula_recall",
+      "keywords": [
+        "Satterthwaite",
+        "Kenward-Roger",
+        "denominator df",
+        "mixed model",
+        "df approximation",
+        "KR adjustment",
+        "lmerTest",
+        "pbkrtest"
+      ]
+    },
+    {
+      "question": "What is the repeated measures ANOVA model and its advantages?",
+      "answer": "REPEATED MEASURES ANOVA analyzes data where the SAME subjects are measured MULTIPLE TIMES (under different conditions or over time). The one-way REPEATED MEASURES model (one within-subject factor with k levels): Y_{ij} = mu + alpha_j + s_i + epsilon_{ij}, for subjects i = 1..n and conditions j = 1..k, where alpha_j is the fixed effect of condition j (sum alpha_j = 0), s_i ~ N(0, sigma_s^2) is the RANDOM SUBJECT effect (each subject has their own baseline), and epsilon_{ij} ~ N(0, sigma^2) is the residual. Equivalently in matrix form, observations within a subject are CORRELATED. ADVANTAGES of repeated measures over independent-groups designs: (1) CONTROL FOR SUBJECT VARIABILITY — by measuring the same subject multiple times, the subject effect s_i is \"partialed out,\" REDUCING the error variance (sigma^2 is typically much smaller than the between-subject variance sigma_s^2). This gives GREATER POWER to detect the within-subject effect alpha_j. (2) ECONOMY OF SUBJECTS — fewer subjects needed (each provides k data points). (3) EACH SUBJECT AS OWN CONTROL — eliminates subject-by-treatment confounding. The ANOVA DECOMPOSITION partitions SST into: SS_{conditions} (treatment, df = k-1), SS_{subjects} (df = n-1), SS_{error} (df = (n-1)(k-1)). F-test for conditions: F = MS_{conditions} / MS_{error} ~ F_{k-1, (n-1)(k-1)}. NOTE: the subject SS is REMOVED from the error term — this is the source of the power gain. The denominator MS_{error} is the SUBJECT x CONDITION interaction (residual after removing subject and condition effects). COMPARISON to independent ANOVA: in independent design, F = MS_{treatment} / MS_{error-indep} where MS_{error-indep} = sigma^2 + sigma_s^2 (includes subject variance). In RM, F = MS_{conditions} / MS_{error-RM} where MS_{error-RM} = sigma^2 (subject variance removed). The RM F is LARGER for the same effect, giving more power. ASSUMPTIONS: (1) normality of residuals; (2) independence of subjects; (3) SPHERICITY (or compound symmetry) — the variances of DIFFERENCES between all pairs of conditions are EQUAL (see separate item); this is MORE RESTRICTIVE than homoscedasticity and is often violated. WHEN VIOLATED, use corrections (Greenhouse-Geisser, Huynh-Feldt) or multivariate approaches (MANOVA on repeated measures) or modern mixed models. WITHIN-BETWEEN design (split-plot in time): one within factor (time) and one between factor (group) — common in clinical trials; gives separate F-tests for group (between), time (within), and group x time interaction.",
+      "topic": "math_vol9_ch08p10_repeated_measures_model",
+      "intent": "formula_recall",
+      "keywords": [
+        "repeated measures",
+        "within-subject",
+        "subject effect",
+        "own control",
+        "power",
+        "sphericity",
+        "subject variability"
+      ]
+    },
+    {
+      "question": "What is the sphericity assumption and how is it tested?",
+      "answer": "SPHERICITY (or CIRCULARITY) is the key assumption of univariate repeated-measures ANOVA: the population variances of the DIFFERENCES between all pairs of within-subject conditions are EQUAL. Formally, for k conditions, sphericity requires Var(Y_{.j} - Y_{.j'}) = constant for all pairs j != j'. This is a STRONGER condition than homoscedasticity (equal variances of the conditions themselves) and is implied by COMPOUND SYMMETRY (equal variances AND equal covariances among all pairs of conditions). When sphericity holds, the univariate F-test for the within-subject effect has the nominal F distribution. When VIOLATED, the F-test is LIBERAL (too many Type I errors) — the actual Type I rate exceeds alpha. TESTING sphericity: MAUCHLY'S TEST computes W = |S| / |tr(S)/k|^(k-1) where S is the sample covariance matrix of differences (or of the conditions, after centering). Under H_0: sphericity holds, (n-1)(1 - W^{1/3}) * (k^2 - (k-1)^2 / (2(k-1)(k-2))) approximately follows a chi-squared distribution with (k(k-1)/2 - 1) df. Reject H_0 if p < alpha => sphericity violated. CAUTION: Mauchly's test is sensitive to non-normality and has LOW POWER for small n (fails to detect violations) and HIGH POWER for large n (detects trivial violations). EPSILON (epsilon) measures the DEGREE of sphericity violation: epsilon = 1 means perfect sphericity; epsilon = 1/(k-1) means maximum violation. Estimates: (1) LOWER BOUND epsilon = 1/(k-1) (most conservative); (2) GREENHOUSE-GEISSER (GG) epsilon_hat = (tr(P S P))^2 / [(k-1) tr((P S P)^2)] where P is a centering/projection matrix and S is the sample covariance; ranges from 1/(k-1) to 1; (3) HUYNH-FELDT (HF) epsilon_tilde = (n(k-1) epsilon_hat - 2) / [(k-1)(n - 1 - (k-1) epsilon_hat)] — a LESS CONSERVATIVE correction, can exceed 1 (in which case set to 1). CORRECTIONS: multiply the numerator and denominator df of the F-test by epsilon: F ~ F_{(k-1)epsilon, (n-1)(k-1)epsilon} (with fractional df). The corrected p-value is more conservative (larger). GG is more conservative (smaller epsilon, smaller df, larger p); HF is less conservative. RECOMMENDATION: use GG when epsilon_hat < 0.75 (severe violation); use HF when epsilon_hat > 0.75 (mild violation); some always use GG as the safe default. ALTERNATIVES to sphericity corrections: (1) MULTIVARIATE approach (MANOVA on repeated measures) — does NOT assume sphericity; tests the within-subject effect using Pillai's trace, Wilks' lambda, Hotelling-Lawley trace, Roy's greatest root; less powerful than univariate when sphericity holds but valid always; (2) MIXED MODELS — specify an appropriate covariance structure for repeated observations (e.g., unstructured, AR(1), Toeplitz, compound symmetry) — the modern preferred approach; (3) pairwise comparisons with separate error terms (no pooled sphericity assumption). PRACTICAL: always report Mauchly's test, the chosen correction (GG or HF), and the corrected p-values.",
+      "topic": "math_vol9_ch08p10_sphericity_mauchly",
+      "intent": "formula_recall",
+      "keywords": [
+        "sphericity",
+        "circularity",
+        "Mauchly test",
+        "compound symmetry",
+        "Greenhouse-Geisser",
+        "Huynh-Feldt",
+        "epsilon",
+        "correction"
+      ]
+    },
+    {
+      "question": "What are the Greenhouse-Geisser and Huynh-Feldt corrections in detail?",
+      "answer": "When the SPHERICITY assumption of repeated-measures ANOVA is violated, the Greenhouse-Geisser (GG) and Huynh-Feldt (HF) corrections adjust the degrees of freedom of the F-test to maintain the nominal Type I error rate. GREENHOUSE-GEISSER (GG) correction (Greenhouse & Geisser, 1959): computes epsilon_hat_GG = (tr(M))^2 / [(k-1) tr(M^2)], where M = P S P is the \"centered\" sample covariance matrix of the repeated measures (P = I - (1/k) J is the centering projection, S is the sample covariance matrix, J is the matrix of ones), k is the number of conditions. The corrected F-test uses df_num = (k-1) * epsilon_hat_GG and df_den = (n-1)(k-1) * epsilon_hat_GG (both fractional). The corrected p-value is P(F_{df_num, df_den} >= F_obs). PROPERTIES of GG: (1) epsilon_hat_GG ranges from 1/(k-1) (max violation, = lower bound) to 1 (no violation); (2) GG is CONSERVATIVE — tends to UNDERESTIMATE epsilon, giving smaller df and larger p-values (more Type II errors); (3) preferred when epsilon is truly small (< 0.75) or when n is small; (4) always valid (controls Type I). HUYNH-FELDT (HF) correction (Huynh & Feldt, 1976): computes epsilon_tilde_HF = [(n+1)(k-1) epsilon_hat_GG - 2] / [(k-1)(n - 1 - (k-1) epsilon_hat_GG)], where n is the number of subjects. PROPERTIES of HF: (1) LESS CONSERVATIVE than GG — less downward bias; (2) can EXCEED 1.0 (when GG overcorrects); convention: set epsilon_tilde_HF = 1 if it exceeds 1; (3) preferred when epsilon is close to 1 (mild violation, n moderate or large); (4) may be slightly liberal (Type I > nominal) when epsilon is truly low. LOWER-BOUND correction: epsilon_LB = 1/(k-1) — the most conservative possible, assumes the worst-case violation; rarely used in practice but provides a bound. DECISION RULES: (a) if Mauchly's test is non-significant (p > 0.05), report uncorrected F (sphericity assumed); (b) if Mauchly significant and epsilon_hat_GG < 0.75, use GG correction; (c) if Mauchly significant and epsilon_hat_GG > 0.75, use HF correction (less conservative). EMPIRICAL: for psychological data with 3-6 repeated measures, GG epsilon often 0.6-0.9, HF slightly higher. REPORTING: report Mauchly's W, p-value, the chosen correction (GG or HF), epsilon value, corrected df, F-statistic, and corrected p-value. EXAMPLE: k=4 conditions, n=20 subjects, Mauchly p=0.02 (violation), epsilon_hat_GG=0.65, F_obs=5.2. Uncorrected: F_{3, 57}, p=0.003. GG-corrected: F_{1.95, 37.05}, p=0.012. HF-corrected (epsilon_tilde=0.72): F_{2.16, 41.04}, p=0.009. MODERN ALTERNATIVE: use linear mixed models with an unstructured or AR(1) covariance for repeated measures — avoids the sphericity assumption entirely and handles missing data (RM-ANOVA requires complete data or listwise deletion).",
+      "topic": "math_vol9_ch08p10_gg_hf_corrections",
+      "intent": "formula_recall",
+      "keywords": [
+        "Greenhouse-Geisser",
+        "Huynh-Feldt",
+        "correction",
+        "epsilon",
+        "conservative",
+        "liberal",
+        "lower bound",
+        "Mauchly"
+      ]
+    },
+    {
+      "question": "What is a crossover design and how is it analyzed?",
+      "answer": "A CROSSOVER DESIGN is a repeated-measures design where each subject receives a SEQUENCE of different treatments over successive PERIODS, with each subject serving as their own control. The classic 2x2 crossover (AB/BA): subjects randomly assigned to sequence AB (treatment A in period 1, B in period 2) or sequence BA (B then A). The model: Y_{ijk} = mu + sequence_k + subject_{i(k)} (nested in sequence, random) + period_j + treatment_{t(j,k)} + carryover_{c(j,k)} + epsilon_{ijk}, for i=1..n_k subjects in sequence k, j=1..2 periods, where treatment and carryover depend on the sequence and period. KEY CONCERNS: (1) CARRYOVER (residual) EFFECT — the effect of treatment in period 1 may persist into period 2, contaminating the period-2 measurement. To handle: include a WASHOUT period between treatments (long enough for the treatment effect to dissipate); test for carryover (if significant, use only period-1 data — the design becomes a parallel-groups design). For 2x2, the carryover test uses the SUBJECT SUM (Y_i1 + Y_i2) compared between sequences — but this test has LOW POWER and inflates the treatment test if used as a gatekeeper (Freeman 1989 controversy); modern advice: only use crossover if carryover is biologically implausible (washout sufficient), don't test. (2) PERIOD EFFECT — systematic differences between periods (learning, fatigue, disease progression); accounted for by including period in the model. (3) TREATMENT EFFECT — the primary comparison; estimated by within-subject differences, with high precision. ANALYSIS for 2x2 crossover: treatment effect = (sum_AB (Y_i1 - Y_i2) - sum_BA (Y_i1 - Y_i2)) / (2 * (n_AB + n_BA)) — the difference of within-subject differences between the two sequences. The test compares the mean within-subject difference between sequences; t-test with df = n_AB + n_BA - 2. HIGHER-ORDER crossovers: (a) 3x3 (3 treatments, 3 periods, 6 sequences: ABC, ACB, BAC, BCA, CAB, CBA — Williams design, balanced for carryover); (b) 2x3 (2 treatments, 3 periods, e.g., ABA, BAB — for intrasubject replication); (c) 4x4 Williams design. BALANCED for carryover: each treatment follows each other treatment equally often — allows estimation and adjustment for first-order carryover. ADVANTAGES: (1) within-subject comparison eliminates between-subject variability (huge power gain); (2) each subject own control; (3) fewer subjects needed. DISADVANTAGES: (1) carryover risk (requires sufficient washout); (2) only suitable for CHRONIC/STABLE conditions (not curable diseases — once cured, period 2 has no disease to measure); (3) longer study duration (multiple periods per subject); (4) dropouts lose multiple periods of data. APPLICATIONS: bioequivalence (FDA requires 2x2 crossover for generic drug approval), phase I clinical pharmacology, taste tests, psychology experiments. ANALYSIS SOFTWARE: SAS PROC MIXED with random subject effect; R lme4 lmer(Y ~ treatment + period + sequence + (1|subject)).",
+      "topic": "math_vol9_ch08p10_crossover_design",
+      "intent": "formula_recall",
+      "keywords": [
+        "crossover design",
+        "carryover",
+        "washout",
+        "period effect",
+        "Williams design",
+        "2x2 crossover",
+        "bioequivalence",
+        "sequence"
+      ]
+    },
+    {
+      "question": "What is the split-plot in time (mixed between-within) design?",
+      "answer": "A SPLIT-PLOT IN TIME design (also called a BETWEEN-WITHIN design or mixed repeated-measures design) combines a BETWEEN-SUBJECT factor (e.g., treatment group) with a WITHIN-SUBJECT factor (e.g., time), where each subject is measured at all levels of the within factor but assigned to only one level of the between factor. This is the classic design for LONGITUDINAL CLINICAL TRIALS (e.g., drug vs placebo, measured at baseline, week 4, week 8, week 12). Model: Y_{ijk} = mu + alpha_i (between, group i) + s_{j(i)} (subject within group, random) + beta_k (within, time k) + (alpha beta)_{ik} (group x time interaction) + epsilon_{ijk}, for i=1..a groups, j=1..n_i subjects per group, k=1..b times. ANOVA DECOMPOSITION (two strata): BETWEEN stratum: SS_A (group, df = a-1), SS_{subjects(A)} (df = a(n_i - 1) total = N - a). WITHIN stratum: SS_B (time, df = b-1), SS_{AB} (group x time, df = (a-1)(b-1)), SS_{B x subjects(A)} (within-subject error, df = a(n_i-1)(b-1)). F-TESTS: F_A = MS_A / MS_{subjects(A)} ~ F_{a-1, N-a} (group effect, tested against subject-within-group variability); F_B = MS_B / MS_{error} ~ F_{b-1, a(n-1)(b-1)} (time effect); F_{AB} = MS_{AB} / MS_{error} (group x time interaction — the KEY test in longitudinal trials, indicates differential change over time between groups). INTERPRETATION: (a) significant AB interaction => the groups CHANGE DIFFERENTLY over time (treatment effect differs by time); analyze SIMPLE EFFECTS (group at each time, or time within each group); (b) non-significant AB, significant A => groups differ overall, averaged over time; (c) non-significant AB, significant B => all groups change over time similarly; (d) neither significant => no effects. SPHERICITY: the within-subject tests (B and AB) assume sphericity of the time-difference covariance; use GG/HF corrections or mixed models with unstructured covariance. MODERN ANALYSIS: linear mixed models (LMM) with random intercept (and random slope) for subject, unstructured or AR(1) covariance for residual; handles MISSING data (dropout) under MAR assumption via ML/REML — a major advantage over RM-ANOVA which requires complete data. RANDOM SLOPES: extend the model to (1 + time | subject) to allow each subject their own trajectory (slope); this often fits longitudinal data better than random intercept only. BASELINE ADJUSTMENT: if baseline (time 0) is pre-treatment, common approaches: (1) include baseline as a covariate (ANCOVA on change or final score); (2) include all time points in the mixed model (no special baseline handling); (3) reparameterize as change-from-baseline. SAMPLE SIZE: depends on the effect of interest (group main effect vs interaction), the expected correlation structure, and the dropout pattern; software: PASS, nQuery, G*Power, or simulation.",
+      "topic": "math_vol9_ch08p10_split_plot_time",
+      "intent": "formula_recall",
+      "keywords": [
+        "split-plot in time",
+        "between-within",
+        "longitudinal",
+        "mixed design",
+        "group x time",
+        "random slopes",
+        "clinical trial",
+        "ANCOVA"
+      ]
+    },
+    {
+      "question": "How are missing data handled in repeated measures and longitudinal designs?",
+      "answer": "MISSING DATA are common in longitudinal/repeated-measures studies (dropout, missed visits, attrition). The analysis approach depends on the MISSINGNESS MECHANISM (Rubin 1976): (1) MCAR (Missing Completely At Random) — missingness independent of both observed and unobserved data; equivalent to random subsampling. Listwise deletion (complete-case analysis) is unbiased but loses power; RM-ANOVA on complete cases is valid. (2) MAR (Missing At Random) — missingness depends on OBSERVED data but not on unobserved (e.g., subjects with high baseline pain more likely to drop out, but conditional on baseline, dropout is random). Listwise deletion is BIASED; MIXED MODELS (ML/REML) are UNBIASED under MAR (using all available data), as is MULTIPLE IMPUTATION. This is the key justification for modern mixed-model analysis of longitudinal trials. (3) MNAR (Missing Not At Random) — missingness depends on UNOBSERVED data (e.g., subjects drop out because their unobserved outcome worsened). All standard methods (including mixed models) are BIASED under MNAR; need sensitivity analyses (selection models, pattern-mixture models, shared-parameter models). METHODS: (1) COMPLETE-CASE / LISTWISE DELETION — analyze only subjects with all time points; valid only under MCAR; loses data and power; biased under MAR. (2) AVAILABLE-CASE / PAIRWISE — use all available data for each pairwise computation; inconsistent covariance matrices; rarely used. (3) LAST OBSERVATION CARRIED FORWARD (LOCF) — fill in missing values with the last observed value; BIASED (assumes no change after dropout, often wrong); NOT RECOMMENDED but historically common in FDA submissions. (4) MIXED MODELS (REML) — use all available data; valid under MAR; the MODERN STANDARD; fit Y ~ treatment*time + (1|subject) or Y ~ treatment*time + (1+time|subject); implicitly handles unbalanced data. (5) MULTIPLE IMPUTATION (MI) — impute missing values multiple times (M = 20-100), analyze each completed dataset, pool results via Rubin's rules; valid under MAR; flexible but requires careful imputation model. (6) GEE — population-averaged; valid under MAR with WEIGHTED GEE (inverse probability of missingness weighting, IPW); standard GEE valid only under MCAR. (7) BAYESIAN — full probability model; naturally handles missing data via MCMC; valid under MAR; can extend to MNAR. SENSITIVITY ANALYSES for MNAR: (a) PATTERN-MIXTURE MODELS — stratify by missingness pattern, model each stratum, average; (b) SELECTION MODELS — jointly model Y and missingness indicator; (c) DELTA-ADJUSTMENT — shift imputed values by delta to test sensitivity to MNAR. REGULATORY (FDA/EMA ICH E9(R1)): estimand framework — define the target of inference (e.g., treatment effect in all randomized patients, regardless of adherence), then choose method handling intercurrent events (dropout, rescue medication, death). Modern trials pre-specify the primary analysis as MMRM (Mixed Model for Repeated Measures) — mixed model on change from baseline with unstructured covariance, all post-baseline time points, treatment x time interaction, baseline as covariate.",
+      "topic": "math_vol9_ch08p10_missing_data_longitudinal",
+      "intent": "formula_recall",
+      "keywords": [
+        "missing data",
+        "MCAR",
+        "MAR",
+        "MNAR",
+        "Rubin",
+        "mixed model",
+        "multiple imputation",
+        "LOCF",
+        "MMRM",
+        "estimand"
+      ]
+    },
+    {
+      "question": "What covariance structures are used for repeated measures in mixed models?",
+      "answer": "In mixed models for repeated/longitudinal data, the covariance structure of the residuals (within-subject) must be specified. CHOICES (in increasing complexity): (1) INDEPENDENCE — Cov(Y_{ij}, Y_{ik}) = 0 for j != k; assumes no correlation; rarely appropriate for repeated measures. (2) COMPOUND SYMMETRY (CS) / EXCHANGEABLE — Cov(Y_{ij}, Y_{ik}) = rho sigma^2 for all j != k (constant correlation), Var(Y_{ij}) = sigma^2; equivalent to random-intercept model; CS is the sphericity-satisfying structure (one of the few). (3) FIRST-ORDER AUTOREGRESSIVE (AR(1)) — Cov(Y_{ij}, Y_{ik}) = sigma^2 rho^{|j-k|}; correlation decays exponentially with time lag; appropriate for equally-spaced time points with serial correlation. AR(1) with HETEROGENEOUS VARIANCES (ARH(1)) — same correlation pattern but Var(Y_{ij}) = sigma_j^2 (different at each time). (4) TOEPLITZ (TOEP) — Cov(Y_{ij}, Y_{ik}) = sigma_{|j-k|} (depends only on the LAG |j-k|, not the specific times); b-1 correlation parameters (b = number of times); generalization of AR(1). TOEPH — Toeplitz with heterogeneous variances. (5) UNSTRUCTURED (UN) — Cov(Y_{ij}, Y_{ik}) = sigma_{jk} (completely general); b(b+1)/2 - 1 parameters; MOST FLEXIBLE, no assumption; preferred for small b and adequate n; default in MMRM. (6) ANTEDEPENDENCE (ANTE) — generalizes AR(1) with time-specific parameters. (7) SPATIAL/EXPONENTIAL — Cov = sigma^2 exp(-d/rho) where d is the (continuous) distance between time points; for unequally spaced times. CHOOSING: (a) use INFORMATION CRITERIA — AIC, BIC (smaller is better); BIC penalizes parameters more, favors simpler structures; (b) LIKELIHOOD RATIO TEST for nested structures (e.g., CS nested in AR(1) nested in TOEP nested in UN); (c) examine the sample covariance matrix for patterns; (d) consider the number of parameters vs sample size (UN with b=10 has 55 covariance parameters — needs large n); (e) clinical/biological reasoning (decay with time => AR(1); equicorrelation => CS). DEFAULTS: MMRM (mixed model for repeated measures) uses UNSTRUCTURED covariance — the FDA-preferred default for confirmatory trials; AR(1) common for longer time series; CS implied by random-intercept-only model. RANDOM EFFECTS as covariance: (1|subject) => CS; (1+time|subject) => random intercept and slope, giving a structured covariance Var(Y_{ij}) = sigma_0^2 + 2 t_j sigma_{01} + t_j^2 sigma_1^2 + sigma^2, Cov(Y_{ij}, Y_{ik}) = sigma_0^2 + (t_j + t_k) sigma_{01} + t_j t_k sigma_1^2 — non-stationary, useful for individual trajectories. SOFTWARE: R nlme lme(corStruct: corCompSymm, corAR1, corCAR1, corSymm, corExp, corGaus, corLin, corRatio); R glmmTMB (covstruct: cs, ar1, toep, diag, un); SAS PROC MIXED (type=CS, AR(1), TOEP, UN, SP(POW)); Stata (covariance(unstructured) etc.). FITTING: ML or REML; REML preferred for covariance estimation; convergence can fail for complex structures with small n — simplify or use Bayesian.",
+      "topic": "math_vol9_ch08p10_covariance_structures",
+      "intent": "formula_recall",
+      "keywords": [
+        "covariance structure",
+        "compound symmetry",
+        "AR(1)",
+        "Toeplitz",
+        "unstructured",
+        "MMRM",
+        "information criteria",
+        "random slopes"
+      ]
+    },
+    {
+      "question": "What is the Kruskal-Wallis test and how does it relate to one-way ANOVA?",
+      "answer": "The KRUSKAL-WALLIS (K-W) test is the NONPARAMETRIC analog of one-way ANOVA, testing whether k >= 2 independent samples come from the SAME distribution (or have equal medians, under a shift model). It does NOT assume normality and is based on RANKS. PROCEDURE: (1) POOL all N = sum n_i observations from the k groups; (2) ASSIGN RANKS 1 to N to the pooled data, handling ties by assigning the AVERAGE RANK to each tied observation; (3) compute the rank sum R_i = sum of ranks in group i, and mean rank Rbar_i. = R_i / n_i; (4) the K-W statistic is H = (12 / (N(N+1))) sum_{i=1}^{k} R_i^2 / n_i - 3(N+1). TIE CORRECTION: if ties are present, divide H by C = 1 - sum_j (t_j^3 - t_j) / (N^3 - N), where t_j is the size of the j-th tie group. The corrected H = H_uncorrected / C (slightly larger, accounting for ties reducing variance). DISTRIBUTION: under H_0 (all k distributions equal), H approximately follows chi-squared with k - 1 df for \"large\" samples (each n_i >= 5). For small samples, use the EXACT distribution of H (tabled). DECISION: reject H_0 if H > chi^2_{k-1, 1-alpha} (or use exact p-value for small samples). RELATIONSHIP to one-way ANOVA: (a) K-W is EQUIVALENT to running one-way ANOVA on the RANKS instead of the original values (H = (N-1) * F_ranks / (F_ranks + (N-k)/(k-1)), or approximately H = (k-1) * F_ranks for large N); (b) if the data ARE normal with equal variances, K-W has about 95.5% (k=2) to 86% (k large) of the ASYMPTOTIC RELATIVE EFFICIENCY (ARE) of the F-test — a small loss for the robustness gained; (c) for non-normal (especially heavy-tailed or skewed) data, K-W can be MUCH MORE POWERFUL than the F-test. ASSUMPTIONS: (1) independent random samples from k populations; (2) the k populations have the SAME SHAPE (differ only in location/median) — the shift model; (3) ordinal or continuous data; (4) for the median interpretation, symmetric distributions. HYPOTHESES: H_0: all k distributions are EQUAL (identical); H_a: at least one distribution is shifted (stochastically different). POST-HOC: after a significant K-W, use DUNN'S TEST (pairwise rank comparisons with Bonferroni or Benjamini-Hochberg adjustment), or the STEEL-DWASS test (nonparametric Tukey analog), or CONOVER'S test. Do NOT do multiple Mann-Whitney U tests without multiplicity correction (inflates Type I). WHEN TO USE: (a) non-normal data with small samples (n_i < 30); (b) ordinal data; (c) outliers present (ranks dampen their effect); (d) unequal variances (K-W is robust to heteroscedasticity under the shift model). SOFTWARE: R kruskal.test, Python scipy.stats.kruskal, SAS PROC NPAR1WAY, SPSS NPAR TESTS.",
+      "topic": "math_vol9_ch08p10_kruskal_wallis",
+      "intent": "formula_recall",
+      "keywords": [
+        "Kruskal-Wallis",
+        "nonparametric",
+        "ranks",
+        "tie correction",
+        "Dunn test",
+        "Steel-Dwass",
+        "asymptotic relative efficiency",
+        "median"
+      ]
+    },
+    {
+      "question": "What is the Friedman test for repeated measures or randomized block designs?",
+      "answer": "The FRIEDMAN test is the NONPARAMETRIC analog of repeated-measures (or randomized complete block) ANOVA, testing whether k treatments differ when each of n subjects (blocks) receives all k treatments (or matched subjects are used). PROCEDURE: (1) for EACH subject (block) i, RANK the k treatment observations from 1 (smallest) to k (largest) WITHIN that block — ranks are WITHIN subjects, not across; (2) compute the rank sum for each treatment: R_j = sum_{i=1}^{n} rank_{ij}, or mean rank Rbar_j. = R_j / n; (3) the Friedman statistic is Q = (12 / (nk(k+1))) sum_{j=1}^{k} R_j^2 - 3n(k+1). TIE CORRECTION: within each block, assign average ranks to ties and apply the correction C = 1 - sum_i sum_j (t_{ij}^3 - t_{ij}) / (n(k^3 - k)), where t_{ij} is the size of tie groups within block i; the corrected Q = Q_uncorrected / C. DISTRIBUTION: under H_0 (all k treatments have the same distribution within each block), Q approximately follows chi-squared with k - 1 df for \"large\" n (n >= 15) or k >= 5. For small n and k, use EXACT distribution (tabled). DECISION: reject H_0 if Q > chi^2_{k-1, 1-alpha}. HYPOTHESES: H_0: all k treatment distributions are EQUAL within blocks (no treatment effect); H_a: at least one treatment tends to give larger/smaller values than others. RELATIONSHIP to RM-ANOVA: Friedman is to RM-ANOVA as Kruskal-Wallis is to one-way ANOVA — it operates on within-block RANKS, avoiding the normality and sphericity assumptions. ASYMPTOTIC RELATIVE EFFICIENCY vs RM-ANOVA: about 0.64 (k=2) to 0.87 (k large) for normal data; higher for non-normal. POST-HOC after significant Friedman: (a) WILCOXON SIGNED-RANK pairwise with Bonferroni (n tests, alpha/n each); (b) NEMENYI test (nonparametric Tukey analog — compares rank sums with a studentized-range-like critical value); (c) CONOVER'S post-hoc (F-distribution based). WHEN TO USE: (a) non-normal repeated-measures data; (b) ordinal data (Likert scales); (c) small n per subject; (d) when sphericity is severely violated (Friedman does not assume sphericity — it ranks within each subject). EXAMPLE: 10 judges rate 4 wines on a 1-10 scale; Friedman tests whether the wines differ, ranking within each judge (each judge's lowest-rated wine gets rank 1, etc.). SOFTWARE: R friedman.test, Python scipy.stats.friedmanchisquare, SAS PROC FREQ (CMH option) or PROC NPAR1WAY, SPSS NPAR TESTS (Friedman). KENDALL'S W (coefficient of concordance) is a NORMALIZED version of Friedman: W = Q / (n(k-1)), measuring AGREEMENT among judges (W in [0,1], 1 = perfect agreement, 0 = no agreement); related to Friedman by W = 12 sum_j (R_j - n(k+1)/2)^2 / (n^2(k^3 - k)).",
+      "topic": "math_vol9_ch08p10_friedman_test",
+      "intent": "formula_recall",
+      "keywords": [
+        "Friedman test",
+        "nonparametric",
+        "repeated measures",
+        "randomized block",
+        "within-block ranks",
+        "Nemenyi",
+        "Kendall W",
+        "tie correction"
+      ]
+    },
+    {
+      "question": "What are the aligned rank transform and Quade test for nonparametric factorial designs?",
+      "answer": "Nonparametric factorial analysis is more complex than one-way because RANKS interact with the design. Two approaches handle two-way (and higher) nonparametric designs: (1) ALIGNED RANK TRANSFORM (ART) — a general method allowing nonparametric analysis of ANY factorial design (including interactions) using RANK-based methods with standard ANOVA software. PROCEDURE: (a) ALIGN the data — subtract the estimated effects of ALL factors EXCEPT the one of interest from each observation, leaving only the effect of interest plus residual. For the A main effect: aligned Y_{ij}^{A} = Y_{ij} - Ybar_.j. + Ybar.. (subtract B effect, keep A effect); for the B main effect: aligned Y_{ij}^{B} = Y_{ij} - Ybar_i.. + Ybar..; for the AB interaction: aligned Y_{ij}^{AB} = Y_{ij} - Ybar_i.. - Ybar_.j. + Ybar.. (subtract both main effects, keep interaction). (b) RANK the aligned observations (across the whole dataset); (c) run standard ANOVA (or mixed model) on the ALIGNED RANKS — the F-tests on aligned ranks test the corresponding effect nonparametrically. KEY: do a SEPARATE alignment and ranking for each effect (A, B, AB), running ANOVA on each set of aligned ranks. The ART ANOVA is valid because alignment removes the nuisance effects before ranking, so the ranks reflect only the effect of interest. SOFTWARE: R package ARTool (Wobbrock et al.). CAUTION: ART can have inflated Type I for interactions in some designs; use with care and check simulations. (2) QUADE TEST (Quade 1979) — a nonparametric test for randomized complete block designs (like Friedman but WEIGHTING blocks by their range). PROCEDURE: (a) rank the BLOCKS by their range (max - min within block) from 1 to n (block with smallest range gets rank 1); (b) within each block, rank the k treatments from 1 to k (as in Friedman); (c) compute the WEIGHTED rank product: Q_{ij} = (block rank)_i * ((treatment rank)_{ij} - (k+1)/2); (d) the Quade statistic uses these weighted ranks, giving more weight to blocks with larger variability (where treatment differences are more detectable). The test statistic Q = (k-1) sum_j (sum_i Q_{ij})^2 / [sum_i sum_j Q_{ij}^2 - (1/n) sum_i (sum_j Q_{ij})^2] approximately chi^2_{k-1}. Quade is more powerful than Friedman when blocks have DIFFERENT variabilities (the weighting helps); less powerful when block variabilities are similar. (3) OTHER approaches: (a) RANK-BASED regression (Jureckova, Hettmansperger-McKean) — fit regression on ranks, robust to outliers; (b) PERMUTATION tests for factorial designs (exact, distribution-free, handle interactions naturally); (c) BOOTSTRAP for factorial effects; (d) MEDIAN POLISH (Tukey) — robust additive decomposition via iterative medians; (e) GLMM with robust links. PRACTICAL: for two-way nonparametric, ART (ARTool) is the most accessible general approach; for RCBD, compare Friedman vs Quade; for complex designs, consider permutation or bootstrap.",
+      "topic": "math_vol9_ch08p10_aligned_rank_quade",
+      "intent": "formula_recall",
+      "keywords": [
+        "aligned rank transform",
+        "ART",
+        "Quade test",
+        "nonparametric factorial",
+        "ARTool",
+        "rank-based regression",
+        "median polish",
+        "permutation"
+      ]
+    },
+    {
+      "question": "What are permutation tests for ANOVA and how do they work?",
+      "answer": "PERMUTATION TESTS (also called RANDOMIZATION tests) are EXACT, distribution-free tests based on RE-RANDOMIZING the data under the null hypothesis. For one-way ANOVA: under H_0 (no treatment effect — the group labels are arbitrary), all N!/(n_1! ... n_k!) assignments of the N observations to the k groups (with sizes n_1, ..., n_k) are EQUALLY LIKELY. PROCEDURE: (1) compute the OBSERVED F-statistic (or equivalently SST, or the group-mean differences) on the original data: F_obs; (2) generate all possible permutations (or a large random sample, e.g., 10000, if exhaustive is infeasible) of the group labels; (3) for each permutation, compute the F-statistic F_perm; (4) the p-value is the proportion of permutations with F_perm >= F_obs: p = (1 + #{F_perm >= F_obs}) / (1 + total # permutations) (the +1 in numerator and denominator includes the observed, ensuring p > 0). DECISION: reject H_0 if p < alpha. PROPERTIES: (1) EXACT — under H_0, p is uniformly distributed (Type I error = alpha exactly); (2) NO distributional assumptions — no normality, no specific variance structure; (3) requires EXCHANGEABILITY under H_0 — observations must be exchangeable across groups when H_0 holds (true under independence + no group effect); (4) for large N, exhaustive enumeration is infeasible (e.g., N=20, k=2, n=10 gives 184756 permutations — manageable; N=100 gives astronomical); use MONTE CARLO sampling (random permutations) — the estimate converges to the exact p-value. VARIANTS: (a) PERMUTATION of RESIDUALS — for complex designs (e.g., ANCOVA, mixed models), permute the residuals under the REDUCED model (Freedman-Lane), not the raw data — preserves the design structure; (b) RESTRICTED permutation — for blocked/repeated designs, permute WITHIN blocks only (exchangeable within block); (c) SIGN-FLIPPING — for symmetric errors, randomly flip signs of residuals (alternative to permutation). ADVANTAGES: (1) exact Type I control; (2) no distributional assumptions; (3) can use ANY test statistic (F, likelihood ratio, trimmed mean, rank-based); (4) naturally handle complex designs (permutation schemes); (5) intuitive — directly tests the randomization that produced the data. DISADVANTAGES: (1) computationally intensive (mitigated by modern computing); (2) exhaustive enumeration infeasible for large N; (3) p-values have Monte Carlo error (use more samples for precision); (4) the null hypothesis is about EXCHANGEABILITY, not specifically about means (subtle interpretational issue); (5) inference is CONDITIONAL on the observed data (less generalizable than parametric, though often preferred). SOFTWARE: R lmPerm, perm, coin packages; Python mlxtend, scipy (permutation_test); specialized software for ecology (PRIMER, CANOCO). USE CASES: (a) non-normal data with small samples; (b) complex designs where parametric assumptions are dubious; (c) robustness check (compare permutation p-value to parametric — if they agree, parametric is fine; if they differ, investigate). PERMUTATION TESTS are the GOLD STANDARD for randomized experiments — they directly correspond to the randomization inference advocated by Fisher.",
+      "topic": "math_vol9_ch08p10_permutation_tests_anova",
+      "intent": "formula_recall",
+      "keywords": [
+        "permutation test",
+        "randomization test",
+        "exchangeability",
+        "exact test",
+        "Freedman-Lane",
+        "Monte Carlo",
+        "residual permutation",
+        "sign-flipping"
+      ]
+    },
+    {
+      "question": "What is the Jonckheere-Terpstra test for ordered alternatives?",
+      "answer": "The JONCKHEERE-TERPSTRA (J-T) test is a nonparametric test for ORDERED ALTERNATIVES in one-way ANOVA: when the k groups have a NATURAL ORDERING (e.g., increasing dose, severity, time) and the alternative hypothesis is that the distributions are STOCHASTICALLY ORDERED (monotone trend). HYPOTHESES: H_0: F_1(x) = F_2(x) = ... = F_k(x) (all distributions equal); H_a: F_1(x) >= F_2(x) >= ... >= F_k(x) (with at least one strict) OR the reverse (F_1 <= F_2 <= ... <= F_k) — a ONE-SIDED, ordered alternative. This is MORE SPECIFIC than Kruskal-Wallis (which tests any difference) and hence MORE POWERFUL when the ordering assumption holds. TEST STATISTIC: the J-T statistic is based on MANN-WHITNEY U counts between consecutive (or all) pairs of groups. For all pairs (i, j) with i < j (ordered), compute U_{ij} = number of pairs (X in group i, Y in group j) with X < Y, plus half the number with X = Y. The J-T statistic is J = sum_{i<j} U_{ij} (sum over all ordered pairs). Equivalently, J counts the number of CONCORDANT pairs (observation from an earlier group < observation from a later group). LARGE values of J support the ordered alternative (later groups have larger values). DISTRIBUTION: under H_0, J has mean E[J] = (N^2 - sum n_i^2) / 4 and variance Var[J] = [N^2(2N+3) - sum n_i^2(2n_i+3)] / 72 (with tie correction). Standardize: Z = (J - E[J]) / sqrt(Var[J]) ~ approx N(0,1) for large samples. DECISION: one-sided test — reject H_0 if Z > z_{1-alpha} (for the ascending alternative). Exact p-values available for small samples via enumeration or tables. RELATIONSHIP to other tests: (a) for k = 2, J-T reduces to the MANN-WHITNEY U test (one-sided); (b) J-T is a nonparametric TREND test (like Spearman's rho or Kendall's tau, but for grouped data); (c) more powerful than K-W when the trend is real; less powerful if the trend is non-monotone (e.g., U-shaped); (d) parametric analog: the LINEAR TREND contrast in ANOVA (test for linear relationship between group mean and ordered group index). WHEN TO USE: (a) groups have a natural ordering (dose, age, time, severity); (b) you expect a monotonic dose-response or trend; (c) non-normal data; (d) small samples. EXAMPLE: 4 doses of a drug (0, 10, 20, 40 mg), 8 subjects per dose, outcome = tumor size. J-T tests whether tumor size monotonically decreases with dose. If the true relationship is monotone, J-T has higher power than K-W. SOFTWARE: R DescTools::JonckheereTerpstraTest, clinfun::jonckheere.test, Python scipy.stats (not built-in; use manual implementation), SAS PROC FREQ (JT option), SPSS NPAR TESTS (Jonckheere). VARIANTS: (a) TWO-SIDED J-T (test for any monotone trend, up or down) — use |Z| > z_{1-alpha/2}; (b) ordered with a SPECIFIC alternative direction specified a priori. RELATED: Cuzick test (extension with continuous covariate), Page test (analog for randomized blocks with ordered treatments).",
+      "topic": "math_vol9_ch08p10_jonckheere_terpstra",
+      "intent": "formula_recall",
+      "keywords": [
+        "Jonckheere-Terpstra",
+        "ordered alternatives",
+        "trend test",
+        "monotone",
+        "Mann-Whitney",
+        "dose-response",
+        "stochastic ordering",
+        "one-sided"
+      ]
+    },
+    {
+      "question": "How is the bootstrap applied to ANOVA for robust inference?",
+      "answer": "The BOOTSTRAP (Efron 1979) provides DISTRIBUTION-FREE inference for ANOVA by resampling the data with replacement and recomputing the statistic of interest, building an EMPIRICAL distribution. TYPES of bootstrap for ANOVA: (1) PAIRED / NESTED BOOTSTRAP (resample within groups) — for each group i, resample n_i observations WITH REPLACEMENT from group i's data (preserving group structure); recompute the F-statistic (or group means, or contrasts); repeat B times (B = 1000-10000); the empirical distribution of the B F-statistics approximates the sampling distribution under the (unknown) true population. CI: percentile method (2.5th and 97.5th percentiles) or BCa (bias-corrected accelerated). This preserves within-group distribution (including heteroscedasticity) and is appropriate for one-way ANOVA with possibly unequal variances. (2) RESIDUAL BOOTSTRAP (for homoscedastic models) — fit the ANOVA model, obtain residuals e_{ij} = Y_{ij} - Ybar_i.; resample residuals WITH REPLACEMENT (pooled across groups); create bootstrapped responses Y*_{ij} = Ybar_i. + e*_{ij}; recompute F. Assumes homoscedasticity (one pooled residual distribution). (3) WILD BOOTSTRAP (for heteroscedastic regression/ANOVA) — instead of resampling residuals, multiply each residual by a random +/-1 (or other zero-mean multiplier) with equal probability; preserves the heteroscedastic structure (each residual keeps its own magnitude, only the sign flips). Useful when group variances differ. (4) BLOCK BOOTSTRAP (for clustered/longitudinal) — resample WHOLE SUBJECTS (or clusters) with replacement, keeping all observations within a subject together; preserves within-subject correlation. APPLICATIONS in ANOVA: (a) ROBUST CONFIDENCE INTERVALS for group means, contrasts, or variance components (no normality needed); (b) ROBUST F-TEST / p-value: compute the bootstrap distribution of F under H_0 by resampling from a pooled-empirical or null-restricted distribution (e.g., center each group to the grand mean before resampling); (c) BIAS CORRECTION for estimators (e.g., negative variance component estimates); (d) CONFIDENCE INTERVALS for nonparametric effect sizes (e.g., bootstrap CI for Cohen's d, eta-squared). ADVANTAGES: (1) no distributional assumptions; (2) handles complex estimators (variance components, BLUPs, CIs for any function of parameters); (3) naturally handles heteroscedasticity (paired or wild bootstrap); (4) intuitive — direct empirical sampling distribution. DISADVANTAGES: (1) computationally intensive (B = 1000+ fits); (2) asymptotic theory (coverage improves with n); can undercover for small n; (3) depends on the resampling scheme matching the data structure (wrong scheme => wrong inference); (4) for small samples, the bootstrap distribution may be discrete (few unique resamples). PRACTICAL: use R boot package (boot, boot.ci), Python arch or bootstrap-stat. NUMBER of replicates: B = 1000 for CIs, B = 10000+ for p-values or tail probabilities. REPORT: the bootstrap scheme used (paired, residual, wild, block), B, CI method (percentile, BCa, basic, studentized), and bootstrap SE. PERMUTATION vs BOOTSTRAP: permutation tests the null (exchangeability); bootstrap estimates the SAMPLING DISTRIBUTION (under the truth, not just null) — bootstrap is more general but less exact for hypothesis testing.",
+      "topic": "math_vol9_ch08p10_bootstrap_anova",
+      "intent": "formula_recall",
+      "keywords": [
+        "bootstrap",
+        "resampling",
+        "paired bootstrap",
+        "residual bootstrap",
+        "wild bootstrap",
+        "block bootstrap",
+        "BCa",
+        "percentile CI"
+      ]
+    },
+    {
+      "question": "What are robust ANOVA methods using trimmed means and M-estimators?",
+      "answer": "ROBUST ANOVA methods provide inference that is resistant to OUTLIERS and distributional violations, using estimators other than the mean. The standard ANOVA F-test uses the MEAN and VARIANCE, both of which are SENSITIVE to outliers (a single outlier can dominate the mean and inflate the variance, masking real effects or creating spurious ones). APPROACHES: (1) TRIMMED MEANS ANOVA (Yuen 1974) — replace the mean with the TRIMMED MEAN (drop gamma = 20% from each tail, compute mean of the middle 60%) and the variance with the WINSORIZED VARIANCE (variance computed after replacing the trimmed values with the most extreme retained values). The Yuen test statistic: T_Y = (mu_tilde_1 - mu_tilde_2) / sqrt(s_w1^2/(n_1 - 1) + s_w2^2/(n_2 - 1)) * (1/h_1 + 1/h_2) adjustment, where mu_tilde is the trimmed mean, s_w^2 is the Winsorized variance, and h is the effective sample size = n - 2*floor(gamma*n). The distribution is approximated by t with SATTERTHWAITE df. For k > 2 groups, the analog is a one-way ANOVA on trimmed means with Winsorized variances. 20% trimming is standard (good balance of efficiency and robustness). (2) M-ESTIMATORS ANOVA — use M-estimators of location (Huber, Tukey biweight) instead of means; fit the ANOVA model by iteratively reweighted least squares (IRWLS), with weights down-weighting outliers. The robust F-test compares the reduction in robust objective function. (3) MEDIAN-BASED methods — use medians (most robust to outliers, ~63% ARE vs mean for normal); median polish (Tukey) decomposes a two-way table by iterative medians. (4) BOOTSTRAP robust ANOVA — combine robust estimators (trimmed means, M-estimators) with bootstrap CIs for distribution-free robust inference. (5) W-ESTIMATORS and R-ESTIMATORS (rank-based). ADVANTAGES: (1) resistance to outliers (bounded influence); (2) maintain high efficiency at the normal model (20% trimmed mean has ~90% ARE vs mean for normal); (3) much higher efficiency for heavy-tailed distributions (contaminated normal, Cauchy) — trimmed mean can be infinitely more efficient; (4) valid under weaker distributional assumptions. DISADVANTAGES: (1) more complex to compute (IRWLS, bootstrap); (2) less familiar to reviewers; (3) choice of tuning (trimming percentage, psi-function) can be contentious; (4) interpretation differs (trimmed mean != mean if distribution is skewed). SOFTWARE: R WRS2 package (Wilcox's robust methods — t1way for trimmed-means ANOVA, med1way for median, pbad2way for M-estimator two-way); R rrcov, robustbase; SAS PROC ROBUSTREG; Python statsmodels (robust). WHEN TO USE: (a) data with outliers (boxplots, residual plots); (b) heavy-tailed distributions; (c) small samples where a single outlier dominates; (d) when the mean is not the estimand of interest (median or trimmed mean more representative for skewed data). PRACTICAL ADVICE: always run BOTH standard and robust ANOVA; if they agree, report standard; if they disagree, investigate outliers and consider reporting the robust analysis (with justification). The modern consensus (Wilcox, Field) is that robust methods should be the DEFAULT, not the exception — they protect against unknown distributional issues at a small efficiency cost.",
+      "topic": "math_vol9_ch08p10_robust_anova_trimmed",
+      "intent": "formula_recall",
+      "keywords": [
+        "robust ANOVA",
+        "trimmed mean",
+        "M-estimator",
+        "Huber",
+        "Winsorized variance",
+        "Yuen test",
+        "median polish",
+        "IRWLS"
+      ]
+    },
+    {
+      "question": "What are Latin square and Graeco-Latin square designs?",
+      "answer": "LATIN SQUARE DESIGNS are used when TWO BLOCKING factors (each with p levels) are present in addition to ONE treatment factor (also p levels), allowing efficient estimation of the treatment effect while controlling for two sources of variability. STRUCTURE: a p x p square where each of p treatments appears EXACTLY ONCE in each row and EXACTLY ONCE in each column. Example (3x3): A B C / B C A / C A B. Each cell contains one observation. Model: Y_{ijk} = mu + row_i + col_j + tau_k + epsilon_{ijk}, where row and column are blocking factors (random or fixed) and tau is the treatment (fixed). ANOVA: SST = SS_rows + SS_cols + SS_treatments + SSE, with df: rows (p-1), cols (p-1), treatments (p-1), error (p-1)(p-2), total p^2 - 1. ADVANTAGES: (1) controls for TWO blocking factors simultaneously with only p^2 observations (vs p^3 for full factorial); (2) efficient — treatment effect estimated from p observations, each adjusted for row and column effects. DISADVANTAGES: (1) requires EQUAL number of levels for all three factors (p rows, p cols, p treatments); (2) small error df for small p (e.g., p=3 gives only 2 error df); (3) no interaction estimable (each cell has 1 observation); (4) sensitive to the additive model (no row x col or treatment x block interactions). REPLICATION: to increase error df, use multiple Latin squares (different randomizations) — adds a \"square\" effect. GRAECO-LATIN (or orthogonal Latin) SQUARES — superimpose TWO orthogonal Latin squares (one with Latin letters A,B,C and one with Greek letters alpha, beta, gamma), allowing control for THREE blocking factors (rows, cols, and the third factor = Greek letters) with ONE treatment, all in p x p = p^2 observations. Each Latin-Greek combination appears EXACTLY ONCE. Model: Y = mu + row + col + latin_treatment + greek_block + error. ANOVA: SS = rows + cols + treatment + greek_block + error, df = (p-1) each, error df = (p-1)(p-4). Existence: Graeco-Latin squares exist for p >= 3 except p = 6 (Euler's 36 officers problem — no solution). HYPER-GRAECO-LATIN — superimpose 3+ orthogonal Latin squares for more blocking factors (error df shrinks further). CONSTRUCTION: Latin squares are generated by cyclic shifts (A B C D / B C D A / C D A B / D A B C) or via finite-field arithmetic; randomize by selecting a random square from the set of all p x p Latin squares and permuting rows, columns, and treatment labels. APPLICATIONS: (a) agricultural field trials (rows = north-south gradient, cols = east-west gradient); (b) industrial experiments (rows = operators, cols = machines); (c) cross-over designs (Williams squares for balanced carryover); (d) bioassay; (e) psychological experiments (rows = subjects, cols = time order). SOFTWARE: R agricolae package (design.lsd), SAS PROC PLAN, Minitab.",
+      "topic": "math_vol9_ch08p10_latin_graeco_square",
+      "intent": "formula_recall",
+      "keywords": [
+        "Latin square",
+        "Graeco-Latin",
+        "orthogonal Latin squares",
+        "blocking",
+        "Euler 36 officers",
+        "Williams square",
+        "row column"
+      ]
+    },
+    {
+      "question": "What are 2^k factorial and 2^{k-p} fractional factorial designs?",
+      "answer": "TWO-LEVEL FACTORIAL DESIGNS (2^k) study k factors each at 2 levels (low/high) in all 2^k combinations, enabling estimation of all main effects and interactions. EXAMPLE: 2^3 design with factors A, B, C has 8 runs; estimates 3 main effects (A, B, C), 3 two-way interactions (AB, AC, BC), 1 three-way (ABC), with 0 df for error (need replication or assume high-order interactions = 0). Model: Y = beta_0 + beta_A x_A + beta_B x_B + beta_C x_C + beta_{AB} x_A x_B + ... + beta_{ABC} x_A x_B x_C + epsilon. EFFECT estimation (Yates algorithm / regression with coded +/-1): main effect of A = 2 * beta_A = (mean Y at A+) - (mean Y at A-), averaging over all other factors. The design is ORTHOGONAL — all effects estimated independently. FRACTIONAL FACTORIAL (2^{k-p}) — for many factors, full 2^k is too expensive (2^10 = 1024 runs). A 2^{k-p} fraction uses 1/2^p of the runs (e.g., 2^{10-6} = 16 runs) by ALIASING (confounding) effects with high-order interactions assumed negligible. CONSTRUCTION: choose p GENERATORS (defining words, e.g., I = ABCD for a 2^{4-1} = 8-run half-fraction of a 2^4); all effects aliased with their product by the generator are confounded (e.g., A = BCD, B = ACD, AB = CD). RESOLUTION: the LENGTH of the shortest defining word determines what is aliased with what — Resolution III (no main effect aliased with another main, but main effects aliased with 2-factor interactions — bad); Resolution IV (no main effect aliased with 2-factor interaction, but 2-factor interactions aliased with each other); Resolution V (no main or 2-factor interaction aliased with any other main or 2-factor — ideal but expensive). DESIGN GENERATORS via finite group theory (Box-Wilson). CHOOSING: maximize resolution given run budget; alias the effects of least interest (high-order) with those of most interest (main + low-order interactions). ALIAS STRUCTURE: for each effect, list its aliases (I = generator; effect = effect * generator). SCREENING designs: Resolution III 2^{k-p} for screening many factors (identify the few important ones); FOLLOW-UP: augment the screening design (fold-over) to de-alias important effects. EXAMPLE: 2^{7-4} = 8-run screening for 7 factors (Resolution III, main effects aliased with 2-factor interactions) — identifies the ~2-3 active factors for follow-up. CENTER POINTS: add a few center points (all factors at 0, midpoint) to test for CURVATURE (if center mean differs significantly from the 2^k factorial mean, there is quadratic curvature — augment to response surface). REPLICATION: replicate the 2^k design to estimate pure error and lack-of-fit. ANALYSIS: regression with +/-1 coded factors; effects plot (Pareto, half-normal) to identify active effects. SOFTWARE: R FrF2 package, Python pyDOE, JMP, Minitab, Design-Expert. APPLICATIONS: industrial experimentation (Taguchi robust design), product/process optimization, screening before RSM.",
+      "topic": "math_vol9_ch08p10_2k_factorial",
+      "intent": "formula_recall",
+      "keywords": [
+        "2^k factorial",
+        "fractional factorial",
+        "2^{k-p}",
+        "resolution",
+        "aliasing",
+        "generator",
+        "Yates algorithm",
+        "screening design",
+        "curvature"
+      ]
+    },
+    {
+      "question": "What are central composite and Box-Behnken response surface designs?",
+      "answer": "RESPONSE SURFACE METHODOLOGY (RSM) designs explore the SHAPE of the response surface (Y as a function of continuous factors) to find OPTIMA (maximum, minimum, or target). They fit a SECOND-ORDER (quadratic) model: Y = beta_0 + sum beta_i x_i + sum beta_{ii} x_i^2 + sum_{i<j} beta_{ij} x_i x_j + epsilon. Two main RSM designs: (1) CENTRAL COMPOSITE DESIGN (CCD) — Box-Wilson (1951). For k factors, consists of: (a) a 2^k factorial (or 2^{k-p} fractional, Resolution V) at the corners (+/-1); (b) 2k AXIAL (star) points at (+/-alpha, 0, ..., 0), (0, +/-alpha, 0, ..., 0), etc., where alpha determines the shape; (c) n_0 CENTER POINTS (all factors at 0). Total runs: 2^k + 2k + n_0 (e.g., k=3 gives 8 + 6 + n_0 = 14 + n_0 runs). CHOOSING alpha: alpha = 2^{k/4} (ROTATABLE — variance of prediction constant on spheres; e.g., k=3 gives alpha = 1.682); alpha = 1 (FACE-CENTERED — star points on the faces of the cube, no extrapolation beyond corners); alpha = sqrt(k) (spherical). ROTATABILITY ensures prediction variance depends only on distance from center, not direction — desirable for exploring in all directions. CENTER POINTS provide: (a) pure error estimate (df = n_0 - 1); (b) CURVATURE test (compare center mean to corner+star mean); (c) stability of prediction at the center. (2) BOX-BEHNKEN DESIGN (BBD) — Box-Behnken (1960). For k factors, an alternative to CCD that avoids the EXTREME CORNERS (all factors at +/-1 simultaneously), instead using combinations where all but 2 factors are at 0, and 2 factors are at +/-1. Total runs: a multiple of 2k (e.g., k=3 gives 12 + n_0 = 15 runs). ADVANTAGES of BBD: (a) avoids extreme corner conditions (safer for some processes); (b) fewer runs than CCD for k=3 (15 vs 14+cc — similar); (c) all points are at MODERATE levels (3 levels per factor: -1, 0, +1), no axial extrapolation. DISADVANTAGES: (a) not rotatable (but near-rotatable); (b) cannot estimate pure quadratic for 2-factor designs; (c) for k=4, BBD has 24 + cc vs CCD 24 + 8 + cc — similar. COMPARISON: CCD preferred when rotatability is important and extreme conditions are feasible; BBD when extreme corners are impractical. OTHER RSM designs: (a) DOEHLERT (uniform shell) — k+1 points forming a hexagon (k=2) or icosahedron (k=3); efficient, uniform spacing; (b) SMALL CENTRAL COMPOSITE — minimal runs for k factors; (c) COMPUTER-GENERATED (D-optimal, I-optimal) — algorithmically optimal for custom constraints, non-standard regions. OPTIMIZATION: after fitting the second-order model, find the STATIONARY POINT (gradient = 0): solve dY/dx = 0 for x. Characterize: MAXIMUM (Hessian negative definite), MINIMUM (positive definite), or SADDLE (indefinite). RIDGE ANALYSIS (canonical) — if stationary point is outside the region or is a saddle, trace the ridge of optimum response along constrained radii. OVERLAYS / contour plots visualize the surface. SOFTWARE: R rsm package, Python pyDOE, JMP, Design-Expert, Minitab.",
+      "topic": "math_vol9_ch08p10_ccd_box_behnken",
+      "intent": "formula_recall",
+      "keywords": [
+        "response surface",
+        "central composite",
+        "CCD",
+        "Box-Behnken",
+        "rotatable",
+        "alpha",
+        "star points",
+        "canonical analysis",
+        "stationary point"
+      ]
+    },
+    {
+      "question": "What are mixture designs for experiments with constrained component proportions?",
+      "answer": "MIXTURE DESIGNS apply when the response depends on the RELATIVE PROPORTIONS of components that sum to 1 (or 100%), e.g., chemical formulations, food recipes, fuel blends. CONSTRAINT: sum_{i=1}^{q} x_i = 1, with 0 <= x_i <= 1 (and possibly lower/upper bounds L_i <= x_i <= U_i). The design region is a SIMPLEX (for q=3, an equilateral triangle; for q=4, a tetrahedron). Because of the constraint, the model cannot have an intercept (the x_i are linearly dependent). STANDARD MIXTURE MODELS: (1) LINEAR (first-order): Y = sum_{i=1}^{q} beta_i x_i + epsilon (q terms, no intercept); (2) QUADRATIC (second-order): Y = sum beta_i x_i + sum_{i<j} beta_{ij} x_i x_j + epsilon (q + q(q-1)/2 terms); the beta_{ij} capture SYNERGY (positive) or ANTAGONISM (negative) between components; (3) FULL CUBIC: adds sum beta_{ij}(x_i - x_j) x_i x_j and ternary terms beta_{ijk} x_i x_j x_k; (4) SPECIAL CUBIC: Y = sum beta_i x_i + sum beta_{ij} x_i x_j + sum beta_{ijk} x_i x_j x_k. DESIGNS: (a) SCHEFFE (SIMPLEX-LATTICE) — {q, m} lattice: all combinations where x_i takes values 0, 1/m, 2/m, ..., 1 (m+1 levels), summing to 1. For {q, m}, the design has C(q+m-1, m) points (e.g., {3,2} = 6 points: 3 vertices + 3 edge midpoints). (b) SIMPLEX-CENTROID — q vertices (pure components), q(q-1)/2 binary midpoints (50-50 blends), q(q-1)(q-2)/6 ternary centroids (1/3-1/3-1/3), ..., the overall centroid (1/q each); total 2^q - 1 points. (c) AXIAL / EXTREME VERTICES (for constrained regions with bounds L_i, U_i) — when components have lower/upper bounds (not the full simplex), the feasible region is a polytope; extreme vertices designs place points at vertices, edge midpoints, and overall centroid of the constrained region (McLean-Anderson). ANALYSIS: fit the mixture model by regression (no intercept); interpret coefficients: beta_i is the response at pure component i (x_i = 1); beta_{ij} > 0 means synergy (blend better than weighted average); beta_{ij} < 0 means antagonism; beta_{ijk} captures three-way interactions. TRACE PLOTS (Piepel): response as one component varies, others at fixed ratios. CONTOUR PLOTS on the simplex visualize the surface. AUGMENTATION: if curvature is detected, add interior points (centroids) to fit higher-order models. SOFTWARE: R mixexp, cols (mixture designs); JMP, Design-Expert (excellent mixture support), Minitab. EXAMPLE: 3-component gasoline blend (octane x_1, aromatics x_2, olefins x_3, x_1+x_2+x_3 = 1), response = knock rating. Simplex-centroid design with 7 points (3 vertices + 3 edge midpoints + 1 overall centroid) fits the quadratic or special cubic model; optimize the blend for maximum knock rating. MIXTURE-PROCESS designs: when both mixture components AND process variables (temperature, pressure) are present, combine a mixture design with a factorial on process variables (Kowalski-Cornell blends).",
+      "topic": "math_vol9_ch08p10_mixture_designs",
+      "intent": "formula_recall",
+      "keywords": [
+        "mixture design",
+        "simplex",
+        "Scheffe",
+        "simplex-lattice",
+        "simplex-centroid",
+        "extreme vertices",
+        "synergy",
+        "antagonism",
+        "Piepel"
+      ]
+    },
+    {
+      "question": "What is Taguchi robust parameter design and signal-to-noise ratio?",
+      "answer": "TAGUCHI ROBUST PARAMETER DESIGN (Genichi Taguchi) aims to find parameter settings that make a product/process ROBUST to NOISE (uncontrollable variation) — minimizing variability while achieving a target mean. Philosophy: quality is the MINIMIZATION OF VARIATION around the target, and variation comes from NOISE FACTORS (environmental, manufacturing, usage). KEY CONCEPTS: (1) CONTROL FACTORS — design parameters the engineer can set (e.g., dimensions, material type); (2) NOISE FACTORS — uncontrollable variables (temperature, humidity, operator, wear); (3) the goal is to find control-factor settings that MINIMIZE the response's sensitivity to noise. DESIGN STRUCTURE: Taguchi uses INNER and OUTER ARRAYS — an inner array (orthogonal, typically 2^{k-p} or 3^{k-p}) for control factors, an outer array (orthogonal) for noise factors; the experiment runs all combinations (inner x outer). For each control-factor setting, the response is measured across all noise-factor settings, capturing variability. SIGNAL-TO-NOISE RATIOS (S/N): Taguchi condenses the multi-noise-response into a single S/N ratio that captures BOTH mean and variability. COMMON S/N ratios: (a) NOMINAL-THE-BEST (target value, two-sided): SN_T = 10 log10(Ybar^2 / s^2), where Ybar and s are across noise settings; maximize to center on target with low variance; (b) SMALLER-THE-BETTER (minimize, e.g., defects, wear): SN_S = -10 log10((1/n) sum Y_i^2); (c) LARGER-THE-BETTER (maximize, e.g., strength, yield): SN_L = -10 log10((1/n) sum 1/Y_i^2). ANALYSIS: (1) compute S/N for each inner-array run; (2) ANOVA or main-effects plot on S/N to identify control factors that MAXIMIZE S/N (robust settings); (3) separate factors into: (a) factors affecting MEAN (signal), (b) factors affecting VARIANCE (noise/robustness), (c) factors affecting both — use \"signal factors\" to adjust mean to target, \"control factors\" to minimize variance. CRITIQUE: Taguchi methods have been CRITICIZED by Western statisticians (Box, Nair, Pukelsheim) for: (a) S/N ratios confound mean and variance (better to model them separately — Vining-Myers dual response approach); (b) advocating orthogonal arrays without clear rationale (fractional factorials are more flexible); (c) cross-array designs are inefficient (better to combine control and noise factors in a single array, the \"combined array\" approach of Shoemaker-Tsui-Wu); (d) ignoring interactions (Taguchi downplays them, but they matter); (e) not leveraging randomization and blocking properly. MODERN VIEW: Taguchi's PHILOSOPHY (robust design, minimizing variance) is influential and valuable; the TECHNICAL methods have been SUPERSEDED by: (a) robust design via GENERALIZED LINEAR MODELS (modeling mean and variance jointly); (b) DUAL RESPONSE SURFACE (separate RSM for mean and log-variance, optimize subject to constraints); (c) combined arrays with control-by-noise interactions explicitly modeled; (d) Bayesian robust design. Despite the critique, Taguchi popularized robust design and is still widely used in industry (especially automotive, electronics). SOFTWARE: Minitab (Stat > DOE > Taguchi), JMP, R (qualityTools).",
+      "topic": "math_vol9_ch08p10_taguchi_robust",
+      "intent": "formula_recall",
+      "keywords": [
+        "Taguchi",
+        "robust design",
+        "signal-to-noise",
+        "control factor",
+        "noise factor",
+        "inner outer array",
+        "orthogonal array",
+        "dual response"
+      ]
+    },
+    {
+      "question": "What are optimal designs (D-optimal, I-optimal, A-optimal) and how are they constructed?",
+      "answer": "OPTIMAL DESIGNS (also called COMPUTER-GENERATED or ALGORITHMIC designs) construct experimental designs that OPTIMIZE a specific statistical criterion, for arbitrary design regions and models (where classical designs like factorial, CCD don't apply). CRITERIA: (1) D-OPTIMAL — maximize the determinant of the information matrix X^T X (equivalently, minimize the determinant of the covariance matrix (X^T X)^{-1} of the parameter estimates). Minimizes the GENERALIZED VARIANCE of the beta estimates; optimal for PRECISELY ESTIMATING MODEL COEFFICIENTS. Geometric: minimize the volume of the confidence ellipsoid for beta. D-efficiency = (|X^T X| / |X_opt^T X_opt|)^{1/p} (p = number of parameters), comparing to the theoretical optimum. (2) I-OPTIMAL (also called V- or IV-optimal) — minimize the AVERAGE PREDICTION VARIANCE over the design region: integral_{region} x^T (X^T X)^{-1} x dx / volume. Optimal for PRECISE PREDICTION throughout the region (good for response surface, where prediction is the goal). (3) A-OPTIMAL — minimize the TRACE of (X^T X)^{-1} (sum of parameter variances); optimal for minimizing average parameter variance (less common than D). (4) G-OPTIMAL — minimize the MAXIMUM prediction variance over the region (minimax); equivalent to D-optimal by the General Equivalence Theorem (Kiefer-Wolfowitz). (5) E-OPTIMAL — maximize the minimum eigenvalue of X^T X (robustness). (6) BAYESIAN / CUSTOM — optimize a custom criterion (e.g., maximize power for specific contrasts, minimize MSE for specific estimands). CONSTRUCTION ALGORITHMS: (a) EXCHANGE (Fedorov) — start with a random design, swap points to improve the criterion; (b) COORDINATE EXCHANGE — change one coordinate (factor level) at a time, faster for many factors; (c) FEDOROV EXCHANGE — swap a design point with a candidate point (full exchange); (d) JACKETED — sequential building; (e) POINT EXCHANGE — small set of candidate points. CANDIDATE SET: typically a grid of feasible points (e.g., 10000 candidate points for a constrained region); the algorithm selects the best n points. When to use OPTIMAL designs: (1) NON-STANDARD regions (constrained, irregular, with disallowed combinations); (2) CUSTOM models (non-standard basis functions, e.g., with specific interactions only); (3) UNEQUAL run sizes (e.g., n = 14, not a power of 2 or CCD size); (4) AUGMENTING existing data (add optimal points to improve the design); (5) MIXED factor types (continuous + categorical + mixture); (6) BLOCKING constraints; (7) COST constraints (different points have different costs). ADVANTAGES: (a) flexible — any region, any model, any n; (b) can incorporate prior information; (c) optimal for the specific criterion. DISADVANTAGES: (a) not always rotatable or balanced (depends on region); (b) can be sensitive to model misspecification (optimal for the assumed model, not for alternatives); (c) requires software to generate; (d) multiple local optima (run multiple starts). SOFTWARE: R AlgDesign, skpr, OptimalDesign; JMP Custom Design; SAS PROC OPTEX; Design-Expert; Python dexpy. COMPARISON: for standard regions and models, classical designs (factorial, CCD) are often optimal or near-optimal; use optimal designs for non-standard situations.",
+      "topic": "math_vol9_ch08p10_optimal_designs",
+      "intent": "formula_recall",
+      "keywords": [
+        "D-optimal",
+        "I-optimal",
+        "A-optimal",
+        "G-optimal",
+        "computer-generated design",
+        "Fedorov exchange",
+        "information matrix",
+        "prediction variance"
+      ]
+    },
+    {
+      "question": "What are Plackett-Burman and definitive screening designs?",
+      "answer": "Two specialized screening designs for studying MANY factors in FEW runs: (1) PLACKETT-BURMAN (PB) DESIGNS (Plackett-Burman 1946) — RESOLUTION III screening designs for k factors in N = 4r runs (r integer), where N is a multiple of 4 (N = 4, 8, 12, 16, 20, 24, ...). For N up to 100 (excluding 92), PB designs exist. KEY FEATURE: for N = 12, 20, 24, 28, 36, ... (NOT powers of 2), the design uses a complex aliasing structure where main effects are aliased with many 2-factor interactions (each main effect aliased with (N-2)/2 two-factor interactions, partially). For N = 12 with 11 factors, each main effect is aliased with 5 two-factor interactions. ADVANTAGES: (a) very EFFICIENT — N runs for up to N-1 factors; (b) orthogonal main effects; (c) useful for screening many factors (e.g., 11 factors in 12 runs). DISADVANTAGES: (a) Resolution III — main effects aliased with 2-factor interactions; (b) complex aliasing makes follow-up de-aliasing harder than for 2^{k-p} designs; (c) cannot estimate interactions without follow-up runs. CONSTRUCTION: cyclic generation from a single \"generator row\" (e.g., for N=12: + + - + + + - - - + -), then cyclic shifts, plus a row of all -. PB designs are used in industrial screening, biological assays, and any context with many factors and limited runs. (2) DEFINITIVE SCREENING DESIGNS (DSD) — Jones-Nachtebauer (2011), a newer class of screening designs that overcome the limitations of PB and Resolution III fractional factorials. STRUCTURE: for k factors, DSD has 2k + 1 runs: (a) 2k FOLD-OVER pairs where each pair has one factor at +/-1 (extreme) and all others at 0 (center); (b) ONE CENTER POINT. KEY PROPERTIES: (a) RESOLUTION IV — no main effect aliased with any 2-factor interaction; (b) 2-factor interactions are not fully aliased with each other (only partially confounded — they can be estimated if the model is sparse); (c) QUADRATIC effects estimable (each factor has 3 levels: -1, 0, +1, allowing pure quadratic); (d) NEAR-ORTHOGONAL for main effects and 2-factor interactions; (e) require only 2k+1 runs (e.g., k=6 gives 13 runs, fewer than a 2^6 = 64 full factorial). ADVANTAGES of DSD over PB and Res III 2^{k-p}: (a) main effects clear of 2-factor interactions (unlike PB); (b) quadratic curvature detectable (PB and 2-level designs cannot detect curvature); (c) 2-factor interactions estimable if few are active (effect sparsity); (d) fold-over structure provides projectivity. DISADVANTAGES: (a) more runs than minimal PB for very many factors (2k+1 vs k+1 for saturated PB); (b) only 3 levels per factor (not full exploration); (c) not for definitive analysis of all interactions — follow-up needed if many interactions active. ANALYSIS: forward selection or all-subsets regression (exploiting effect sparsity); identify active main effects, then check for interactions and curvature. COMPARISON: PB — minimal runs, only main effects; 2^{k-p} Res III — main effects + some aliasing; DSD — main effects + curvature + (sparse) interactions in 2k+1 runs (best for screening when curvature is plausible). SOFTWARE: R daewr (defScreen), JMP Custom Design (supports DSDs), Python dexpy. APPLICATIONS: pharmaceutical formulation screening, chemical process screening, any context with 5-12 factors where curvature and a few interactions may matter.",
+      "topic": "math_vol9_ch08p10_plackett_burman_dsd",
+      "intent": "formula_recall",
+      "keywords": [
+        "Plackett-Burman",
+        "definitive screening design",
+        "DSD",
+        "screening",
+        "fold-over",
+        "curvature",
+        "Jones-Nachtebauer",
+        "effect sparsity"
+      ]
+    },
+    {
+      "question": "Worked problem: one-way ANOVA by hand for three teaching methods.",
+      "answer": "PROBLEM: A researcher compares three teaching methods (Lecture, Interactive, Hybrid) on exam scores. Data: Lecture (n=5): 72, 78, 75, 80, 70; Interactive (n=5): 85, 82, 88, 79, 86; Hybrid (n=5): 78, 84, 81, 88, 84. Conduct a one-way ANOVA at alpha = 0.05. SOLUTION: Step 1 — Compute group means and grand mean. Ybar_1 = (72+78+75+80+70)/5 = 375/5 = 75.0; Ybar_2 = (85+82+88+79+86)/5 = 420/5 = 84.0; Ybar_3 = (78+84+81+88+84)/5 = 415/5 = 83.0. Grand mean Ybar.. = (375+420+415)/15 = 1210/15 = 80.67. Step 2 — Compute SSTR = sum n_i (Ybar_i. - Ybar..)^2 = 5*(75 - 80.67)^2 + 5*(84 - 80.67)^2 + 5*(83 - 80.67)^2 = 5*(32.15) + 5*(11.09) + 5*(5.43) = 160.75 + 55.45 + 27.15 = 243.35. df = k - 1 = 2. Step 3 — Compute SSE = sum sum (Y_{ij} - Ybar_i.)^2. For Lecture: (72-75)^2 + (78-75)^2 + (75-75)^2 + (80-75)^2 + (70-75)^2 = 9 + 9 + 0 + 25 + 25 = 68. Interactive: (85-84)^2 + (82-84)^2 + (88-84)^2 + (79-84)^2 + (86-84)^2 = 1 + 4 + 16 + 25 + 4 = 50. Hybrid: (78-83)^2 + (84-83)^2 + (81-83)^2 + (88-83)^2 + (84-83)^2 = 25 + 1 + 4 + 25 + 1 = 56. SSE = 68 + 50 + 56 = 174. df = N - k = 15 - 3 = 12. Step 4 — Compute MST = SSTR/df = 243.35/2 = 121.68; MSE = SSE/df = 174/12 = 14.5. Step 5 — F-statistic = MST/MSE = 121.68/14.5 = 8.39. Step 6 — Critical value F_{2, 12, 0.95} = 3.89 (from F-table). Since 8.39 > 3.89, REJECT H_0. Step 7 — p-value = P(F_{2,12} >= 8.39) ≈ 0.005 (using F distribution). CONCLUSION: There is a statistically significant difference in mean exam scores among the three teaching methods (F(2, 12) = 8.39, p = 0.005). POST-HOC (Tukey HSD): HSD = q_{3, 12, 0.95} * sqrt(MSE/n) = 3.77 * sqrt(14.5/5) = 3.77 * 1.70 = 6.42. Pairwise differences: |Ybar_1 - Ybar_2| = 9.0 > 6.42 (significant); |Ybar_1 - Ybar_3| = 8.0 > 6.42 (significant); |Ybar_2 - Ybar_3| = 1.0 < 6.42 (not significant). CONCLUSION: Interactive and Hybrid both significantly outperform Lecture, but do not differ from each other. EFFECT SIZE: eta^2 = SSTR/SST = 243.35/(243.35+174) = 243.35/417.35 = 0.583 (58.3% of variance explained); omega^2 = (SSTR - (k-1)MSE)/(SST + MSE) = (243.35 - 2*14.5)/(417.35 + 14.5) = 214.35/431.85 = 0.496. Cohen's f = sqrt(eta^2/(1-eta^2)) = sqrt(0.583/0.417) = 1.18 (very large effect).",
+      "topic": "math_vol9_ch08p10_worked_oneway_anova",
+      "intent": "problem_solving",
+      "keywords": [
+        "worked problem",
+        "one-way ANOVA",
+        "by hand",
+        "Tukey HSD",
+        "effect size",
+        "eta squared",
+        "teaching methods"
+      ]
+    },
+    {
+      "question": "Worked problem: two-way ANOVA with interaction for fertilizer and watering.",
+      "answer": "PROBLEM: A 2x2 factorial experiment studies the effect of Fertilizer (A: low/high) and Watering (B: low/high) on plant yield, with n = 3 replicates per cell. Cell means: (A-low, B-low) = 10, (A-low, B-high) = 14, (A-high, B-low) = 12, (A-high, B-high) = 20. Test main effects and interaction at alpha = 0.05. SOLUTION: Step 1 — Compute marginal and grand means. Ybar_1.. (A low) = (10+14)/2 = 12; Ybar_2.. (A high) = (12+20)/2 = 16; Ybar_.1. (B low) = (10+12)/2 = 11; Ybar_.2. (B high) = (14+20)/2 = 17; Ybar... = (10+14+12+20)/4 = 14. Step 2 — Compute SSA = bn sum (Ybar_i.. - Ybar...)^2 = (2)(3)[(12-14)^2 + (16-14)^2] = 6 * (4 + 4) = 48. df_A = a-1 = 1. SSB = an sum (Ybar_.j. - Ybar...)^2 = 6[(11-14)^2 + (17-14)^2] = 6(9+9) = 108. df_B = b-1 = 1. Step 3 — Compute SSAB = n sum sum (Ybar_ij. - Ybar_i.. - Ybar_.j. + Ybar...)^2. For (low, low): 10 - 12 - 11 + 14 = 1; (low, high): 14 - 12 - 17 + 14 = -1; (high, low): 12 - 16 - 11 + 14 = -1; (high, high): 20 - 16 - 17 + 14 = 1. SSAB = 3(1 + 1 + 1 + 1) = 12. df_AB = (a-1)(b-1) = 1. Step 4 — Assume the within-cell variance (from n=3 replicates) gives MSE = 4 (from the 8 residual df = ab(n-1) = 4*2 = 8). Step 5 — F-tests. F_A = MSA/MSE = 48/4 = 12.0 (df 1, 8), p < 0.01 — significant main effect of Fertilizer. F_B = MSB/MSE = 108/4 = 27.0 (df 1, 8), p < 0.001 — significant main effect of Watering. F_AB = MSAB/MSE = 12/4 = 3.0 (df 1, 8), p ≈ 0.12 — NOT significant interaction. Step 6 — INTERPRETATION: Since interaction is not significant, interpret main effects directly. (a) Fertilizer: high fertilizer increases yield by 16 - 12 = 4 units on average (averaged over watering levels); (b) Watering: high watering increases yield by 17 - 11 = 6 units on average. Step 7 — INTERACTION PLOT analysis: plot the cell means with A on x-axis and separate lines for B. Low-B line: 10 -> 12 (slope +2). High-B line: 14 -> 20 (slope +6). Lines are NOT parallel (high-B steeper), suggesting a POSSIBLE synergistic interaction (high water + high fertilizer gives extra boost), but it did not reach significance (p = 0.12) — likely underpowered (only 8 error df). Step 8 — FOLLOW-UP: with more replicates (e.g., n=6, 16 error df), the interaction might become significant. Report: \"A 2x2 ANOVA showed significant main effects of Fertilizer (F(1,8) = 12.0, p < 0.01, eta^2 = 0.60) and Watering (F(1,8) = 27.0, p < 0.001, eta^2 = 0.77), and a non-significant interaction (F(1,8) = 3.0, p = 0.12). High levels of both factors improved yield, with no strong evidence of synergy.\" NOTE: the apparent cell-mean pattern (20 at high-high vs additive prediction of 12+17-14 = 15) shows a +5 interaction deviation, but with high MSE it was not detectable.",
+      "topic": "math_vol9_ch08p10_worked_twoway_interaction",
+      "intent": "problem_solving",
+      "keywords": [
+        "worked problem",
+        "two-way ANOVA",
+        "interaction",
+        "fertilizer",
+        "watering",
+        "interaction plot",
+        "synergy"
+      ]
+    },
+    {
+      "question": "Worked problem: random effects model for batch-to-batch variation.",
+      "answer": "PROBLEM: A quality engineer samples 4 batches of a chemical, with 3 measurements per batch. Concentration readings: Batch 1: 98, 100, 102; Batch 2: 95, 97, 96; Batch 3: 103, 105, 107; Batch 4: 99, 101, 100. Estimate the variance components (batch-to-batch and within-batch), the ICC, and test whether batch-to-batch variation is significant. SOLUTION: Step 1 — Compute means. Batch means: Ybar_1. = 100, Ybar_2. = 96, Ybar_3. = 105, Ybar_4. = 100. Grand mean Ybar.. = (100+96+105+100)/4 = 100.25. Step 2 — Compute SSTR (between batches) = n sum (Ybar_i. - Ybar..)^2 = 3[(100-100.25)^2 + (96-100.25)^2 + (105-100.25)^2 + (100-100.25)^2] = 3[0.0625 + 18.0625 + 22.5625 + 0.0625] = 3 * 40.75 = 122.25. df = k - 1 = 3. MSTR = 122.25/3 = 40.75. Step 3 — Compute SSE (within batches) = sum sum (Y_{ij} - Ybar_i.)^2. Batch 1: (98-100)^2 + (100-100)^2 + (102-100)^2 = 4 + 0 + 4 = 8. Batch 2: (95-96)^2 + (97-96)^2 + (96-96)^2 = 1 + 1 + 0 = 2. Batch 3: (103-105)^2 + (105-105)^2 + (107-105)^2 = 4 + 0 + 4 = 8. Batch 4: (99-100)^2 + (101-100)^2 + (100-100)^2 = 1 + 1 + 0 = 2. SSE = 8 + 2 + 8 + 2 = 20. df = N - k = 12 - 4 = 8. MSE = 20/8 = 2.5. Step 4 — Variance component estimation (method of moments). sigma^2_hat (within-batch) = MSE = 2.5. sigma_a^2_hat (between-batch) = (MSTR - MSE)/n = (40.75 - 2.5)/3 = 38.25/3 = 12.75. Step 5 — ICC = sigma_a^2 / (sigma_a^2 + sigma^2) = 12.75 / (12.75 + 2.5) = 12.75/15.25 = 0.836. Interpretation: 83.6% of the total variation in concentration is due to BATCH-TO-BATCH differences; only 16.4% is measurement (within-batch) error. Step 6 — Hypothesis test H_0: sigma_a^2 = 0. F = MSTR/MSE = 40.75/2.5 = 16.3. F_{3, 8, 0.95} = 4.07. Since 16.3 >> 4.07, REJECT H_0 (p < 0.001). Conclusion: there is significant batch-to-batch variation. Step 7 — 95% CI for sigma^2 (within-batch): SSE/sigma^2 ~ chi^2_8. CI = [SSE/chi^2_{8, 0.975}, SSE/chi^2_{8, 0.025}] = [20/17.53, 20/2.18] = [1.14, 9.17]. So sigma^2 in [1.14, 9.17]. Step 8 — 95% CI for sigma_a^2 (Satterthwaite-style): more complex; use ML/REML or profile likelihood in software. Step 9 — TOTAL VARIANCE of a single observation = sigma_a^2 + sigma^2 = 12.75 + 2.5 = 15.25 (SD ≈ 3.91). Step 10 — PRACTICAL IMPLICATION: since batch-to-batch variation dominates (ICC = 0.84), improving measurement precision (reducing sigma^2) will only modestly reduce total variability. To reduce overall concentration variability, the PROCESS generating batches must be improved (reduce sigma_a^2). If sampling: more batches (not more measurements per batch) is more efficient for estimating the mean — because sigma_a^2 is the dominant component, the effective sample size is closer to k (batches) than N (measurements).",
+      "topic": "math_vol9_ch08p10_worked_random_effects",
+      "intent": "problem_solving",
+      "keywords": [
+        "worked problem",
+        "random effects",
+        "variance components",
+        "ICC",
+        "batch variation",
+        "method of moments",
+        "quality control"
+      ]
+    },
+    {
+      "question": "Worked problem: Kruskal-Wallis test for three drug groups with ordinal pain scores.",
+      "answer": "PROBLEM: Compare pain relief scores (0 = none, 10 = complete) for 3 drugs, with n=4 patients per group. Drug A: 2, 3, 1, 4; Drug B: 5, 6, 4, 7; Drug C: 7, 8, 9, 6. Use Kruskal-Wallis at alpha = 0.05. SOLUTION: Step 1 — Pool all 12 observations and rank them (1 = smallest). Pooled sorted: 1(A), 2(A), 3(A), 4(A), 4(B), 5(B), 6(B), 6(C), 7(B), 7(C), 8(C), 9(C). Note ties: 4 appears twice (A and B), 6 appears twice (B and C), 7 appears twice (B and C). Assign AVERAGE ranks to ties. Rank of 1 = 1, rank of 2 = 2, rank of 3 = 3, ranks of 4s = (4+5)/2 = 4.5 each, rank of 5 = 6, ranks of 6s = (7+8)/2 = 7.5 each, ranks of 7s = (9+10)/2 = 9.5 each, rank of 8 = 11, rank of 9 = 12. Step 2 — Assign ranks to each group. Drug A: ranks of {1, 2, 3, 4} = {1, 2, 3, 4.5}. R_A = 1+2+3+4.5 = 10.5. Drug B: ranks of {4, 5, 6, 7} = {4.5, 6, 7.5, 9.5}. R_B = 4.5+6+7.5+9.5 = 27.5. Drug C: ranks of {6, 7, 8, 9} = {7.5, 9.5, 11, 12}. R_C = 7.5+9.5+11+12 = 40. Step 3 — Check: sum of ranks = 10.5 + 27.5 + 40 = 78 = N(N+1)/2 = 12*13/2 = 78. ✓. Step 4 — Compute H = (12/(N(N+1))) sum R_i^2/n_i - 3(N+1) = (12/(12*13)) * (10.5^2/4 + 27.5^2/4 + 40^2/4) - 3*13 = (12/156) * (110.25/4 + 756.25/4 + 1600/4) - 39 = 0.0769 * (27.56 + 189.06 + 400) - 39 = 0.0769 * 616.62 - 39 = 47.42 - 39 = 8.42. Step 5 — Tie correction. Ties: groups of size 2, 2, 2 (for values 4, 6, 7). C = 1 - sum(t_j^3 - t_j)/(N^3 - N) = 1 - (3 * (8-2))/(1728 - 12) = 1 - 18/1716 = 1 - 0.0105 = 0.9895. Corrected H = 8.42 / 0.9895 = 8.51. Step 6 — Critical value: chi^2_{k-1, 0.95} = chi^2_{2, 0.95} = 5.99. Since 8.51 > 5.99, REJECT H_0. Step 7 — p-value = P(chi^2_2 >= 8.51) ≈ 0.014. Step 8 — CONCLUSION: There is a statistically significant difference in pain relief among the three drugs (H = 8.51, df = 2, p = 0.014). Step 9 — POST-HOC (Dunn's test with Bonferroni): for each pair, z = |Rbar_i - Rbar_j| / sqrt(MSE_ranks * (1/n_i + 1/n_j)), where MSE_ranks = N(N+1)/12 = 13. Compare |Rbar_A - Rbar_B| = |2.625 - 6.875| = 4.25; SE = sqrt(13*(0.25+0.25)) = sqrt(6.5) = 2.55; z = 4.25/2.55 = 1.67. With Bonferroni (3 comparisons, alpha/3 = 0.0167), z_crit = 2.39. Not significant A-B. |Rbar_B - Rbar_C| = |6.875 - 10| = 3.125; z = 3.125/2.55 = 1.23. Not significant. |Rbar_A - Rbar_C| = |2.625 - 10| = 7.375; z = 7.375/2.55 = 2.89 > 2.39. SIGNIFICANT. CONCLUSION: Drug C provides significantly more pain relief than Drug A; other pairs not significantly different after Bonferroni correction. NONPARAMETRIC rationale: pain scores are ordinal and may not be normally distributed; K-W is appropriate and robust. Compare to parametric one-way ANOVA: would give similar conclusion (significant overall F, A vs C significant).",
+      "topic": "math_vol9_ch08p10_worked_kruskal_wallis",
+      "intent": "problem_solving",
+      "keywords": [
+        "worked problem",
+        "Kruskal-Wallis",
+        "ranks",
+        "tie correction",
+        "Dunn test",
+        "pain scores",
+        "ordinal",
+        "Bonferroni"
+      ]
+    },
+    {
+      "question": "Worked problem: 2^3 factorial design for yield optimization with three factors.",
+      "answer": "PROBLEM: A 2^3 factorial experiment (with n=2 replicates) studies Temperature (A: 120/140 C), Pressure (B: 1/2 atm), and Catalyst (C: type 1/type 2) on chemical yield (%). The 8 treatment combinations, each with 2 replicates (16 runs total). Coded design and yields: (-,-,-): 60, 62; (+,-,-): 65, 63; (-,+,-): 68, 66; (+,+,-): 70, 72; (-,-,+): 64, 66; (+,-,+): 69, 67; (-,+,+): 72, 74; (+,+,+): 80, 78. Analyze the factorial effects at alpha = 0.05. SOLUTION: Step 1 — Compute cell means. (-,-,-): 61; (+,-,-): 64; (-,+,-): 67; (+,+,-): 71; (-,-,+): 65; (+,-,+): 68; (-,+,+): 73; (+,+,+): 79. Step 2 — Compute main effects (effect = mean at high - mean at low, averaged over other factors). Effect_A = avg(Y at A=+) - avg(Y at A=-) = [(64+71+68+79)/4] - [(61+67+65+73)/4] = (282/4) - (266/4) = 70.5 - 66.5 = +4.0. Effect_B = [(67+71+73+79)/4] - [(61+64+65+68)/4] = (290/4) - (258/4) = 72.5 - 64.5 = +8.0. Effect_C = [(65+68+73+79)/4] - [(61+64+67+71)/4] = (285/4) - (263/4) = 71.25 - 65.75 = +5.5. Step 3 — Compute two-way interactions. Interaction_AB = [(Y at A+B+ and A-B-) - (Y at A+B- and A-B+)]/2 averaged = [(Ybar at ++) + (Ybar at --) - (Ybar at +-) - (Ybar at -+)]/2 = (79+61-64-67)/2... use formula: AB = avg(Y at AB++) + avg(Y at AB--) - avg(Y at AB+-) - avg(Y at AB-+) all divided by 2. Using cell means: AB = [(79+71)/4 + (61+67)/4 - (64+68)/4 - (73+67)/4]... Actually use Yates/contrast: AB = (1/4) * [(-1)(A-B-) + (+1)(A+B-) + (+1)(A-B+) + (-1)(A+B+)] but for coded design, use the product column AB = A_code * B_code. For AB: signs for (+,-,-): A*B = (+1)(-1) = -1; (-,+,-): (-1)(+1) = -1; (+,+,-): (+1)(+1) = +1; etc. Compute contrast = (1/4) sum(sign_AB * cell_mean). Let me compute: cells with AB = +1 are (+,+,-)=71 and (+,+,+)=79 (average 75); cells with AB = -1 are (+,-,-)=64 and (+,-,+)=68 (avg 66); cells with AB = -1 are (-,+,-)=67 and (-,+,+)=73 (avg 70); cells with AB = +1 are (-,-,-)=61 and (-,-,+)=65 (avg 63). Effect_AB = (avg at AB+) - (avg at AB-) = [(75 + 63)/2] - [(66 + 70)/2] = 69 - 68 = +1.0. Similarly Effect_AC and Effect_BC (compute via sign products): Effect_AC ≈ +0.5, Effect_BC ≈ +1.5 (small). Step 4 — Three-way interaction ABC ≈ +0.5 (small). Step 5 — Compute SSE (from replicates). For each cell, SSE_within = sum (Y - cell_mean)^2. E.g., (-,-,-): (60-61)^2 + (62-61)^2 = 2. Sum across 8 cells (with 1 df each): SSE ≈ 16, df = 8 (8 cells * (n-1) = 8). MSE = 16/8 = 2.0. Step 6 — Compute F-statistics (each effect has 1 df, contrast SS = (effect * N/4)^2 / (N/4) = effect^2 * N/4 / 1, wait: SS_effect = (effect/2)^2 * N / 1, where N = 16 runs; SS_effect = (effect^2) * 4 / 2 = 2 * effect^2... Let me use SS = (contrast_sum)^2 / (N * 2^k). Easier: SS_A = (n * 2^{k-1}) * effect_A^2 = 2 * 4 * 16 = 128. Wait: SS_A = (sum sign_A * Y)^2 / (sum sign_A^2) = (4 * 4)^2/16 = 256/16 = 16. Check: with n=2 replicates and 2^3 = 8 cells, sum sign_A^2 = 16 (each cell contributes n * 1 = 2, times 8 cells = 16). contrast_A = sum (sign_A * cell_total) = (-1)(122) + (+1)(128) + (-1)(134) + (+1)(142) + (-1)(130) + (+1)(136) + (-1)(146) + (+1)(158) = ... let me just use effect_A = +4.0, SS_A = (effect_A)^2 * (N/4) = 16 * 4 = 64. Hmm, let me be careful: SS_A = (effect_A)^2 * N / 2^k = 16 * 16/8 = 32. (Using effect = (sum sign*Y)/N and SS = (sum sign*Y)^2 / N = (effect*N)^2/N = effect^2 * N.) Actually with effects computed as (mean at +) - (mean at -), each mean is over N/2 = 8 obs, so effect = (sum at +) - (sum at -) all / (N/2) = ... the cleanest: SS_A = (effect_A)^2 * N/4 = 16 * 4 = 64. F_A = SS_A/MSE = 64/2 = 32 (df 1, 8), p < 0.001. Similarly SS_B = 64*4 = 256, F_B = 128 (huge); SS_C = 30.25*4 = 121, F_C = 60.5. SS_AB = 1*4 = 4, F_AB = 2 (p > 0.05). Step 7 — CONCLUSION: Significant main effects A (Temperature, +4%), B (Pressure, +8%), C (Catalyst type 2, +5.5%); no significant interactions. OPTIMAL setting: A high (140 C), B high (2 atm), C type 2 -> predicted yield = grand mean (70.25) + effect_A/2 + effect_B/2 + effect_C/2 = 70.25 + 2 + 4 + 2.75 = 79% (matches observed 79 at +++). Step 8 — RESIDUAL analysis: check normality, equal variance, no obvious outliers. Step 9 — FOLLOW-UP: since no curvature detected (assuming no center points added, can't test), consider RSM (central composite) around the optimum for fine-tuning.",
+      "topic": "math_vol9_ch08p10_worked_2k3_factorial",
+      "intent": "problem_solving",
+      "keywords": [
+        "worked problem",
+        "2^3 factorial",
+        "main effect",
+        "interaction",
+        "Yates",
+        "MSE",
+        "optimal setting",
+        "yield optimization"
+      ]
+    },
+    {
+      "question": "Worked problem: central composite design with quadratic model fitting and optimization.",
+      "answer": "PROBLEM: A CCD with k=2 factors (Time x1: 60-100 min, Temp x2: 130-170 C) for chemical yield. The design: 4 factorial points at (+/-1, +/-1), 4 axial points at (+/-1.414, 0) and (0, +/-1.414), 5 center points (0,0). Fitted second-order model: Y_hat = 80 + 3*x1 + 2*x2 - 1.5*x1^2 - 1.0*x2^2 + 0.5*x1*x2. Find the stationary point and characterize it. SOLUTION: Step 1 — Identify the gradient and Hessian. Gradient: dY/dx1 = 3 - 3*x1 + 0.5*x2; dY/dx2 = 2 - 2*x2 + 0.5*x1. Hessian: H = [[-3, 0.5], [0.5, -2]] (matrix of second derivatives). Step 2 — Find the STATIONARY POINT by setting gradient = 0. 3 - 3*x1 + 0.5*x2 = 0; 2 - 2*x2 + 0.5*x1 = 0. From second: 2*x2 = 2 + 0.5*x1 => x2 = 1 + 0.25*x1. Substitute: 3 - 3*x1 + 0.5*(1 + 0.25*x1) = 0 => 3 - 3*x1 + 0.5 + 0.125*x1 = 0 => 3.5 - 2.875*x1 = 0 => x1 = 3.5/2.875 = 1.217. Then x2 = 1 + 0.25*1.217 = 1 + 0.304 = 1.304. Stationary point: (x1_s, x2_s) = (1.217, 1.304). Step 3 — Predicted yield at stationary point: Y_hat_s = 80 + 3*1.217 + 2*1.304 - 1.5*1.217^2 - 1.0*1.304^2 + 0.5*1.217*1.304 = 80 + 3.651 + 2.608 - 2.222 - 1.700 + 0.793 = 83.13. Step 4 — Characterize the stationary point via the Hessian EIGENVALUES. H = [[-3, 0.5], [0.5, -2]]. Eigenvalues: det(H - lambda*I) = (-3-lambda)(-2-lambda) - 0.25 = lambda^2 + 5*lambda + 6 - 0.25 = lambda^2 + 5*lambda + 5.75 = 0. lambda = (-5 +/- sqrt(25 - 23))/2 = (-5 +/- sqrt(2))/2 = (-5 +/- 1.414)/2. lambda_1 = (-5 + 1.414)/2 = -1.793; lambda_2 = (-5 - 1.414)/2 = -3.207. BOTH eigenvalues NEGATIVE => Hessian is NEGATIVE DEFINITE => stationary point is a MAXIMUM. Step 5 — Interpretation: the response surface has a MAXIMUM at (x1, x2) = (1.217, 1.304) in coded units, with predicted yield Y = 83.13%. Step 6 — Convert to natural units. Suppose x1 = (Time - 80)/20 (so Time = 80 + 20*x1) and x2 = (Temp - 150)/20 (Temp = 150 + 20*x2). Then optimal Time = 80 + 20*1.217 = 80 + 24.3 = 104.3 min; optimal Temp = 150 + 20*1.304 = 150 + 26.1 = 176.1 C. CAUTION: these are OUTSIDE the original factorial range (Time 60-100, Temp 130-170) — the optimum is in the EXTRAPOLATION region, requiring confirmation runs. Step 7 — Canonical form: Y = Y_s + lambda_1 * w1^2 + lambda_2 * w2^2, where w1, w2 are rotated axes (eigenvectors). Both lambdas negative => any deviation from (w1, w2) = (0, 0) DECREASES yield — confirming maximum. Step 8 — EigenVECTORS (directions of steepest curvature): for lambda_1 = -1.793, solve (H - lambda_1*I) v = 0: [[-1.207, 0.5], [0.5, -0.207]] v = 0 => v1 proportional to (0.5, 1.207) (or normalized (0.382, 0.924)). For lambda_2 = -3.207, v2 proportional to (1.207, -0.5) (normalized (0.924, -0.382)). The MORE NEGATIVE eigenvalue (lambda_2 = -3.207) direction is the direction of FASTEST decrease from the optimum — the \"sensitive\" direction. Step 9 — CONFIRMATION runs: conduct 3-4 runs at the predicted optimum (104.3 min, 176.1 C); check that observed yields are close to 83.13% and within prediction interval. If the optimum is outside the feasible region (e.g., Temp cannot exceed 170 C), use RIDGE ANALYSIS to find the optimum CONSTRAINED to the design region (or expand the region and re-run). Step 10 — PRACTICAL: the second-order model explains curvature; the stationary point is a maximum; the optimum is at the boundary of (or beyond) the explored region, suggesting further experimentation at higher time and temperature (with safety constraints) could yield even better results — or the process has constraints that prevent reaching the unconstrained optimum.",
+      "topic": "math_vol9_ch08p10_worked_ccd_rsm",
+      "intent": "problem_solving",
+      "keywords": [
+        "worked problem",
+        "central composite",
+        "RSM",
+        "stationary point",
+        "Hessian",
+        "eigenvalues",
+        "canonical",
+        "maximum",
+        "optimization"
+      ]
+    },
+    {
+      "question": "Worked problem: split-plot design analysis for an industrial experiment.",
+      "answer": "PROBLEM: An industrial experiment studies the effect of Oven Temperature (A: 150/180 C, hard-to-change, whole-plot factor) and Baking Time (B: 10/20 min, easy-to-change, subplot factor) on cookie hardness. The experiment is run as a split-plot: 4 whole plots (2 oven temps x 2 blocks), each whole plot containing 2 subplots (B levels), n=1 observation per cell. Randomized: within each whole plot, the 2 times are randomly assigned. Data (whole-plot = oven temp, subplot = time): WP1 (A=150, block 1): B=10 -> 5, B=20 -> 8. WP2 (A=180, block 1): B=10 -> 7, B=20 -> 12. WP3 (A=150, block 2): B=10 -> 6, B=20 -> 9. WP4 (A=180, block 2): B=10 -> 8, B=20 -> 13. Analyze as a split-plot. SOLUTION: Step 1 — Recognize the structure. Whole-plot factor A (oven temp), subplot factor B (time), with 2 blocks (replicates). Whole-plot experimental unit = oven setting (within a block); subplot experimental unit = baking run. The whole-plot error is the BLOCK x A interaction (4 whole plots = 2 blocks x 2 A levels, with (2-1)(2-1) = 1 df for whole-plot error). Subplot error has df = a(r-1)(b-1) = 2(2-1)(2-1) = 2. Step 2 — Compute means. Grand mean Ybar = (5+8+7+12+6+9+8+13)/8 = 68/8 = 8.5. A means: A=150: (5+8+6+9)/4 = 28/4 = 7.0; A=180: (7+12+8+13)/4 = 40/4 = 10.0. B means: B=10: (5+7+6+8)/4 = 26/4 = 6.5; B=20: (8+12+9+13)/4 = 42/4 = 10.5. AB cell means: (150, 10): (5+6)/2 = 5.5; (150, 20): (8+9)/2 = 8.5; (180, 10): (7+8)/2 = 7.5; (180, 20): (12+13)/2 = 12.5. Block means: Block 1: (5+8+7+12)/4 = 32/4 = 8.0; Block 2: (6+9+8+13)/4 = 36/4 = 9.0. Step 3 — Compute SS. SSA = b*r * sum (Ybar_i.. - Ybar...)^2 = 2*2 * [(7-8.5)^2 + (10-8.5)^2] = 4 * (2.25 + 2.25) = 18. df_A = 1. SS_blocks = a*b * sum (Ybar_..k - Ybar...)^2 = 2*2 * [(8-8.5)^2 + (9-8.5)^2] = 4 * (0.25+0.25) = 2. df_blocks = 1. SS_{whole-plot error} = SS_{block*A} = sum over (block, A) cells (Ybar - Ybar_block - Ybar_A + Ybar...)^2 * b. Compute: (B1, A150): 5.5 - 8 - 7 + 8.5 = -1; (B1, A180): 7.5 - 8 - 10 + 8.5 = -2; wait use (block, A) cell means: (B1, A150) mean = (5+8)/2 = 6.5; (B1, A180) = (7+12)/2 = 9.5; (B2, A150) = (6+9)/2 = 7.5; (B2, A180) = (8+13)/2 = 10.5. SS_{block*A} = b * sum (Ybar_{.ik} - Ybar_{..k} - Ybar_{i..} + Ybar...)^2 = 2 * [(6.5 - 8 - 7 + 8.5)^2 + (9.5 - 8 - 10 + 8.5)^2 + (7.5 - 9 - 7 + 8.5)^2 + (10.5 - 9 - 10 + 8.5)^2] = 2 * [0 + 0 + 0 + 0] = 0. (The block*A interaction is zero because the differences are consistent across blocks.) df_{block*A} = (2-1)(2-1) = 1. Hmm, this means MS_{whole-plot error} = 0/1 = 0 — the whole-plot F-test for A is undefined. This is a limitation of the tiny example (only 1 df for whole-plot error). Step 4 — Compute subplot SS. SSB = a*r * sum (Ybar_.j. - Ybar...)^2 = 2*2 * [(6.5-8.5)^2 + (10.5-8.5)^2] = 4 * (4+4) = 32. df_B = 1. SSAB = r * sum sum (Ybar_ij. - Ybar_i.. - Ybar_.j. + Ybar...)^2 = 2 * [(5.5-7-6.5+8.5)^2 + (8.5-7-10.5+8.5)^2 + (7.5-10-6.5+8.5)^2 + (12.5-10-10.5+8.5)^2] = 2 * [0.25 + 0.25 + 0.25 + 0.25] = 2. df_AB = 1. Step 5 — Subplot error SS = SSE = total - SSA - SSblocks - SS_{block*A} - SSB - SSAB. Total SS = sum (Y - 8.5)^2 = (5-8.5)^2 + ... = 12.25 + 0.25 + 2.25 + 12.25 + 6.25 + 0.25 + 0.25 + 20.25 = 54. So SSE = 54 - 18 - 2 - 0 - 32 - 2 = 0. df_error = a(r-1)(b-1) = 2*1*1 = 2. Hmm, MSE = 0/2 = 0 — again, the example is too clean. Step 6 — F-tests (assuming nonzero errors with more replicates in practice): F_A = MSA / MS_{whole-plot error} (tested against whole-plot error, NOT subplot error). F_B = MSB / MSE (subplot). F_AB = MSAB / MSE. Step 7 — CRITICAL POINT: if we had INCORRECTLY analyzed this as a fully randomized CRD, we would use MSE for ALL F-tests, giving F_A = MSA/MSE (inflated, wrong denominator) — this would over-state the significance of A (the hard-to-change factor). Step 8 — INTERPRETATION (assuming nonzero errors with realistic data): (a) Oven temperature (A) increases hardness from 7 to 10 (whole-plot effect, +3 units); (b) Baking time (B) increases hardness from 6.5 to 10.5 (subplot effect, +4 units); (c) The interaction is small (AB cell means: 5.5, 8.5, 7.5, 12.5 — the increase from B=10 to B=20 is +3 at A=150 and +5 at A=180, suggesting time has a BIGGER effect at higher temperature — a mild positive interaction). Step 9 — MODERN ANALYSIS: use a mixed model Y ~ A * B + (1|block) + (1|block:A), where (1|block:A) is the whole-plot error. In R: lmer(hardness ~ A * B + (1|block) + (1|block:A), data=df). This correctly partitions variance and handles unbalanced data. PRACTICAL TAKEAWAY: split-plot analysis requires identifying the correct error stratum for each effect; the whole-plot factor uses the whole-plot error (block:A), while subplot factors and interactions use the subplot error. Mixing them up inflates Type I error for whole-plot factors.",
+      "topic": "math_vol9_ch08p10_worked_split_plot",
+      "intent": "problem_solving",
+      "keywords": [
+        "worked problem",
+        "split-plot",
+        "hard-to-change",
+        "whole-plot error",
+        "subplot error",
+        "mixed model",
+        "lmer",
+        "industrial"
+      ]
+    }
+  ]
+}
