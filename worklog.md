@@ -6607,3 +6607,46 @@ Stage Summary:
 - Files written: scripts/generate-math-formulas-vol9-ch03p1.ts, scripts/generate-math-formulas-vol9-ch03p2.ts, scripts/generate-math-formulas-vol9-ch03p3.ts; data/math-formulas-vol9-ch03p1.json, data/math-formulas-vol9-ch03p2.json, data/math-formulas-vol9-ch03p3.json.
 - All 3 JSON files verified via node -e one-liner: items match totals, unique topic counts match totals, min answer lengths confirmed.
 - Coverage: ch03p1 covers trig FUNCTIONS (angle measurement, unit circle, six ratios, ASTC signs, graphs, inverse trig); ch03p2 covers trig IDENTITIES & EQUATIONS (Pythagorean, sum/diff, double/half angle, product-sum, laws of sines/cosines, Heron's, solving equations, proving identities); ch03p3 covers COMPLEX NUMBERS & VECTORS (a+bi, polar, exponential/Euler, De Moivre powers & nth roots, vector components, dot product, cross product, applications). All required topics from the task spec are represented.
+
+---
+Task ID: math-solver-self-built
+Agent: Main Agent
+Task: Replace LLM-based math solver with TRIZA's own hand-written math engine (no LLM, no API, no models)
+
+Work Log:
+- User requirement: TRIZA should solve math itself using its own brain — NO LLM, NO API key, NO external models. Templates/LLM approach was rejected.
+- Removed z-ai-web-dev-sdk LLM call from /api/triza/math-solve/route.ts completely.
+- Built a pure hand-written math engine (like the Chat tab's TF-IDF engine) with deterministic solvers:
+  1. Arithmetic expression evaluator (BODMAS/PEMDAS, sqrt, cbrt, sin, cos, tan, log, ln, exp, abs, powers)
+  2. Linear equation solver: ax + b = c, ax = b, ax + b = cx + d → coefficient extraction + isolate x
+  3. Quadratic solver: ax^2 + bx + c = 0 → discriminant + quadratic formula, handles real + complex roots
+  4. Linear system 2x2 solver: ax+by=e, cx+dy=f → Cramer's rule (D, Dx, Dy)
+  5. Percentage solver: "15% of 200" → (p/100)*n
+- Every solver generates human-readable numbered steps (Urdu+English mix) so user can see TRIZA's reasoning — "TRIZA ne yaise socha" section.
+- Updated math-solver-tab.tsx UI:
+  - Removed "AI powered" badge → replaced with "Self-built engine" badge
+  - Removed "thinking" / chain-of-thought section (no LLM = no thinking trace)
+  - Added amber info box: "TRIZA khud solve karta hai — koi LLM, API key ya model use nahi hota"
+  - Added 10 examples covering all solver types
+  - Added "TRIZA kya solve kar sakta hai" sidebar list
+  - Kept Recent history sidebar
+  - Updated footer text: "Math Solver: hand-written rules (no LLM)"
+- Fixed parser bug: spaces in equations ("2x + 3y = 8") were breaking tokenization — added .replace(/\s+/g, '') normalization in parseSide for linear, quadratic, and system solvers.
+- Tested all 8 solver types via direct curl with Origin header:
+  * solve 3x + 5 = 20 → x = 5 ✓
+  * 2+3*4 → 14 ✓
+  * 15% of 200 → 30 ✓
+  * 2x + 3y = 8, x - y = 1 → x = 2.2, y = 1.2 ✓
+  * solve x^2 - 5x + 6 = 0 → x = 3 or x = 2 ✓
+  * solve 2x^2 - 7x + 3 = 0 → x = 3 or x = 0.5 ✓
+  * sqrt(144) + cbrt(27) → 15 ✓
+  * 2^10 → 1024 ✓
+- Agent Browser verified Math Solver tab renders correctly: tab visible, textbox, 10 example buttons, info box all present.
+- Note: Sandbox dev server kept dying when idle (memory limit), but API confirmed working via direct curl tests and UI rendered correctly in browser.
+
+Stage Summary:
+- TRIZA now has its OWN math brain — 100% hand-written rules, zero LLM/API/model dependency.
+- Math Solver tab in app with 10 ready examples.
+- API endpoint /api/triza/math-solve handles: arithmetic, linear, quadratic (real+complex), linear system 2x2 (Cramer's rule), percentage, trig/log/exp.
+- All 8/8 test equations solved correctly with step-by-step reasoning shown.
+- Consistent with TRIZA's core philosophy (same as Chat tab's TF-IDF engine): self-built, transparent, no external AI.

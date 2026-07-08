@@ -102,7 +102,7 @@ export function BasketApp() {
       label: 'Math Solver',
       urdu: 'Hisab hal',
       icon: Calculator,
-      desc: 'TRIZA AI se koi bhi math equation khud solve karta hai — step-by-step, real-time',
+      desc: 'TRIZA apne hand-written rules se math equation khud solve karta hai — no LLM, no API, no model. Step-by-step solution.',
     },
     {
       key: 'chat',
@@ -235,7 +235,7 @@ export function BasketApp() {
               <span className="font-semibold text-emerald-700 dark:text-emerald-400">TRIZA</span>{' '}
               — 100% self-built. Internet se seekhta hai, apne dimaagh se jawab deta hai.
             </p>
-            <p>Harvest: web-search + page-reader · Math Solver: LLM + chain-of-thought · Chat: TF-IDF + cosine + synonyms</p>
+            <p>Harvest: web-search + page-reader · Math Solver: hand-written rules (no LLM) · Chat: TF-IDF + cosine + synonyms</p>
           </div>
         </div>
       </footer>

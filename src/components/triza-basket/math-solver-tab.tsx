@@ -1,38 +1,44 @@
 'use client'
 
 import { useState } from 'react'
-import { Calculator, Sparkles, Loader2, Lightbulb, CheckCircle2, Clock, ChevronDown, ChevronRight } from 'lucide-react'
+import { Calculator, Brain, Loader2, Lightbulb, CheckCircle2, Clock, Zap, BookOpen, XCircle } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Textarea } from '@/components/ui/textarea'
 import { Badge } from '@/components/ui/badge'
 import { toast } from 'sonner'
 
+interface SolveStep {
+  title: string
+  detail: string
+}
 interface SolveResult {
-  solution: string
-  steps: string[]
-  finalAnswer: string | null
-  thinking: string
+  solved: boolean
+  type: string
+  steps: SolveStep[]
+  finalAnswer: string
   processingTimeMs: number
+  note?: string
+  error?: string
 }
 
 const EXAMPLES = [
-  { label: 'Quadratic', eq: 'Solve 2x^2 - 7x + 3 = 0' },
-  { label: 'Calculus', eq: 'Find the derivative of f(x) = 3x^3 sin(x)' },
-  { label: 'Integral', eq: 'Integrate x^2 * e^x dx' },
-  { label: 'Linear Eq', eq: 'Solve the system: 2x + 3y = 8, x - y = 1' },
-  { label: 'Limit', eq: 'Evaluate lim x->0 (sin x) / x' },
-  { label: 'Trig', eq: 'Solve 2 cos^2(x) - cos(x) - 1 = 0 for 0 <= x < 2pi' },
-  { label: 'Matrix', eq: 'Find eigenvalues of A = [[2,1],[1,2]]' },
-  { label: 'Word Prob', eq: 'A train travels 120 km in 2 hours. What is its speed in m/s?' },
+  { label: 'Arithmetic', eq: '2 + 3 * 4 - 6 / 2' },
+  { label: 'Power', eq: '2^10' },
+  { label: 'Sqrt', eq: 'sqrt(144) + cbrt(27)' },
+  { label: 'Linear', eq: 'solve 3x + 5 = 20' },
+  { label: 'Linear 2', eq: 'solve 2x - 7 = 11' },
+  { label: 'Quadratic', eq: 'solve 2x^2 - 7x + 3 = 0' },
+  { label: 'Quadratic 2', eq: 'solve x^2 - 5x + 6 = 0' },
+  { label: 'System 2x2', eq: '2x + 3y = 8, x - y = 1' },
+  { label: 'Percentage', eq: '15% of 200' },
+  { label: 'Trig', eq: 'sin(1.0472) + cos(0)' },
 ]
 
 export function MathSolverTab() {
   const [equation, setEquation] = useState('')
-  const [mode, setMode] = useState<'solve' | 'explain' | 'verify'>('solve')
   const [loading, setLoading] = useState(false)
   const [result, setResult] = useState<SolveResult | null>(null)
-  const [showThinking, setShowThinking] = useState(false)
-  const [history, setHistory] = useState<Array<{ eq: string; ans: string | null; t: number }>>([])
+  const [history, setHistory] = useState<Array<{ eq: string; ans: string; ok: boolean; t: number }>>([])
 
   async function handleSolve() {
     if (!equation.trim()) {
@@ -45,13 +51,13 @@ export function MathSolverTab() {
       const res = await fetch('/api/triza/math-solve', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ equation: equation.trim(), mode }),
+        body: JSON.stringify({ equation: equation.trim() }),
       })
       const data = await res.json()
       if (!res.ok) throw new Error(data.error || 'Solve fail hua')
       setResult(data)
       setHistory((h) => [
-        { eq: equation.trim(), ans: data.finalAnswer, t: data.processingTimeMs },
+        { eq: equation.trim(), ans: data.finalAnswer, ok: data.solved, t: data.processingMs || data.processingTimeMs || 0 },
         ...h.slice(0, 9),
       ])
     } catch (e) {
@@ -71,12 +77,17 @@ export function MathSolverTab() {
       {/* Main solver */}
       <div className="space-y-4">
         <div className="rounded-2xl border border-border/60 bg-card/50 backdrop-blur p-4 sm:p-6 space-y-4">
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-2 flex-wrap">
             <Calculator className="w-5 h-5 text-emerald-600" />
             <h2 className="text-lg font-semibold">Math Equation Solver</h2>
-            <Badge variant="secondary" className="ml-auto">
-              <Sparkles className="w-3 h-3 mr-1" /> AI powered
+            <Badge variant="secondary" className="ml-auto bg-emerald-100 text-emerald-800 dark:bg-emerald-900/40 dark:text-emerald-200">
+              <Brain className="w-3 h-3 mr-1" /> Self-built engine
             </Badge>
+          </div>
+
+          <div className="rounded-lg bg-amber-50 dark:bg-amber-950/30 border border-amber-200 dark:border-amber-900/50 p-3 text-xs text-amber-800 dark:text-amber-200">
+            <strong>TRIZA khud solve karta hai</strong> — koi LLM, API key ya model use nahi hota.
+            Yeh apne hand-written rules se step-by-step solve karta hai (jaise Chat tab ka TF-IDF engine).
           </div>
 
           <div className="space-y-2">
@@ -86,7 +97,7 @@ export function MathSolverTab() {
             <Textarea
               value={equation}
               onChange={(e) => setEquation(e.target.value)}
-              placeholder="e.g. Solve x^2 - 5x + 6 = 0"
+              placeholder="e.g. solve 2x^2 - 7x + 3 = 0"
               className="min-h-[100px] font-mono text-sm resize-y"
               onKeyDown={(e) => {
                 if (e.key === 'Enter' && (e.metaKey || e.ctrlKey)) {
@@ -97,30 +108,6 @@ export function MathSolverTab() {
             <p className="text-xs text-muted-foreground">
               Tip: Ctrl/Cmd + Enter se solve karein
             </p>
-          </div>
-
-          {/* Mode selector */}
-          <div className="flex flex-wrap gap-2">
-            {(
-              [
-                { k: 'solve', l: 'Solve', d: 'Step-by-step solution' },
-                { k: 'explain', l: 'Explain', d: 'Concept + solve' },
-                { k: 'verify', l: 'Verify', d: 'Check answer' },
-              ] as const
-            ).map((m) => (
-              <button
-                key={m.k}
-                onClick={() => setMode(m.k)}
-                className={`px-3 py-1.5 rounded-lg text-sm border transition ${
-                  mode === m.k
-                    ? 'border-emerald-500 bg-emerald-500/10 text-emerald-700 dark:text-emerald-300'
-                    : 'border-border bg-background hover:bg-muted'
-                }`}
-                title={m.d}
-              >
-                {m.l}
-              </button>
-            ))}
           </div>
 
           <Button
@@ -134,7 +121,7 @@ export function MathSolverTab() {
               </>
             ) : (
               <>
-                <Sparkles className="w-4 h-4 mr-2" /> Solve karein
+                <Zap className="w-4 h-4 mr-2" /> Solve karein
               </>
             )}
           </Button>
@@ -151,7 +138,6 @@ export function MathSolverTab() {
               <div className="h-3 bg-muted rounded animate-pulse w-3/4" />
               <div className="h-3 bg-muted rounded animate-pulse w-full" />
               <div className="h-3 bg-muted rounded animate-pulse w-5/6" />
-              <div className="h-3 bg-muted rounded animate-pulse w-2/3" />
             </div>
           </div>
         )}
@@ -160,61 +146,84 @@ export function MathSolverTab() {
           <div className="rounded-2xl border border-emerald-500/30 bg-card/50 backdrop-blur p-4 sm:p-6 space-y-4">
             <div className="flex items-center justify-between flex-wrap gap-2">
               <div className="flex items-center gap-2">
-                <CheckCircle2 className="w-5 h-5 text-emerald-600" />
-                <h3 className="font-semibold">Solution</h3>
+                {result.solved ? (
+                  <CheckCircle2 className="w-5 h-5 text-emerald-600" />
+                ) : (
+                  <XCircle className="w-5 h-5 text-amber-500" />
+                )}
+                <h3 className="font-semibold">
+                  {result.solved ? 'Solution' : 'Could not solve'}
+                </h3>
+                {result.type && result.solved && (
+                  <Badge variant="outline" className="text-xs capitalize">
+                    {result.type.replace(/_/g, ' ')}
+                  </Badge>
+                )}
               </div>
               <Badge variant="outline" className="text-xs">
                 <Clock className="w-3 h-3 mr-1" /> {result.processingTimeMs}ms
               </Badge>
             </div>
 
-            {result.finalAnswer && (
+            {result.solved && (
               <div className="rounded-xl bg-gradient-to-r from-emerald-500/10 to-teal-500/10 border border-emerald-500/20 p-4">
                 <div className="text-xs uppercase tracking-wide text-emerald-700 dark:text-emerald-300 font-semibold mb-1">
                   Final Answer
                 </div>
-                <div className="text-xl font-mono font-bold text-emerald-700 dark:text-emerald-300">
+                <div className="text-xl font-mono font-bold text-emerald-700 dark:text-emerald-300 break-words">
                   {result.finalAnswer}
                 </div>
               </div>
             )}
 
-            <div className="prose prose-sm dark:prose-invert max-w-none">
-              <pre className="whitespace-pre-wrap font-sans text-sm leading-relaxed bg-transparent p-0 border-0">
-                {result.solution}
-              </pre>
-            </div>
+            {result.note && (
+              <div className="rounded-lg bg-amber-50 dark:bg-amber-950/30 border border-amber-200 dark:border-amber-900/50 p-3 text-sm text-amber-800 dark:text-amber-200">
+                {result.note}
+              </div>
+            )}
 
-            {result.thinking && (
-              <div className="border-t border-border/60 pt-3">
-                <button
-                  onClick={() => setShowThinking((s) => !s)}
-                  className="flex items-center gap-1 text-sm text-muted-foreground hover:text-foreground"
-                >
-                  {showThinking ? (
-                    <ChevronDown className="w-4 h-4" />
-                  ) : (
-                    <ChevronRight className="w-4 h-4" />
-                  )}
-                  AI reasoning chain (thinking)
-                </button>
-                {showThinking && (
-                  <pre className="mt-2 text-xs text-muted-foreground whitespace-pre-wrap font-mono bg-muted/40 rounded-lg p-3 max-h-80 overflow-y-auto">
-                    {result.thinking}
-                  </pre>
-                )}
+            {/* Steps — TRIZA ka khud ka dimaagh */}
+            {result.steps.length > 0 && (
+              <div className="space-y-3">
+                <div className="flex items-center gap-2 text-sm font-semibold text-muted-foreground">
+                  <Brain className="w-4 h-4 text-emerald-600" />
+                  TRIZA ne yaise socha:
+                </div>
+                <ol className="space-y-2">
+                  {result.steps.map((s, i) => (
+                    <li key={i} className="rounded-lg border border-border/60 bg-background/60 p-3">
+                      <div className="flex items-start gap-2">
+                        <span className="inline-flex items-center justify-center min-w-[22px] h-[22px] rounded-full bg-emerald-500/15 text-emerald-700 dark:text-emerald-300 text-xs font-bold mt-0.5">
+                          {i + 1}
+                        </span>
+                        <div className="flex-1 min-w-0">
+                          <div className="text-sm font-medium text-foreground">{s.title}</div>
+                          <pre className="mt-1 text-xs text-muted-foreground whitespace-pre-wrap font-mono bg-transparent border-0 p-0">
+                            {s.detail}
+                          </pre>
+                        </div>
+                      </div>
+                    </li>
+                  ))}
+                </ol>
+              </div>
+            )}
+
+            {!result.solved && (
+              <div className="rounded-lg bg-muted/40 border border-border/60 p-3 text-sm text-muted-foreground">
+                TRIZA abhi seekh raha hai. Upar di gayi example categories try karein.
               </div>
             )}
           </div>
         )}
       </div>
 
-      {/* Sidebar: examples + history */}
+      {/* Sidebar */}
       <div className="space-y-4">
         <div className="rounded-2xl border border-border/60 bg-card/50 backdrop-blur p-4 space-y-3">
           <div className="flex items-center gap-2">
             <Lightbulb className="w-4 h-4 text-amber-500" />
-            <h3 className="font-semibold text-sm">Examples</h3>
+            <h3 className="font-semibold text-sm">Examples — try karein</h3>
           </div>
           <div className="flex flex-wrap gap-2">
             {EXAMPLES.map((ex) => (
@@ -230,10 +239,25 @@ export function MathSolverTab() {
           </div>
         </div>
 
+        <div className="rounded-2xl border border-border/60 bg-card/50 backdrop-blur p-4 space-y-3">
+          <div className="flex items-center gap-2">
+            <BookOpen className="w-4 h-4 text-emerald-600" />
+            <h3 className="font-semibold text-sm">TRIZA kya solve kar sakta hai</h3>
+          </div>
+          <ul className="text-xs space-y-1.5 text-muted-foreground">
+            <li>• <strong>Arithmetic</strong>: 2+3*4, sqrt(16), 2^10</li>
+            <li>• <strong>Linear eq</strong>: solve 3x + 5 = 20</li>
+            <li>• <strong>Quadratic</strong>: solve ax^2 + bx + c = 0</li>
+            <li>• <strong>System 2x2</strong>: ax+by=e, cx+dy=f</li>
+            <li>• <strong>Percentage</strong>: 15% of 200</li>
+            <li>• <strong>Trig/Log</strong>: sin(x), cos(x), log(x), ln(x)</li>
+          </ul>
+        </div>
+
         {history.length > 0 && (
           <div className="rounded-2xl border border-border/60 bg-card/50 backdrop-blur p-4 space-y-3">
             <h3 className="font-semibold text-sm">Recent</h3>
-            <div className="space-y-2 max-h-96 overflow-y-auto">
+            <div className="space-y-2 max-h-80 overflow-y-auto">
               {history.map((h, i) => (
                 <button
                   key={i}
@@ -241,11 +265,9 @@ export function MathSolverTab() {
                   className="w-full text-left rounded-lg border border-border/60 p-2.5 hover:bg-muted/50 transition"
                 >
                   <div className="text-xs font-mono truncate text-foreground">{h.eq}</div>
-                  {h.ans && (
-                    <div className="text-xs text-emerald-600 dark:text-emerald-400 font-mono mt-0.5">
-                      = {h.ans}
-                    </div>
-                  )}
+                  <div className={`text-xs font-mono mt-0.5 ${h.ok ? 'text-emerald-600 dark:text-emerald-400' : 'text-amber-600'}`}>
+                    {h.ok ? '= ' : '→ '}{h.ans}
+                  </div>
                   <div className="text-[10px] text-muted-foreground mt-0.5">{h.t}ms</div>
                 </button>
               ))}
