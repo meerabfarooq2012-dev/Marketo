@@ -1,7 +1,7 @@
 'use client'
 
 import { useState, useEffect, useCallback } from 'react'
-import { Sparkles, ShoppingCart, BookOpen, MessageCircle, Brain, Zap, Globe, Globe2 } from 'lucide-react'
+import { Sparkles, ShoppingCart, BookOpen, MessageCircle, Brain, Zap, Globe, Globe2, Calculator } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
 import { toast } from 'sonner'
@@ -10,8 +10,9 @@ import { KnowledgeTab } from './knowledge-tab'
 import { ChatTab } from './chat-tab'
 import { HarvestTab } from './harvest-tab'
 import { BulkHarvestTab } from './bulk-harvest-tab'
+import { MathSolverTab } from './math-solver-tab'
 
-type TabKey = 'bulk' | 'harvest' | 'basket' | 'knowledge' | 'chat'
+type TabKey = 'bulk' | 'harvest' | 'basket' | 'knowledge' | 'chat' | 'math'
 
 interface Stats {
   basket: { pending: number; processed: number; error: number; total: number }
@@ -95,6 +96,13 @@ export function BasketApp() {
       urdu: 'Seekha hua',
       icon: BookOpen,
       desc: 'TRIZA ne jo seekha hai — dekho, edit karo, feedback do',
+    },
+    {
+      key: 'math',
+      label: 'Math Solver',
+      urdu: 'Hisab hal',
+      icon: Calculator,
+      desc: 'TRIZA AI se koi bhi math equation khud solve karta hai — step-by-step, real-time',
     },
     {
       key: 'chat',
@@ -215,6 +223,7 @@ export function BasketApp() {
         {tab === 'harvest' && <HarvestTab onChanged={loadStats} onGoToChat={() => setTab('chat')} />}
         {tab === 'basket' && <BasketTab onChanged={loadStats} />}
         {tab === 'knowledge' && <KnowledgeTab onChanged={loadStats} />}
+        {tab === 'math' && <MathSolverTab />}
         {tab === 'chat' && <ChatTab stats={stats} />}
       </main>
 
@@ -226,7 +235,7 @@ export function BasketApp() {
               <span className="font-semibold text-emerald-700 dark:text-emerald-400">TRIZA</span>{' '}
               — 100% self-built. Internet se seekhta hai, apne dimaagh se jawab deta hai.
             </p>
-            <p>Harvest: web-search + page-reader · Chat: TF-IDF + cosine + synonyms (no model)</p>
+            <p>Harvest: web-search + page-reader · Math Solver: LLM + chain-of-thought · Chat: TF-IDF + cosine + synonyms</p>
           </div>
         </div>
       </footer>
